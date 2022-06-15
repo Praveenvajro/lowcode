@@ -7,11 +7,13 @@
         <title>jsonview demo</title>
     </head>
     <body>
-        <h2>App Context</h2>
+        <h2 id="header1">App Context</h2>
         <button id="collapse-btn">Collapse</button>
         <button id="expand-btn">Expand</button>
         <div id="json"></div>
-        <h2>LineItemObject</h2>
+        <h2 id="header2">UpdateType</h2>
+        <div id="updateType"></div>
+        <h2 id="header3">LineItemObject</h2>
         <div id="json-collapsed"></div>
     </body>
 </html>
@@ -19,6 +21,8 @@
 <script>
     // Code goes here
      function lineItemAddedToCart(appcontext, lineitemobj) {
+      $("#header2").hide();
+    $("#updateType").hide();
       $("#json").JSONView(appcontext, { collapsed: true, nl2br: true, recursive_collapser: true });
       $('#collapse-btn').on('click', function() {
         $('#json').JSONView('collapse');
@@ -27,6 +31,20 @@
         $('#json').JSONView('expand');
       });
       
+    $('#json-collapsed').html(lineitemobj);
+    };
+
+    function lineItemUpdated(appcontext, updateType, lineitemobj) {
+    $("#header2").show();
+    $("#updateType").show();
+      $("#json").JSONView(appcontext, { collapsed: true, nl2br: true, recursive_collapser: true });
+      $('#collapse-btn').on('click', function() {
+        $('#json').JSONView('collapse');
+      });
+      $('#expand-btn').on('click', function() {
+        $('#json').JSONView('expand');
+      });
+      $('#updateType').html(updateType);
     $('#json-collapsed').html(lineitemobj);
     };
 
