@@ -14,7 +14,7 @@
         <script>
             let output = document.getElementById('output');
             VajroSDK.subscribe(
-                VajroSDK.Triggers.lineItemUpdated,
+                VajroSDK.Triggers.LINE_ITEM_ADDED_TO_CART,
                 (appContext, updateType, lineItem) => {
                     let { productId } = lineItem;
                     let content = `<div>The product ${productId}`;
