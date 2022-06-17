@@ -31,7 +31,7 @@
         $('#json').JSONView('expand');
       });
       
-    $('#json-collapsed').html(lineitemobj);
+    $('#json-collapsed').JSONView(lineitemobj);
     };
 
     function lineItemUpdated(appcontext, updateType, lineitemobj) {
@@ -45,7 +45,7 @@
         $('#json').JSONView('expand');
       });
       $('#updateType').html(updateType);
-    $('#json-collapsed').html(lineitemobj);
+    $('#json-collapsed').JSONView(lineitemobj);
     };
 
 </script>
