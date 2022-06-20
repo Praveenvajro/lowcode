@@ -27,10 +27,10 @@
 <script>
 function noVariant(msg){
     const values = {
-        product_id: "6878543315135",
-        variant_id: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MDQyMzY2ODQ4MjIzOQ==",
+        productId: "6878543315135",
+        variantId: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MDQyMzY2ODQ4MjIzOQ==",
         quantity: 1, 
-        customAttributes:  {},
+        customAttributes:  {"customAttributes" : {}},
         lineItemType: "REGULAR"
     }
     const result = JSON.stringify(values)
@@ -45,10 +45,10 @@ function noVariant(msg){
 }
 function singleProduct(msg){
     const values = {
-        product_id: "6741457207487",
-        variant_id: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MDAxNDk1NjQyOTUwMw==",
+        productId: "6741457207487",
+        variantId: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MDAxNDk1NjQyOTUwMw==",
         quantity: 1, 
-        customAttributes:  {},
+        customAttributes:  {"customAttributes" : {}},
         lineItemType: "REGULAR"
     }
     const result = JSON.stringify(values)
@@ -64,10 +64,10 @@ function singleProduct(msg){
 
 function invalidProduct(msg){
     const values = {
-        product_id: "12346741457207487",
-        variant_id: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MDAxNDk1NjQyOTUwMw==",
+        productId: "12346741457207487",
+        variantId: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MDAxNDk1NjQyOTUwMw==",
         quantity: 1, 
-        customAttributes:  {},
+        customAttributes:  {"customAttributes" : {}},
         lineItemType: "REGULAR"
     }
     const result = JSON.stringify(values)
@@ -83,10 +83,10 @@ function invalidProduct(msg){
 
 function invalidVariant(msg){
     const values = {
-        product_id: "12346741457207487",
-        variant_id: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8xMTExNDAwMTQ5NTY0Mjk1MDM=",
+        productId: "12346741457207487",
+        variantId: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8xMTExNDAwMTQ5NTY0Mjk1MDM=",
         quantity: 1, 
-        customAttributes:  {},
+        customAttributes:  {"customAttributes" : {}},
         lineItemType: "REGULAR"
     }
     const result = JSON.stringify(values)
@@ -102,10 +102,11 @@ function invalidVariant(msg){
 
 function multiVariTwoVariRegular(msg){
     const values = {
-        product_id: "6733619167423",
-        variant_id: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zOTk5MDQyNTI4ODg5NQ==",
+        productId: "6733619167423",
+        variantId: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zOTk5MDQyNTI4ODg5NQ==",
         quantity: 4, 
         customAttributes: {
+            "customAttributes" : {
             "Brand": "wildcraft (+₹3)",
             "vjr_hidden_products": [{
                 "product_id": "6733619167423",
@@ -114,6 +115,7 @@ function multiVariTwoVariRegular(msg){
                 "custom_option_title": "Brand",
                 "price": "3.0"
             }]
+        }
         },
         lineItemType: "REGULAR"
     }
@@ -130,10 +132,11 @@ function multiVariTwoVariRegular(msg){
 
 function multiVariTwoVariHidden(msg){
     const values = {
-        product_id: "6733619167423",
-        variant_id: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zOTk5MDQyNTI4ODg5NQ==",
+        productId: "6733619167423",
+        variantId: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zOTk5MDQyNTI4ODg5NQ==",
         quantity: 4, 
         customAttributes: {
+            "customAttributes" : {
             "Brand": "wildcraft (+₹3)",
             "vjr_hidden_products": [{
                 "product_id": "6733619167423",
@@ -142,6 +145,7 @@ function multiVariTwoVariHidden(msg){
                 "custom_option_title": "Brand",
                 "price": "3.0"
             }]
+        }
         },
         lineItemType: "HIDDEN"
     }
@@ -158,10 +162,10 @@ function multiVariTwoVariHidden(msg){
 
 function multiVariThreeVari(msg){
     const values = {
-        product_id: "6750261739711",
-        variant_id: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MTcyMjUwNzA2NzU4Mw==",
+        productId: "6750261739711",
+        variantId: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MTcyMjUwNzA2NzU4Mw==",
         quantity: 4, 
-        customAttributes:  {},
+        customAttributes:  {"customAttributes" : {}},
         lineItemType: "REGULAR"
     }
     const result = JSON.stringify(values)
@@ -177,10 +181,10 @@ function multiVariThreeVari(msg){
 
 function withoutProductId(msg){
     const values = {
-        product_id: "",
-        variant_id: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MTcyMjUwNzA2NzU4Mw==",
+        productId: "",
+        variantId: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MTcyMjUwNzA2NzU4Mw==",
         quantity: 4, 
-        customAttributes:  {},
+        customAttributes:  {"customAttributes" : {}},
         lineItemType: "REGULAR"
     }
     const result = JSON.stringify(values)
@@ -196,10 +200,10 @@ function withoutProductId(msg){
 
 function withoutVariantId(msg){
     const values = {
-        product_id: "6750261739711",
-        variant_id: "",
+        productId: "6750261739711",
+        variantId: "",
         quantity: 4, 
-        customAttributes:  {},
+        customAttributes:  {"customAttributes" : {}},
         lineItemType: "REGULAR"
     }
     const result = JSON.stringify(values)
@@ -215,10 +219,10 @@ function withoutVariantId(msg){
 
 function aboveQuantity(msg){
     const values = {
-        product_id: "6741457207487",
-        variant_id: "40014956429503",
+        productId: "6741457207487",
+        variantId: "40014956429503",
         quantity: 4, 
-        customAttributes:  {},
+        customAttributes:  {"customAttributes" : {}},
         lineItemType: "REGULAR"
     }
     const result = JSON.stringify(values)
