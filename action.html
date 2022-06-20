@@ -1,0 +1,254 @@
+<html>
+<head></head>
+<body>
+    <h2>No Variant </h2>
+    <button type="button" name="noVariant" id="noVariant" onclick ="noVariant('Welcome to Cart')"> Add to Cart </button>
+    <h2>Single Product </h2>
+    <button type="button" name="singleProduct" id="singleProduct" onclick ="singleProduct('Welcome to Cart')"> Add to Cart </button>
+    <h2>Invalid Product ID </h2>
+    <button type="button" name="invalidProduct" id="invalidProduct" onclick ="invalidProduct('Welcome to Cart')"> Add to Cart </button>
+    <h2>Invalid Variant ID </h2>
+    <button type="button" name="invalidVariant" id="invalidVariant" onclick ="invalidVariant('Welcome to Cart')"> Add to Cart </button>
+    <h2>Multiple Variants (2 variant) with Custom Attributes and lineItemType as REGULAR</h2>
+    <button type="button" name="multiVariTwoVariRegular" id="multiVariTwoVariRegular" onclick ="multiVariTwoVariRegular('Welcome to Cart')"> Add to Cart </button>
+    <h2>Multiple Variants (2 variant) with Custom Attributes and lineItemType as HIDDEN</h2>
+    <button type="button" name="multiVariTwoVariHidden" id="multiVariTwoVariHidden" onclick ="multiVariTwoVariHidden('Welcome to Cart')"> Add to Cart </button>
+    <h2>Multiple Variants (3 variant) </h2>
+    <button type="button" name="multiVariThreeVari" id="multiVariThreeVari" onclick ="multiVariThreeVari('Welcome to Cart')"> Add to Cart </button>
+    <h2>Without Product ID </h2>
+    <button type="button" name="withoutProductId" id="withoutProductId" onclick ="withoutProductId('Welcome to Cart')"> Add to Cart </button>
+    <h2>Without Variant ID </h2>
+    <button type="button" name="withoutVariantId" id="withoutVariantId" onclick ="withoutVariantId('Welcome to Cart')"> Add to Cart </button>
+    <h2>Above Limited Quantity  </h2>
+    <button type="button" name="aboveQuantity" id="aboveQuantity" onclick ="aboveQuantity('Welcome to Cart')"> Add to Cart </button>
+</body>
+</html>
+
+<script>
+function noVariant(msg){
+    const values = {
+        product_id: "6878543315135",
+        variant_id: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MDQyMzY2ODQ4MjIzOQ==",
+        quantity: 1, 
+        customAttributes:  {},
+        lineItemType: "REGULAR"
+    }
+    const result = JSON.stringify(values)
+    alert(result)
+    console.log(result)
+    if (window.webkit != undefined) {
+        if (window.webkit.messageHandlers.appInterface != undefined) {
+            window.webkit.messageHandlers.appInterface.postMessage(result)
+        }
+    }
+    if (window.appInterface != undefined) {
+        window.appInterface.postMessage(result)
+    }
+}
+function singleProduct(msg){
+    const values = {
+        product_id: "6741457207487",
+        variant_id: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MDAxNDk1NjQyOTUwMw==",
+        quantity: 1, 
+        customAttributes:  {},
+        lineItemType: "REGULAR"
+    }
+    const result = JSON.stringify(values)
+    alert(result)
+    console.log(result)
+    if (window.webkit != undefined) {
+        if (window.webkit.messageHandlers.appInterface != undefined) {
+            window.webkit.messageHandlers.appInterface.postMessage(result)
+        }
+    }
+    if (window.appInterface != undefined) {
+        window.appInterface.postMessage(result)
+    }
+}
+
+function invalidProduct(msg){
+    const values = {
+        product_id: "12346741457207487",
+        variant_id: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MDAxNDk1NjQyOTUwMw==",
+        quantity: 1, 
+        customAttributes:  {},
+        lineItemType: "REGULAR"
+    }
+    const result = JSON.stringify(values)
+    alert(result)
+    console.log(result)
+    if (window.webkit != undefined) {
+        if (window.webkit.messageHandlers.appInterface != undefined) {
+            window.webkit.messageHandlers.appInterface.postMessage(result)
+        }
+    }
+    if (window.appInterface != undefined) {
+        window.appInterface.postMessage(result)
+    }
+}
+
+function invalidVariant(msg){
+    const values = {
+        product_id: "12346741457207487",
+        variant_id: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8xMTExNDAwMTQ5NTY0Mjk1MDM=",
+        quantity: 1, 
+        customAttributes:  {},
+        lineItemType: "REGULAR"
+    }
+    const result = JSON.stringify(values)
+    alert(result)
+    console.log(result)
+    if (window.webkit != undefined) {
+        if (window.webkit.messageHandlers.appInterface != undefined) {
+            window.webkit.messageHandlers.appInterface.postMessage(result)
+        }
+    }
+    if (window.appInterface != undefined) {
+        window.appInterface.postMessage(result)
+    }
+}
+
+function multiVariTwoVariRegular(msg){
+    const values = {
+        product_id: "6733619167423",
+        variant_id: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zOTk5MDQyNTI4ODg5NQ==",
+        quantity: 4, 
+        customAttributes: {
+            "Brand": "wildcraft (+₹3)",
+            "vjr_hidden_products": [{
+                "product_id": "6733619167423",
+                "option_string": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MTcyMjM2MDIwMTQwNw==",
+                "option_value": "wildcraft",
+                "custom_option_title": "Brand",
+                "price": "3.0"
+            }]
+        },
+        lineItemType: "REGULAR"
+    }
+    const result = JSON.stringify(values)
+    alert(result)
+    console.log(result)
+    if (window.webkit != undefined) {
+        if (window.webkit.messageHandlers.appInterface != undefined) {
+            window.webkit.messageHandlers.appInterface.postMessage(result)
+        }
+    }
+    if (window.appInterface != undefined) {
+        window.appInterface.postMessage(result)
+    }
+}
+
+function multiVariTwoVariHidden(msg){
+    const values = {
+        product_id: "6733619167423",
+        variant_id: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zOTk5MDQyNTI4ODg5NQ==",
+        quantity: 4, 
+        customAttributes: {
+            "Brand": "wildcraft (+₹3)",
+            "vjr_hidden_products": [{
+                "product_id": "6733619167423",
+                "option_string": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MTcyMjM2MDIwMTQwNw==",
+                "option_value": "wildcraft",
+                "custom_option_title": "Brand",
+                "price": "3.0"
+            }]
+        },
+        lineItemType: "HIDDEN"
+    }
+    const result = JSON.stringify(values)
+    alert(result)
+    console.log(result)
+    if (window.webkit != undefined) {
+        if (window.webkit.messageHandlers.appInterface != undefined) {
+            window.webkit.messageHandlers.appInterface.postMessage(result)
+        }
+    }
+    if (window.appInterface != undefined) {
+        window.appInterface.postMessage(result)
+    }
+}
+
+function multiVariThreeVari(msg){
+    const values = {
+        product_id: "6750261739711",
+        variant_id: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MTcyMjUwNzA2NzU4Mw==",
+        quantity: 4, 
+        customAttributes:  {},
+        lineItemType: "REGULAR"
+    }
+    const result = JSON.stringify(values)
+    alert(result)
+    console.log(result)
+    if (window.webkit != undefined) {
+        if (window.webkit.messageHandlers.appInterface != undefined) {
+            window.webkit.messageHandlers.appInterface.postMessage(result)
+        }
+    }
+    if (window.appInterface != undefined) {
+        window.appInterface.postMessage(result)
+    }
+}
+
+function withoutProductId(msg){
+    const values = {
+        product_id: "",
+        variant_id: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MTcyMjUwNzA2NzU4Mw==",
+        quantity: 4, 
+        customAttributes:  {},
+        lineItemType: "REGULAR"
+    }
+    const result = JSON.stringify(values)
+    alert(result)
+    console.log(result)
+    if (window.webkit != undefined) {
+        if (window.webkit.messageHandlers.appInterface != undefined) {
+            window.webkit.messageHandlers.appInterface.postMessage(result)
+        }
+    }
+    if (window.appInterface != undefined) {
+        window.appInterface.postMessage(result)
+    }
+}
+
+function withoutVariantId(msg){
+    const values = {
+        product_id: "6750261739711",
+        variant_id: "",
+        quantity: 4, 
+        customAttributes:  {},
+        lineItemType: "REGULAR"
+    }
+    const result = JSON.stringify(values)
+    alert(result)
+    console.log(result)
+    if (window.webkit != undefined) {
+        if (window.webkit.messageHandlers.appInterface != undefined) {
+            window.webkit.messageHandlers.appInterface.postMessage(result)
+        }
+    }
+    if (window.appInterface != undefined) {
+        window.appInterface.postMessage(result)
+    }
+}
+
+function aboveQuantity(msg){
+    const values = {
+        product_id: "6741457207487",
+        variant_id: "40014956429503",
+        quantity: 4, 
+        customAttributes:  {},
+        lineItemType: "REGULAR"
+    }
+    const result = JSON.stringify(values)
+    alert(result)
+    console.log(result)
+    if (window.webkit != undefined) {
+        if (window.webkit.messageHandlers.appInterface != undefined) {
+            window.webkit.messageHandlers.appInterface.postMessage(result)
+        }
+    }
+    if (window.appInterface != undefined) {
+        window.appInterface.postMessage(result)
+    }
+}
+</script>
