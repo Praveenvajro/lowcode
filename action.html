@@ -34,15 +34,13 @@ function noVariant(msg){
         lineItemType: "REGULAR"
     }
     const result = JSON.stringify(values)
-    alert(result)
-    console.log(result)
     if (window.webkit != undefined) {
         if (window.webkit.messageHandlers.appInterface != undefined) {
-            window.webkit.messageHandlers.appInterface.postMessage(result)
+            window.webkit.messageHandlers.appInterface.addLineItemToCart(result)
         }
     }
     if (window.appInterface != undefined) {
-        window.appInterface.postMessage(result)
+        window.appInterface.addLineItemToCart(result)
     }
 }
 function singleProduct(msg){
@@ -54,15 +52,13 @@ function singleProduct(msg){
         lineItemType: "REGULAR"
     }
     const result = JSON.stringify(values)
-    alert(result)
-    console.log(result)
     if (window.webkit != undefined) {
         if (window.webkit.messageHandlers.appInterface != undefined) {
-            window.webkit.messageHandlers.appInterface.postMessage(result)
+            window.webkit.messageHandlers.appInterface.addLineItemToCart(result)
         }
     }
     if (window.appInterface != undefined) {
-        window.appInterface.postMessage(result)
+        window.appInterface.addLineItemToCart(result)
     }
 }
 
@@ -75,15 +71,13 @@ function invalidProduct(msg){
         lineItemType: "REGULAR"
     }
     const result = JSON.stringify(values)
-    alert(result)
-    console.log(result)
     if (window.webkit != undefined) {
         if (window.webkit.messageHandlers.appInterface != undefined) {
-            window.webkit.messageHandlers.appInterface.postMessage(result)
+            window.webkit.messageHandlers.appInterface.addLineItemToCart(result)
         }
     }
     if (window.appInterface != undefined) {
-        window.appInterface.postMessage(result)
+        window.appInterface.addLineItemToCart(result)
     }
 }
 
@@ -96,15 +90,13 @@ function invalidVariant(msg){
         lineItemType: "REGULAR"
     }
     const result = JSON.stringify(values)
-    alert(result)
-    console.log(result)
     if (window.webkit != undefined) {
         if (window.webkit.messageHandlers.appInterface != undefined) {
-            window.webkit.messageHandlers.appInterface.postMessage(result)
+            window.webkit.messageHandlers.appInterface.addLineItemToCart(result)
         }
     }
     if (window.appInterface != undefined) {
-        window.appInterface.postMessage(result)
+        window.appInterface.addLineItemToCart(result)
     }
 }
 
@@ -126,15 +118,13 @@ function multiVariTwoVariRegular(msg){
         lineItemType: "REGULAR"
     }
     const result = JSON.stringify(values)
-    alert(result)
-    console.log(result)
     if (window.webkit != undefined) {
         if (window.webkit.messageHandlers.appInterface != undefined) {
-            window.webkit.messageHandlers.appInterface.postMessage(result)
+            window.webkit.messageHandlers.appInterface.addLineItemToCart(result)
         }
     }
     if (window.appInterface != undefined) {
-        window.appInterface.postMessage(result)
+        window.appInterface.addLineItemToCart(result)
     }
 }
 
@@ -156,15 +146,13 @@ function multiVariTwoVariHidden(msg){
         lineItemType: "HIDDEN"
     }
     const result = JSON.stringify(values)
-    alert(result)
-    console.log(result)
     if (window.webkit != undefined) {
         if (window.webkit.messageHandlers.appInterface != undefined) {
-            window.webkit.messageHandlers.appInterface.postMessage(result)
+            window.webkit.messageHandlers.appInterface.addLineItemToCart(result)
         }
     }
     if (window.appInterface != undefined) {
-        window.appInterface.postMessage(result)
+        window.appInterface.addLineItemToCart(result)
     }
 }
 
@@ -177,15 +165,13 @@ function multiVariThreeVari(msg){
         lineItemType: "REGULAR"
     }
     const result = JSON.stringify(values)
-    alert(result)
-    console.log(result)
     if (window.webkit != undefined) {
         if (window.webkit.messageHandlers.appInterface != undefined) {
-            window.webkit.messageHandlers.appInterface.postMessage(result)
+            window.webkit.messageHandlers.appInterface.addLineItemToCart(result)
         }
     }
     if (window.appInterface != undefined) {
-        window.appInterface.postMessage(result)
+        window.appInterface.addLineItemToCart(result)
     }
 }
 
@@ -198,15 +184,13 @@ function withoutProductId(msg){
         lineItemType: "REGULAR"
     }
     const result = JSON.stringify(values)
-    alert(result)
-    console.log(result)
     if (window.webkit != undefined) {
         if (window.webkit.messageHandlers.appInterface != undefined) {
-            window.webkit.messageHandlers.appInterface.postMessage(result)
+            window.webkit.messageHandlers.appInterface.addLineItemToCart(result)
         }
     }
     if (window.appInterface != undefined) {
-        window.appInterface.postMessage(result)
+        window.appInterface.addLineItemToCart(result)
     }
 }
 
@@ -219,15 +203,13 @@ function withoutVariantId(msg){
         lineItemType: "REGULAR"
     }
     const result = JSON.stringify(values)
-    alert(result)
-    console.log(result)
     if (window.webkit != undefined) {
         if (window.webkit.messageHandlers.appInterface != undefined) {
-            window.webkit.messageHandlers.appInterface.postMessage(result)
+            window.webkit.messageHandlers.appInterface.addLineItemToCart(result)
         }
     }
     if (window.appInterface != undefined) {
-        window.appInterface.postMessage(result)
+        window.appInterface.addLineItemToCart(result)
     }
 }
 
@@ -240,15 +222,13 @@ function aboveQuantity(msg){
         lineItemType: "REGULAR"
     }
     const result = JSON.stringify(values)
-    alert(result)
-    console.log(result)
     if (window.webkit != undefined) {
         if (window.webkit.messageHandlers.appInterface != undefined) {
-            window.webkit.messageHandlers.appInterface.postMessage(result)
+            window.webkit.messageHandlers.appInterface.addLineItemToCart(result)
         }
     }
     if (window.appInterface != undefined) {
-        window.appInterface.postMessage(result)
+        window.appInterface.addLineItemToCart(result)
     }
 }
 </script>
