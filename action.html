@@ -35,8 +35,8 @@ function noVariant(msg){
     }
     const result = JSON.stringify(values)
     if (window.webkit != undefined) {
-        if (window.webkit.messageHandlers.appInterface != undefined) {
-            window.webkit.messageHandlers.appInterface.addLineItemToCart(result)
+        if (window.webkit.messageHandlers.addLineItemToCart != undefined) {
+            window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
         }
     }
     if (window.appInterface != undefined) {
@@ -53,8 +53,8 @@ function singleProduct(msg){
     }
     const result = JSON.stringify(values)
     if (window.webkit != undefined) {
-        if (window.webkit.messageHandlers.appInterface != undefined) {
-            window.webkit.messageHandlers.appInterface.addLineItemToCart(result)
+        if (window.webkit.messageHandlers.addLineItemToCart != undefined) {
+            window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
         }
     }
     if (window.appInterface != undefined) {
@@ -72,8 +72,8 @@ function invalidProduct(msg){
     }
     const result = JSON.stringify(values)
     if (window.webkit != undefined) {
-        if (window.webkit.messageHandlers.appInterface != undefined) {
-            window.webkit.messageHandlers.appInterface.addLineItemToCart(result)
+        if (window.webkit.messageHandlers.addLineItemToCart != undefined) {
+            window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
         }
     }
     if (window.appInterface != undefined) {
@@ -91,8 +91,8 @@ function invalidVariant(msg){
     }
     const result = JSON.stringify(values)
     if (window.webkit != undefined) {
-        if (window.webkit.messageHandlers.appInterface != undefined) {
-            window.webkit.messageHandlers.appInterface.addLineItemToCart(result)
+        if (window.webkit.messageHandlers.addLineItemToCart != undefined) {
+            window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
         }
     }
     if (window.appInterface != undefined) {
@@ -119,8 +119,8 @@ function multiVariTwoVariRegular(msg){
     }
     const result = JSON.stringify(values)
     if (window.webkit != undefined) {
-        if (window.webkit.messageHandlers.appInterface != undefined) {
-            window.webkit.messageHandlers.appInterface.addLineItemToCart(result)
+        if (window.webkit.messageHandlers.appLineItemType != undefined) {
+            window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
         }
     }
     if (window.appInterface != undefined) {
@@ -147,8 +147,8 @@ function multiVariTwoVariHidden(msg){
     }
     const result = JSON.stringify(values)
     if (window.webkit != undefined) {
-        if (window.webkit.messageHandlers.appInterface != undefined) {
-            window.webkit.messageHandlers.appInterface.addLineItemToCart(result)
+        if (window.webkit.messageHandlers.appLineItemType != undefined) {
+            window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
         }
     }
     if (window.appInterface != undefined) {
@@ -166,8 +166,8 @@ function multiVariThreeVari(msg){
     }
     const result = JSON.stringify(values)
     if (window.webkit != undefined) {
-        if (window.webkit.messageHandlers.appInterface != undefined) {
-            window.webkit.messageHandlers.appInterface.addLineItemToCart(result)
+        if (window.webkit.messageHandlers.appLineItemType != undefined) {
+            window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
         }
     }
     if (window.appInterface != undefined) {
@@ -185,8 +185,8 @@ function withoutProductId(msg){
     }
     const result = JSON.stringify(values)
     if (window.webkit != undefined) {
-        if (window.webkit.messageHandlers.appInterface != undefined) {
-            window.webkit.messageHandlers.appInterface.addLineItemToCart(result)
+        if (window.webkit.messageHandlers.appLineItemType != undefined) {
+            window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
         }
     }
     if (window.appInterface != undefined) {
@@ -204,8 +204,8 @@ function withoutVariantId(msg){
     }
     const result = JSON.stringify(values)
     if (window.webkit != undefined) {
-        if (window.webkit.messageHandlers.appInterface != undefined) {
-            window.webkit.messageHandlers.appInterface.addLineItemToCart(result)
+        if (window.webkit.messageHandlers.appLineItemType != undefined) {
+            window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
         }
     }
     if (window.appInterface != undefined) {
@@ -223,8 +223,8 @@ function aboveQuantity(msg){
     }
     const result = JSON.stringify(values)
     if (window.webkit != undefined) {
-        if (window.webkit.messageHandlers.appInterface != undefined) {
-            window.webkit.messageHandlers.appInterface.addLineItemToCart(result)
+        if (window.webkit.messageHandlers.appLineItemType != undefined) {
+            window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
         }
     }
     if (window.appInterface != undefined) {
