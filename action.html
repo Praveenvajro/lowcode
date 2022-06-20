@@ -30,7 +30,7 @@ function noVariant(msg){
         productId: "6878543315135",
         variantId: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MDQyMzY2ODQ4MjIzOQ==",
         quantity: 1, 
-        customAttributes:  {"customAttributes" : {}},
+        customAttributes:  {},
         lineItemType: "REGULAR"
     }
     const result = JSON.stringify(values)
@@ -48,7 +48,7 @@ function singleProduct(msg){
         productId: "6741457207487",
         variantId: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MDAxNDk1NjQyOTUwMw==",
         quantity: 1, 
-        customAttributes:  {"customAttributes" : {}},
+        customAttributes:  {},
         lineItemType: "REGULAR"
     }
     const result = JSON.stringify(values)
@@ -67,7 +67,7 @@ function invalidProduct(msg){
         productId: "12346741457207487",
         variantId: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MDAxNDk1NjQyOTUwMw==",
         quantity: 1, 
-        customAttributes:  {"customAttributes" : {}},
+        customAttributes:  {},
         lineItemType: "REGULAR"
     }
     const result = JSON.stringify(values)
@@ -86,7 +86,7 @@ function invalidVariant(msg){
         productId: "12346741457207487",
         variantId: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8xMTExNDAwMTQ5NTY0Mjk1MDM=",
         quantity: 1, 
-        customAttributes:  {"customAttributes" : {}},
+        customAttributes:  {},
         lineItemType: "REGULAR"
     }
     const result = JSON.stringify(values)
@@ -106,7 +106,6 @@ function multiVariTwoVariRegular(msg){
         variantId: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zOTk5MDQyNTI4ODg5NQ==",
         quantity: 4, 
         customAttributes: {
-            "customAttributes" : {
             "Brand": "wildcraft (+₹3)",
             "vjr_hidden_products": [{
                 "product_id": "6733619167423",
@@ -115,7 +114,6 @@ function multiVariTwoVariRegular(msg){
                 "custom_option_title": "Brand",
                 "price": "3.0"
             }]
-        }
         },
         lineItemType: "REGULAR"
     }
@@ -136,7 +134,6 @@ function multiVariTwoVariHidden(msg){
         variantId: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zOTk5MDQyNTI4ODg5NQ==",
         quantity: 4, 
         customAttributes: {
-            "customAttributes" : {
             "Brand": "wildcraft (+₹3)",
             "vjr_hidden_products": [{
                 "product_id": "6733619167423",
@@ -145,7 +142,6 @@ function multiVariTwoVariHidden(msg){
                 "custom_option_title": "Brand",
                 "price": "3.0"
             }]
-        }
         },
         lineItemType: "HIDDEN"
     }
@@ -165,7 +161,7 @@ function multiVariThreeVari(msg){
         productId: "6750261739711",
         variantId: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MTcyMjUwNzA2NzU4Mw==",
         quantity: 4, 
-        customAttributes:  {"customAttributes" : {}},
+        customAttributes:  {},
         lineItemType: "REGULAR"
     }
     const result = JSON.stringify(values)
@@ -184,7 +180,7 @@ function withoutProductId(msg){
         productId: "",
         variantId: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MTcyMjUwNzA2NzU4Mw==",
         quantity: 4, 
-        customAttributes:  {"customAttributes" : {}},
+        customAttributes:  {},
         lineItemType: "REGULAR"
     }
     const result = JSON.stringify(values)
@@ -203,7 +199,7 @@ function withoutVariantId(msg){
         productId: "6750261739711",
         variantId: "",
         quantity: 4, 
-        customAttributes:  {"customAttributes" : {}},
+        customAttributes:  {},
         lineItemType: "REGULAR"
     }
     const result = JSON.stringify(values)
@@ -222,7 +218,7 @@ function aboveQuantity(msg){
         productId: "6741457207487",
         variantId: "40014956429503",
         quantity: 4, 
-        customAttributes:  {"customAttributes" : {}},
+        customAttributes:  {},
         lineItemType: "REGULAR"
     }
     const result = JSON.stringify(values)
