@@ -29,6 +29,22 @@
                     output.innerHTML = output.innerHTML + content;
                 }
             );
+            VajroSDK.subscribe(
+                VajroSDK.Triggers.LINE_ITEM_UPDATED,
+                (appContext, updateType, lineItem) => {
+                    let { productId } = lineItem;
+                    let content = `<div>The product ${productId}`;
+                    if (updateType === 'Increment') {
+                        content += ' count is increased in the cart';
+                    } else if (updateType === 'Decrement') {
+                        content += ' count is decreased in the cart';
+                    } else if (updateType === 'Delete') {
+                        content += ' is deleted from cart';
+                    }
+                    content += '</div>';
+                    output.innerHTML = output.innerHTML + content;
+                }
+            );
         </script>
     </body>
 </html>
