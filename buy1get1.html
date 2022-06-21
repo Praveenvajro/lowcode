@@ -1,39 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <div id="output">
-      <div>Your output is:</div>
-    </div>
-    <script src="./bundle.js"></script>
-    <script>
-      let output = document.getElementById('output');
-      VajroSDK.subscribe(
-        VajroSDK.Triggers.LINE_ITEM_ADDED_TO_CART,
-        (appContext, lineItem) => {
-          let { productId } = lineItem;
-          if (productId === '6928830267583') {
-            const values = {
-              productId: '6750261739711',
-              variantId: '41722470400191',
-              quantity: 1,
-              customAttributes: {},
-              lineItemType: 'REGULAR',
-            };
-            VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then(()=>{
-                output.innerHTML = `The sub product added for main product`;
-                setTimeout(()=>{
-                    output.innerHTML = '';
-                }, 2000)
-            }).catch(err=>{alert(err)});
-          }
-        }
-      );
-    </script>
-  </body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="output"></div>
+        <script src="./bundle.js"></script>
+        <script>
+            let output = document.getElementById('output');
+            VajroSDK.subscribe(
+                VajroSDK.Triggers.LINE_ITEM_ADDED_TO_CART,
+                (appContext, lineItem) => {
+                    let { productId } = lineItem;
+                    if (productId === '6928830267583') {
+                        const values = {
+                            productId: '6750261739711',
+                            variantId: '41722470400191',
+                            quantity: 1,
+                            customAttributes: {},
+                            lineItemType: 'REGULAR'
+                        };
+                        VajroSDK.addLineItemToCart(
+                            values.productId,
+                            values.variantId,
+                            values.quantity,
+                            values.customAttributes,
+                            values.lineItemType
+                        )
+                            .then((res) => {
+                                //               alert('res: '+ JSON.stringify(res));
+                                output.innerHTML = `The sub product added for main product`;
+                                setTimeout(() => {
+                                    output.innerHTML = '';
+                                }, 10000);
+                            })
+                            .catch((err) => {
+                                //                 alert('error: '+JSON.stringify(err));
+                                output.innerHTML = err;
+                            });
+                    }
+                }
+            );
+
+            VajroSDK.subscribe(
+                VajroSDK.Triggers.LINE_ITEM_UPDATED,
+                (appContext, updateType, lineItem) => {
+                    let { productId } = lineItem;
+                    if (updateType === 'Increment') {
+                        let { productId } = lineItem;
+                        if (productId === '6928830267583') {
+                            const values = {
+                                productId: '6750261739711',
+                                variantId: '41722470400191',
+                                quantity: 1,
+                                customAttributes: {},
+                                lineItemType: 'REGULAR'
+                            };
+                            VajroSDK.addLineItemToCart(
+                                values.productId,
+                                values.variantId,
+                                values.quantity,
+                                values.customAttributes,
+                                values.lineItemType
+                            )
+                                .then((res) => {
+                                })
+                                .catch((err) => {
+                                    output.innerHTML = err;
+                                });
+                        }
+                    } else if (updateType === 'Decrement') {
+                        content += ' count is decreased in the cart';
+                    } else if (updateType === 'Delete') {
+                        content += ' is deleted from cart';
+                    }
+                }
+            );
+        </script>
+    </body>
 </html>

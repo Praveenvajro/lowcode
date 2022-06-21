@@ -272,14 +272,19 @@ function aboveQuantity(msg){
         customAttributes:  {},
         lineItemType: "REGULAR"
     }
-    const result = JSON.stringify(values)
-    if (window.webkit != undefined) {
-        if (window.webkit.messageHandlers.addLineItemToCart != undefined) {
-            window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
-        }
-    }
-    if (window.appInterface != undefined) {
-        window.appInterface.addLineItemToCart(result)
-    }
+    VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+        alert('Added line item to cart');
+    }).catch(err=>{
+        alert(err.message)
+    });
+    // const result = JSON.stringify(values)
+    // if (window.webkit != undefined) {
+    //     if (window.webkit.messageHandlers.addLineItemToCart != undefined) {
+    //         window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
+    //     }
+    // }
+    // if (window.appInterface != undefined) {
+    //     window.appInterface.addLineItemToCart(result)
+    // }
 }
 </script>
