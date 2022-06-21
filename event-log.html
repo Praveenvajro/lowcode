@@ -76,6 +76,7 @@
                 VajroSDK.Triggers.LINE_ITEM_UPDATED,
                 (appContext, updateType, lineItem) => {
                     let { productId } = lineItem;
+                    let content = `<div>The product ${productId}`;
                     if (updateType === 'Increment') {
                         let { productId } = lineItem;
                         if (productId === '6928830267583') {
@@ -100,7 +101,7 @@
                                 });
                         }else {
                             let { productId } = lineItem;
-                            let content = `<div>The product ${productId}`;
+                            // let content = `<div>The product ${productId}`;
                             if (updateType === 'Increment') {
                                 content += ' count is increased in the cart';
                             } else if (updateType === 'Decrement') {
@@ -113,8 +114,12 @@
                         }
                     } else if (updateType === 'Decrement') {
                         content += ' count is decreased in the cart';
+                        content += '</div>';
+                        output.innerHTML = output.innerHTML + content;
                     } else if (updateType === 'Delete') {
                         content += ' is deleted from cart';
+                        content += '</div>';
+                        output.innerHTML = output.innerHTML + content;
                     }
                 }
             );
