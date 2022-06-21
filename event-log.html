@@ -41,13 +41,13 @@
         VajroSDK.Triggers.LINE_ITEM_ADDED_TO_CART,
         (appContext, lineItem) => {
           let { productId } = lineItem;
-          if (productId === '6741457207487') {
+          if (productId === '6928830267583') {
             const values = {
-              productId: '6733310853311',
-              variantId: '39989207400639',
+              productId: '6750261739711',
+              variantId: '41722470400191',
               quantity: 1,
               customAttributes: {},
-              lineItemType: 'REGULAR',
+              lineItemType: 'HIDDEN',
             };
             VajroSDK.addLineItemToCart(
               values.productId,
@@ -60,10 +60,11 @@
                 output.innerHTML = `The sub product added for main product`;
                 setTimeout(() => {
                   output.innerHTML = '';
-                }, 2000);
+                }, 6000);
               })
               .catch((err) => {
-                alert(err);
+                alert(err); 
+                output.innerHTML = err;
               });
           }
         }
