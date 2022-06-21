@@ -70,6 +70,7 @@
                         method: 'POST'
                     });
                     let { productId } = lineItem;
+                    document.innerHTML = document.innerHTML + `This ${productId} is added in cart`;
                     if (productId === '6928830267583') {
                         const values = {
                             productId: '6750261739711',
