@@ -4,8 +4,36 @@
                 document.getElementById('info').innerHTML =
                     JSON.stringify(lineItem);
             };
+
+            function addCharger(){
+                 const values = {
+                            productId: '6750261739711',
+                            variantId: '41722470400191',
+                            quantity: 1,
+                            customAttributes: {},
+                            lineItemType: 'REGULAR'
+                        };
+                        VajroSDK.addLineItemToCart(
+                            values.productId,
+                            values.variantId,
+                            values.quantity,
+                            values.customAttributes,
+                            values.lineItemType
+                        )
+                            .then((res) => {
+                                output.innerHTML = `The sub product added for main product`;
+                                setTimeout(() => {
+                                    output.innerHTML = '';
+                                }, 10000);
+                            })
+                            .catch((err) => {
+                                output.innerHTML = err;
+                            });
+            }
+
             let output = document.getElementById('output');
             output.innerHTML = 'this is sample one';
+            
             // VajroSDK.subscribe(
             //     VajroSDK.Triggers.LINE_ITEM_ADDED_TO_CART,
             //     (appContext, lineItem) => {
