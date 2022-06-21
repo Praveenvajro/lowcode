@@ -140,9 +140,26 @@
                             output.innerHTML = output.innerHTML + content;
                         }
                     } else if (updateType === 'Delete') {
-                        content += ' is deleted from cart';
-                        content += '</div>';
-                        output.innerHTML = output.innerHTML + content;
+                        let { productId } = lineItem;
+                        if (productId === '6928830267583') {
+                            let { cartLineItems: { lineItems } } = appContext;
+                            let subLineItemHandle;
+                            for (let { lineItemHandle, productId: id } of lineItems){
+                                if (id === '6750261739711'){
+                                    subLineItemHandle = lineItemHandle;
+                                    break;
+                                }
+                            }
+                            if (subLineItemHandle){
+                                VajroSDK.removeLineItemFromCart(subLineItemHandle, 1).then(()=>{
+
+                                }).catch((err)=>{});
+                            }
+                        }else{
+                            content += ' is deleted from cart';
+                            content += '</div>';
+                            output.innerHTML = output.innerHTML + content;
+                        }
                     }
                 }
             );
