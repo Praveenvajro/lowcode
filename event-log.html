@@ -126,10 +126,11 @@
 
                                 }).catch((err)=>{alert('remove item ' + JSON.stringify(err))});
                             }
+                        }else{
+                            content += ' count is decreased in the cart';
+                            content += '</div>';
+                            output.innerHTML = output.innerHTML + content;
                         }
-                        content += ' count is decreased in the cart';
-                        content += '</div>';
-                        output.innerHTML = output.innerHTML + content;
                     } else if (updateType === 'Delete') {
                         content += ' is deleted from cart';
                         content += '</div>';
