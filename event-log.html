@@ -15,17 +15,9 @@
             let output = document.getElementById('output');
             VajroSDK.subscribe(
                 VajroSDK.Triggers.LINE_ITEM_ADDED_TO_CART,
-                (appContext, updateType, lineItem) => {
+                (appContext, lineItem) => {
                     let { productId } = lineItem;
-                    let content = `<div>The product ${productId}`;
-                    if (updateType === 'Increment') {
-                        content += ' count is increased in the cart';
-                    } else if (updateType === 'Decrement') {
-                        content += ' count is decreased in the cart';
-                    } else if (updateType === 'Delete') {
-                        content += ' is deleted from cart';
-                    }
-                    content += '</div>';
+                    let content = `<div>The product ${productId} added to your cart</div>`;
                     output.innerHTML = output.innerHTML + content;
                 }
             );
