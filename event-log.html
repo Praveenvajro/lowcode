@@ -113,6 +113,20 @@
                             output.innerHTML = output.innerHTML + content;
                         }
                     } else if (updateType === 'Decrement') {
+                        let { productId } = lineItem;
+                        let { cartLineItems: { lineItems } } = appContext;
+                        let subLineItemHandle;
+                        for (let { lineItemHandle, productId: id } of lineItems){
+                            if (id === '6750261739711'){
+                                subLineItemHandle = lineItemHandle;
+                                break;
+                            }
+                        }
+                        if (subLineItemHandle){
+                            VajroSDK.removeLineItemFromCart(lineItemHandle, 1).then(()=>{
+                                
+                            }).catch((err)=>{alert('remove item ' + JSON.stringify(err))});
+                        }
                         content += ' count is decreased in the cart';
                         content += '</div>';
                         output.innerHTML = output.innerHTML + content;
