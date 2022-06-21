@@ -123,7 +123,7 @@
                                 }
                             }
                             if (subLineItemHandle){
-                                VajroSDK.removeLineItemFromCart(lineItemHandle, 1).then(()=>{
+                                VajroSDK.removeLineItemFromCart(subLineItemHandle, 1).then(()=>{
 
                                 }).catch((err)=>{alert('remove item ' + JSON.stringify(err))});
                             }
