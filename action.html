@@ -1,5 +1,7 @@
 <html>
-<head></head>
+<head>
+    <script src="./bundle.js"></script>
+</head>
 <body>
     <h2>No Variant </h2>
     <button type="button" name="noVariant" id="noVariant" onclick ="noVariant('Welcome to Cart')"> Add to Cart </button>
@@ -33,15 +35,20 @@ function noVariant(msg){
         customAttributes:  {},
         lineItemType: "REGULAR"
     }
-    const result = JSON.stringify(values)
-    if (window.webkit != undefined) {
-        if (window.webkit.messageHandlers.addLineItemToCart != undefined) {
-            window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
-        }
-    }
-    if (window.appInterface != undefined) {
-        window.appInterface.addLineItemToCart(result)
-    }
+    VajroSDK.addLineItemToCart(values).then((res)=>{
+        alert(JSON.stringify(res))
+    }).catch(err=>{
+        alert(JSON.stringify(err))
+    });
+    // const result = JSON.stringify(values)
+    // if (window.webkit != undefined) {
+    //     if (window.webkit.messageHandlers.addLineItemToCart != undefined) {
+    //         window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
+    //     }
+    // }
+    // if (window.appInterface != undefined) {
+    //     window.appInterface.addLineItemToCart(result)
+    // }
 }
 function singleProduct(msg){
     const values = {
@@ -112,6 +119,7 @@ function multiVariTwoVariRegular(msg){
                 "product_id": "6733619167423",
                 "option_string": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MTcyMjM2MDIwMTQwNw==",
                 "option_value": "wildcraft",
+                "custom_option_title": "Brand",
                 "parent_option_name": "Brand",
                 "price": "3.0"
             }]
@@ -141,6 +149,7 @@ function multiVariTwoVariHidden(msg){
                 "product_id": "6733619167423",
                 "option_string": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MTcyMjM2MDIwMTQwNw==",
                 "option_value": "wildcraft",
+                "custom_option_title": "Brand",
                 "parent_option_name": "Brand",
                 "price": "3.0"
             }]
@@ -185,15 +194,18 @@ function withoutProductId(msg){
         customAttributes:  {},
         lineItemType: "REGULAR"
     }
-    const result = JSON.stringify(values)
-    if (window.webkit != undefined) {
-        if (window.webkit.messageHandlers.addLineItemToCart != undefined) {
-            window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
-        }
-    }
-    if (window.appInterface != undefined) {
-        window.appInterface.addLineItemToCart(result)
-    }
+    VajroSDK.addLineItemToCart(values).then((res)=>{}).catch(err=>{
+        alert(JSON.stringify(err));
+    });
+    // const result = JSON.stringify(values)
+    // if (window.webkit != undefined) {
+    //     if (window.webkit.messageHandlers.addLineItemToCart != undefined) {
+    //         window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
+    //     }
+    // }
+    // if (window.appInterface != undefined) {
+    //     window.appInterface.addLineItemToCart(result)
+    // }
 }
 
 function withoutVariantId(msg){
