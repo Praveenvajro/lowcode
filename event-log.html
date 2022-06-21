@@ -57,14 +57,14 @@
               values.lineItemType
             )
               .then((res) => {
-              alert('res: '+ JSON.stringify(res));
+//               alert('res: '+ JSON.stringify(res));
                 output.innerHTML = `The sub product added for main product`;
-//                 setTimeout(() => {
-//                   output.innerHTML = '';
-//                 }, 6000);
+                setTimeout(() => {
+                  output.innerHTML = '';
+                }, 10000);
               })
               .catch((err) => {
-                alert('error: '+JSON.stringify(err));
+//                 alert('error: '+JSON.stringify(err));
                 output.innerHTML = err;
               });
           }
