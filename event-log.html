@@ -38,6 +38,7 @@
             VajroSDK.subscribe(
                 VajroSDK.Triggers.LINE_ITEM_ADDED_TO_CART,
                 (appContext, lineItem) => {
+                    alert('line item ' + JSON.stringify(lineItem));
                     let { productId } = lineItem;
                     if (productId === '6928830267583') {
                         const values = {
