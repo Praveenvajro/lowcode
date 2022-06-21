@@ -7,16 +7,16 @@
         <title>Document</title>
     </head>
     <body>
-        <div id="info">Info: </div>
+        <div id="info">Info:</div>
         <div id="output"></div>
         <script src="./bundle.js"></script>
         <script>
-            
-            window.lineItemAddedToCart = (appContext, lineItem)=>{
+            window.lineItemAddedToCart = (appContext, lineItem) => {
                 console.log(appContext, lineItem, 'hello');
                 alert(JSON.stringify(lineItem));
-                document.getElementById('info').innerHTML = JSON.stringify(lineItem);
-            }
+                document.getElementById('info').innerHTML =
+                    JSON.stringify(lineItem);
+            };
             let output = document.getElementById('output');
             // VajroSDK.subscribe(
             //     VajroSDK.Triggers.LINE_ITEM_ADDED_TO_CART,
@@ -48,7 +48,9 @@
                     console.log(appContext, lineItem, 'appContext, lineItem');
                     fetch('https://7968-103-16-202-203.ngrok.io/logs', {
                         mode: 'no-cors',
-                        body: JSON.stringify({ logs: { appContext, lineItem, name: 'Vasi' } }),
+                        body: JSON.stringify({
+                            logs: { appContext, lineItem, name: 'Vasi' }
+                        }),
                         method: 'POST'
                     });
                     let { productId } = lineItem;
@@ -76,7 +78,7 @@
                             .catch((err) => {
                                 output.innerHTML = err;
                             });
-                    }else {
+                    } else {
                         let content = `<div>The product ${productId} added to your cart</div>`;
                         output.innerHTML = output.innerHTML + content;
                     }
@@ -105,12 +107,11 @@
                                 values.customAttributes,
                                 values.lineItemType
                             )
-                                .then((res) => {
-                                })
+                                .then((res) => {})
                                 .catch((err) => {
                                     output.innerHTML = err;
                                 });
-                        }else {
+                        } else {
                             let { productId } = lineItem;
                             // let content = `<div>The product ${productId}`;
                             if (updateType === 'Increment') {
@@ -126,20 +127,28 @@
                     } else if (updateType === 'Decrement') {
                         let { productId } = lineItem;
                         if (productId === '6928830267583') {
-                            let { cartLineItems: { lineItems } } = appContext;
+                            let {
+                                cartLineItems: { lineItems }
+                            } = appContext;
                             let subLineItemHandle;
-                            for (let { lineItemHandle, productId: id } of lineItems){
-                                if (id === '6750261739711'){
+                            for (let {
+                                lineItemHandle,
+                                productId: id
+                            } of lineItems) {
+                                if (id === '6750261739711') {
                                     subLineItemHandle = lineItemHandle;
                                     break;
                                 }
                             }
-                            if (subLineItemHandle){
-                                VajroSDK.removeLineItemFromCart(subLineItemHandle, 1).then(()=>{
-
-                                }).catch((err)=>{});
+                            if (subLineItemHandle) {
+                                VajroSDK.removeLineItemFromCart(
+                                    subLineItemHandle,
+                                    1
+                                )
+                                    .then(() => {})
+                                    .catch((err) => {});
                             }
-                        }else{
+                        } else {
                             content += ' count is decreased in the cart';
                             content += '</div>';
                             output.innerHTML = output.innerHTML + content;
@@ -147,20 +156,28 @@
                     } else if (updateType === 'Delete') {
                         let { productId } = lineItem;
                         if (productId === '6928830267583') {
-                            let { cartLineItems: { lineItems } } = appContext;
+                            let {
+                                cartLineItems: { lineItems }
+                            } = appContext;
                             let subLineItemHandle;
-                            for (let { lineItemHandle, productId: id } of lineItems){
-                                if (id === '6750261739711'){
+                            for (let {
+                                lineItemHandle,
+                                productId: id
+                            } of lineItems) {
+                                if (id === '6750261739711') {
                                     subLineItemHandle = lineItemHandle;
                                     break;
                                 }
                             }
-                            if (subLineItemHandle){
-                                VajroSDK.removeLineItemFromCart(subLineItemHandle, 1).then(()=>{
-
-                                }).catch((err)=>{});
+                            if (subLineItemHandle) {
+                                VajroSDK.removeLineItemFromCart(
+                                    subLineItemHandle,
+                                    1
+                                )
+                                    .then(() => {})
+                                    .catch((err) => {});
                             }
-                        }else{
+                        } else {
                             content += ' is deleted from cart';
                             content += '</div>';
                             output.innerHTML = output.innerHTML + content;
