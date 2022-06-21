@@ -125,7 +125,7 @@
                             if (subLineItemHandle){
                                 VajroSDK.removeLineItemFromCart(subLineItemHandle, 1).then(()=>{
 
-                                }).catch((err)=>{alert('remove item ' + JSON.stringify(err))});
+                                }).catch((err)=>{});
                             }
                         }else{
                             content += ' count is decreased in the cart';
