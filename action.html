@@ -38,8 +38,7 @@ function noVariant(msg){
     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
         alert('Added line item to cart');
     }).catch(err=>{
-        const errmsg = JSON.stringify(err)
-        alert(errmsg.message)
+        alert(err.message)
     });
     // const result = JSON.stringify(values)
     // if (window.webkit != undefined) {
@@ -198,8 +197,7 @@ function withoutProductId(msg){
     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
         alert("Added line item to cart")
     }).catch(err=>{
-        const errmsg = JSON.stringify(err)
-        alert(errmsg.message)
+        alert(err.message)
     });
     // const result = JSON.stringify(values)
     // if (window.webkit != undefined) {
