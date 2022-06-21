@@ -36,9 +36,9 @@ function noVariant(msg){
         lineItemType: "REGULAR"
     }
     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
-        alert(JSON.stringify(res) + ' res')
+        alert(JSON.stringify(res) + ' res 2')
     }).catch(err=>{
-        alert(JSON.stringify(err) + ' error')
+        alert(JSON.stringify(err) + ' error 1')
     });
     // const result = JSON.stringify(values)
     // if (window.webkit != undefined) {
