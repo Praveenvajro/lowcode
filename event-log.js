@@ -8,7 +8,7 @@
             function addCharger(){
                  const values = {
                             productId: '6750261739711',
-                            variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MTcyMjQ3MDQwMDE5MQ==',
+                            variantId: '41722470400191',
                             quantity: 1,
                             customAttributes: {},
                             lineItemType: 'REGULAR'
@@ -74,7 +74,7 @@
                     if (productId === '6928830267583') {
                         const values = {
                             productId: '6750261739711',
-                            variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MTcyMjQ3MDQwMDE5MQ==',
+                            variantId: '41722470400191',
                             quantity: 1,
                             customAttributes: {},
                             lineItemType: 'REGULAR'
@@ -112,7 +112,7 @@
                         if (productId === '6928830267583') {
                             const values = {
                                 productId: '6750261739711',
-                                variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MTcyMjQ3MDQwMDE5MQ==',
+                                variantId: '41722470400191',
                                 quantity: 1,
                                 customAttributes: {},
                                 lineItemType: 'REGULAR'
