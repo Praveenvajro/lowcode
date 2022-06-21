@@ -62,13 +62,6 @@
                 VajroSDK.Triggers.LINE_ITEM_ADDED_TO_CART,
                 (appContext, lineItem) => {
                     console.log(appContext, lineItem, 'appContext, lineItem');
-                    fetch('https://7968-103-16-202-203.ngrok.io/logs', {
-                        mode: 'no-cors',
-                        body: JSON.stringify({
-                            logs: { appContext, lineItem, name: 'Vasi' }
-                        }),
-                        method: 'POST'
-                    });
                     let { productId } = lineItem;
                     document.innerHTML = document.innerHTML + `This ${productId} is added in cart`;
                     if (productId === '6928830267583') {
