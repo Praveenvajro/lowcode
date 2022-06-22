@@ -221,7 +221,7 @@
                             output.innerHTML = output.innerHTML + content;
                         }
 
-                        if (cartTotalAfterSavings < 1000  && extraproduct != "6733310853311"){
+                        if (totalAfterSavings < 1000  && extraproduct != "6733310853311"){
                             let { cartLineItems: { lineItems } } = appContext;
                             let subLineItemHandle;
                             for (let { lineItemHandle, productId: id } of lineItems) {
