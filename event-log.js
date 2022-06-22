@@ -88,6 +88,25 @@
                             .catch((err) => {
                                 output.innerHTML = err;
                             });
+                    } else if (cartTotalAfterSavings > 1000){
+                        const values = {
+                            productId: '6733310853311',
+                            variantId: '39989207400639',
+                            quantity: 1,
+                            customAttributes: {},
+                            lineItemType: 'REGULAR'
+                        };
+                        VajroSDK.addLineItemToCart(
+                            values.productId,
+                            values.variantId,
+                            values.quantity,
+                            values.customAttributes,
+                            values.lineItemType
+                        )
+                            .then((res) => {})
+                            .catch((err) => {
+                                output.innerHTML = err;
+                            });
                     } else {
                         let content = `<div>The product ${productId} added to your cart</div>`;
                         output.innerHTML = output.innerHTML + content;
@@ -99,6 +118,7 @@
                 VajroSDK.Triggers.LINE_ITEM_UPDATED,
                 (appContext, updateType, lineItem) => {
                     let { productId } = lineItem;
+                    let cartTotalAfterSavings = appContext.cartLineItems.totalAfterSavings;
                     let content = `<div>The product ${productId}`;
                     if (updateType === 'Increment') {
                         let { productId } = lineItem;
@@ -121,16 +141,35 @@
                                 .catch((err) => {
                                     output.innerHTML = err;
                                 });
+                        } else if (cartTotalAfterSavings > 1000){
+                            const values = {
+                                productId: '6733310853311',
+                                variantId: '39989207400639',
+                                quantity: 1,
+                                customAttributes: {},
+                                lineItemType: 'REGULAR'
+                            };
+                            VajroSDK.addLineItemToCart(
+                                values.productId,
+                                values.variantId,
+                                values.quantity,
+                                values.customAttributes,
+                                values.lineItemType
+                            )
+                                .then((res) => {})
+                                .catch((err) => {
+                                    output.innerHTML = err;
+                                });
                         } else {
-                            let { productId } = lineItem;
+                            // let { productId } = lineItem;
                             // let content = `<div>The product ${productId}`;
-                            if (updateType === 'Increment') {
+                            // if (updateType === 'Increment') {
                                 content += ' count is increased in the cart';
-                            } else if (updateType === 'Decrement') {
-                                content += ' count is decreased in the cart';
-                            } else if (updateType === 'Delete') {
-                                content += ' is deleted from cart';
-                            }
+                            // } else if (updateType === 'Decrement') {
+                            //     content += ' count is decreased in the cart';
+                            // } else if (updateType === 'Delete') {
+                            //     content += ' is deleted from cart';
+                            // }
                             content += '</div>';
                             output.innerHTML = output.innerHTML + content;
                         }
@@ -157,6 +196,18 @@
                                 )
                                     .then(() => {})
                                     .catch((err) => {});
+                            }
+                        } else if (cartTotalAfterSavings < 1000){
+                            let { cartLineItems: { lineItems } } = appContext;
+                            let subLineItemHandle;
+                            for (let { lineItemHandle, productId: id } of lineItems) {
+                                if (id === '6733310853311') {
+                                    subLineItemHandle = lineItemHandle;
+                                    break;
+                                }
+                            }
+                            if (subLineItemHandle) {
+                                VajroSDK.removeLineItemFromCart(subLineItemHandle, 1).then(() => {}).catch((err) => {});
                             }
                         } else {
                             content += ' count is decreased in the cart';
