@@ -61,7 +61,7 @@
             VajroSDK.subscribe(
                 VajroSDK.Triggers.LINE_ITEM_ADDED_TO_CART,
                 (appContext, lineItem) => {
-                    console.log(appContext, lineItem, 'appContext, lineItem');
+                    output.innerHTML = output.innerHTML + `<div>LINE_ITEM_ADDED_TO_CART trigger invoked</div>`;
                     let { productId, quantity } = lineItem;
                     let { cartLineItems: { totalAfterSavings, lineItems } } = appContext;
                     let extraproduct;
@@ -80,6 +80,7 @@
                             customAttributes: {},
                             lineItemType: 'REGULAR'
                         };
+                        output.innerHTML = output.innerHTML + `<div>addLineItemToCart action invoked</div>`;
                         VajroSDK.addLineItemToCart(
                             values.productId,
                             values.variantId,
