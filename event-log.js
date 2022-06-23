@@ -62,7 +62,7 @@
                 VajroSDK.Triggers.LINE_ITEM_ADDED_TO_CART,
                 (appContext, lineItem) => {
                     console.log(appContext, lineItem, 'appContext, lineItem');
-                    let { productId } = lineItem;
+                    let { productId, quantity } = lineItem;
                     let { cartLineItems: { totalAfterSavings, lineItems } } = appContext;
                     let extraproduct;
                     for (let { productId: id } of lineItems) {
@@ -76,7 +76,7 @@
                         const values = {
                             productId: '6750261739711',
                             variantId: '41722470400191',
-                            quantity: 1,
+                            quantity: quantity,
                             customAttributes: {},
                             lineItemType: 'REGULAR'
                         };
@@ -221,7 +221,7 @@
                             output.innerHTML = output.innerHTML + content;
                         }
 
-                        if (totalAfterSavings < 1000  && extraproduct != "6733310853311"){
+                        if (totalAfterSavings < 1000){
                             let { cartLineItems: { lineItems } } = appContext;
                             let subLineItemHandle;
                             for (let { lineItemHandle, productId: id } of lineItems) {
@@ -236,6 +236,19 @@
                         }
                     } else if (updateType === 'Delete') {
                         let { productId } = lineItem;
+                        if (totalAfterSavings < 1000){
+                            let { cartLineItems: { lineItems } } = appContext;
+                            let subLineItemHandle;
+                            for (let { lineItemHandle, productId: id } of lineItems) {
+                                if (id === '6733310853311') {
+                                    subLineItemHandle = lineItemHandle;
+                                    break;
+                                }
+                            }
+                            if (subLineItemHandle) {
+                                VajroSDK.removeLineItemFromCart(subLineItemHandle, 1).then(() => {}).catch((err) => {});
+                            }
+                        }
                         if (productId === '6928830267583') {
                             let {
                                 cartLineItems: { lineItems }
