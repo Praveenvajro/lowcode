@@ -4,27 +4,143 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
         <title>Document</title>
+        <style>
+            .container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                width: 100%;
+            }
+
+            .progress-bar__container {
+                width: 80%;
+                height: 2rem;
+                border-radius: 2rem;
+                position: relative;
+                overflow: hidden;
+                transition: all 0.5s;
+                will-change: transform;
+                box-shadow: 0 0 5px #e76f51;
+            }
+            
+            .progress-bar {
+                position: absolute;
+                height: 100%;
+                width: 100%;
+                content: "";
+                background-color: #e76f51;
+                top:0;
+                bottom: 0;
+                left: -100%;
+                border-radius: inherit;
+                display: flex;
+                justify-content: center;
+                align-items:center;
+                color: white;
+                font-family: sans-serif;
+            }
+            
+            .progress-bar__text {
+                display: none;
+            }
+
+        </style>
     </head>
     <body>
         <div id="output"></div>
         <button id="removelineitem" name="removelineitem" onclick="removelineitem()">
             Remove Line Item
         </button>
+        <!-- <div>
+            <input type="text" id="amount1" name="amount1" placeholder="500" value="500" />
+            <button id="cart_amount1" name="cart_amount1" onclick="cart_amount1(500)">cart_amount1</button>
+        </div>
+        <div>
+            <input type="text" id="amount2" name="amount2" placeholder="1000" value="1000" />
+            <button id="cart_amount2" name="cart_amount2" onclick="cart_amount2(1000)">cart_amount2</button>
+        </div>
+        <div>
+            <input type="text" id="amount3" name="amount3" placeholder="1500" value="1500" />
+            <button id="cart_amount3" name="cart_amount3" onclick="cart_amount3(1500)">cart_amount1</button>
+        </div> -->
+        <div class="container">
+            <div class="progress-bar__container">
+              <div class="progress-bar">
+              </div>
+            </div>
+          </div>
         <script src="./bundle.js"></script>
         <script src="./event-log.js"></script>
         <script>
             function removelineitem(){
-                let lineitemhandle = "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MTcyMjQ3MDQwMDE5MQ=="
+                let lineitemhandlevalue = {
+                    "lineitemhandle": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MTcyMjQ3MDQwMDE5MQ==",
+                    "quantity": 1
+                }
                 if (window.webkit != undefined) {
                     if (window.webkit.messageHandlers.removeLineItemFromCart != undefined) {
-                        window.webkit.messageHandlers.removeLineItemFromCart.postMessage(lineitemhandle,1)
+                        window.webkit.messageHandlers.removeLineItemFromCart.postMessage(lineitemhandlevalue)
                     }
                 }
                 if (window.appInterface != undefined) {
                     window.appInterface.removeLineItemFromCart(result)
                 }
             }
+            
+            // function cart_amount1(amount){
+            //     const progressBarContainer = document.querySelector('.progress-bar__container');
+            //     const progressBar = document.querySelector('.progress-bar');
+            //     // const progressBarText = document.querySelector('.progress-bar__text');
+                
+            //     const percentageamount = amount / 1000 * 100;
+            //     gsap.to(progressBar, {
+            //             x: `${percentageamount}%`,
+            //             duration: 2,
+            //             backgroundColor: '#4895ef',
+            //             onComplete: () => {
+            //             // progressBarText.style.display = "initial";
+            //             progressBarContainer.style.boxShadow = '0 0 5px #4895ef';
+            //             }
+            //         });
+            // }
+
+            // function cart_amount2(amount){
+            //     const progressBarContainer = document.querySelector('.progress-bar__container');
+            //     const progressBar = document.querySelector('.progress-bar');
+            //     // const progressBarText = document.querySelector('.progress-bar__text');
+                
+            //     const percentageamount = amount / 1000 * 100;
+            //     gsap.to(progressBar, {
+            //             x: `${percentageamount}%`,
+            //             duration: 2,
+            //             backgroundColor: '#4895ef',
+            //             onComplete: () => {
+            //             // progressBarText.style.display = "initial";
+            //             progressBarContainer.style.boxShadow = '0 0 5px #4895ef';
+            //             }
+            //         });
+            // }
+
+            // function cart_amount3(amount){
+            //     const progressBarContainer = document.querySelector('.progress-bar__container');
+            //     const progressBar = document.querySelector('.progress-bar');
+            //     // const progressBarText = document.querySelector('.progress-bar__text');
+                
+            //     const percentageamount = amount / 1000 * 100;
+            //     gsap.to(progressBar, {
+            //             x: `${percentageamount}%`,
+            //             duration: 2,
+            //             backgroundColor: '#4895ef',
+            //             onComplete: () => {
+            //             // progressBarText.style.display = "initial";
+            //             progressBarContainer.style.boxShadow = '0 0 5px #4895ef';
+            //             }
+            //         });
+            // }
         </script>
     </body>
 </html>
