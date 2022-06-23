@@ -17,6 +17,7 @@
     </style>
 </head>
 <body>
+    <div id="output"></div>
     <h2>No Variant </h2>
     <button type="button" name="noVariant" id="noVariant" onclick ="noVariant('Welcome to Cart')"> Add to Cart </button>
     <h2>Single Product </h2>
@@ -51,9 +52,12 @@ function noVariant(msg){
         customAttributes:  {},
         lineItemType: "REGULAR"
     }
+    let output = document.getElementById('output');
     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+        output.innerHTML = 'Added line item to cart';
         alert('Added line item to cart');
     }).catch(err=>{
+        output.innerHTML = JSON.stringify(err || 'Error object not found');
         alert(err.message)
     });
     // const result = JSON.stringify(values)
