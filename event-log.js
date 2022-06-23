@@ -128,6 +128,7 @@
             VajroSDK.subscribe(
                 VajroSDK.Triggers.LINE_ITEM_UPDATED,
                 (appContext, updateType, lineItem) => {
+                    output.innerHTML = output.innerHTML + JSON.stringify(`Line item - ${lineItem}`);
                     let { productId } = lineItem;
                     let { cartLineItems: { totalAfterSavings, lineItems } } = appContext;
                     let extraproduct;
