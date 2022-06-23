@@ -11,11 +11,13 @@
         <button id="removelineitem" name="removelineitem" onclick="removelineitem()">
             Remove Line Item
         </button>
-        <script src="./bundle.js"></script>
-        <script src="./event-log.js"></script>
         <script>
             let output1 = document.getElementById('output');
             output1.innerHTML = JSON.stringify(window.testAppInfo || 'Variable not available');
+        </script>
+        <script src="./bundle.js"></script>
+        <script src="./event-log.js"></script>
+        <script>
             function removelineitem(){
                 let lineitemhandle = "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MTcyMjQ3MDQwMDE5MQ=="
                 if (window.webkit != undefined) {
