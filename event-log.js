@@ -193,7 +193,8 @@
                                 });
                         } 
                     } else if (updateType === 'Decrement') {
-                        let { productId } = lineItem;
+                        let { productId, lineItemHandle } = lineItem;
+                        output.innerHTML = output.innerHTML + `Line item handle - ${lineItemHandle}`;
                         if (productId === '6928830267583') {
                             let {
                                 cartLineItems: { lineItems }
