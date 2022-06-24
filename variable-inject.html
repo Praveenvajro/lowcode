@@ -8,10 +8,21 @@
 </head>
 <body>
     <div id="output"></div>
+    <script src="./vajro-sdk.js"></script>
     <script>
+        const values = {
+            productId: "6878543315135",
+            variantId: "40423668482239",
+            quantity: 1, 
+            customAttributes:  {},
+            lineItemType: "REGULAR"
+        }
         let output = document.getElementById('output');
-        output.innerHTML = JSON.stringify(window.testAppInfo || 'Variable not available');
+        VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+            output.innerHTML = 'Added line item to cart';
+        }).catch(err=>{
+            output.innerHTML = JSON.stringify(err || 'Error object not found');
+        });
     </script>
-    <script src="./bundle.js"></script>
 </body>
 </html>
