@@ -18,10 +18,19 @@
             lineItemType: "REGULAR"
         }
         let output = document.getElementById('output');
+        let queryObj = new URLSearchParams(location.search);
+        if (queryObj.has('appInfo')) {
+            try {
+                let appInfoObj = JSON.parse(queryObj.get('appInfo') || '{}');
+                output.innerHTML = output.innerHTML + JSON.stringify(appInfoObj || 'param not found');
+            } catch (err) {
+                output.innerHTML = output.innerHTML + JSON.stringify(err || 'Unable to get appInfo');
+            }
+        }
         VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
-            output.innerHTML = 'Added line item to cart';
+            output.innerHTML = output.innerHTML + 'Added line item to cart';
         }).catch(err=>{
-            output.innerHTML = JSON.stringify(err || 'Error object not found');
+            output.innerHTML = output.innerHTML + JSON.stringify(err || 'Error object not found');
         });
     </script>
 </body>
