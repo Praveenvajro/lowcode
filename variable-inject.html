@@ -21,7 +21,7 @@
         let queryObj = new URLSearchParams(location.search);
         if (queryObj.has('appInfo')) {
             try {
-                let appInfoObj = JSON.parse(queryObj.get('appInfo') || '{}');
+                let appInfoObj = JSON.parse(decodeURIComponent(queryObj.get('appInfo') || '{}'));
                 output.innerHTML = output.innerHTML + JSON.stringify(appInfoObj || 'param not found');
             } catch (err) {
                 output.innerHTML = output.innerHTML + JSON.stringify(err || 'Unable to get appInfo');
