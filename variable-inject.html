@@ -33,8 +33,6 @@
             }
         }
         VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
-            output.innerHTML = '';
-//             output.innerHTML = output.innerHTML + 'Added line item to cart';
             document.write(`<h1>Added line item to cart</h1>`);
         }).catch(err=>{
             output.innerHTML = output.innerHTML + JSON.stringify(err || 'Error object not found');
