@@ -52,23 +52,24 @@ function noVariant(msg){
         customAttributes:  {},
         lineItemType: "REGULAR"
     }
-    let output = document.getElementById('output');
-    VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
-        output.innerHTML = 'Added line item to cart';
-        alert('Added line item to cart');
-    }).catch(err=>{
-        output.innerHTML = JSON.stringify(err || 'Error object not found');
-        alert(err.message)
-    });
-    // const result = JSON.stringify(values)
-    // if (window.webkit != undefined) {
-    //     if (window.webkit.messageHandlers.addLineItemToCart != undefined) {
-    //         window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
-    //     }
-    // }
-    // if (window.appInterface != undefined) {
-    //     window.appInterface.addLineItemToCart(result)
-    // }
+    // let output = document.getElementById('output');
+    // VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+    //     output.innerHTML = 'Added line item to cart';
+    //     alert('Added line item to cart');
+    // }).catch(err=>{
+    //     output.innerHTML = JSON.stringify(err || 'Error object not found');
+    //     alert(err.message)
+    // });
+    const result = JSON.stringify(values)
+    if (window.webkit != undefined) {
+        if (window.webkit.messageHandlers.addLineItemToCart != undefined) {
+            window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
+            alert('Added line item to cart');
+        }
+    }
+    if (window.appInterface != undefined) {
+        window.appInterface.addLineItemToCart(result)
+    }
 }
 function singleProduct(msg){
     const values = {
