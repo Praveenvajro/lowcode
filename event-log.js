@@ -64,7 +64,7 @@
             VajroSDK.subscribe(
                 VajroSDK.Triggers.LINE_ITEM_ADDED_TO_CART,
                 (appContext, lineItem) => {
-                    console.log(appContext, lineItem, 'appContext, lineItem');
+                    output.innerHTML = output.innerHTML + `<div>LINE_ITEM_ADDED_TO_CART trigger invoked</div>`;
                     let { productId, quantity } = lineItem;
                     let { cartLineItems: { totalAfterSavings, lineItems } } = appContext;
                     let extraproduct;
@@ -87,6 +87,7 @@
                             customAttributes: {},
                             lineItemType: 'REGULAR'
                         };
+                        output.innerHTML = output.innerHTML + `<div>addLineItemToCart action invoked</div>`;
                         VajroSDK.addLineItemToCart(values.productId,values.variantId,values.quantity,values.customAttributes,values.lineItemType).then((res) => {
                                 output.innerHTML = `The sub product added for main product`;
                                 setTimeout(() => {
@@ -156,6 +157,7 @@
             VajroSDK.subscribe(
                 VajroSDK.Triggers.LINE_ITEM_UPDATED,
                 (appContext, updateType, lineItem) => {
+                    output.innerHTML = output.innerHTML + JSON.stringify(`Line item - ${lineItem}`);
                     let { productId } = lineItem;
                     let { cartLineItems: { totalAfterSavings, lineItems } } = appContext;
                     let extraproduct;
@@ -241,7 +243,8 @@
                             if(amount <  3000) progressText.bold.innerHTML = "₹ 3,000.00";
                         } 
                     } else if (updateType === 'Decrement') {
-                        let { productId, quantity } = lineItem;
+                        let { productId, lineItemHandle, quantity } = lineItem;
+                        output.innerHTML = output.innerHTML + `Line item handle - ${lineItemHandle}`;
                         // Buy1Get1 Remove one item to the cart condition
                         if (productId === '6928830267583') {
                             let {cartLineItems: { lineItems }} = appContext;
