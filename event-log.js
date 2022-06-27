@@ -85,7 +85,7 @@
                             variantId: '41722470400191',
                             quantity: quantity,
                             customAttributes: {},
-                            lineItemType: 'REGULAR'
+                            lineItemType: 'READONLY'
                         };
                         output.innerHTML = output.innerHTML + `<div>addLineItemToCart action invoked</div>`;
                         VajroSDK.addLineItemToCart(values.productId,values.variantId,values.quantity,values.customAttributes,values.lineItemType).then((res) => {
@@ -108,7 +108,7 @@
                             variantId: '39989207400639',
                             quantity: 1,
                             customAttributes: {},
-                            lineItemType: 'REGULAR'
+                            lineItemType: 'READONLY'
                         };
                         VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
                             .catch((err) => {
@@ -133,7 +133,7 @@
                             variantId: '40940367184063',
                             quantity: 1,
                             customAttributes: {},
-                            lineItemType: 'REGULAR'
+                            lineItemType: 'READONLY'
                         };
                         VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
                             .catch((err) => {
