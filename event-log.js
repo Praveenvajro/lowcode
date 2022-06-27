@@ -58,9 +58,7 @@
             //         output.innerHTML = output.innerHTML + content;
             //     }
             // );
-            const progressBarContainer = document.querySelector('.progress-bar__container');
-            const progressBar = document.querySelector('.progress-bar');
-            const progressText = document.getElementById('progress-text');
+            
             VajroSDK.subscribe(
                 VajroSDK.Triggers.LINE_ITEM_ADDED_TO_CART,
                 (appContext, lineItem) => {
@@ -115,17 +113,6 @@
                             .catch((err) => {
                                 output.innerHTML = err;
                             });
-                        //     const percentageamount = (totalAfterSavings / 3000 * 100) > 100 ? 100 : totalAfterSavings / 3000 * 100;
-                        //     gsap.to(progressBar, {
-                        //             x: `${percentageamount}%`,
-                        //             duration: 2,
-                        //             backgroundColor: '#4895ef',
-                        //             onComplete: () => {
-                        //             // progressBarText.style.display = "initial";
-                        //             progressBarContainer.style.boxShadow = '0 0 5px #4895ef';
-                        //             }
-                        //         });
-                        // if(amount <  3000) progressText.bold.innerHTML = "₹ 3,000.00";
                         progressbarcalc(totalAfterSavings, 3000)
                     } else if (totalAfterSavings > 1000 && extraproduct != "6733310853311"){
                         output.innerHTML = totalAfterSavings + "above 3000 product"
@@ -140,17 +127,7 @@
                             .catch((err) => {
                                 output.innerHTML = err;
                             });
-                        const percentageamount = (totalAfterSavings / 1000 * 100) > 100 ? 100 : totalAfterSavings / 1000 * 100;
-                            gsap.to(progressBar, {
-                                    x: `${percentageamount}%`,
-                                    duration: 2,
-                                    backgroundColor: '#4895ef',
-                                    onComplete: () => {
-                                    // progressBarText.style.display = "initial";
-                                    progressBarContainer.style.boxShadow = '0 0 5px #4895ef';
-                                    }
-                                });
-                        if(amount <  1000) progressText.bold.innerHTML = "₹ 1,000.00";
+                        progressbarcalc(totalAfterSavings, 1000)
                     } 
 
                     
@@ -356,6 +333,9 @@
             );
 
             function progressbarcalc(totalAfterSavings, aboveamount) {
+                const progressBarContainer = document.querySelector('.progress-bar__container');
+                const progressBar = document.querySelector('.progress-bar');
+                const progressText = document.getElementById('progress-text');
                 const percentageamount = (totalAfterSavings / aboveamount * 100) > 100 ? 100 : totalAfterSavings / aboveamount * 100;
                 gsap.to(progressBar, {
                     x: `${percentageamount}%`,
