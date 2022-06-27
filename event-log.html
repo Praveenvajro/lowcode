@@ -18,7 +18,7 @@
 
             .progress-bar__container {
                 width: 80%;
-                height: 2rem;
+                height: 1rem;
                 border-radius: 2rem;
                 position: relative;
                 overflow: hidden;
@@ -55,6 +55,28 @@
         <button id="removelineitem" name="removelineitem" onclick="removelineitem()">
             Remove Line Item
         </button>
+        <!-- <div>
+            <input type="text" id="amount1" name="amount1" placeholder="500" value="500" />
+            <button id="cart_amount1" name="cart_amount1" onclick="cart_amount1(500)">cart_amount1</button>
+        </div>
+        <div>
+            <input type="text" id="amount2" name="amount2" placeholder="1000" value="1000" />
+            <button id="cart_amount2" name="cart_amount2" onclick="cart_amount2(1000)">cart_amount2</button>
+        </div>
+        <div>
+            <input type="text" id="amount3" name="amount3" placeholder="5500" value="5500" />
+            <button id="cart_amount3" name="cart_amount3" onclick="cart_amount3(5500)">cart_amount1</button>
+        </div>
+        <div>
+            <input type="text" id="amount4" name="amount4" placeholder="2500" value="1500" />
+            <button id="cart_amount4" name="cart_amount4" onclick="cart_amount4(2500)">cart_amount1</button>
+        </div> -->
+        <div class="container">
+            <div class="progress-bar__container">
+              <div class="progress-bar">
+              </div>
+            </div><p id="progress-text"><b>₹ 1,000.00</b></p>
+        </div>
         <!-- <script>
             let output1 = document.getElementById('output');
             output1.innerHTML = JSON.stringify(window.testAppInfo || 'Variable not available');
@@ -80,6 +102,7 @@
             // function cart_amount1(amount){
             //     const progressBarContainer = document.querySelector('.progress-bar__container');
             //     const progressBar = document.querySelector('.progress-bar');
+            //     const progressText = document.getElementById('progress-text');
             //     // const progressBarText = document.querySelector('.progress-bar__text');
                 
             //     const percentageamount = amount / 1000 * 100;
@@ -92,11 +115,13 @@
             //             progressBarContainer.style.boxShadow = '0 0 5px #4895ef';
             //             }
             //         });
+            //         if(amount <  1000) progressText.bold.innerHTML = "₹ 1,000.00";
             // }
 
             // function cart_amount2(amount){
             //     const progressBarContainer = document.querySelector('.progress-bar__container');
             //     const progressBar = document.querySelector('.progress-bar');
+            //     const progressText = document.getElementById('progress-text');
             //     // const progressBarText = document.querySelector('.progress-bar__text');
                 
             //     const percentageamount = amount / 1000 * 100;
@@ -109,14 +134,16 @@
             //             progressBarContainer.style.boxShadow = '0 0 5px #4895ef';
             //             }
             //         });
+            //         if(amount <=  1000) progressText.bold.innerHTML = "₹ 1,000.00";
             // }
 
             // function cart_amount3(amount){
             //     const progressBarContainer = document.querySelector('.progress-bar__container');
             //     const progressBar = document.querySelector('.progress-bar');
+            //     const progressText = document.getElementById('progress-text');
             //     // const progressBarText = document.querySelector('.progress-bar__text');
                 
-            //     const percentageamount = amount / 1000 * 100;
+            //     const percentageamount = (amount / 3000 * 100) > 100 ? 100 : amount / 3000 * 100;
             //     gsap.to(progressBar, {
             //             x: `${percentageamount}%`,
             //             duration: 2,
@@ -126,6 +153,26 @@
             //             progressBarContainer.style.boxShadow = '0 0 5px #4895ef';
             //             }
             //         });
+            //         if(amount <  3000) progressText.bold.innerHTML = "₹ 3,000.00";
+            // }
+            
+            // function cart_amount4(amount){
+            //     const progressBarContainer = document.querySelector('.progress-bar__container');
+            //     const progressBar = document.querySelector('.progress-bar');
+            //     const progressText = document.getElementById('progress-text');
+            //     // const progressBarText = document.querySelector('.progress-bar__text');
+                
+            //     const percentageamount = (amount / 3000 * 100) > 100 ? 100 : amount / 3000 * 100;
+            //     gsap.to(progressBar, {
+            //             x: `${percentageamount}%`,
+            //             duration: 2,
+            //             backgroundColor: '#4895ef',
+            //             onComplete: () => {
+            //             // progressBarText.style.display = "initial";
+            //             progressBarContainer.style.boxShadow = '0 0 5px #4895ef';
+            //             }
+            //         });
+            //         if(amount <=  3000) progressText.bold.innerHTML = "₹ 3,000.00";
             // }
         </script>
     </body>

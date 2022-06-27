@@ -58,6 +58,9 @@
             //         output.innerHTML = output.innerHTML + content;
             //     }
             // );
+            const progressBarContainer = document.querySelector('.progress-bar__container');
+            const progressBar = document.querySelector('.progress-bar');
+            const progressText = document.getElementById('progress-text');
             VajroSDK.subscribe(
                 VajroSDK.Triggers.LINE_ITEM_ADDED_TO_CART,
                 (appContext, lineItem) => {
@@ -70,6 +73,10 @@
                             extraproduct = id;
                             break;
                         }
+                        if (id === '7041966440639') {
+                            extraproduct3thous = id;
+                            break;
+                        }
                     }
                     document.innerHTML = document.innerHTML + `This ${productId} is added in cart`;
                     if (productId === '6928830267583') {
@@ -80,14 +87,7 @@
                             customAttributes: {},
                             lineItemType: 'REGULAR'
                         };
-                        VajroSDK.addLineItemToCart(
-                            values.productId,
-                            values.variantId,
-                            values.quantity,
-                            values.customAttributes,
-                            values.lineItemType
-                        )
-                            .then((res) => {
+                        VajroSDK.addLineItemToCart(values.productId,values.variantId,values.quantity,values.customAttributes,values.lineItemType).then((res) => {
                                 output.innerHTML = `The sub product added for main product`;
                                 setTimeout(() => {
                                     output.innerHTML = '';
@@ -109,17 +109,46 @@
                             customAttributes: {},
                             lineItemType: 'REGULAR'
                         };
-                        VajroSDK.addLineItemToCart(
-                            values.productId,
-                            values.variantId,
-                            values.quantity,
-                            values.customAttributes,
-                            values.lineItemType
-                        )
-                            .then((res) => {})
+                        VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
                             .catch((err) => {
                                 output.innerHTML = err;
                             });
+                        const percentageamount = (totalAfterSavings / 1000 * 100) > 100 ? 100 : totalAfterSavings / 1000 * 100;
+                            gsap.to(progressBar, {
+                                    x: `${percentageamount}%`,
+                                    duration: 2,
+                                    backgroundColor: '#4895ef',
+                                    onComplete: () => {
+                                    // progressBarText.style.display = "initial";
+                                    progressBarContainer.style.boxShadow = '0 0 5px #4895ef';
+                                    }
+                                });
+                        if(amount <  1000) progressText.bold.innerHTML = "₹ 1,000.00";
+                    } 
+
+                    if (totalAfterSavings > 3000 && extraproduct3thous != "7041966440639"){
+                        const values = {
+                            productId: '7041966440639',
+                            variantId: '40940367184063',
+                            quantity: 1,
+                            customAttributes: {},
+                            lineItemType: 'REGULAR'
+                        };
+                        VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
+                            .catch((err) => {
+                                output.innerHTML = err;
+                            });
+                            const percentageamount = (totalAfterSavings / 3000 * 100) > 100 ? 100 : totalAfterSavings / 3000 * 100;
+                            gsap.to(progressBar, {
+                                    x: `${percentageamount}%`,
+                                    duration: 2,
+                                    backgroundColor: '#4895ef',
+                                    onComplete: () => {
+                                    // progressBarText.style.display = "initial";
+                                    progressBarContainer.style.boxShadow = '0 0 5px #4895ef';
+                                    }
+                                });
+                        if(amount <  3000) progressText.bold.innerHTML = "₹ 3,000.00";
                     } 
                 }
             );
@@ -135,93 +164,104 @@
                             extraproduct = id;
                             break;
                         }
+                        if (id === '7041966440639') {
+                            extraproduct3thous = id;
+                            break;
+                        }
                     }
                     let content = `<div>The product ${productId}`;
                     if (updateType === 'Increment') {
-                        let { productId } = lineItem;
+                        let { productId, quantity } = lineItem;
+                        // Buy1Get1 Add one item to the cart condition
                         if (productId === '6928830267583') {
                             const values = {
                                 productId: '6750261739711',
                                 variantId: '41722470400191',
-                                quantity: 1,
+                                quantity: quantity,
                                 customAttributes: {},
-                                lineItemType: 'REGULAR'
+                                lineItemType: 'READONLY'
                             };
-                            VajroSDK.addLineItemToCart(
-                                values.productId,
-                                values.variantId,
-                                values.quantity,
-                                values.customAttributes,
-                                values.lineItemType
-                            )
-                                .then((res) => {})
+                            VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
                                 .catch((err) => {
                                     output.innerHTML = err;
                                 });
                         } else {
-                            // let { productId } = lineItem;
-                            // let content = `<div>The product ${productId}`;
-                            // if (updateType === 'Increment') {
                                 content += ' count is increased in the cart';
-                            // } else if (updateType === 'Decrement') {
-                            //     content += ' count is decreased in the cart';
-                            // } else if (updateType === 'Delete') {
-                            //     content += ' is deleted from cart';
-                            // }
-                            content += '</div>';
-                            output.innerHTML = output.innerHTML + content;
+                                content += '</div>';
+                                output.innerHTML = output.innerHTML + content;
                         }
+                        // Above 1000 add one item to the cart condition
                         if (totalAfterSavings > 1000  && extraproduct != "6733310853311"){
                             const values = {
                                 productId: '6733310853311',
                                 variantId: '39989207400639',
                                 quantity: 1,
                                 customAttributes: {},
-                                lineItemType: 'REGULAR'
+                                lineItemType: 'READONLY'
                             };
-                            VajroSDK.addLineItemToCart(
-                                values.productId,
-                                values.variantId,
-                                values.quantity,
-                                values.customAttributes,
-                                values.lineItemType
-                            )
-                                .then((res) => {})
+                            VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
                                 .catch((err) => {
                                     output.innerHTML = err;
                                 });
+                            const percentageamount = (totalAfterSavings / 1000 * 100) > 100 ? 100 : totalAfterSavings / 1000 * 100;
+                            gsap.to(progressBar, {
+                                x: `${percentageamount}%`,
+                                duration: 2,
+                                backgroundColor: '#4895ef',
+                                onComplete: () => {
+                                    // progressBarText.style.display = "initial";
+                                    progressBarContainer.style.boxShadow = '0 0 5px #4895ef';
+                                }
+                            });
+                            if(amount <  1000) progressText.bold.innerHTML = "₹ 1,000.00";
+                        } 
+                        // Above 3000 add one item to the cart condition
+                        if (totalAfterSavings > 3000  && extraproduct3thous != "7041966440639"){
+                            const values = {
+                                productId: '7041966440639',
+                                variantId: '40940367184063',
+                                quantity: 1,
+                                customAttributes: {},
+                                lineItemType: 'READONLY'
+                            };
+                            VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
+                                .catch((err) => {
+                                    output.innerHTML = err;
+                                });
+                            const percentageamount = (totalAfterSavings / 3000 * 100) > 100 ? 100 : totalAfterSavings / 3000 * 100;
+                            gsap.to(progressBar, {
+                                x: `${percentageamount}%`,
+                                duration: 2,
+                                backgroundColor: '#4895ef',
+                                onComplete: () => {
+                                    // progressBarText.style.display = "initial";
+                                    progressBarContainer.style.boxShadow = '0 0 5px #4895ef';
+                                }
+                            });
+                            if(amount <  3000) progressText.bold.innerHTML = "₹ 3,000.00";
                         } 
                     } else if (updateType === 'Decrement') {
-                        let { productId } = lineItem;
+                        let { productId, quantity } = lineItem;
+                        // Buy1Get1 Remove one item to the cart condition
                         if (productId === '6928830267583') {
-                            let {
-                                cartLineItems: { lineItems }
-                            } = appContext;
+                            let {cartLineItems: { lineItems }} = appContext;
                             let subLineItemHandle;
-                            for (let {
-                                lineItemHandle,
-                                productId: id
-                            } of lineItems) {
+                            for (let {lineItemHandle, productId: id} of lineItems) {
                                 if (id === '6750261739711') {
                                     subLineItemHandle = lineItemHandle;
                                     break;
                                 }
                             }
                             if (subLineItemHandle) {
-                                VajroSDK.removeLineItemFromCart(
-                                    subLineItemHandle,
-                                    1
-                                )
-                                    .then(() => {})
-                                    .catch((err) => {});
+                                VajroSDK.removeLineItemFromCart(subLineItemHandle, quantity).then(() => {}).catch((err) => {});
                             }
                         } else {
                             content += ' count is decreased in the cart';
                             content += '</div>';
                             output.innerHTML = output.innerHTML + content;
                         }
-
-                        if (totalAfterSavings < 1000){
+                        // Below 1000 remove one item to the cart condition
+                        if (totalAfterSavings < 1000 && extraproduct == "6733310853311"){
                             let { cartLineItems: { lineItems } } = appContext;
                             let subLineItemHandle;
                             for (let { lineItemHandle, productId: id } of lineItems) {
@@ -232,6 +272,42 @@
                             }
                             if (subLineItemHandle) {
                                 VajroSDK.removeLineItemFromCart(subLineItemHandle, 1).then(() => {}).catch((err) => {});
+                                const percentageamount = (totalAfterSavings / 1000 * 100) > 100 ? 100 : totalAfterSavings / 1000 * 100;
+                                gsap.to(progressBar, {
+                                    x: `${percentageamount}%`,
+                                    duration: 2,
+                                    backgroundColor: '#4895ef',
+                                    onComplete: () => {
+                                        // progressBarText.style.display = "initial";
+                                        progressBarContainer.style.boxShadow = '0 0 5px #4895ef';
+                                    }
+                                });
+                                if(amount <=  1000) progressText.bold.innerHTML = "₹ 1,000.00";
+                            }
+                        }
+                        // Below 3000 remove one item to the cart condition
+                        if (totalAfterSavings < 3000 && extraproduct == "7041966440639"){
+                            let { cartLineItems: { lineItems } } = appContext;
+                            let subLineItemHandle;
+                            for (let { lineItemHandle, productId: id } of lineItems) {
+                                if (id === '7041966440639') {
+                                    subLineItemHandle = lineItemHandle;
+                                    break;
+                                }
+                            }
+                            if (subLineItemHandle) {
+                                VajroSDK.removeLineItemFromCart(subLineItemHandle, 1).then(() => {}).catch((err) => {});
+                                const percentageamount = (totalAfterSavings / 3000 * 100) > 100 ? 100 : totalAfterSavings / 3000 * 100;
+                                gsap.to(progressBar, {
+                                    x: `${percentageamount}%`,
+                                    duration: 2,
+                                    backgroundColor: '#4895ef',
+                                    onComplete: () => {
+                                        // progressBarText.style.display = "initial";
+                                        progressBarContainer.style.boxShadow = '0 0 5px #4895ef';
+                                    }
+                                });
+                                if(amount <=  3000) progressText.bold.innerHTML = "₹ 3,000.00";
                             }
                         }
                     } else if (updateType === 'Delete') {
@@ -246,30 +322,55 @@
                                 }
                             }
                             if (subLineItemHandle) {
-                                VajroSDK.removeLineItemFromCart(subLineItemHandle, 1).then(() => {}).catch((err) => {});
+                                VajroSDK.removeLineItemFromCart(subLineItemHandle, 0).then(() => {}).catch((err) => {});
+                                const percentageamount = (totalAfterSavings / 1000 * 100) > 100 ? 100 : totalAfterSavings / 1000 * 100;
+                                gsap.to(progressBar, {
+                                    x: `${percentageamount}%`,
+                                    duration: 2,
+                                    backgroundColor: '#4895ef',
+                                    onComplete: () => {
+                                        // progressBarText.style.display = "initial";
+                                        progressBarContainer.style.boxShadow = '0 0 5px #4895ef';
+                                    }
+                                });
+                                if(amount <=  1000) progressText.bold.innerHTML = "₹ 1,000.00";
+                            }
+                        }
+                        if (totalAfterSavings < 3000){
+                            let { cartLineItems: { lineItems } } = appContext;
+                            let subLineItemHandle;
+                            for (let { lineItemHandle, productId: id } of lineItems) {
+                                if (id === '7041966440639') {
+                                    subLineItemHandle = lineItemHandle;
+                                    break;
+                                }
+                            }
+                            if (subLineItemHandle) {
+                                VajroSDK.removeLineItemFromCart(subLineItemHandle, 0).then(() => {}).catch((err) => {});
+                                const percentageamount = (totalAfterSavings / 3000 * 100) > 100 ? 100 : totalAfterSavings / 3000 * 100;
+                                gsap.to(progressBar, {
+                                    x: `${percentageamount}%`,
+                                    duration: 2,
+                                    backgroundColor: '#4895ef',
+                                    onComplete: () => {
+                                        // progressBarText.style.display = "initial";
+                                        progressBarContainer.style.boxShadow = '0 0 5px #4895ef';
+                                    }
+                                });
+                                if(amount <=  3000) progressText.bold.innerHTML = "₹ 3,000.00";
                             }
                         }
                         if (productId === '6928830267583') {
-                            let {
-                                cartLineItems: { lineItems }
-                            } = appContext;
+                            let {cartLineItems: { lineItems }} = appContext;
                             let subLineItemHandle;
-                            for (let {
-                                lineItemHandle,
-                                productId: id
-                            } of lineItems) {
+                            for (let {lineItemHandle, productId: id} of lineItems) {
                                 if (id === '6750261739711') {
                                     subLineItemHandle = lineItemHandle;
                                     break;
                                 }
                             }
                             if (subLineItemHandle) {
-                                VajroSDK.removeLineItemFromCart(
-                                    subLineItemHandle,
-                                    1
-                                )
-                                    .then(() => {})
-                                    .catch((err) => {});
+                                VajroSDK.removeLineItemFromCart(subLineItemHandle, 0).then(() => {}).catch((err) => {});
                             }
                         } else {
                             content += ' is deleted from cart';
