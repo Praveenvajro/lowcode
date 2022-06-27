@@ -294,7 +294,7 @@
                         }else {
                             progressbarcalc(totalAfterSavings, 3000)
                         }
-                        if (totalAfterSavings < 3000 && extraproduct == "6733310853311"){
+                        if (totalAfterSavings < 3000){
                             let { cartLineItems: { lineItems } } = appContext;
                             let subLineItemHandle;
                             for (let { lineItemHandle, productId: id } of lineItems) {
