@@ -275,6 +275,17 @@
                             }
                             if (subLineItemHandle) {
                                 VajroSDK.removeLineItemFromCart(subLineItemHandle, 0).then(() => {}).catch((err) => {});
+                                const values = {
+                                    productId: '6733310853311',
+                                    variantId: '39989207400639',
+                                    quantity: 1,
+                                    customAttributes: {},
+                                    lineItemType: 'READONLY'
+                                };
+                                VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
+                                    .catch((err) => {
+                                        output.innerHTML = err;
+                                    });
                                 const percentageamount = (totalAfterSavings / 3000 * 100) > 100 ? 100 : totalAfterSavings / 3000 * 100;
                                 gsap.to(progressBar, {
                                     x: `${percentageamount}%`,
