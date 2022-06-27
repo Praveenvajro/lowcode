@@ -58,7 +58,9 @@
             //         output.innerHTML = output.innerHTML + content;
             //     }
             // );
-            
+            const progressBarContainer = document.querySelector('.progress-bar__container');
+            const progressBar = document.querySelector('.progress-bar');
+            const progressText = document.getElementById('progress-text');
             VajroSDK.subscribe(
                 VajroSDK.Triggers.LINE_ITEM_ADDED_TO_CART,
                 (appContext, lineItem) => {
