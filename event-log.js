@@ -58,13 +58,11 @@
             //         output.innerHTML = output.innerHTML + content;
             //     }
             // );
-            const progressBarContainer = document.querySelector('.progress-bar__container');
-            const progressBar = document.querySelector('.progress-bar');
-            const progressText = document.getElementById('progress-text');
+            
             VajroSDK.subscribe(
                 VajroSDK.Triggers.LINE_ITEM_ADDED_TO_CART,
                 (appContext, lineItem) => {
-                    output.innerHTML = output.innerHTML + `<div>LINE_ITEM_ADDED_TO_CART trigger invoked</div>`;
+                    // output.innerHTML = output.innerHTML + `<div>LINE_ITEM_ADDED_TO_CART trigger invoked</div>`;
                     let { productId, quantity } = lineItem;
                     let { cartLineItems: { totalAfterSavings, lineItems } } = appContext;
                     let extraproduct;
@@ -87,23 +85,23 @@
                             customAttributes: {},
                             lineItemType: 'READONLY'
                         };
-                        output.innerHTML = output.innerHTML + `<div>addLineItemToCart action invoked</div>`;
+                        // output.innerHTML = output.innerHTML + `<div>addLineItemToCart action invoked</div>`;
                         VajroSDK.addLineItemToCart(values.productId,values.variantId,values.quantity,values.customAttributes,values.lineItemType).then((res) => {
-                                output.innerHTML = `The sub product added for main product`;
+                                // output.innerHTML = `The sub product added for main product`;
                                 setTimeout(() => {
                                     output.innerHTML = '';
                                 }, 10000);
                             })
                             .catch((err) => {
-                                output.innerHTML = err;
+                                // output.innerHTML = err;
                             });
                     } else {
                         let content = `<div>The product ${productId} added to your cart</div>`;
-                        output.innerHTML = output.innerHTML + content;
+                        // output.innerHTML = output.innerHTML + content;
                     }
                     progressbarcalc(totalAfterSavings, 3000)
                     if (totalAfterSavings > 3000 && extraproduct3thous != "7041966440639"){
-                        output.innerHTML = totalAfterSavings + "above 3000 product"
+                        // output.innerHTML = totalAfterSavings + "above 3000 product"
                         const values = {
                             productId: '7041966440639',
                             variantId: '40940367184063',
@@ -113,22 +111,11 @@
                         };
                         VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
                             .catch((err) => {
-                                output.innerHTML = err;
+                                // output.innerHTML = err;
                             });
-                        //     const percentageamount = (totalAfterSavings / 3000 * 100) > 100 ? 100 : totalAfterSavings / 3000 * 100;
-                        //     gsap.to(progressBar, {
-                        //             x: `${percentageamount}%`,
-                        //             duration: 2,
-                        //             backgroundColor: '#4895ef',
-                        //             onComplete: () => {
-                        //             // progressBarText.style.display = "initial";
-                        //             progressBarContainer.style.boxShadow = '0 0 5px #4895ef';
-                        //             }
-                        //         });
-                        // if(amount <  3000) progressText.bold.innerHTML = "₹ 3,000.00";
                         progressbarcalc(totalAfterSavings, 3000)
                     } else if (totalAfterSavings > 1000 && extraproduct != "6733310853311"){
-                        output.innerHTML = totalAfterSavings + "above 3000 product"
+                        // output.innerHTML = totalAfterSavings + "above 3000 product"
                         const values = {
                             productId: '6733310853311',
                             variantId: '39989207400639',
@@ -138,19 +125,9 @@
                         };
                         VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
                             .catch((err) => {
-                                output.innerHTML = err;
+                                // output.innerHTML = err;
                             });
-                        const percentageamount = (totalAfterSavings / 1000 * 100) > 100 ? 100 : totalAfterSavings / 1000 * 100;
-                            gsap.to(progressBar, {
-                                    x: `${percentageamount}%`,
-                                    duration: 2,
-                                    backgroundColor: '#4895ef',
-                                    onComplete: () => {
-                                    // progressBarText.style.display = "initial";
-                                    progressBarContainer.style.boxShadow = '0 0 5px #4895ef';
-                                    }
-                                });
-                        if(amount <  1000) progressText.bold.innerHTML = "₹ 1,000.00";
+                        progressbarcalc(totalAfterSavings, 1000)
                     } 
 
                     
@@ -160,7 +137,7 @@
             VajroSDK.subscribe(
                 VajroSDK.Triggers.LINE_ITEM_UPDATED,
                 (appContext, updateType, lineItem) => {
-                    output.innerHTML = output.innerHTML + JSON.stringify(`Line item - ${lineItem}`);
+                    // output.innerHTML = output.innerHTML + JSON.stringify(`Line item - ${lineItem}`);
                     let { productId } = lineItem;
                     let { cartLineItems: { totalAfterSavings, lineItems } } = appContext;
                     let extraproduct, extraproduct3thous, aboveLineItemHandle1000, aboveLineItemHandle3000;
@@ -190,12 +167,12 @@
                             };
                             VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
                                 .catch((err) => {
-                                    output.innerHTML = err;
+                                    // output.innerHTML = err;
                                 });
                         } else {
                                 content += ' count is increased in the cart';
                                 content += '</div>';
-                                output.innerHTML = output.innerHTML + content;
+                                // output.innerHTML = output.innerHTML + content;
                         }
                         if (totalAfterSavings > 3000 ){    // Above 3000 add one item to the cart condition
                             if(extraproduct3thous != "7041966440639"){
@@ -209,7 +186,7 @@
                                 };
                                 VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
                                     .catch((err) => {
-                                        output.innerHTML = err;
+                                        // output.innerHTML = err;
                                     });
                             }
                             progressbarcalc(totalAfterSavings, 3000)
@@ -225,7 +202,7 @@
                                 };
                                 VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
                                     .catch((err) => {
-                                        output.innerHTML = err;
+                                        // output.innerHTML = err;
                                     });
                             }
                             progressbarcalc(totalAfterSavings, 3000)
@@ -234,7 +211,7 @@
                         } 
                     } else if (updateType === 'Decrement') {
                         let { productId, lineItemHandle, quantity } = lineItem;
-                        output.innerHTML = output.innerHTML + `Line item handle - ${lineItemHandle}`;
+                        // output.innerHTML = output.innerHTML + `Line item handle - ${lineItemHandle}`;
                         // Buy1Get1 Remove one item to the cart condition
                         if (productId === '6928830267583') {
                             let {cartLineItems: { lineItems }} = appContext;
@@ -251,7 +228,7 @@
                         } else {
                             content += ' count is decreased in the cart';
                             content += '</div>';
-                            output.innerHTML = output.innerHTML + content;
+                            // output.innerHTML = output.innerHTML + content;
                         }
                         if (totalAfterSavings < 3000 && extraproduct3thous == "7041966440639"){   // Below 3000 remove one item to the cart condition
                             let { cartLineItems: { lineItems } } = appContext;
@@ -273,7 +250,7 @@
                                 };
                                 VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
                                     .catch((err) => {
-                                        output.innerHTML = err;
+                                        // output.innerHTML = err;
                                     });
                                 progressbarcalc(totalAfterSavings, 3000)
                                 VajroSDK.removeLineItemFromCart(aboveLineItemHandle3000, 0).then(() => {}).catch((err) => {});
@@ -349,13 +326,16 @@
                         } else {
                             content += ' is deleted from cart';
                             content += '</div>';
-                            output.innerHTML = output.innerHTML + content;
+                            // output.innerHTML = output.innerHTML + content;
                         }
                     }
                 }
             );
 
             function progressbarcalc(totalAfterSavings, aboveamount) {
+                const progressBarContainer = document.querySelector('.progress-bar__container');
+                const progressBar = document.querySelector('.progress-bar');
+                const progressText = document.getElementById('progress-text');
                 const percentageamount = (totalAfterSavings / aboveamount * 100) > 100 ? 100 : totalAfterSavings / aboveamount * 100;
                 gsap.to(progressBar, {
                     x: `${percentageamount}%`,
