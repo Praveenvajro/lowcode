@@ -274,7 +274,7 @@
                                 }
                             }
                             if (subLineItemHandle) {
-                                VajroSDK.removeLineItemFromCart(subLineItemHandle, 1).then(() => {}).catch((err) => {});
+                                VajroSDK.removeLineItemFromCart(subLineItemHandle, 0).then(() => {}).catch((err) => {});
                                 const percentageamount = (totalAfterSavings / 1000 * 100) > 100 ? 100 : totalAfterSavings / 1000 * 100;
                                 gsap.to(progressBar, {
                                     x: `${percentageamount}%`,
@@ -299,7 +299,7 @@
                                 }
                             }
                             if (subLineItemHandle) {
-                                VajroSDK.removeLineItemFromCart(subLineItemHandle, 1).then(() => {}).catch((err) => {});
+                                VajroSDK.removeLineItemFromCart(subLineItemHandle, 0).then(() => {}).catch((err) => {});
                                 const percentageamount = (totalAfterSavings / 3000 * 100) > 100 ? 100 : totalAfterSavings / 3000 * 100;
                                 gsap.to(progressBar, {
                                     x: `${percentageamount}%`,
