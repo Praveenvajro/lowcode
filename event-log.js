@@ -198,6 +198,7 @@
                                 output.innerHTML = output.innerHTML + content;
                         }
                         if (totalAfterSavings > 3000  && extraproduct3thous != "7041966440639"){    // Above 3000 add one item to the cart condition
+                            VajroSDK.removeLineItemFromCart(aboveLineItemHandle1000, 0).then(() => {}).catch((err) => {});
                             const values = {
                                 productId: '7041966440639',
                                 variantId: '40940367184063',
@@ -221,8 +222,8 @@
                             // });
                             // if(amount <  3000) progressText.bold.innerHTML = "₹ 3,000.00";
                             progressbarcalc(totalAfterSavings, 3000)
-                            VajroSDK.removeLineItemFromCart(aboveLineItemHandle1000, 0).then(() => {}).catch((err) => {});
                         } else if (totalAfterSavings > 1000  && extraproduct != "6733310853311"){   // Above 1000 add one item to the cart condition
+                            VajroSDK.removeLineItemFromCart(aboveLineItemHandle3000, 0).then(() => {}).catch((err) => {});
                             const values = {
                                 productId: '6733310853311',
                                 variantId: '39989207400639',
@@ -246,7 +247,6 @@
                             // });
                             // if(amount <  1000) progressText.bold.innerHTML = "₹ 1,000.00";
                             progressbarcalc(totalAfterSavings, 1000)
-                            VajroSDK.removeLineItemFromCart(aboveLineItemHandle3000, 0).then(() => {}).catch((err) => {});
                         } 
                     } else if (updateType === 'Decrement') {
                         let { productId, lineItemHandle, quantity } = lineItem;
