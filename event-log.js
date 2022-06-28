@@ -31,8 +31,8 @@
             //                 });
             // }
 
-            let output = document.getElementById('output');
-            output.innerHTML = 'this is sample one';
+            // let output = document.getElementById('output');
+            // output.innerHTML = 'this is sample one';
             
             // VajroSDK.subscribe(
             //     VajroSDK.Triggers.LINE_ITEM_ADDED_TO_CART,
@@ -88,9 +88,9 @@
                         // output.innerHTML = output.innerHTML + `<div>addLineItemToCart action invoked</div>`;
                         VajroSDK.addLineItemToCart(values.productId,values.variantId,values.quantity,values.customAttributes,values.lineItemType).then((res) => {
                                 // output.innerHTML = `The sub product added for main product`;
-                                setTimeout(() => {
-                                    output.innerHTML = '';
-                                }, 10000);
+                                // setTimeout(() => {
+                                //     output.innerHTML = '';
+                                // }, 10000);
                             })
                             .catch((err) => {
                                 // output.innerHTML = err;
@@ -203,12 +203,6 @@
                                 }
                             }
                             progressbarcalc(totalAfterSavings, 3000)
-                            // if (subLineItemHandle) {
-                                // VajroSDK.removeLineItemFromCart(subLineItemHandle, 0).then(() => {}).catch((err) => {});
-                                // addThousAboveProduct()
-                                // progressbarcalc(totalAfterSavings, 3000)
-                                // VajroSDK.removeLineItemFromCart(aboveLineItemHandle3000, 0).then(() => {}).catch((err) => {});
-                            // }
                         } else if (totalAfterSavings < 1000 && extraproduct == "6733310853311"){    // Below 1000 remove one item to the cart condition
                             let { cartLineItems: { lineItems } } = appContext;
                             let subLineItemHandle;
@@ -227,15 +221,12 @@
                             if(totalAfterSavings < 1000){
                                 progressbarcalc(totalAfterSavings, 1000)
                             }else {
-                                // addThousAboveProduct()
                                 progressbarcalc(totalAfterSavings, 3000)
                             }
                         }
                     } else if (updateType === 'Delete') {
-                        output.innerHTML = output.innerHTML + totalAfterSavings;
                         let { productId } = lineItem;
                         if (totalAfterSavings < 1000){
-                            output.innerHTML = output.innerHTML + totalAfterSavings;
                             let { cartLineItems: { lineItems } } = appContext;
                             for (let { lineItemHandle, productId: id } of lineItems) {
                                 if (id === '6733310853311') {
@@ -247,11 +238,9 @@
                             }
                             progressbarcalc(totalAfterSavings, 1000)
                         }else if (totalAfterSavings < 3000){
-                            output.innerHTML = output.innerHTML + totalAfterSavings;
                             let { cartLineItems: { lineItems } } = appContext;
                             for (let { lineItemHandle, productId: id } of lineItems) {
                                 if (id === '7041966440639') {
-                                    output.innerHTML = output.innerHTML + id;
                                     VajroSDK.removeLineItemFromCart(lineItemHandle, 0).then(() => {}).catch((err) => {});
                                     addThousAboveProduct()
                                 }
@@ -296,7 +285,7 @@
                         progressBarContainer.style.boxShadow = '0 0 5px #4895ef';
                     }
                 });
-                if(totalAfterSavings <=  aboveamount) progressText.bold.innerHTML = `₹ ${aboveamount.toFixed(2)}`;
+                if(totalAfterSavings <=  aboveamount) progressText.innerHTML = `₹ ${aboveamount.toFixed(2)}`;
             }
 
             function addThousAboveProduct(){
