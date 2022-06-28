@@ -102,31 +102,33 @@
                     progressbarcalc(totalAfterSavings, 3000)
                     if (totalAfterSavings > 3000 && extraproduct3thous != "7041966440639"){
                         // output.innerHTML = totalAfterSavings + "above 3000 product"
-                        const values = {
-                            productId: '7041966440639',
-                            variantId: '40940367184063',
-                            quantity: 1,
-                            customAttributes: {},
-                            lineItemType: 'READONLY'
-                        };
-                        VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
-                            .catch((err) => {
-                                // output.innerHTML = err;
-                            });
+                        addThreeThousAboveProduct()
+                        // const values = {
+                        //     productId: '7041966440639',
+                        //     variantId: '40940367184063',
+                        //     quantity: 1,
+                        //     customAttributes: {},
+                        //     lineItemType: 'READONLY'
+                        // };
+                        // VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
+                        //     .catch((err) => {
+                        //         // output.innerHTML = err;
+                        //     });
                         progressbarcalc(totalAfterSavings, 3000)
                     } else if (totalAfterSavings > 1000 && extraproduct != "6733310853311"){
                         // output.innerHTML = totalAfterSavings + "above 3000 product"
-                        const values = {
-                            productId: '6733310853311',
-                            variantId: '39989207400639',
-                            quantity: 1,
-                            customAttributes: {},
-                            lineItemType: 'READONLY'
-                        };
-                        VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
-                            .catch((err) => {
-                                // output.innerHTML = err;
-                            });
+                        addThousAboveProduct()
+                        // const values = {
+                        //     productId: '6733310853311',
+                        //     variantId: '39989207400639',
+                        //     quantity: 1,
+                        //     customAttributes: {},
+                        //     lineItemType: 'READONLY'
+                        // };
+                        // VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
+                        //     .catch((err) => {
+                        //         // output.innerHTML = err;
+                        //     });
                         progressbarcalc(totalAfterSavings, 1000)
                     } 
 
@@ -177,33 +179,35 @@
                         if (totalAfterSavings > 3000 ){    // Above 3000 add one item to the cart condition
                             if(extraproduct3thous != "7041966440639"){
                                 VajroSDK.removeLineItemFromCart(aboveLineItemHandle1000, 0).then(() => {}).catch((err) => {});
-                                const values = {
-                                    productId: '7041966440639',
-                                    variantId: '40940367184063',
-                                    quantity: 1,
-                                    customAttributes: {},
-                                    lineItemType: 'READONLY'
-                                };
-                                VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
-                                    .catch((err) => {
-                                        // output.innerHTML = err;
-                                    });
+                                addThreeThousAboveProduct()
+                                // const values = {
+                                //     productId: '7041966440639',
+                                //     variantId: '40940367184063',
+                                //     quantity: 1,
+                                //     customAttributes: {},
+                                //     lineItemType: 'READONLY'
+                                // };
+                                // VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
+                                //     .catch((err) => {
+                                //         // output.innerHTML = err;
+                                //     });
                             }
                             progressbarcalc(totalAfterSavings, 3000)
                         } else if (totalAfterSavings > 1000){   // Above 1000 add one item to the cart condition
                             if(extraproduct != "6733310853311"){
                                 VajroSDK.removeLineItemFromCart(aboveLineItemHandle3000, 0).then(() => {}).catch((err) => {});
-                                const values = {
-                                    productId: '6733310853311',
-                                    variantId: '39989207400639',
-                                    quantity: 1,
-                                    customAttributes: {},
-                                    lineItemType: 'READONLY'
-                                };
-                                VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
-                                    .catch((err) => {
-                                        // output.innerHTML = err;
-                                    });
+                                addThousAboveProduct()
+                                // const values = {
+                                //     productId: '6733310853311',
+                                //     variantId: '39989207400639',
+                                //     quantity: 1,
+                                //     customAttributes: {},
+                                //     lineItemType: 'READONLY'
+                                // };
+                                // VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
+                                //     .catch((err) => {
+                                //         // output.innerHTML = err;
+                                //     });
                             }
                             progressbarcalc(totalAfterSavings, 3000)
                         }else {
@@ -238,17 +242,18 @@
                                     // subLineItemHandle = lineItemHandle;
                                     // break;
                                     VajroSDK.removeLineItemFromCart(lineItemHandle, 0).then(() => {}).catch((err) => {});
-                                    const values = {
-                                        productId: '6733310853311',
-                                        variantId: '39989207400639',
-                                        quantity: 1,
-                                        customAttributes: {},
-                                        lineItemType: 'READONLY'
-                                    };
-                                    VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
-                                        .catch((err) => {
-                                            // output.innerHTML = err;
-                                        });
+                                    addThousAboveProduct()
+                                    // const values = {
+                                    //     productId: '6733310853311',
+                                    //     variantId: '39989207400639',
+                                    //     quantity: 1,
+                                    //     customAttributes: {},
+                                    //     lineItemType: 'READONLY'
+                                    // };
+                                    // VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
+                                    //     .catch((err) => {
+                                    //         // output.innerHTML = err;
+                                    //     });
                                     VajroSDK.removeLineItemFromCart(aboveLineItemHandle3000, 0).then(() => {}).catch((err) => {});
                                 }
                             }
@@ -287,6 +292,18 @@
                             if(totalAfterSavings < 1000){
                                 progressbarcalc(totalAfterSavings, 1000)
                             }else {
+                                addThousAboveProduct()
+                                // const values = {
+                                //     productId: '6733310853311',
+                                //     variantId: '39989207400639',
+                                //     quantity: 1,
+                                //     customAttributes: {},
+                                //     lineItemType: 'READONLY'
+                                // };
+                                // VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
+                                //     .catch((err) => {
+                                //         // output.innerHTML = err;
+                                //     });
                                 progressbarcalc(totalAfterSavings, 3000)
                             }
                         }
@@ -310,18 +327,20 @@
                             let { cartLineItems: { lineItems } } = appContext;
                             for (let { lineItemHandle, productId: id } of lineItems) {
                                 if (id === '7041966440639') {
+                                    alert(id)
                                     VajroSDK.removeLineItemFromCart(lineItemHandle, 0).then(() => {}).catch((err) => {});
-                                    const values = {
-                                        productId: '6733310853311',
-                                        variantId: '39989207400639',
-                                        quantity: 1,
-                                        customAttributes: {},
-                                        lineItemType: 'READONLY'
-                                    };
-                                    VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
-                                        .catch((err) => {
-                                            // output.innerHTML = err;
-                                    });
+                                    addThousAboveProduct()
+                                    // const values = {
+                                    //     productId: '6733310853311',
+                                    //     variantId: '39989207400639',
+                                    //     quantity: 1,
+                                    //     customAttributes: {},
+                                    //     lineItemType: 'READONLY'
+                                    // };
+                                    // VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
+                                    //     .catch((err) => {
+                                    //         // output.innerHTML = err;
+                                    // });
                                 }
                             }
                             progressbarcalc(totalAfterSavings, 3000)
@@ -364,6 +383,34 @@
                         progressBarContainer.style.boxShadow = '0 0 5px #4895ef';
                     }
                 });
-                if(percentageamount <=  aboveamount) progressText.bold.innerHTML = `₹ ${aboveamount.toFixed(2)}`;
-              }
+                if(totalAfterSavings <=  aboveamount) progressText.bold.innerHTML = `₹ ${aboveamount.toFixed(2)}`;
+            }
+
+            function addThousAboveProduct(){
+                const values = {
+                    productId: '6733310853311',
+                    variantId: '39989207400639',
+                    quantity: 1,
+                    customAttributes: {},
+                    lineItemType: 'READONLY'
+                };
+                VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
+                    .catch((err) => {
+                        // output.innerHTML = err;
+                    });
+            }
+
+            function addThreeThousAboveProduct(){
+                const values = {
+                    productId: '7041966440639',
+                    variantId: '40940367184063',
+                    quantity: 1,
+                    customAttributes: {},
+                    lineItemType: 'READONLY'
+                };
+                VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
+                    .catch((err) => {
+                        // output.innerHTML = err;
+                    });
+            }
               
