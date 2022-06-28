@@ -246,10 +246,7 @@
                                 }
                             }
                             progressbarcalc(totalAfterSavings, 1000)
-                        }else {
-                            progressbarcalc(totalAfterSavings, 3000)
-                        }
-                        if (totalAfterSavings < 3000){
+                        }else if (totalAfterSavings < 3000){
                             output.innerHTML = output.innerHTML + totalAfterSavings;
                             let { cartLineItems: { lineItems } } = appContext;
                             for (let { lineItemHandle, productId: id } of lineItems) {
