@@ -135,7 +135,7 @@
                     }
                     let content = `<div>The product ${productId}`;
                     if (updateType === 'Increment') {
-                        let { productId, quantity, lineItemHandle } = lineItem;
+                        let { productId, quantity } = lineItem;
                         // Buy1Get1 Add one item to the cart condition
                         if (productId === '6928830267583') {
                             const values = {
@@ -145,35 +145,30 @@
                                 customAttributes: {},
                                 lineItemType: 'READONLY'
                             };
-                            output.innerHTML = output.innerHTML + lineItemHandle
-                            // VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
-                            //     .catch((err) => {
-                            //         // output.innerHTML = err;
-                            //     });
-                            VajroSDK.updateLineItemInCart(lineItemHandle, 3, {}, "READONLY").then((res) => {})
-                            .catch((err) => {
-                                // output.innerHTML = err;
-                            });
+                            VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
+                                .catch((err) => {
+                                    // output.innerHTML = err;
+                                });
                         } else {
                                 content += ' count is increased in the cart';
                                 content += '</div>';
                                 // output.innerHTML = output.innerHTML + content;
                         }
-                        // if (totalAfterSavings > 3000 ){    // Above 3000 add one item to the cart condition
-                        //     if(extraproduct3thous != "7041966440639"){
-                        //         VajroSDK.removeLineItemFromCart(aboveLineItemHandle1000, 0).then(() => {}).catch((err) => {});
-                        //         addThreeThousAboveProduct()
-                        //     }
-                        //     progressbarcalc(totalAfterSavings, 3000)
-                        // } else if (totalAfterSavings > 1000){   // Above 1000 add one item to the cart condition
-                        //     if(extraproduct != "6733310853311"){
-                        //         VajroSDK.removeLineItemFromCart(aboveLineItemHandle3000, 0).then(() => {}).catch((err) => {});
-                        //         addThousAboveProduct()
-                        //     }
-                        //     progressbarcalc(totalAfterSavings, 3000)
-                        // }else {
-                        //     progressbarcalc(totalAfterSavings, 1000)
-                        // } 
+                        if (totalAfterSavings > 3000 ){    // Above 3000 add one item to the cart condition
+                            if(extraproduct3thous != "7041966440639"){
+                                VajroSDK.removeLineItemFromCart(aboveLineItemHandle1000, 0).then(() => {}).catch((err) => {});
+                                addThreeThousAboveProduct()
+                            }
+                            progressbarcalc(totalAfterSavings, 3000)
+                        } else if (totalAfterSavings > 1000){   // Above 1000 add one item to the cart condition
+                            if(extraproduct != "6733310853311"){
+                                VajroSDK.removeLineItemFromCart(aboveLineItemHandle3000, 0).then(() => {}).catch((err) => {});
+                                addThousAboveProduct()
+                            }
+                            progressbarcalc(totalAfterSavings, 3000)
+                        }else {
+                            progressbarcalc(totalAfterSavings, 1000)
+                        } 
                     } else if (updateType === 'Decrement') {
                         let { productId, lineItemHandle, quantity } = lineItem;
                         // output.innerHTML = output.innerHTML + `Line item handle - ${lineItemHandle}`;
