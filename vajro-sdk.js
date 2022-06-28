@@ -10539,7 +10539,7 @@ var actionDidComplete = function (json) {
     try {
         var _a = json.error, error = _a === void 0 ? null : _a, appContext = json.appContext, lineItem = json.lineItem, actionId = json.actionId;
         // document.write('action did complete called');
-        document.write(JSON.stringify(json));
+        // document.write(JSON.stringify(json));
         var dispatchHandler = (0,_utils_actionHub__WEBPACK_IMPORTED_MODULE_0__.getFromHub)(actionId);
         // console.log(dispatchHandler, 'dispatchHandler');
         // if (!dispatchHandler)
