@@ -31,8 +31,8 @@
             //                 });
             // }
 
-            // let output = document.getElementById('output');
-            // output.innerHTML = 'this is sample one';
+            let output = document.getElementById('output');
+            output.innerHTML = 'this is sample one';
             
             // VajroSDK.subscribe(
             //     VajroSDK.Triggers.LINE_ITEM_ADDED_TO_CART,
@@ -103,32 +103,10 @@
                     if (totalAfterSavings > 3000 && extraproduct3thous != "7041966440639"){
                         // output.innerHTML = totalAfterSavings + "above 3000 product"
                         addThreeThousAboveProduct()
-                        // const values = {
-                        //     productId: '7041966440639',
-                        //     variantId: '40940367184063',
-                        //     quantity: 1,
-                        //     customAttributes: {},
-                        //     lineItemType: 'READONLY'
-                        // };
-                        // VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
-                        //     .catch((err) => {
-                        //         // output.innerHTML = err;
-                        //     });
                         progressbarcalc(totalAfterSavings, 3000)
                     } else if (totalAfterSavings > 1000 && extraproduct != "6733310853311"){
                         // output.innerHTML = totalAfterSavings + "above 3000 product"
                         addThousAboveProduct()
-                        // const values = {
-                        //     productId: '6733310853311',
-                        //     variantId: '39989207400639',
-                        //     quantity: 1,
-                        //     customAttributes: {},
-                        //     lineItemType: 'READONLY'
-                        // };
-                        // VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
-                        //     .catch((err) => {
-                        //         // output.innerHTML = err;
-                        //     });
                         progressbarcalc(totalAfterSavings, 1000)
                     } 
 
@@ -180,34 +158,12 @@
                             if(extraproduct3thous != "7041966440639"){
                                 VajroSDK.removeLineItemFromCart(aboveLineItemHandle1000, 0).then(() => {}).catch((err) => {});
                                 addThreeThousAboveProduct()
-                                // const values = {
-                                //     productId: '7041966440639',
-                                //     variantId: '40940367184063',
-                                //     quantity: 1,
-                                //     customAttributes: {},
-                                //     lineItemType: 'READONLY'
-                                // };
-                                // VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
-                                //     .catch((err) => {
-                                //         // output.innerHTML = err;
-                                //     });
                             }
                             progressbarcalc(totalAfterSavings, 3000)
                         } else if (totalAfterSavings > 1000){   // Above 1000 add one item to the cart condition
                             if(extraproduct != "6733310853311"){
                                 VajroSDK.removeLineItemFromCart(aboveLineItemHandle3000, 0).then(() => {}).catch((err) => {});
                                 addThousAboveProduct()
-                                // const values = {
-                                //     productId: '6733310853311',
-                                //     variantId: '39989207400639',
-                                //     quantity: 1,
-                                //     customAttributes: {},
-                                //     lineItemType: 'READONLY'
-                                // };
-                                // VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
-                                //     .catch((err) => {
-                                //         // output.innerHTML = err;
-                                //     });
                             }
                             progressbarcalc(totalAfterSavings, 3000)
                         }else {
@@ -243,34 +199,13 @@
                                     // break;
                                     VajroSDK.removeLineItemFromCart(lineItemHandle, 0).then(() => {}).catch((err) => {});
                                     addThousAboveProduct()
-                                    // const values = {
-                                    //     productId: '6733310853311',
-                                    //     variantId: '39989207400639',
-                                    //     quantity: 1,
-                                    //     customAttributes: {},
-                                    //     lineItemType: 'READONLY'
-                                    // };
-                                    // VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
-                                    //     .catch((err) => {
-                                    //         // output.innerHTML = err;
-                                    //     });
                                     VajroSDK.removeLineItemFromCart(aboveLineItemHandle3000, 0).then(() => {}).catch((err) => {});
                                 }
                             }
                             progressbarcalc(totalAfterSavings, 3000)
                             // if (subLineItemHandle) {
                                 // VajroSDK.removeLineItemFromCart(subLineItemHandle, 0).then(() => {}).catch((err) => {});
-                                // const values = {
-                                //     productId: '6733310853311',
-                                //     variantId: '39989207400639',
-                                //     quantity: 1,
-                                //     customAttributes: {},
-                                //     lineItemType: 'READONLY'
-                                // };
-                                // VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
-                                //     .catch((err) => {
-                                //         // output.innerHTML = err;
-                                //     });
+                                // addThousAboveProduct()
                                 // progressbarcalc(totalAfterSavings, 3000)
                                 // VajroSDK.removeLineItemFromCart(aboveLineItemHandle3000, 0).then(() => {}).catch((err) => {});
                             // }
@@ -292,18 +227,7 @@
                             if(totalAfterSavings < 1000){
                                 progressbarcalc(totalAfterSavings, 1000)
                             }else {
-                                addThousAboveProduct()
-                                // const values = {
-                                //     productId: '6733310853311',
-                                //     variantId: '39989207400639',
-                                //     quantity: 1,
-                                //     customAttributes: {},
-                                //     lineItemType: 'READONLY'
-                                // };
-                                // VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
-                                //     .catch((err) => {
-                                //         // output.innerHTML = err;
-                                //     });
+                                // addThousAboveProduct()
                                 progressbarcalc(totalAfterSavings, 3000)
                             }
                         }
@@ -324,23 +248,13 @@
                             progressbarcalc(totalAfterSavings, 3000)
                         }
                         if (totalAfterSavings < 3000){
+                            output.innerHTML = output.innerHTML + totalAfterSavings;
                             let { cartLineItems: { lineItems } } = appContext;
                             for (let { lineItemHandle, productId: id } of lineItems) {
                                 if (id === '7041966440639') {
-                                    alert(id)
+                                    output.innerHTML = output.innerHTML + id;
                                     VajroSDK.removeLineItemFromCart(lineItemHandle, 0).then(() => {}).catch((err) => {});
                                     addThousAboveProduct()
-                                    // const values = {
-                                    //     productId: '6733310853311',
-                                    //     variantId: '39989207400639',
-                                    //     quantity: 1,
-                                    //     customAttributes: {},
-                                    //     lineItemType: 'READONLY'
-                                    // };
-                                    // VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
-                                    //     .catch((err) => {
-                                    //         // output.innerHTML = err;
-                                    // });
                                 }
                             }
                             progressbarcalc(totalAfterSavings, 3000)
