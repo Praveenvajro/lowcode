@@ -10881,7 +10881,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var updateLineItemInCart = function (lineItemHandle, quantity, lineItemType, customAttributes) {
-    if (quantity === void 0) { quantity = 1; }
     if (lineItemType === void 0) { lineItemType = 'REGULAR'; }
     return new Promise(function (resolve, reject) {
         var data = {
@@ -10939,7 +10938,7 @@ var schema = {
     type: 'object',
     properties: {
         lineItemHandle: { type: 'string', nullable: false },
-        quantity: { type: 'integer', nullable: false },
+        quantity: { type: 'integer', nullable: true },
         lineItemType: { type: 'string', nullable: false },
         customAttributes: { type: 'object', nullable: true }
     },
