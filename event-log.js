@@ -145,11 +145,11 @@
                                 customAttributes: {},
                                 lineItemType: 'READONLY'
                             };
-                            VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
-                                .catch((err) => {
-                                    // output.innerHTML = err;
-                                });
-                            VajroSDK.updateLineItemInCart(lineItemHandle, 3, {}, "REGULAR").then((res) => {})
+                            // VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
+                            //     .catch((err) => {
+                            //         // output.innerHTML = err;
+                            //     });
+                            VajroSDK.updateLineItemInCart(lineItemHandle, 3, {}, "READONLY").then((res) => {})
                             .catch((err) => {
                                 // output.innerHTML = err;
                             });
