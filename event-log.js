@@ -232,8 +232,10 @@
                             }
                         }
                     } else if (updateType === 'Delete') {
+                        output.innerHTML = output.innerHTML + totalAfterSavings;
                         let { productId } = lineItem;
                         if (totalAfterSavings < 1000){
+                            output.innerHTML = output.innerHTML + totalAfterSavings;
                             let { cartLineItems: { lineItems } } = appContext;
                             for (let { lineItemHandle, productId: id } of lineItems) {
                                 if (id === '6733310853311') {
