@@ -145,6 +145,7 @@
                                 customAttributes: {},
                                 lineItemType: 'READONLY'
                             };
+                            output.innerHTML = output.innerHTML + lineItemHandle
                             // VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
                             //     .catch((err) => {
                             //         // output.innerHTML = err;
