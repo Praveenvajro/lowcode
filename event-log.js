@@ -135,7 +135,7 @@
                     }
                     let content = `<div>The product ${productId}`;
                     if (updateType === 'Increment') {
-                        let { productId, quantity } = lineItem;
+                        let { productId, quantity, lineItemHandle } = lineItem;
                         // Buy1Get1 Add one item to the cart condition
                         if (productId === '6928830267583') {
                             const values = {
@@ -149,6 +149,10 @@
                                 .catch((err) => {
                                     // output.innerHTML = err;
                                 });
+                            VajroSDK.updateLineItemInCart(lineItemHandle, values.quantity, {}, "REGULAR").then((res) => {})
+                            .catch((err) => {
+                                // output.innerHTML = err;
+                            });
                         } else {
                                 content += ' count is increased in the cart';
                                 content += '</div>';
@@ -221,7 +225,7 @@
                             if(totalAfterSavings < 1000){
                                 progressbarcalc(totalAfterSavings, 1000)
                             }else {
-                                output.innerHTML = output.innerHTML + totalAfterSavings;
+                                output.innerHTML = output.innerHTML + totalAfterSavings + " 3000";
                                 progressbarcalc(totalAfterSavings, 3000)
                             }
                         }
@@ -273,6 +277,7 @@
             );
 
             function progressbarcalc(totalAfterSavings, aboveamount) {
+                output.innerHTML = output.innerHTML + aboveamount
                 const progressBarContainer = document.querySelector('.progress-bar__container');
                 const progressBar = document.querySelector('.progress-bar');
                 const progressText = document.getElementById('progress-text');
