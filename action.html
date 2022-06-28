@@ -129,7 +129,8 @@ function invalidVariant(msg){
     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
         alert('Added line item to cart');
     }).catch(err=>{
-        alert(err.message)
+        document.write('Error: ' + err.message);
+//         alert(err.message)
     });
     // const result = JSON.stringify(values)
     // if (window.webkit != undefined) {
