@@ -232,29 +232,43 @@
                         }
                         if (totalAfterSavings < 3000 && extraproduct3thous == "7041966440639"){   // Below 3000 remove one item to the cart condition
                             let { cartLineItems: { lineItems } } = appContext;
-                            let subLineItemHandle;
+                            // let subLineItemHandle;
                             for (let { lineItemHandle, productId: id } of lineItems) {
                                 if (id === '7041966440639') {
-                                    subLineItemHandle = lineItemHandle;
-                                    break;
+                                    // subLineItemHandle = lineItemHandle;
+                                    // break;
+                                    VajroSDK.removeLineItemFromCart(lineItemHandle, 0).then(() => {}).catch((err) => {});
+                                    const values = {
+                                        productId: '6733310853311',
+                                        variantId: '39989207400639',
+                                        quantity: 1,
+                                        customAttributes: {},
+                                        lineItemType: 'READONLY'
+                                    };
+                                    VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
+                                        .catch((err) => {
+                                            // output.innerHTML = err;
+                                        });
+                                    VajroSDK.removeLineItemFromCart(aboveLineItemHandle3000, 0).then(() => {}).catch((err) => {});
                                 }
                             }
-                            if (subLineItemHandle) {
-                                VajroSDK.removeLineItemFromCart(subLineItemHandle, 0).then(() => {}).catch((err) => {});
-                                const values = {
-                                    productId: '6733310853311',
-                                    variantId: '39989207400639',
-                                    quantity: 1,
-                                    customAttributes: {},
-                                    lineItemType: 'READONLY'
-                                };
-                                VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
-                                    .catch((err) => {
-                                        // output.innerHTML = err;
-                                    });
-                                progressbarcalc(totalAfterSavings, 3000)
-                                VajroSDK.removeLineItemFromCart(aboveLineItemHandle3000, 0).then(() => {}).catch((err) => {});
-                            }
+                            progressbarcalc(totalAfterSavings, 3000)
+                            // if (subLineItemHandle) {
+                                // VajroSDK.removeLineItemFromCart(subLineItemHandle, 0).then(() => {}).catch((err) => {});
+                                // const values = {
+                                //     productId: '6733310853311',
+                                //     variantId: '39989207400639',
+                                //     quantity: 1,
+                                //     customAttributes: {},
+                                //     lineItemType: 'READONLY'
+                                // };
+                                // VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
+                                //     .catch((err) => {
+                                //         // output.innerHTML = err;
+                                //     });
+                                // progressbarcalc(totalAfterSavings, 3000)
+                                // VajroSDK.removeLineItemFromCart(aboveLineItemHandle3000, 0).then(() => {}).catch((err) => {});
+                            // }
                         } else if (totalAfterSavings < 1000 && extraproduct == "6733310853311"){    // Below 1000 remove one item to the cart condition
                             let { cartLineItems: { lineItems } } = appContext;
                             let subLineItemHandle;
