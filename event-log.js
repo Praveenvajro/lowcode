@@ -31,8 +31,8 @@
             //                 });
             // }
 
-            // let output = document.getElementById('output');
-            // output.innerHTML = 'this is sample one';
+            let output = document.getElementById('output');
+            output.innerHTML = 'this is sample one';
             
             // VajroSDK.subscribe(
             //     VajroSDK.Triggers.LINE_ITEM_ADDED_TO_CART,
@@ -221,6 +221,7 @@
                             if(totalAfterSavings < 1000){
                                 progressbarcalc(totalAfterSavings, 1000)
                             }else {
+                                output.innerHTML = output.innerHTML + totalAfterSavings;
                                 progressbarcalc(totalAfterSavings, 3000)
                             }
                         }
