@@ -280,33 +280,37 @@
                         let { productId } = lineItem;
                         if (totalAfterSavings < 1000){
                             let { cartLineItems: { lineItems } } = appContext;
-                            let subLineItemHandle;
                             for (let { lineItemHandle, productId: id } of lineItems) {
                                 if (id === '6733310853311') {
-                                    subLineItemHandle = lineItemHandle;
-                                    break;
+                                    VajroSDK.removeLineItemFromCart(lineItemHandle, 0).then(() => {}).catch((err) => {});
+                                }
+                                if (id === '7041966440639') {
+                                    VajroSDK.removeLineItemFromCart(lineItemHandle, 0).then(() => {}).catch((err) => {});
                                 }
                             }
-                            if (subLineItemHandle) {
-                                VajroSDK.removeLineItemFromCart(subLineItemHandle, 0).then(() => {}).catch((err) => {});
-                                progressbarcalc(totalAfterSavings, 1000)
-                            }
+                            progressbarcalc(totalAfterSavings, 1000)
                         }else {
                             progressbarcalc(totalAfterSavings, 3000)
                         }
                         if (totalAfterSavings < 3000){
                             let { cartLineItems: { lineItems } } = appContext;
-                            let subLineItemHandle;
                             for (let { lineItemHandle, productId: id } of lineItems) {
                                 if (id === '7041966440639') {
-                                    subLineItemHandle = lineItemHandle;
-                                    break;
+                                    VajroSDK.removeLineItemFromCart(lineItemHandle, 0).then(() => {}).catch((err) => {});
+                                    const values = {
+                                        productId: '6733310853311',
+                                        variantId: '39989207400639',
+                                        quantity: 1,
+                                        customAttributes: {},
+                                        lineItemType: 'READONLY'
+                                    };
+                                    VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
+                                        .catch((err) => {
+                                            // output.innerHTML = err;
+                                    });
                                 }
                             }
-                            if (subLineItemHandle) {
-                                VajroSDK.removeLineItemFromCart(subLineItemHandle, 0).then(() => {}).catch((err) => {});
-                                progressbarcalc(totalAfterSavings, 3000)
-                            }
+                            progressbarcalc(totalAfterSavings, 3000)
                         }else {
                             progressbarcalc(totalAfterSavings, 3000)
                         }
