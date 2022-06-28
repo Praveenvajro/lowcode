@@ -10537,9 +10537,9 @@ __webpack_require__.r(__webpack_exports__);
 
 var actionDidComplete = function (json) {
     try {
-        var _a = json.error, error = _a === void 0 ? null : _a, appContext = json.appContext, lineItem = json.lineItem, _b = json.actionId, actionId = _b === void 0 ? 'sample' : _b;
+        var _a = json.error, error = _a === void 0 ? null : _a, appContext = json.appContext, lineItem = json.lineItem, actionId = json.actionId;
         // document.write('action did complete called');
-        // document.write(JSON.stringify(json));
+        document.write(JSON.stringify(json));
         var dispatchHandler = (0,_utils_actionHub__WEBPACK_IMPORTED_MODULE_0__.getFromHub)(actionId);
         // console.log(dispatchHandler, 'dispatchHandler');
         // if (!dispatchHandler)
@@ -10902,11 +10902,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "getFromHub": () => (/* binding */ getFromHub),
 /* harmony export */   "pushToHub": () => (/* binding */ pushToHub)
 /* harmony export */ });
-var hub = {
-    sample: function () {
-        console.log('from hub');
-    }
-};
+var hub = {};
 var pushToHub = function (key, func) {
     if (hub[key])
         return false;
