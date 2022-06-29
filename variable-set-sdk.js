@@ -10720,7 +10720,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var actionDidComplete = function (json) {
     try {
-        var _a = json.error, error = _a === void 0 ? null : _a, appContext = json.appContext, lineItem = json.lineItem, actionId = json.actionId;
+        var _a = json.error, error = _a === void 0 ? null : _a, appContext = json.appContext, lineItem = json.lineItem, actionId = json.actionId, value = json.value;
         var dispatchHandler = (0,_utils_actionHub__WEBPACK_IMPORTED_MODULE_0__.getFromHub)(actionId);
         if (!dispatchHandler)
             throw {
@@ -10728,7 +10728,7 @@ var actionDidComplete = function (json) {
                 type: 'Internal SDK Error',
                 message: 'Dispatch Handler not found'
             };
-        dispatchHandler && dispatchHandler(appContext, lineItem, error);
+        dispatchHandler && dispatchHandler(appContext, lineItem, error, value);
     }
     catch (err) {
         throw {
@@ -10750,7 +10750,7 @@ var dispatch = function (action, data) {
             // For Android
             window.appInterface[action](JSON.stringify(Object.assign({}, data, { actionId: actionId })));
         }
-        var actionDidHandler = function (appContext, lineItem, error) {
+        var actionDidHandler = function (appContext, lineItem, error, value) {
             var endTime = performance.now();
             var duration = Math.round(endTime - startTime);
             if (error && Object.keys(error).length) {
@@ -10761,7 +10761,7 @@ var dispatch = function (action, data) {
                 (0,_utils_logger__WEBPACK_IMPORTED_MODULE_1__.logAction)(action, data, null, error, duration);
             }
             else {
-                resolve({ appContext: appContext, lineItem: lineItem });
+                resolve(value ? JSON.parse(value) : { appContext: appContext, lineItem: lineItem });
                 (0,_utils_logger__WEBPACK_IMPORTED_MODULE_1__.logAction)(action, data, { appContext: appContext, lineItem: lineItem }, null, duration);
             }
         };
