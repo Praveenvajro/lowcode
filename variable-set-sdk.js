@@ -10720,7 +10720,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var actionDidComplete = function (json) {
     try {
-        var _a = json.error, error = _a === void 0 ? null : _a, appContext = json.appContext, lineItem = json.lineItem, actionId = json.actionId, _b = json.value, value = _b === void 0 ? null : _b;
+        var _a = json.error, error = _a === void 0 ? null : _a, _b = json.appContext, appContext = _b === void 0 ? null : _b, _c = json.lineItem, lineItem = _c === void 0 ? null : _c, actionId = json.actionId, _d = json.value, value = _d === void 0 ? null : _d;
         var element = document.getElementById('output');
         var div = document.createElement('div');
         div.innerText = JSON.stringify(json);
