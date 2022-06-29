@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            button {
+                background: greenyellow;
+            }
+        </style>
+    </head>
+    <body>
+        <button onclick="setVariable()">Set Variable</button>
+        <button onclick="getVariable()">Get Variable</button>
+        <div>
+            <span>Output: </span>
+            <span id="output"></span>
+        </div>
+        <script src="./variable-set-sdk.js"></script>
+        <script>
+            let output = document.getElementById('output');
+            function setVariable() {
+                VajroSDK.setVar(
+                    'userInfo',
+                    {
+                        name: 'Vasi',
+                        id: '147'
+                    },
+                    'SHORT'
+                )
+                    .then((res) => {
+                        let div = document.createElement('div');
+                        div.innerText = JSON.stringify(res);
+                        output.appendChild(div);
+                    })
+                    .catch((err) => {
+                        let div = document.createElement('div');
+                        div.innerText = JSON.stringify(err);
+                        output.appendChild(err);
+                    });
+            }
+
+            function getVariable() {
+                VajroSDK.getVar('userInfo')
+                    .then((res) => {
+                        let div = document.createElement('div');
+                        div.innerText = JSON.stringify(res);
+                        output.appendChild(div);
+                    })
+                    .catch((err) => {
+                        let div = document.createElement('div');
+                        div.innerText = JSON.stringify(err);
+                        output.appendChild(err);
+                    });
+            }
+        </script>
+    </body>
+</html>
