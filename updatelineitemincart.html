@@ -36,6 +36,7 @@
         </style>
     </head>
     <body>
+        <!-- <div id="output"></div> -->
         <div>
         <form name="updateform" id="updateform">
             <label for="flineitemhandle">LineItemHandle:</label>
@@ -51,13 +52,18 @@
         </div>
         <script type="text/javascript">
             function updatelineitemsubmit(){
+                // let output = document.getElementById('output');
+                // output.innerHTML = 'this is sample one';
                 let lineitemhandle = document.getElementById("lineitemhandle").value
                 let quantity  = document.getElementById("quantity").value
                 let customattribute  = document.getElementById("customattribute").value
                 let lineitemtype  = document.getElementById("lineitemtype").value
-                // console.log(lineitemtype)
+                console.log("lineitemhandle: "+ lineitemtype)
+                console.log("quantity: "+ quantity)
+                console.log("customattribute: "+ customattribute)
+                console.log("lineitemtype: "+ lineitemtype)
                 VajroSDK.updateLineItemInCart(lineitemhandle, quantity, lineitemtype, customattribute).then((res) => {
-                    // output.innerHTML = 'Added line item to cart';
+                    // output.innerHTML = 'Update line item to cart';
                 })
                 .catch((err) => {
                     // output.innerHTML = err;
