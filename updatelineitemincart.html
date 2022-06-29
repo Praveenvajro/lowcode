@@ -2,8 +2,41 @@
 <html lang="en">
     <head>
         <script src="./vajro-sdk.js"></script>
+        <style>
+            input, textarea {
+                font: 1.25rem / 1.5 sans-serif;
+                display: block;
+                box-sizing: border-box;
+                width: 100%;
+                padding: 0.5rem 0.75rem;
+            }
+            button {
+                background-color: #4CAF50;
+                border: none;
+                color: white;
+                padding: 15px 85px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 30px;
+                margin: 4px 2px;
+                cursor: pointer;
+            }
+            form {
+                box-sizing: border-box;
+                padding: 2rem;
+                border-radius: 1rem;
+                background-color: hsl(0, 0%, 100%);
+                border: 4px solid hsl(0, 0%, 90%);
+                /* display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem; */
+            }
+
+        </style>
     </head>
     <body>
+        <div>
         <form name="updateform" id="updateform">
             <label for="flineitemhandle">LineItemHandle:</label>
             <input type="text" id="lineitemhandle" name="lineitemhandle"/><br><br>
@@ -15,16 +48,19 @@
             <input type="text" id="lineitemtype" name="lineitemtype"/><br><br>
             <button type="button" onclick="updatelineitemsubmit()"> Update in Cart</button>
         </form>
+        </div>
         <script type="text/javascript">
             function updatelineitemsubmit(){
                 let lineitemhandle = document.getElementById("lineitemhandle").value
                 let quantity  = (document.getElementById("quantity").value != "") ? document.getElementById("quantity").value : null
                 let customattribute  = (document.getElementById("customattribute").value != "") ? document.getElementById("customattribute").value : null
                 let lineitemtype  = (document.getElementById("lineitemtype").value != "") ? document.getElementById("lineitemtype").value : null
-                VajroSDK.updateLineItemInCart(lineitemhandle, quantity, lineitemtype, customattribute).then((res) => {})
-                            .catch((err) => {
-                                // output.innerHTML = err;
-                            });
+                VajroSDK.updateLineItemInCart(lineitemhandle, quantity, lineitemtype, customattribute).then((res) => {
+                    output.innerHTML = 'Added line item to cart';
+                })
+                .catch((err) => {
+                    output.innerHTML = err;
+                });
             }
         </script>          
     </body>
