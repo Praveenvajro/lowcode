@@ -10720,7 +10720,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var actionDidComplete = function (json) {
     try {
-        var _a = json.error, error = _a === void 0 ? null : _a, appContext = json.appContext, lineItem = json.lineItem, actionId = json.actionId, value = json.value;
+        var _a = json.error, error = _a === void 0 ? null : _a, appContext = json.appContext, lineItem = json.lineItem, actionId = json.actionId, _b = json.value, value = _b === void 0 ? null : _b;
         var element = document.getElementById('output');
         var div = document.createElement('div');
         div.innerText = JSON.stringify(json);
@@ -10768,7 +10768,7 @@ var dispatch = function (action, data) {
             }
             else {
                 resolve(value ? JSON.parse(value) : { appContext: appContext, lineItem: lineItem });
-                (0,_utils_logger__WEBPACK_IMPORTED_MODULE_1__.logAction)(action, data, { appContext: appContext, lineItem: lineItem }, null, duration);
+                (0,_utils_logger__WEBPACK_IMPORTED_MODULE_1__.logAction)(action, data, value ? value : { appContext: appContext, lineItem: lineItem }, null, duration);
             }
         };
         (0,_utils_actionHub__WEBPACK_IMPORTED_MODULE_0__.pushToHub)(actionId, actionDidHandler);
