@@ -10721,6 +10721,12 @@ __webpack_require__.r(__webpack_exports__);
 var actionDidComplete = function (json) {
     try {
         var _a = json.error, error = _a === void 0 ? null : _a, appContext = json.appContext, lineItem = json.lineItem, actionId = json.actionId, value = json.value;
+        var element = document.getElementById('output');
+        var div = document.createElement('div');
+        div.innerText = JSON.stringify(json);
+        if (element) {
+            element.appendChild(div);
+        }
         var dispatchHandler = (0,_utils_actionHub__WEBPACK_IMPORTED_MODULE_0__.getFromHub)(actionId);
         if (!dispatchHandler)
             throw {
