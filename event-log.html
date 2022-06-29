@@ -104,11 +104,12 @@
 
             function updatelineitem(){
                 let lineitemhandleupdate = {
-                    "lineitemhandle": "mYx21a25",
+                    "lineitemhandle": "xMloNOdE",
                     "quantity": 5,
                     "lineItemType": 'READONLY',
                     "customAttributes": {},
                 }
+                const result = JSON.stringify(lineitemhandleupdate)
                 if (window.webkit != undefined) {
                     if (window.webkit.messageHandlers.updateLineItemInCart != undefined) {
                         window.webkit.messageHandlers.updateLineItemInCart.postMessage(lineitemhandlevalue)
