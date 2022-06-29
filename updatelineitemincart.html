@@ -65,7 +65,7 @@
         console.log("quantity: "+ quantity)
         console.log("customattribute: "+ customattribute)
         console.log("lineitemtype: "+ lineitemtype)
-        VajroSDK.updateLineItemInCart(lineitemhandle, quantity, lineitemtype, customattribute).then((res) => {
+        VajroSDK.updateLineItemInCart(lineitemhandle, 5, lineitemtype, {}).then((res) => {
             output.innerHTML = 'Update line item to cart';
         })
         .catch((err) => {
