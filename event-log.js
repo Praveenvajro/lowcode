@@ -135,7 +135,7 @@
                     }
                     let content = `<div>The product ${productId}`;
                     if (updateType === 'Increment') {
-                        let { productId, quantity } = lineItem;
+                        let { productId, quantity, lineItemHandle } = lineItem;
                         // Buy1Get1 Add one item to the cart condition
                         if (productId === '6928830267583') {
                             const values = {
@@ -145,10 +145,14 @@
                                 customAttributes: {},
                                 lineItemType: 'READONLY'
                             };
-                            VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
-                                .catch((err) => {
-                                    // output.innerHTML = err;
-                                });
+                            // VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
+                            //     .catch((err) => {
+                            //         // output.innerHTML = err;
+                            //     });
+                            VajroSDK.updateLineItemInCart(lineItemHandle, 3, {}, "READONLY").then((res) => {})
+                            .catch((err) => {
+                                // output.innerHTML = err;
+                            });
                         } else {
                                 content += ' count is increased in the cart';
                                 content += '</div>';
