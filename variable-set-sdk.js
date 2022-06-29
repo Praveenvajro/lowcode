@@ -10561,7 +10561,7 @@ var getVar = function (key) {
         };
         var validate = (0,_getVar_schema__WEBPACK_IMPORTED_MODULE_2__.getVarSchema)(data);
         if (validate) {
-            (0,_communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].SET_VAR, data)
+            (0,_communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].GET_VAR, data)
                 .then(function (data) {
                 try {
                     resolve(JSON.parse(data));
