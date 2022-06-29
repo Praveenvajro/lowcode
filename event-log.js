@@ -136,6 +136,7 @@
                     let content = `<div>The product ${productId}`;
                     if (updateType === 'Increment') {
                         let { productId, quantity, lineItemHandle } = lineItem;
+                        output.innerHTML = output.innerHTML + productID
                         // Buy1Get1 Add one item to the cart condition
                         if (productId === '6928830267583') {
                             const values = {
@@ -145,6 +146,7 @@
                                 customAttributes: {},
                                 lineItemType: 'READONLY'
                             };
+                            output.innerHTML = output.innerHTML + "updatelineitemincart"
                             // VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
                             //     .catch((err) => {
                             //         // output.innerHTML = err;
@@ -225,7 +227,7 @@
                             if(totalAfterSavings < 1000){
                                 progressbarcalc(totalAfterSavings, 1000)
                             }else {
-                                output.innerHTML = output.innerHTML + totalAfterSavings + " 3000";
+                                // output.innerHTML = output.innerHTML + totalAfterSavings + " 3000";
                                 progressbarcalc(totalAfterSavings, 3000)
                             }
                         }
@@ -277,7 +279,7 @@
             );
 
             function progressbarcalc(totalAfterSavings, aboveamount) {
-                output.innerHTML = output.innerHTML + aboveamount
+                // output.innerHTML = output.innerHTML + aboveamount
                 const progressBarContainer = document.querySelector('.progress-bar__container');
                 const progressBar = document.querySelector('.progress-bar');
                 const progressText = document.getElementById('progress-text');
