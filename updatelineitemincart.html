@@ -1,15 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        
+        <script src="./vajro-sdk.js"></script>
     </head>
     <body>
-        <form action="/action_page.php">
+        <form name="updateform" id="updateform">
             <label for="flineitemhandle">LineItemHandle:</label>
-            <input type="text" id="fname" name="fname"><br><br>
+            <input type="text" id="lineitemhandle" name="lineitemhandle"/><br><br>
             <label for="fquantity">Quantity:</label>
-            <input type="text" id="quantity" name="quantity"><br><br>
-            <input type="submit" value="Submit">
-        </form>          
+            <input type="text" id="quantity" name="quantity"/><br><br>
+            <label for="fcustomattribute">CustomAttributes:</label>
+            <textarea type="textarea" id="customattribute" name="customattribute"></textarea><br><br>
+            <label for="flineitemtype">LineItemType:</label>
+            <input type="text" id="lineitemtype" name="lineitemtype"/><br><br>
+            <button type="button" onclick="updatelineitemsubmit()"> Update in Cart</button>
+        </form>
+        <script type="text/javascript">
+            function updatelineitemsubmit(){
+                let lineitemhandle = document.getElementById("lineitemhandle").value
+                let quantity  = (document.getElementById("quantity").value != "") ? document.getElementById("quantity").value : null
+                let customattribute  = (document.getElementById("customattribute").value != "") ? document.getElementById("customattribute").value : null
+                let lineitemtype  = (document.getElementById("lineitemtype").value != "") ? document.getElementById("lineitemtype").value : null
+                VajroSDK.updateLineItemInCart(lineitemhandle, quantity, lineitemtype, customattribute).then((res) => {})
+                            .catch((err) => {
+                                // output.innerHTML = err;
+                            });
+            }
+        </script>          
     </body>
 </html>
