@@ -38,7 +38,7 @@
                     .catch((err) => {
                         let div = document.createElement('div');
                         div.innerText = JSON.stringify(err);
-                        output.appendChild(err);
+                        output.appendChild(div);
                     });
             }
 
@@ -52,7 +52,7 @@
                     .catch((err) => {
                         let div = document.createElement('div');
                         div.innerText = JSON.stringify(err);
-                        output.appendChild(err);
+                        output.appendChild(div);
                     });
             }
         </script>
