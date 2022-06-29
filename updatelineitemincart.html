@@ -53,17 +53,17 @@
         
         <script type="text/javascript">
             function updatelineitemsubmit(){
-                // let output = document.getElementById('output');
-                // output.innerHTML = 'this is sample one';
-                let lineitemhandle = document.getElementById("lineitemhandle").value
+                let output = document.getElementById('output');
+                output.innerHTML = 'this is sample one';
+                let lineitemhandle = document.getElementById("lineitemhandle").value.toString()
                 let quantity  = (document.getElementById("quantity").value != '') ? parseInt(document.getElementById("quantity").value) : null
                 let customattribute  = (document.getElementById("customattribute").value != '') ? JSON.parse(document.getElementById("customattribute").value) : null
-                let lineitemtype  = (document.getElementById("lineitemtype").value != '') ? parseInt(document.getElementById("lineitemtype")) : null
+                let lineitemtype  = (document.getElementById("lineitemtype").value != '') ? document.getElementById("lineitemtype").toString() : nulll
                 VajroSDK.updateLineItemInCart(lineitemhandle, quantity, lineitemtype, customattribute).then((res) => {
-                    // output.innerHTML = 'Update line item to cart';
+                    output.innerHTML = 'Update line item to cart';
                 })
                 .catch((err) => {
-                    // output.innerHTML = output.innerHTML + " "+ err.errors[0].instancePath +" "+ err.errors[0].message;
+                    output.innerHTML = output.innerHTML + " "+ err.errors[0].instancePath +" "+ err.errors[0].message;
                 });
             }
         </script> 
