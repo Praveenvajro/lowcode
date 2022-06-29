@@ -31,8 +31,8 @@
             //                 });
             // }
 
-            let output = document.getElementById('output');
-            output.innerHTML = 'this is sample one';
+            // let output = document.getElementById('output');
+            // output.innerHTML = 'this is sample one';
             
             // VajroSDK.subscribe(
             //     VajroSDK.Triggers.LINE_ITEM_ADDED_TO_CART,
@@ -136,7 +136,6 @@
                     let content = `<div>The product ${productId}`;
                     if (updateType === 'Increment') {
                         let { productId, quantity, lineItemHandle } = lineItem;
-                        output.innerHTML = output.innerHTML + productId
                         // Buy1Get1 Add one item to the cart condition
                         if (productId === '6928830267583') {
                             const values = {
@@ -146,16 +145,13 @@
                                 customAttributes: {},
                                 lineItemType: 'READONLY'
                             };
-                            output.innerHTML = output.innerHTML + "updatelineitemincart"
                             // VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {})
                             //     .catch((err) => {
                             //         // output.innerHTML = err;
                             //     });
-                            VajroSDK.updateLineItemInCart(lineItemHandle, 3, "READONLY", {}).then((res) => {
-                                output.innerHTML = res;
-                            })
+                            VajroSDK.updateLineItemInCart(lineItemHandle, 3, "READONLY", {}).then((res) => {})
                             .catch((err) => {
-                                output.innerHTML = err;
+                                // output.innerHTML = err;
                             });
                         } else {
                                 content += ' count is increased in the cart';

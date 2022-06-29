@@ -10561,10 +10561,6 @@ var dispatch = function (action, data) {
         var startTime = performance.now();
         if (window.webkit && window.webkit.messageHandlers[action]) {
             // For iOS
-            document.write('Action name: ' +
-                action +
-                '\r\n' +
-                JSON.stringify(Object.assign({}, data, { actionId: actionId })));
             window.webkit.messageHandlers[action].postMessage(JSON.stringify(Object.assign({}, data, { actionId: actionId })));
         }
         else if (window.appInterface && window.appInterface[action]) {

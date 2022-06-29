@@ -51,13 +51,10 @@
         </style>
     </head>
     <body>
-        <div id="output"></div>
+        <!-- <div id="output"></div> -->
         <!-- <button id="removelineitem" name="removelineitem" onclick="removelineitem()">
             Remove Line Item
         </button> -->
-        <button id="removelineitem" name="removelineitem" onclick="updatelineitem()">
-            Update Line Item
-        </button>
         <!-- <div>
             <input type="text" id="amount1" name="amount1" placeholder="500" value="500" />
             <button id="cart_amount1" name="cart_amount1" onclick="cart_amount1(500)">cart_amount1</button>
@@ -99,24 +96,6 @@
                 }
                 if (window.appInterface != undefined) {
                     window.appInterface.removeLineItemFromCart(result)
-                }
-            }
-
-            function updatelineitem(){
-                let lineitemhandleupdate = {
-                    "lineitemhandle": "xMloNOdE",
-                    "quantity": 5,
-                    "lineItemType": 'READONLY',
-                    "customAttributes": {},
-                }
-                const result = JSON.stringify(lineitemhandleupdate)
-                if (window.webkit != undefined) {
-                    if (window.webkit.messageHandlers.updateLineItemInCart != undefined) {
-                        window.webkit.messageHandlers.updateLineItemInCart.postMessage(lineitemhandlevalue)
-                    }
-                }
-                if (window.appInterface != undefined) {
-                    window.appInterface.updateLineItemInCart(result)
                 }
             }
             
