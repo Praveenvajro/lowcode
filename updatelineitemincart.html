@@ -55,7 +55,7 @@
                 let output = document.getElementById('output');
                 output.innerHTML = 'this is sample one';
                 let lineitemhandle = document.getElementById("lineitemhandle").value
-                let quantity  = document.getElementById("quantity").value
+                let quantity  = (document.getElementById("quantity").value != '') ? document.getElementById("quantity").value : null
                 let customattribute  = document.getElementById("customattribute").value
                 let lineitemtype  = document.getElementById("lineitemtype").value
                 console.log("lineitemhandle: "+ lineitemtype)
@@ -66,7 +66,7 @@
                     output.innerHTML = 'Update line item to cart';
                 })
                 .catch((err) => {
-                    output.innerHTML = err;
+                    output.innerHTML = output.innerHTML + " "+ err.errors[0].instancePath +" "+ err.errors[0].message;
                 });
             }
         </script>          
