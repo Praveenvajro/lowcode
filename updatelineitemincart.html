@@ -52,9 +52,9 @@
         <script type="text/javascript">
             function updatelineitemsubmit(){
                 let lineitemhandle = document.getElementById("lineitemhandle").value
-                let quantity  = (document.getElementById("quantity").value != "") ? document.getElementById("quantity").value : null
-                let customattribute  = (document.getElementById("customattribute").value != "") ? document.getElementById("customattribute").value : null
-                let lineitemtype  = (document.getElementById("lineitemtype").value != "") ? document.getElementById("lineitemtype").value : null
+                let quantity  = document.getElementById("quantity").value
+                let customattribute  = document.getElementById("customattribute").value
+                let lineitemtype  = document.getElementById("lineitemtype").value
                 // console.log(lineitemtype)
                 VajroSDK.updateLineItemInCart(lineitemhandle, quantity, lineitemtype, customattribute).then((res) => {
                     // output.innerHTML = 'Added line item to cart';
