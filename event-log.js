@@ -151,8 +151,9 @@
                             //     .catch((err) => {
                             //         // output.innerHTML = err;
                             //     });
-                            VajroSDK.updateLineItemInCart(lineItemHandle, 3, "READONLY", {}).then((res) => {})
-                            output.innerHTML = res;
+                            VajroSDK.updateLineItemInCart(lineItemHandle, 3, "READONLY", {}).then((res) => {
+                                output.innerHTML = res;
+                            })
                             .catch((err) => {
                                 output.innerHTML = err;
                             });
