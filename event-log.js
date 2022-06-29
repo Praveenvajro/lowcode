@@ -152,8 +152,9 @@
                             //         // output.innerHTML = err;
                             //     });
                             VajroSDK.updateLineItemInCart(lineItemHandle, 3, "READONLY", {}).then((res) => {})
+                            output.innerHTML = res;
                             .catch((err) => {
-                                // output.innerHTML = err;
+                                output.innerHTML = err;
                             });
                         } else {
                                 content += ' count is increased in the cart';
