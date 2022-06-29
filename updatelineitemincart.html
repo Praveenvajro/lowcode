@@ -49,27 +49,28 @@
             <input type="text" id="lineitemtype" name="lineitemtype"/><br><br>
             <button type="button" onclick="updatelineitemsubmit()"> Update in Cart</button>
         </form>
-        </div>                 
+        </div>   
+        
+        <script type="text/javascript">
+            function updatelineitemsubmit(){
+                // let output = document.getElementById('output');
+                // output.innerHTML = 'this is sample one';
+                let lineitemhandle = document.getElementById("lineitemhandle").value
+                let quantity  = (document.getElementById("quantity").value != '') ? parseInt(document.getElementById("quantity").value) : null
+                let customattribute  = (document.getElementById("customattribute").value != '') ? JSON.parse(document.getElementById("customattribute").value) : null
+                let lineitemtype  = document.getElementById("lineitemtype").value
+                console.log("lineitemhandle: "+ lineitemtype)
+                console.log("quantity: "+ quantity)
+                console.log("customattribute: "+ customattribute)
+                console.log("lineitemtype: "+ lineitemtype)
+                VajroSDK.updateLineItemInCart(lineitemhandle, quantity, lineitemtype, customattribute).then((res) => {
+                    // output.innerHTML = 'Update line item to cart';
+                })
+                .catch((err) => {
+                    // output.innerHTML = output.innerHTML + " "+ err.errors[0].instancePath +" "+ err.errors[0].message;
+                });
+            }
+        </script> 
     </body>
 </html>
 
-<script type="text/javascript">
-    function updatelineitemsubmit(){
-        let output = document.getElementById('output');
-        output.innerHTML = 'this is sample one';
-        let lineitemhandle = document.getElementById("lineitemhandle").value
-        let quantity  = (document.getElementById("quantity").value != '') ? document.getElementById("quantity").value : null
-        let customattribute  = (document.getElementById("customattribute").value != '') ? document.getElementById("customattribute").value : null
-        let lineitemtype  = document.getElementById("lineitemtype").value
-        console.log("lineitemhandle: "+ lineitemtype)
-        console.log("quantity: "+ quantity)
-        console.log("customattribute: "+ customattribute)
-        console.log("lineitemtype: "+ lineitemtype)
-        VajroSDK.updateLineItemInCart(lineitemhandle, 5, lineitemtype, {}).then((res) => {
-            output.innerHTML = 'Update line item to cart';
-        })
-        .catch((err) => {
-            output.innerHTML = output.innerHTML + " "+ err.errors[0].instancePath +" "+ err.errors[0].message;
-        });
-    }
-</script> 
