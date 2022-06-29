@@ -136,7 +136,7 @@
                     let content = `<div>The product ${productId}`;
                     if (updateType === 'Increment') {
                         let { productId, quantity, lineItemHandle } = lineItem;
-                        output.innerHTML = output.innerHTML + productID
+                        output.innerHTML = output.innerHTML + productId
                         // Buy1Get1 Add one item to the cart condition
                         if (productId === '6928830267583') {
                             const values = {
