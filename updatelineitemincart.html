@@ -58,6 +58,10 @@
                 let quantity  = (document.getElementById("quantity").value != '') ? parseInt(document.getElementById("quantity").value) : null
                 let customattribute  = (document.getElementById("customattribute").value != '') ? JSON.parse(document.getElementById("customattribute").value) : null
                 let lineitemtype  = (document.getElementById("lineitemtype").value != '') ? document.getElementById("lineitemtype").value.toString() : null
+                // console.log("lineitemhandle: "+lineitemhandle)
+                // console.log("quantity: "+quantity)
+                // console.log("lineitemtype: "+lineitemtype)
+                // console.log("customattribute: "+customattribute)
                 VajroSDK.updateLineItemInCart(lineitemhandle, quantity, lineitemtype, customattribute).then((res) => {
                     output.innerHTML = 'Update line item to cart';
                 })

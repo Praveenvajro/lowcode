@@ -16,7 +16,16 @@
         </style>
     </head>
     <body>
-        <button onclick="setVariable()">Set Variable</button>
+        <div>
+            <label for="">Key:</label>
+            <input type="text" id="key" placeholder="key"/>
+        </div>
+        <div>
+            <label for="">Value:</label>
+            <textarea id="value" placeholder="" type="textarea"></textarea>
+        </div>
+        <button onclick="setVariableShort()">Set Variable Short</button>
+        <button onclick="setVariableLong()">Set Variable Long</button>
         <button onclick="getVariable()">Get Variable</button>
         <div>
             <span>Output: </span>
@@ -25,13 +34,12 @@
         <script src="./variable-set-sdk.js"></script>
         <script>
             let output = document.getElementById('output');
-            function setVariable() {
+            function setVariableShort() {
+                let key = document.getElementById('key').value;
+                let value = document.getElementById('value').value;
                 VajroSDK.setVar(
-                    'userInfo',
-                    {
-                        name: 'Vasi',
-                        id: '147'
-                    },
+                    key,
+                    value,
                     'SHORT'
                 )
                     .then((res) => {
@@ -46,8 +54,29 @@
                     });
             }
 
+            function setVariableLong() {
+                let key = document.getElementById('key').value;
+                let value = document.getElementById('value').value;
+                VajroSDK.setVar(
+                    key,
+                    value,
+                    'LONG'
+                )
+                    .then((res) => {
+                        let div = document.createElement('div');
+                        div.innerText = JSON.stringify(res);
+                        output.appendChild(div);
+                    })
+                    .catch((err) => {
+                        let div = document.createElement('div');
+                        div.innerText = JSON.stringify(err);
+                        output.appendChild(div);
+                    });
+            }
+
             function getVariable() {
-                VajroSDK.getVar('userInfo')
+                let key = document.getElementById('key').value;
+                VajroSDK.getVar(key)
                     .then((res) => {
                         let div = document.createElement('div');
                         div.innerText = JSON.stringify(res);

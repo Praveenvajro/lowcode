@@ -10939,7 +10939,7 @@ var schema = {
     properties: {
         lineItemHandle: { type: 'string', nullable: false },
         quantity: { type: 'integer', nullable: true },
-        lineItemType: { type: 'string', nullable: false },
+        lineItemType: { type: 'string', nullable: true },
         customAttributes: { type: 'object', nullable: true }
     },
     required: ['lineItemHandle'],
