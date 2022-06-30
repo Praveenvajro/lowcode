@@ -89,7 +89,7 @@
                 output.innerHTML = 'this is sample one';
                 let codeBlockId = document.getElementById("codeBlockId").value.toString();
                 let contentType  = document.getElementById("contentType").value.toString();
-                let visibility  = document.getElementById("visibility").value;
+                let visibility  = JSON.parse(document.getElementById("visibility").value);
                 let contentData = "";
                 if(contentType == "url"){
                     contentData  = document.getElementById("urlContentData").value.toString();
