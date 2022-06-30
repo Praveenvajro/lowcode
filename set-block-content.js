@@ -10863,6 +10863,108 @@ var removeLineItemFromCartSchema = ajv.compile(schema);
 
 /***/ }),
 
+/***/ "./src/methods/cart/set-code-block-content/setCodeBlockContent.action.ts":
+/*!*******************************************************************************!*\
+  !*** ./src/methods/cart/set-code-block-content/setCodeBlockContent.action.ts ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "setCodeBlockContent": () => (/* binding */ setCodeBlockContent)
+/* harmony export */ });
+/* harmony import */ var _constants_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../constants/actions */ "./src/constants/actions.ts");
+/* harmony import */ var _setCodeBlockContent_schema__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./setCodeBlockContent.schema */ "./src/methods/cart/set-code-block-content/setCodeBlockContent.schema.ts");
+/* harmony import */ var _communications_dispatcher__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../communications/dispatcher */ "./src/communications/dispatcher.ts");
+
+
+
+var setCodeBlockContent = function (codeBlockId, contentType, contentData, visibility) {
+    if (visibility === void 0) { visibility = true; }
+    return new Promise(function (resolve, reject) {
+        var data = {
+            codeBlockId: codeBlockId,
+            contentType: contentType,
+            contentData: contentData,
+            visibility: visibility
+        };
+        var validate = (0,_setCodeBlockContent_schema__WEBPACK_IMPORTED_MODULE_1__.setCodeBlockContentSchema)(data);
+        if (validate) {
+            (0,_communications_dispatcher__WEBPACK_IMPORTED_MODULE_2__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].SET_CODE_BLOCK_CONTENT, data)
+                .then(function (data) {
+                resolve(data);
+            })["catch"](function (error) {
+                reject(error);
+            });
+        }
+        else {
+            if (_setCodeBlockContent_schema__WEBPACK_IMPORTED_MODULE_1__.setCodeBlockContentSchema.errors) {
+                reject({
+                    status: 'error',
+                    errors: _setCodeBlockContent_schema__WEBPACK_IMPORTED_MODULE_1__.setCodeBlockContentSchema.errors
+                });
+            }
+        }
+    });
+};
+
+
+/***/ }),
+
+/***/ "./src/methods/cart/set-code-block-content/setCodeBlockContent.schema.ts":
+/*!*******************************************************************************!*\
+  !*** ./src/methods/cart/set-code-block-content/setCodeBlockContent.schema.ts ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "schema": () => (/* binding */ schema),
+/* harmony export */   "setCodeBlockContentSchema": () => (/* binding */ setCodeBlockContentSchema)
+/* harmony export */ });
+/* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ajv */ "./node_modules/ajv/dist/ajv.js");
+/* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(ajv__WEBPACK_IMPORTED_MODULE_0__);
+
+var ajv = new (ajv__WEBPACK_IMPORTED_MODULE_0___default())();
+var codeBlockId;
+(function (codeBlockId) {
+    codeBlockId["ABOVE_IMAGE_CAROUSEL"] = "above_image_carousel";
+    codeBlockId["ABOVE_PRODUCT_DETAILS"] = "above_product_details";
+    codeBlockId["ABOVE_PRODUCT_DESCRIPTION"] = "above_product_description";
+    codeBlockId["ABOVE_VARIANTS"] = "above_variants";
+    codeBlockId["ABOVE_ADD_TO_CART"] = "above_add_to_cart";
+    codeBlockId["ABOVE_RECENTLY_VIEWED"] = "above_recently_viewed";
+    codeBlockId["BELOW_RECENTLY_VIEWED"] = "below_recently_viewed";
+    codeBlockId["ABOVE_CART_ITEM"] = "above_cart_item";
+    codeBlockId["BELOW_CART_ITEM"] = "below_cart_item";
+    codeBlockId["BELOW_ADD_MORE_FROM_WISHLIST"] = "below_add_more";
+    codeBlockId["ABOVE_PRICE_DETAILS"] = "above_price_details";
+    codeBlockId["BELOW_PRICE_DETAILS"] = "below_price_details";
+    codeBlockId["ABOVE_CLEAR_CART"] = "above_clear_cart";
+})(codeBlockId || (codeBlockId = {}));
+var contentType;
+(function (contentType) {
+    contentType["URL"] = "url";
+    contentType["CODE"] = "code";
+})(contentType || (contentType = {}));
+var schema = {
+    type: 'object',
+    properties: {
+        codeBlockId: { type: 'string', nullable: false },
+        contentType: { type: 'string', nullable: false },
+        contentData: { type: 'string', nullable: false },
+        visibility: { type: 'boolean', nullable: false }
+    },
+    required: ['codeBlockId', 'contentType', 'contentData'],
+    additionalProperties: false
+};
+var setCodeBlockContentSchema = ajv.compile(schema);
+
+
+/***/ }),
+
 /***/ "./src/methods/methods.ts":
 /*!********************************!*\
   !*** ./src/methods/methods.ts ***!
@@ -10875,11 +10977,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "addLineItemToCart": () => (/* reexport safe */ _cart_add_line_item_to_cart_addLineItemToCart_action__WEBPACK_IMPORTED_MODULE_0__.addLineItemToCart),
 /* harmony export */   "lineItemAddedToCart": () => (/* reexport safe */ _cart_add_line_item_to_cart_addLineItemToCart_trigger__WEBPACK_IMPORTED_MODULE_1__.lineItemAddedToCart),
 /* harmony export */   "lineItemUpdated": () => (/* reexport safe */ _cart_add_line_item_to_cart_addLineItemToCart_trigger__WEBPACK_IMPORTED_MODULE_1__.lineItemUpdated),
-/* harmony export */   "removeLineItemFromCart": () => (/* reexport safe */ _cart_remove_line_item_from_cart_removeLineItemFromCart_action__WEBPACK_IMPORTED_MODULE_2__.removeLineItemFromCart)
+/* harmony export */   "removeLineItemFromCart": () => (/* reexport safe */ _cart_remove_line_item_from_cart_removeLineItemFromCart_action__WEBPACK_IMPORTED_MODULE_2__.removeLineItemFromCart),
+/* harmony export */   "setCodeBlockContent": () => (/* reexport safe */ _cart_set_code_block_content_setCodeBlockContent_action__WEBPACK_IMPORTED_MODULE_3__.setCodeBlockContent)
 /* harmony export */ });
 /* harmony import */ var _cart_add_line_item_to_cart_addLineItemToCart_action__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./cart/add-line-item-to-cart/addLineItemToCart.action */ "./src/methods/cart/add-line-item-to-cart/addLineItemToCart.action.ts");
 /* harmony import */ var _cart_add_line_item_to_cart_addLineItemToCart_trigger__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./cart/add-line-item-to-cart/addLineItemToCart.trigger */ "./src/methods/cart/add-line-item-to-cart/addLineItemToCart.trigger.ts");
 /* harmony import */ var _cart_remove_line_item_from_cart_removeLineItemFromCart_action__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./cart/remove-line-item-from-cart/removeLineItemFromCart.action */ "./src/methods/cart/remove-line-item-from-cart/removeLineItemFromCart.action.ts");
+/* harmony import */ var _cart_set_code_block_content_setCodeBlockContent_action__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./cart/set-code-block-content/setCodeBlockContent.action */ "./src/methods/cart/set-code-block-content/setCodeBlockContent.action.ts");
+
 
 
 
@@ -12657,6 +12762,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "lineItemAddedToCart": () => (/* reexport safe */ _methods_methods__WEBPACK_IMPORTED_MODULE_0__.lineItemAddedToCart),
 /* harmony export */   "lineItemUpdated": () => (/* reexport safe */ _methods_methods__WEBPACK_IMPORTED_MODULE_0__.lineItemUpdated),
 /* harmony export */   "removeLineItemFromCart": () => (/* reexport safe */ _methods_methods__WEBPACK_IMPORTED_MODULE_0__.removeLineItemFromCart),
+/* harmony export */   "setCodeBlockContent": () => (/* reexport safe */ _methods_methods__WEBPACK_IMPORTED_MODULE_0__.setCodeBlockContent),
 /* harmony export */   "subscribe": () => (/* reexport safe */ _communications_listeners__WEBPACK_IMPORTED_MODULE_3__.subscribe)
 /* harmony export */ });
 /* harmony import */ var _methods_methods__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./methods/methods */ "./src/methods/methods.ts");

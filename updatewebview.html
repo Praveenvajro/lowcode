@@ -87,11 +87,12 @@
             function updatewebview(){
                 let output = document.getElementById('output');
                 output.innerHTML = 'this is sample one';
-                let codeBlockId = document.getElementById("codeBlockId").value.toString()
+                let codeBlockId = document.getElementById("codeBlockId").value.toString();
                 let contentType  = document.getElementById("contentType").value.toString();
-                let visibility  = document.getElementById("visibility").value
+                let visibility  = document.getElementById("visibility").value;
+                let contentData = "";
                 if(contentType == "url"){
-                    let contentData  = document.getElementById("urlContentData").value.toString();
+                    contentData  = document.getElementById("urlContentData").value.toString();
                     // document.getElementById("codeContentData").style.visibility = "hidden";
                     // document.getElementById("urlContentData").style.visibility = "visible";
                     // console.log("codeBlockId: "+codeBlockId)
@@ -99,7 +100,7 @@
                     // console.log("urlContentData: "+urlContentData)
                     // console.log("visibility: "+visibility)
                 }else if(contentType == "code"){
-                    let contentData  = document.getElementById("codeContentData").value.toString();
+                    contentData  = document.getElementById("codeContentData").value.toString();
                     // document.getElementById("codeContentData").style.visibility = "visible";
                     // document.getElementById("urlContentData").style.visibility = "hidden";
                     // console.log("codeBlockId: "+codeBlockId)
@@ -107,7 +108,6 @@
                     // console.log("codeContentData: "+codeContentData)
                     // console.log("visibility: "+visibility)
                 }
-                
                 VajroSDK.setCodeBlockContent(codeBlockId, contentType, contentData, visibility).then((res) => {
                     output.innerHTML = 'Set Block Content';
                 })
