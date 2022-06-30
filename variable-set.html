@@ -27,6 +27,7 @@
         <button onclick="setVariableShort()">Set Variable Short</button>
         <button onclick="setVariableLong()">Set Variable Long</button>
         <button onclick="getVariable()">Get Variable</button>
+        <button onclick="clearbutton();">Clear</button>
         <div>
             <span>Output: </span>
             <span id="output"></span>
@@ -87,6 +88,11 @@
                         div.innerText = JSON.stringify(err);
                         output.appendChild(div);
                     });
+            }
+            
+            function clearbutton(){
+                document.getElementById('key').value = '';
+                document.getElementById('value').value = '';
             }
         </script>
     </body>
