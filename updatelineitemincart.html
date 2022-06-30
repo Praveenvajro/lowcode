@@ -43,7 +43,18 @@
             <label for="fquantity">Quantity:</label>
             <input type="text" id="quantity" name="quantity"/><br><br>
             <label for="fcustomattribute">CustomAttributes:</label>
-            <textarea type="textarea" id="customattribute" name="customattribute"></textarea><br><br>
+            <textarea type="textarea" id="customattribute" name="customattribute">{
+                "Brand": "Roshan (+₹5)",
+                "vjr_hidden_products": [{
+                    "hidden_product_id": "7268228530367",
+                    "product_id": "6733619167423",
+                    "option_string": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MTcyMjM1NjY2MjQ2Mw==",
+                    "option_value": "Roshan",
+                    "custom_option_title": "Brand",
+                    "parent_option_name": "Brand",
+                    "price": "5.0"
+                }]
+            }</textarea><br><br>
             <label for="flineitemtype">LineItemType:</label>
             <input type="text" id="lineitemtype" name="lineitemtype"/><br><br>
             <button type="button" onclick="updatelineitemsubmit()"> Update in Cart</button>
