@@ -14,11 +14,17 @@
             margin: 4px 2px;
             cursor: pointer;
         }
+        .success{
+            color: greenyellow;
+        }
+        .error{
+            color: red
+        }
     </style>
 </head>
 <body>
     <div id="output"></div>
-    <h2>No Variant </h2>
+    <!-- <h2>No Variant </h2>
     <button type="button" name="noVariant" id="noVariant" onclick ="noVariant('Welcome to Cart')"> Add to Cart </button>
     <h2>Single Product </h2>
     <button type="button" name="singleProduct" id="singleProduct" onclick ="singleProduct('Welcome to Cart')"> Add to Cart </button>
@@ -39,11 +45,46 @@
     <h2>Above Limited Quantity  </h2>
     <button type="button" name="aboveQuantity" id="aboveQuantity" onclick ="aboveQuantity('Welcome to Cart')"> Add to Cart </button>
     <h2>Checking Custom Attributes is JSON or not  </h2>
-    <button type="button" name="checkCustomAttributesJson" id="checkCustomAttributesJson" onclick ="checkCustomAttributesJson('Welcome to Cart')"> Add to Cart </button>
+    <button type="button" name="checkCustomAttributesJson" id="checkCustomAttributesJson" onclick ="checkCustomAttributesJson('Welcome to Cart')"> Add to Cart </button> -->
 </body>
 </html>
 
 <script>
+
+let testOutput = '';
+
+function testNoVariant(){
+    const values = {
+        productId: "6878543315135",
+        variantId: "40423668482239",
+        quantity: 1, 
+        customAttributes:  {},
+        lineItemType: "REGULAR"
+    }
+    let output = document.getElementById('output');
+    VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then(({appContext, lineItem}) => {
+        if (lineItem.productId === values.productId){
+             testOutput = '<div class="success">No variant test case success</div>';
+        }else{
+            testOutput = '<div class="error">No variant test case failed</div>';
+        }
+        output.innerHTML = testOutput;
+    }).catch(err=>{
+        testOutput = '<div class="error">Error: No variant test case failed</div>';
+        output.innerHTML = testOutput;
+    });
+    // const result = JSON.stringify(values)
+    // if (window.webkit != undefined) {
+    //     if (window.webkit.messageHandlers.addLineItemToCart != undefined) {
+    //         window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
+    //     }
+    // }
+    // if (window.appInterface != undefined) {
+    //     window.appInterface.addLineItemToCart(result)
+    // }
+}
+testNoVariant();
+
 function noVariant(msg){
     const values = {
         productId: "6878543315135",
@@ -70,6 +111,7 @@ function noVariant(msg){
     //     window.appInterface.addLineItemToCart(result)
     // }
 }
+// noVariant();
 function singleProduct(msg){
     const values = {
         productId: "6741457207487",
