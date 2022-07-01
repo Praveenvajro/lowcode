@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Buy X & Get Y</title>
+        <script src="../vajro-sdk.js"></script>
+    </head>
+    <body>
+        <script>
+            const FreeProductMapping = {
+                6741457207487: [
+                    { productId: '6928843636927', lineItemType: 'READONLY' },
+                    {
+                        productId: '6733619167423',
+                        variantId: '41722470400191',
+                        lineItemType: 'READONLY'
+                    }
+                ],
+                6928830267583: [{ productId: '6750261739711' }]
+            };
+
+            let subscribedProducts = Object.keys(FreeProductMapping);
+
+            const addLineItem = (productInfo) => {
+                return new Promise((resolve, reject) => {
+                    VajroSDK.addLineItemToCart(
+                        productInfo.productId,
+                        productInfo.variantId,
+                        productInfo.quantity,
+                        productInfo.customAttributes,
+                        productInfo.lineItemType
+                    )
+                        .then(resolve)
+                        .catch(reject);
+                });
+            };
+
+            const handleLineItemAdded = (appContext, lineItem) => {
+                let { productId } = lineItem;
+                if (subscribedProducts.includes(productId)) {
+                    let subProductsToAdd = FreeProductMapping[productId];
+                    if (subProductsToAdd) {
+                        let promises = [];
+                        subProductsToAdd.forEach((subProduct) => {
+                            let promise = addLineItem(subProduct);
+                            promises.push(promise);
+                        });
+                        Promise.all(promises)
+                            .then(() => {
+                                alert('Sub products added successfully');
+                            })
+                            .catch(() => {
+                                alert('Error while adding sub products');
+                            });
+                    }
+                }
+            };
+
+            VajroSDK.subscribe(
+                VajroSDK.Triggers.LINE_ITEM_ADDED_TO_CART,
+                handleLineItemAdded
+            );
+        </script>
+    </body>
+</html>
