@@ -35,8 +35,8 @@
                     VajroSDK.addLineItemToCart(
                         productInfo.productId,
                         productInfo.variantId,
-                        productInfo.quantity,
-                        productInfo.customAttributes,
+                        productInfo.quantity = 1,
+                        productInfo.customAttributes = {},
                         productInfo.lineItemType
                     )
                         .then((res) => {
