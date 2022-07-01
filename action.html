@@ -71,7 +71,7 @@ function testNoVariant(){
         output.innerHTML = "adfs: "+testOutput+" result: "+ res;
     }).catch(err=>{
         testOutput = '<div class="error">Error: No variant test case failed</div>';
-        output.innerHTML = "bvcbcvb: "+testOutput;
+        output.innerHTML = "bvcbcvb: "+testOutput+" error: "+ res;;
     });
     // const result = JSON.stringify(values)
     // if (window.webkit != undefined) {
@@ -85,304 +85,304 @@ function testNoVariant(){
 }
 testNoVariant();
 
-function noVariant(msg){
-    const values = {
-        productId: "6878543315135",
-        variantId: "40423668482239",
-        quantity: 1, 
-        customAttributes:  {},
-        lineItemType: "REGULAR"
-    }
-    let output = document.getElementById('output');
-    VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
-        output.innerHTML = 'Added line item to cart';
-        alert('Added line item to cart');
-    }).catch(err=>{
-        output.innerHTML = JSON.stringify(err || 'Error object not found');
-        alert(err.message)
-    });
-    // const result = JSON.stringify(values)
-    // if (window.webkit != undefined) {
-    //     if (window.webkit.messageHandlers.addLineItemToCart != undefined) {
-    //         window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
-    //     }
-    // }
-    // if (window.appInterface != undefined) {
-    //     window.appInterface.addLineItemToCart(result)
-    // }
-}
-// noVariant();
-function singleProduct(msg){
-    const values = {
-        productId: "6741457207487",
-        variantId: "40014956429503",
-        quantity: 1, 
-        customAttributes:  {},
-        lineItemType: "REGULAR"
-    }
-    VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
-        alert('Added line item to cart');
-    }).catch(err=>{
-        alert(err.message)
-    });
-    // const result = JSON.stringify(values)
-    // if (window.webkit != undefined) {
-    //     if (window.webkit.messageHandlers.addLineItemToCart != undefined) {
-    //         window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
-    //     }
-    // }
-    // if (window.appInterface != undefined) {
-    //     window.appInterface.addLineItemToCart(result)
-    // }
-}
-
-function invalidProduct(msg){
-    const values = {
-        productId: "12346741457207487",
-        variantId: "40014956429503",
-        quantity: 1, 
-        customAttributes:  {},
-        lineItemType: "REGULAR"
-    }
-    VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
-        alert('Added line item to cart');
-    }).catch(err=>{
-        alert(err.message)
-    });
-    // const result = JSON.stringify(values)
-    // if (window.webkit != undefined) {
-    //     if (window.webkit.messageHandlers.addLineItemToCart != undefined) {
-    //         window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
-    //     }
-    // }
-    // if (window.appInterface != undefined) {
-    //     window.appInterface.addLineItemToCart(result)
-    // }
-}
-
-function invalidVariant(msg){
-    const values = {
-        productId: "6741457207487",
-        variantId: "111140014956429503",
-        quantity: 1, 
-        customAttributes:  {},
-        lineItemType: "REGULAR"
-    }
-    VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
-        alert('Added line item to cart');
-    }).catch(err=>{
-        document.write('Error: ' + err.message);
+// function noVariant(msg){
+//     const values = {
+//         productId: "6878543315135",
+//         variantId: "40423668482239",
+//         quantity: 1, 
+//         customAttributes:  {},
+//         lineItemType: "REGULAR"
+//     }
+//     let output = document.getElementById('output');
+//     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+//         output.innerHTML = 'Added line item to cart';
+//         alert('Added line item to cart');
+//     }).catch(err=>{
+//         output.innerHTML = JSON.stringify(err || 'Error object not found');
 //         alert(err.message)
-    });
-    // const result = JSON.stringify(values)
-    // if (window.webkit != undefined) {
-    //     if (window.webkit.messageHandlers.addLineItemToCart != undefined) {
-    //         window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
-    //     }
-    // }
-    // if (window.appInterface != undefined) {
-    //     window.appInterface.addLineItemToCart(result)
-    // }
-}
+//     });
+//     // const result = JSON.stringify(values)
+//     // if (window.webkit != undefined) {
+//     //     if (window.webkit.messageHandlers.addLineItemToCart != undefined) {
+//     //         window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
+//     //     }
+//     // }
+//     // if (window.appInterface != undefined) {
+//     //     window.appInterface.addLineItemToCart(result)
+//     // }
+// }
 
-function multiVariTwoVariRegular(msg){
-    const values = {
-        productId: "6733619167423",
-        variantId: "39990425288895",
-        quantity: 4, 
-        customAttributes: {
-            "Brand": "wildcraft (+₹3)",
-            "vjr_hidden_products": [{
-                "hidden_product_id": "7268231676095",
-                "product_id": "6733619167423",
-                "option_string": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MTcyMjM2MDIwMTQwNw==",
-                "option_value": "wildcraft",
-                "custom_option_title": "Brand",
-                "parent_option_name": "Brand",
-                "price": "3.0"
-            }]
-        },
-        lineItemType: "REGULAR"
-    }
-    VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
-        alert('Added line item to cart');
-    }).catch(err=>{
-        alert(err.message)
-    });
-    // const result = JSON.stringify(values)
-    // if (window.webkit != undefined) {
-    //     if (window.webkit.messageHandlers.addLineItemToCart != undefined) {
-    //         window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
-    //     }
-    // }
-    // if (window.appInterface != undefined) {
-    //     window.appInterface.addLineItemToCart(result)
-    // }
-}
+// function singleProduct(msg){
+//     const values = {
+//         productId: "6741457207487",
+//         variantId: "40014956429503",
+//         quantity: 1, 
+//         customAttributes:  {},
+//         lineItemType: "REGULAR"
+//     }
+//     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+//         alert('Added line item to cart');
+//     }).catch(err=>{
+//         alert(err.message)
+//     });
+//     // const result = JSON.stringify(values)
+//     // if (window.webkit != undefined) {
+//     //     if (window.webkit.messageHandlers.addLineItemToCart != undefined) {
+//     //         window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
+//     //     }
+//     // }
+//     // if (window.appInterface != undefined) {
+//     //     window.appInterface.addLineItemToCart(result)
+//     // }
+// }
 
-function multiVariTwoVariHidden(msg){
-    const values = {
-        productId: "6733619167423",
-        variantId: "39990425288895",
-        quantity: 4, 
-        customAttributes: {
-            "Brand": "wildcraft (+₹3)",
-            "vjr_hidden_products": [{
-                "hidden_product_id": "7268231676095",
-                "product_id": "6733619167423",
-                "option_string": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MTcyMjM2MDIwMTQwNw==",
-                "option_value": "wildcraft",
-                "custom_option_title": "Brand",
-                "parent_option_name": "Brand",
-                "price": "3.0"
-            }]
-        },
-        lineItemType: "HIDDEN"
-    }
-    VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
-        alert('Added line item to cart');
-    }).catch(err=>{
-        alert(err.message)
-    });
-    // const result = JSON.stringify(values)
-    // if (window.webkit != undefined) {
-    //     if (window.webkit.messageHandlers.addLineItemToCart != undefined) {
-    //         window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
-    //     }
-    // }
-    // if (window.appInterface != undefined) {
-    //     window.appInterface.addLineItemToCart(result)
-    // }
-}
+// function invalidProduct(msg){
+//     const values = {
+//         productId: "12346741457207487",
+//         variantId: "40014956429503",
+//         quantity: 1, 
+//         customAttributes:  {},
+//         lineItemType: "REGULAR"
+//     }
+//     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+//         alert('Added line item to cart');
+//     }).catch(err=>{
+//         alert(err.message)
+//     });
+//     // const result = JSON.stringify(values)
+//     // if (window.webkit != undefined) {
+//     //     if (window.webkit.messageHandlers.addLineItemToCart != undefined) {
+//     //         window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
+//     //     }
+//     // }
+//     // if (window.appInterface != undefined) {
+//     //     window.appInterface.addLineItemToCart(result)
+//     // }
+// }
 
-function multiVariThreeVari(msg){
-    const values = {
-        productId: "6750261739711",
-        variantId: "41722507067583",
-        quantity: 4, 
-        customAttributes:  {},
-        lineItemType: "REGULAR"
-    }
-    VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
-        alert('Added line item to cart');
-    }).catch(err=>{
-        alert(err.message)
-    });
-    // const result = JSON.stringify(values)
-    // if (window.webkit != undefined) {
-    //     if (window.webkit.messageHandlers.addLineItemToCart != undefined) {
-    //         window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
-    //     }
-    // }
-    // if (window.appInterface != undefined) {
-    //     window.appInterface.addLineItemToCart(result)
-    // }
-}
+// function invalidVariant(msg){
+//     const values = {
+//         productId: "6741457207487",
+//         variantId: "111140014956429503",
+//         quantity: 1, 
+//         customAttributes:  {},
+//         lineItemType: "REGULAR"
+//     }
+//     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+//         alert('Added line item to cart');
+//     }).catch(err=>{
+//         document.write('Error: ' + err.message);
+// //         alert(err.message)
+//     });
+//     // const result = JSON.stringify(values)
+//     // if (window.webkit != undefined) {
+//     //     if (window.webkit.messageHandlers.addLineItemToCart != undefined) {
+//     //         window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
+//     //     }
+//     // }
+//     // if (window.appInterface != undefined) {
+//     //     window.appInterface.addLineItemToCart(result)
+//     // }
+// }
 
-function withoutProductId(msg){
-    const values = {
-        productId: "",
-        variantId: "41722507067583",
-        quantity: 4, 
-        customAttributes:  {},
-        lineItemType: "REGULAR"
-    }
-    VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
-        alert("Added line item to cart")
-    }).catch(err=>{
-        alert(err.message)
-    });
-    // const result = JSON.stringify(values)
-    // if (window.webkit != undefined) {
-    //     if (window.webkit.messageHandlers.addLineItemToCart != undefined) {
-    //         window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
-    //     }
-    // }
-    // if (window.appInterface != undefined) {
-    //     window.appInterface.addLineItemToCart(result)
-    // }
-}
+// function multiVariTwoVariRegular(msg){
+//     const values = {
+//         productId: "6733619167423",
+//         variantId: "39990425288895",
+//         quantity: 4, 
+//         customAttributes: {
+//             "Brand": "wildcraft (+₹3)",
+//             "vjr_hidden_products": [{
+//                 "hidden_product_id": "7268231676095",
+//                 "product_id": "6733619167423",
+//                 "option_string": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MTcyMjM2MDIwMTQwNw==",
+//                 "option_value": "wildcraft",
+//                 "custom_option_title": "Brand",
+//                 "parent_option_name": "Brand",
+//                 "price": "3.0"
+//             }]
+//         },
+//         lineItemType: "REGULAR"
+//     }
+//     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+//         alert('Added line item to cart');
+//     }).catch(err=>{
+//         alert(err.message)
+//     });
+//     // const result = JSON.stringify(values)
+//     // if (window.webkit != undefined) {
+//     //     if (window.webkit.messageHandlers.addLineItemToCart != undefined) {
+//     //         window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
+//     //     }
+//     // }
+//     // if (window.appInterface != undefined) {
+//     //     window.appInterface.addLineItemToCart(result)
+//     // }
+// }
 
-function withoutVariantId(msg){
-    const values = {
-        productId: "6750261739711",
-        variantId: "",
-        quantity: 4, 
-        customAttributes:  {},
-        lineItemType: "REGULAR"
-    }
-    VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
-        alert('Added line item to cart');
-    }).catch(err=>{
-        alert(err.message)
-    });
-    // const result = JSON.stringify(values)
-    // if (window.webkit != undefined) {
-    //     if (window.webkit.messageHandlers.addLineItemToCart != undefined) {
-    //         window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
-    //     }
-    // }
-    // if (window.appInterface != undefined) {
-    //     window.appInterface.addLineItemToCart(result)
-    // }
-}
+// function multiVariTwoVariHidden(msg){
+//     const values = {
+//         productId: "6733619167423",
+//         variantId: "39990425288895",
+//         quantity: 4, 
+//         customAttributes: {
+//             "Brand": "wildcraft (+₹3)",
+//             "vjr_hidden_products": [{
+//                 "hidden_product_id": "7268231676095",
+//                 "product_id": "6733619167423",
+//                 "option_string": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MTcyMjM2MDIwMTQwNw==",
+//                 "option_value": "wildcraft",
+//                 "custom_option_title": "Brand",
+//                 "parent_option_name": "Brand",
+//                 "price": "3.0"
+//             }]
+//         },
+//         lineItemType: "HIDDEN"
+//     }
+//     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+//         alert('Added line item to cart');
+//     }).catch(err=>{
+//         alert(err.message)
+//     });
+//     // const result = JSON.stringify(values)
+//     // if (window.webkit != undefined) {
+//     //     if (window.webkit.messageHandlers.addLineItemToCart != undefined) {
+//     //         window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
+//     //     }
+//     // }
+//     // if (window.appInterface != undefined) {
+//     //     window.appInterface.addLineItemToCart(result)
+//     // }
+// }
 
-function aboveQuantity(msg){
-    const values = {
-        productId: "6741457207487",
-        variantId: "40014956429503",
-        quantity: 4, 
-        customAttributes:  {},
-        lineItemType: "REGULAR"
-    }
-    VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
-        alert('Added line item to cart');
-    }).catch(err=>{
-        alert(err.message)
-    });
-    // const result = JSON.stringify(values)
-    // if (window.webkit != undefined) {
-    //     if (window.webkit.messageHandlers.addLineItemToCart != undefined) {
-    //         window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
-    //     }
-    // }
-    // if (window.appInterface != undefined) {
-    //     window.appInterface.addLineItemToCart(result)
-    // }
-}
+// function multiVariThreeVari(msg){
+//     const values = {
+//         productId: "6750261739711",
+//         variantId: "41722507067583",
+//         quantity: 4, 
+//         customAttributes:  {},
+//         lineItemType: "REGULAR"
+//     }
+//     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+//         alert('Added line item to cart');
+//     }).catch(err=>{
+//         alert(err.message)
+//     });
+//     // const result = JSON.stringify(values)
+//     // if (window.webkit != undefined) {
+//     //     if (window.webkit.messageHandlers.addLineItemToCart != undefined) {
+//     //         window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
+//     //     }
+//     // }
+//     // if (window.appInterface != undefined) {
+//     //     window.appInterface.addLineItemToCart(result)
+//     // }
+// }
 
-function checkCustomAttributesJson(msg){
-    const values = {
-        productId: "6733619167423",
-        variantId: "39990425288895",
-        quantity: 4, 
-        customAttributes: {
-            "Brand": "wildcraft (+₹3)",
-            "vjr_hidden_products": [{
-                "hidden_product_id": "7268231676095",
-                "product_id": "6733619167423",
-                "option_string": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MTcyMjM2MDIwMTQwNw==",
-                "option_value": "wildcraft",
-                "custom_option_title": "Brand",
-                "parent_option_name": "Brand",
-                "price": "3.0"
-            }]
-        },
-        lineItemType: "REGULAR"
-    }
-    VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
-        alert('Added line item to cart');
-    }).catch(err=>{
-        alert(err.message)
-    });
-    // const result = JSON.stringify(values)
-    // if (window.webkit != undefined) {
-    //     if (window.webkit.messageHandlers.addLineItemToCart != undefined) {
-    //         window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
-    //     }
-    // }
-    // if (window.appInterface != undefined) {
-    //     window.appInterface.addLineItemToCart(result)
-    // }
-}
+// function withoutProductId(msg){
+//     const values = {
+//         productId: "",
+//         variantId: "41722507067583",
+//         quantity: 4, 
+//         customAttributes:  {},
+//         lineItemType: "REGULAR"
+//     }
+//     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+//         alert("Added line item to cart")
+//     }).catch(err=>{
+//         alert(err.message)
+//     });
+//     // const result = JSON.stringify(values)
+//     // if (window.webkit != undefined) {
+//     //     if (window.webkit.messageHandlers.addLineItemToCart != undefined) {
+//     //         window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
+//     //     }
+//     // }
+//     // if (window.appInterface != undefined) {
+//     //     window.appInterface.addLineItemToCart(result)
+//     // }
+// }
+
+// function withoutVariantId(msg){
+//     const values = {
+//         productId: "6750261739711",
+//         variantId: "",
+//         quantity: 4, 
+//         customAttributes:  {},
+//         lineItemType: "REGULAR"
+//     }
+//     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+//         alert('Added line item to cart');
+//     }).catch(err=>{
+//         alert(err.message)
+//     });
+//     // const result = JSON.stringify(values)
+//     // if (window.webkit != undefined) {
+//     //     if (window.webkit.messageHandlers.addLineItemToCart != undefined) {
+//     //         window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
+//     //     }
+//     // }
+//     // if (window.appInterface != undefined) {
+//     //     window.appInterface.addLineItemToCart(result)
+//     // }
+// }
+
+// function aboveQuantity(msg){
+//     const values = {
+//         productId: "6741457207487",
+//         variantId: "40014956429503",
+//         quantity: 4, 
+//         customAttributes:  {},
+//         lineItemType: "REGULAR"
+//     }
+//     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+//         alert('Added line item to cart');
+//     }).catch(err=>{
+//         alert(err.message)
+//     });
+//     // const result = JSON.stringify(values)
+//     // if (window.webkit != undefined) {
+//     //     if (window.webkit.messageHandlers.addLineItemToCart != undefined) {
+//     //         window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
+//     //     }
+//     // }
+//     // if (window.appInterface != undefined) {
+//     //     window.appInterface.addLineItemToCart(result)
+//     // }
+// }
+
+// function checkCustomAttributesJson(msg){
+//     const values = {
+//         productId: "6733619167423",
+//         variantId: "39990425288895",
+//         quantity: 4, 
+//         customAttributes: {
+//             "Brand": "wildcraft (+₹3)",
+//             "vjr_hidden_products": [{
+//                 "hidden_product_id": "7268231676095",
+//                 "product_id": "6733619167423",
+//                 "option_string": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MTcyMjM2MDIwMTQwNw==",
+//                 "option_value": "wildcraft",
+//                 "custom_option_title": "Brand",
+//                 "parent_option_name": "Brand",
+//                 "price": "3.0"
+//             }]
+//         },
+//         lineItemType: "REGULAR"
+//     }
+//     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+//         alert('Added line item to cart');
+//     }).catch(err=>{
+//         alert(err.message)
+//     });
+//     // const result = JSON.stringify(values)
+//     // if (window.webkit != undefined) {
+//     //     if (window.webkit.messageHandlers.addLineItemToCart != undefined) {
+//     //         window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
+//     //     }
+//     // }
+//     // if (window.appInterface != undefined) {
+//     //     window.appInterface.addLineItemToCart(result)
+//     // }
+// }
 </script>
