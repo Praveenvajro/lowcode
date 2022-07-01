@@ -31,8 +31,8 @@
             //                 });
             // }
 
-            // let output = document.getElementById('output');
-            // output.innerHTML = 'this is sample one';
+            let output = document.getElementById('output');
+            output.innerHTML = 'this is sample one';
             
             // VajroSDK.subscribe(
             //     VajroSDK.Triggers.LINE_ITEM_ADDED_TO_CART,
@@ -273,7 +273,7 @@
             );
 
             function progressbarcalc(totalAfterSavings, aboveamount) {
-                // output.innerHTML = output.innerHTML + aboveamount
+                output.innerHTML = output.innerHTML + aboveamount
                 const progressBarContainer = document.querySelector('.progress-bar__container');
                 const progressBar = document.querySelector('.progress-bar');
                 const progressText = document.getElementById('progress-text');
