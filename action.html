@@ -23,7 +23,7 @@
     </style>
 </head>
 <body>
-    <div id="output"></div>
+    <div id="output">fdgfdg</div>
     <!-- <h2>No Variant </h2>
     <button type="button" name="noVariant" id="noVariant" onclick ="noVariant('Welcome to Cart')"> Add to Cart </button>
     <h2>Single Product </h2>
@@ -62,7 +62,7 @@ function testNoVariant(){
         lineItemType: "REGULAR"
     }
     let output = document.getElementById('output');
-    VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then(({appContext, lineItem}) => {
+    VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {
         if (lineItem.productId === values.productId){
              testOutput = '<div class="success">No variant test case success</div>';
         }else{
