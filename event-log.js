@@ -277,6 +277,7 @@
                 const progressBarContainer = document.querySelector('.progress-bar__container');
                 const progressBar = document.querySelector('.progress-bar');
                 const progressText = document.getElementById('progress-text');
+                progressText.innerHTML = ""
                 const percentageamount = (totalAfterSavings / aboveamount * 100) > 100 ? 100 : totalAfterSavings / aboveamount * 100;
                 output.innerHTML = output.innerHTML + "totamt: " + totalAfterSavings
                 output.innerHTML = output.innerHTML + "per: " + percentageamount
