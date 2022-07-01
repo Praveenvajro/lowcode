@@ -10808,6 +10808,7 @@ var navigateTo = function (navigationType, handle) {
             handle: handle
         };
         var validate = (0,_navigateTo_schema__WEBPACK_IMPORTED_MODULE_1__.navigateToSchema)(data);
+        console.log(validate, 'validate');
         if (validate) {
             (0,_communications_dispatcher__WEBPACK_IMPORTED_MODULE_2__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].NAVIGATE_TO, data)
                 .then(function (data) {
@@ -10856,7 +10857,7 @@ var NavigationType;
 var schema = {
     type: 'object',
     properties: {
-        navigationType: { type: 'string', nullable: false },
+        navigationType: { type: 'string', nullable: false, minLength: 1 },
         handle: { type: 'string', nullable: true }
     },
     required: ['navigationType'],

@@ -4,6 +4,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Navigate To</title>
+        <script src="./navigateto.js"></script>
         <style>
             input, textarea, select {
                 font: 1.25rem / 1.5 sans-serif;
@@ -37,6 +38,7 @@
         </style>
     </head>
     <body>
+        <div id="output"></div>
         <div>
             <form name="navigateTo" id="navigateTo">
                 <label for="fnavigationType">Navigate Type:</label>
@@ -57,7 +59,6 @@
             function navigateto(){
                 let navigationType = document.getElementById("navigationType").value.toString();
                 let productCollectionId  = document.getElementById("productCollectionId").value.toString();
-                
                 VajroSDK.navigateTo(navigationType, productCollectionId).then((res) => {
                     output.innerHTML = 'Navigate Successfully';
                 })
