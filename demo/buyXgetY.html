@@ -8,14 +8,24 @@
         <script>
             const FreeProductMapping = {
                 6741457207487: [
-                    { productId: '6928843636927', lineItemType: 'READONLY' },
+                    {
+                        productId: '6928843636927',
+                        variantId: '40574334304447',
+                        lineItemType: 'READONLY'
+                    },
                     {
                         productId: '6733619167423',
                         variantId: '41722470400191',
                         lineItemType: 'READONLY'
                     }
                 ],
-                6928830267583: [{ productId: '6750261739711' }]
+                6928830267583: [
+                    {
+                        productId: '6750261739711',
+                        variantId: '41722470400191',
+                        lineItemType: 'READONLY'
+                    }
+                ]
             };
 
             let subscribedProducts = Object.keys(FreeProductMapping);
@@ -29,11 +39,11 @@
                         productInfo.customAttributes,
                         productInfo.lineItemType
                     )
-                        .then((res)=>{
+                        .then((res) => {
                             alert(JSON.stringify(res));
                             resolve(res);
                         })
-                        .catch((err)=>{
+                        .catch((err) => {
                             alert(JSON.stringify(err));
                             reject(res);
                         });
