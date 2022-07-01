@@ -290,10 +290,10 @@
                 output.innerHTML = output.innerHTML + "aboamt: " + aboveamount
                 output.innerHTML = output.innerHTML + "totamt: " + totalAfterSavings
                 output.innerHTML = output.innerHTML + "per: " + percentageamount
-                if(totalAfterSavings <=  aboveamount){ 
+                // if(totalAfterSavings <=  aboveamount){ 
                     output.innerHTML = output.innerHTML + "progress: " + totalAfterSavings + " total: " + aboveamount
                     progressText.innerHTML = `₹ ${aboveamount.toFixed(2)}`;
-                }
+                // }
             }
 
             function addThousAboveProduct(){
