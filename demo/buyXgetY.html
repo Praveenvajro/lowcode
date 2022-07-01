@@ -39,14 +39,8 @@
                         productInfo.customAttributes = {},
                         productInfo.lineItemType
                     )
-                        .then((res) => {
-                            alert(JSON.stringify(res));
-                            resolve(res);
-                        })
-                        .catch((err) => {
-                            alert(JSON.stringify(err));
-                            reject(res);
-                        });
+                        .then(resolve)
+                        .catch(reject);
                 });
             };
 
