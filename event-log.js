@@ -273,14 +273,11 @@
             );
 
             function progressbarcalc(totalAfterSavings, aboveamount) {
-                output.innerHTML = output.innerHTML + "aboamt: " + aboveamount
                 const progressBarContainer = document.querySelector('.progress-bar__container');
                 const progressBar = document.querySelector('.progress-bar');
                 const progressText = document.getElementById('progress-text');
                 progressText.innerHTML = ""
                 const percentageamount = (totalAfterSavings / aboveamount * 100) > 100 ? 100 : totalAfterSavings / aboveamount * 100;
-                output.innerHTML = output.innerHTML + "totamt: " + totalAfterSavings
-                output.innerHTML = output.innerHTML + "per: " + percentageamount
                 gsap.to(progressBar, {
                     x: `${percentageamount}%`,
                     duration: 2,
@@ -290,7 +287,13 @@
                         progressBarContainer.style.boxShadow = '0 0 5px #4895ef';
                     }
                 });
-                if(totalAfterSavings <=  aboveamount) progressText.innerHTML = `₹ ${aboveamount.toFixed(2)}`;
+                output.innerHTML = output.innerHTML + "aboamt: " + aboveamount
+                output.innerHTML = output.innerHTML + "totamt: " + totalAfterSavings
+                output.innerHTML = output.innerHTML + "per: " + percentageamount
+                if(totalAfterSavings <=  aboveamount){ 
+                    output.innerHTML = output.innerHTML + "progress: " + totalAfterSavings + " total: " + aboveamount
+                    progressText.innerHTML = `₹ ${aboveamount.toFixed(2)}`;
+                }
             }
 
             function addThousAboveProduct(){
