@@ -31,8 +31,8 @@
             //                 });
             // }
 
-            let output = document.getElementById('output');
-            output.innerHTML = 'this is sample one';
+            // let output = document.getElementById('output');
+            // output.innerHTML = 'this is sample one';
             
             // VajroSDK.subscribe(
             //     VajroSDK.Triggers.LINE_ITEM_ADDED_TO_CART,
@@ -273,10 +273,10 @@
             );
 
             function progressbarcalc(totalAfterSavings, aboveamount) {
+                // output.innerHTML = output.innerHTML + aboveamount
                 const progressBarContainer = document.querySelector('.progress-bar__container');
                 const progressBar = document.querySelector('.progress-bar');
                 const progressText = document.getElementById('progress-text');
-                progressText.innerHTML = ""
                 const percentageamount = (totalAfterSavings / aboveamount * 100) > 100 ? 100 : totalAfterSavings / aboveamount * 100;
                 gsap.to(progressBar, {
                     x: `${percentageamount}%`,
@@ -287,13 +287,7 @@
                         progressBarContainer.style.boxShadow = '0 0 5px #4895ef';
                     }
                 });
-                output.innerHTML = output.innerHTML + "aboamt: " + aboveamount
-                output.innerHTML = output.innerHTML + "totamt: " + totalAfterSavings
-                output.innerHTML = output.innerHTML + "per: " + percentageamount
-                // if(totalAfterSavings <=  aboveamount){ 
-                    output.innerHTML = output.innerHTML + "progress: " + totalAfterSavings + " total: " + aboveamount
-                    progressText.innerHTML = `₹ ${aboveamount.toFixed(2)}`;
-                // }
+                progressText.innerHTML = `₹ ${aboveamount.toFixed(2)}`;
             }
 
             function addThousAboveProduct(){
