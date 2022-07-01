@@ -273,11 +273,13 @@
             );
 
             function progressbarcalc(totalAfterSavings, aboveamount) {
-                output.innerHTML = output.innerHTML + aboveamount
+                output.innerHTML = output.innerHTML + "aboamt: " + aboveamount
                 const progressBarContainer = document.querySelector('.progress-bar__container');
                 const progressBar = document.querySelector('.progress-bar');
                 const progressText = document.getElementById('progress-text');
                 const percentageamount = (totalAfterSavings / aboveamount * 100) > 100 ? 100 : totalAfterSavings / aboveamount * 100;
+                output.innerHTML = output.innerHTML + "totamt: " + totalAfterSavings
+                output.innerHTML = output.innerHTML + "per: " + percentageamount
                 gsap.to(progressBar, {
                     x: `${percentageamount}%`,
                     duration: 2,
