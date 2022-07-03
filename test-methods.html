@@ -8,6 +8,13 @@
         <div id="singleproduct"></div>
         <div id="invalidProduct"></div>
         <div id="invalidVariant"></div>
+        <div id="multiVariTwoVariRegular"></div>
+        <div id="multiVariTwoVariHidden"></div>
+        <div id="multiVariThreeVari"></div>
+        <div id="withoutProductId"></div>
+        <div id="withoutVariantId"></div>
+        <div id="aboveQuantity"></div>
+        <div id="checkCustomAttributesJson"></div>
         <script>
             var testOutput;
 
@@ -92,6 +99,176 @@
                 });
             }
             invalidVariant()
+
+            function multiVariTwoVariRegular(){
+                const values = {
+                    productId: "6733619167423",
+                    variantId: "39990425288895",
+                    quantity: 4, 
+                    customAttributes: {
+                        "Brand": "wildcraft (+₹3)",
+                        "vjr_hidden_products": [{
+                            "hidden_product_id": "7268231676095",
+                            "product_id": "6733619167423",
+                            "option_string": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MTcyMjM2MDIwMTQwNw==",
+                            "option_value": "wildcraft",
+                            "custom_option_title": "Brand",
+                            "parent_option_name": "Brand",
+                            "price": "3.0"
+                        }]
+                    },
+                    lineItemType: "REGULAR"
+                }
+                let output = document.getElementById('multiVariTwoVariRegular');
+                output.innerHTML = "<div>Two Variants with REGULAR: </div>";
+                VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+                    testOutput = '<div class="success">Two Variants with REGULAR test case success</div>';
+                    output.innerHTML = output.innerHTML + testOutput;
+                }).catch(err=>{
+                    testOutput = `<div class="error">Error: ${err.message}</div>`;
+                    output.innerHTML = output.innerHTML + testOutput;
+                });
+            }
+            multiVariTwoVariRegular()
+
+            function multiVariTwoVariHidden(){
+                const values = {
+                    productId: "6733619167423",
+                    variantId: "39990425288895",
+                    quantity: 4, 
+                    customAttributes: {
+                        "Brand": "wildcraft (+₹3)",
+                        "vjr_hidden_products": [{
+                            "hidden_product_id": "7268231676095",
+                            "product_id": "6733619167423",
+                            "option_string": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MTcyMjM2MDIwMTQwNw==",
+                            "option_value": "wildcraft",
+                            "custom_option_title": "Brand",
+                            "parent_option_name": "Brand",
+                            "price": "3.0"
+                        }]
+                    },
+                    lineItemType: "HIDDEN"
+                }
+                let output = document.getElementById('multiVariTwoVariHidden');
+                output.innerHTML = "<div>Two Variants with HIDDEN: </div>";
+                VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+                    testOutput = '<div class="success">Two Variants with HIDDEN test case success</div>';
+                    output.innerHTML = output.innerHTML + testOutput;
+                }).catch(err=>{
+                    testOutput = `<div class="error">Error: ${err.message}</div>`;
+                    output.innerHTML = output.innerHTML + testOutput;
+                });
+            }
+            multiVariTwoVariHidden()
+
+            function multiVariThreeVari(){
+                const values = {
+                    productId: "6750261739711",
+                    variantId: "41722507067583",
+                    quantity: 4, 
+                    customAttributes:  {},
+                    lineItemType: "REGULAR"
+                }
+                let output = document.getElementById('multiVariThreeVari');
+                output.innerHTML = "<div>Three Variants: </div>";
+                VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+                    testOutput = '<div class="success">Three Variants test case success</div>';
+                    output.innerHTML = output.innerHTML + testOutput;
+                }).catch(err=>{
+                    testOutput = `<div class="error">Error: ${err.message}</div>`;
+                    output.innerHTML = output.innerHTML + testOutput;
+                });
+            }
+            multiVariThreeVari()
+
+            function withoutProductId(){
+                const values = {
+                    productId: "",
+                    variantId: "41722507067583",
+                    quantity: 4, 
+                    customAttributes:  {},
+                    lineItemType: "REGULAR"
+                }
+                let output = document.getElementById('withoutProductId');
+                output.innerHTML = "<div>Without Product ID: </div>";
+                VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+                    
+                }).catch(err=>{
+                    testOutput = `<div class="error">Error: ${err.message}</div>`;
+                    output.innerHTML = output.innerHTML + testOutput;
+                });
+            }
+            withoutProductId()
+
+            function withoutVariantId(){
+                const values = {
+                    productId: "6750261739711",
+                    variantId: "",
+                    quantity: 4, 
+                    customAttributes:  {},
+                    lineItemType: "REGULAR"
+                }
+                let output = document.getElementById('withoutVariantId');
+                output.innerHTML = "<div>Without Variant ID: </div>";
+                VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+                    
+                }).catch(err=>{
+                    testOutput = `<div class="error">Error: ${err.message}</div>`;
+                    output.innerHTML = output.innerHTML + testOutput;
+                });
+            }
+            withoutVariantId()
+
+            function aboveQuantity(){
+                const values = {
+                    productId: "6741457207487",
+                    variantId: "40014956429503",
+                    quantity: 4, 
+                    customAttributes:  {},
+                    lineItemType: "REGULAR"
+                }
+                let output = document.getElementById('aboveQuantity');
+                output.innerHTML = "<div>Above Qantity: </div>";
+                VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+                    
+                }).catch(err=>{
+                    testOutput = `<div class="error">Error: ${err.message}</div>`;
+                    output.innerHTML = output.innerHTML + testOutput;
+                });
+            }
+            aboveQuantity()
+
+            function checkCustomAttributesJson(){
+                const values = {
+                    productId: "6733619167423",
+                    variantId: "39990425288895",
+                    quantity: 4, 
+                    customAttributes: {
+                        "Brand": "wildcraft (+₹3)",
+                        "vjr_hidden_products": [{
+                            "hidden_product_id": "7268231676095",
+                            "product_id": "6733619167423",
+                            "option_string": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MTcyMjM2MDIwMTQwNw==",
+                            "option_value": "wildcraft",
+                            "custom_option_title": "Brand",
+                            "parent_option_name": "Brand",
+                            "price": "3.0"
+                        }]
+                    },
+                    lineItemType: "REGULAR"
+                }
+                let output = document.getElementById('checkCustomAttributesJson');
+                output.innerHTML = "<div>Check Custom Attribute JSON: </div>";
+                VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+                    testOutput = '<div class="success">Custom Attribute JSON added. test case success</div>';
+                    output.innerHTML = output.innerHTML + testOutput;
+                }).catch(err=>{
+                    testOutput = `<div class="error">Error: ${err.message}</div>`;
+                    output.innerHTML = output.innerHTML + testOutput;
+                });
+            }
+            checkCustomAttributesJson()
         </script>
     </body>
 </html>
