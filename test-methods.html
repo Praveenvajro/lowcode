@@ -46,7 +46,7 @@
                     // }else{
                     //     testOutput = '<div class="error">No variant test case failed</div>';
                     // }
-                    output.innerHTML = "<div>AppContext: " + result+"</div> <br/> ";
+                    output.innerHTML = "<div>AppContext: " + result.appContent+"</div> <br/> <div>LineItem: " + result.lineItem+"</div> <br/> ";
                 }).catch(err=>{
                     alert("AF")
                     testOutput = '<div class="error">Error: No variant test case failed</div>';
