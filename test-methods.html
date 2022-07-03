@@ -47,7 +47,7 @@
                     // output.innerHTML = testOutput + "<br/> <div>AppContext: " + JSON.stringify(appContext)+"</div> <br/> <div>lineItem: " + JSON.stringify(lineItem)+ "</div>";
                 }).catch(err=>{
                     testOutput = '<div class="error">Error: No variant test case failed</div>';
-                    output.innerHTML = "error: "+ err;
+                    output.innerHTML = "error: "+ JSON.stringify(err);
                 });
             }
             testNoVariant();
