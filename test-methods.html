@@ -4,41 +4,25 @@
         <script src="./vajro-sdk.js"></script>
     </head>
     <body>
-        <div id="output">OUTPUT: </div>
+        <div id="novariant">NoVariant: </div>
+        <div id="singleproduct">SingleProduct: </div>
+        <div id="invalidProduct">InvalidProduct: </div>
+        <div id="invalidVariant">InvalidVariant: </div>
         <script>
             var testOutput;
 
-            // const handleLineItemAdded = (appContext, lineItem) => {
-            //     let { productId } = lineItem;
-            //     if (subscribedProducts.includes(productId)) {
-            //         let subProductsToAdd = FreeProductMapping[productId];
-            //         if (subProductsToAdd) {
-            //             let promises = [];
-            //             subProductsToAdd.forEach((subProduct) => {
-            //                 let promise = addLineItem(subProduct);
-            //                 promises.push(promise);
-            //             });
-            //             Promise.all(promises)
-            //                 .then(() => {
-            //                     alert('Sub products added successfully');
-            //                 })
-            //                 .catch((err) => {
-            //                     alert(JSON.stringify(err));
-            //                 });
-            //         }
-            //     }
-            // };
-
-            function testNoVariant(){
+            function noVariant(){
                 const values = {
-                    productId: "",
+                    productId: "6878543315135",
                     variantId: "40423668482239",
                     quantity: 1, 
                     customAttributes:  {},
                     lineItemType: "REGULAR"
                 }
-                let output = document.getElementById('output');
+                let output = document.getElementById('novariant');
                 VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then(({appContext, lineItem}) => {
+                    testOutput = '<div class="success">No variant test case success</div>';
+                    output.innerHTML = testOutput;
                     // if (lineItem.productId === values.productId){
                     //     testOutput = '<div class="success">No variant test case success</div>';
                     // }else{
@@ -46,11 +30,62 @@
                     // }
                     // output.innerHTML = testOutput + "<br/> <div>AppContext: " + JSON.stringify(appContext)+"</div> <br/> <div>lineItem: " + JSON.stringify(lineItem)+ "</div>";
                 }).catch(err=>{
-                    testOutput = '<div class="error">Error: No variant test case failed</div>';
-                    output.innerHTML = "error: "+ JSON.stringify(err);
+                    testOutput = `<div class="error">Error: ${err.message}</div>`;
+                    output.innerHTML = testOutput;
                 });
             }
-            testNoVariant();
+            noVariant();
+
+            function singleProduct(){
+                const values = {
+                    productId: "6741457207487",
+                    variantId: "40014956429503",
+                    quantity: 1, 
+                    customAttributes:  {},
+                    lineItemType: "REGULAR"
+                }
+                let output = document.getElementById('singleproduct');
+                VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+                }).catch(err=>{
+                    testOutput = `<div class="error">Error: ${err.message}</div>`;
+                    output.innerHTML = testOutput;
+                });
+            }
+            singleProduct()
+
+            function invalidProduct(){
+                const values = {
+                    productId: "12346741457207487",
+                    variantId: "40014956429503",
+                    quantity: 1, 
+                    customAttributes:  {},
+                    lineItemType: "REGULAR"
+                }
+                let output = document.getElementById('invalidProduct');
+                VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+                }).catch(err=>{
+                    testOutput = `<div class="error">Error: ${err.message}</div>`;
+                    output.innerHTML = testOutput;
+                });
+            }
+            invalidProduct()
+
+            function invalidVariant(){
+                const values = {
+                    productId: "6741457207487",
+                    variantId: "111140014956429503",
+                    quantity: 1, 
+                    customAttributes:  {},
+                    lineItemType: "REGULAR"
+                }
+                let output = document.getElementById('invalidVariant');
+                VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+                }).catch(err=>{
+                    testOutput = `<div class="error">Error: ${err.message}</div>`;
+                    output.innerHTML = testOutput;
+                });
+            }
+            invalidVariant()
         </script>
     </body>
 </html>
