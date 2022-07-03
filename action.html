@@ -23,7 +23,7 @@
     </style>
 </head>
 <body>
-    <div id="output">fdgfdg</div>
+    <div id="output">zzzz</div>
     <!-- <h2>No Variant </h2>
     <button type="button" name="noVariant" id="noVariant" onclick ="noVariant('Welcome to Cart')"> Add to Cart </button>
     <h2>Single Product </h2>
@@ -62,6 +62,7 @@ function testNoVariant(){
         lineItemType: "REGULAR"
     }
     let output = document.getElementById('output');
+    output.innerHTML = "hello: "+testOutput;
     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {
         if (lineItem.productId === values.productId){
              testOutput = '<div class="success">No variant test case success</div>';
@@ -71,7 +72,7 @@ function testNoVariant(){
         output.innerHTML = "adfs: "+testOutput+" result: "+ res;
     }).catch(err=>{
         testOutput = '<div class="error">Error: No variant test case failed</div>';
-        output.innerHTML = "bvcbcvb: "+testOutput+" error: "+ res;;
+        output.innerHTML = "bvcbcvb: "+testOutput+" error: "+ err;
     });
     // const result = JSON.stringify(values)
     // if (window.webkit != undefined) {
