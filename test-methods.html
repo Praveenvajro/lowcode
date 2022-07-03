@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script src="./vajro-sdk.js"></script>
+    </head>
+    <body>
+        <div id="output">OUTPUT: </div>
+        <script>
+            var testOutput;
+
+function testNoVariant(){
+    const values = {
+        productId: "6878543315135",
+        variantId: "40423668482239",
+        quantity: 1, 
+        customAttributes:  {},
+        lineItemType: "REGULAR"
+    }
+    let output = document.getElementById('output');
+    VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {
+        if (lineItem.productId === values.productId){
+             testOutput = '<div class="success">No variant test case success</div>';
+        }else{
+            testOutput = '<div class="error">No variant test case failed</div>';
+        }
+        output.innerHTML = testOutput;
+    }).catch(err=>{
+        testOutput = '<div class="error">Error: No variant test case failed</div>';
+        output.innerHTML = "error: "+ err;
+    });
+}
+testNoVariant();
+        </script>
+    </body>
+</html>
