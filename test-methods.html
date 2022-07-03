@@ -47,6 +47,7 @@
                     var lineHandle = lineItem.lineItemHandle
                     testOutput = '<div class="success">No variant test case success</div>';
                     output.innerHTML = output.innerHTML + testOutput + JSON.stringify(lineItem);
+                    negativequanity(lineHandle)
                     // if (lineItem.productId === values.productId){
                     //     testOutput = '<div class="success">No variant test case success</div>';
                     // }else{
@@ -146,7 +147,7 @@
                 });
             }
             multiVariTwoVariRegular()
-            alert(lineHandle)
+            
             function multiVariTwoVariHidden(){
                 const values = {
                     productId: "6733619167423",
@@ -294,8 +295,7 @@
                 let output = document.getElementById('noLineItemHandle');
                 output.innerHTML = "<div class='title'>No LineItem Handle: </div>";
                 VajroSDK.removeLineItemFromCart(values.lineitemhandle, values.quantity).then((res)=>{
-                    testOutput = '<div class="success">Three Variants test case success</div>';
-                    output.innerHTML = output.innerHTML + testOutput;
+                    
                 }).catch(err=>{
                     testOutput = `<div class="error">Error: ${err.message}</div>`;
                     output.innerHTML = output.innerHTML + testOutput;
@@ -303,9 +303,9 @@
             }
             nolineItemHandle()
 
-            function negativequanity(){
+            function negativequanity(lineHandle){
                 const values = {
-                    lineitemhandle: "",
+                    lineitemhandle: lineHandle,
                     quantity: -1
                 }
                 let output = document.getElementById('negativeQuanity');
@@ -317,7 +317,6 @@
                     output.innerHTML = output.innerHTML + testOutput;
                 });
             }
-            negativequanity()
         </script>
     </body>
 </html>
