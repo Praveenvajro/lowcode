@@ -315,10 +315,10 @@
                 let output = document.getElementById('negativeQuantity');
                 output.innerHTML = "<div class='title'>Negative Quanity (REMOVE): </div>";
                 VajroSDK.removeLineItemFromCart(values.lineitemhandle, values.quantity).then((res)=>{
-                    
+                    output.innerHTML = output.innerHTML + JSON.stringify(res);
                 }).catch(err=>{
                     testOutput = `<div class="error">Error: ${err.message}</div>`;
-                    output.innerHTML = output.innerHTML + testOutput;
+                    output.innerHTML = output.innerHTML + testOutput + JSON.stringify(err);
                 });
             }
 
@@ -333,7 +333,7 @@
                     
                 }).catch(err=>{
                     testOutput = `<div class="error">Error: ${err.message}</div>`;
-                    output.innerHTML = output.innerHTML + testOutput;
+                    output.innerHTML = output.innerHTML + testOutput + JSON.stringify(err);
                 });
             }
 
