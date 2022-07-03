@@ -5,12 +5,15 @@
         <style>
             .success {
                 background: greenyellow;
+                font-size: 20px;
             }
             .error{
                 background: red;
+                font-size: 20px;
             }
             .title{
-                background: blue;
+                background: rgb(8, 212, 243);
+                font-size: 20px;
             }
         </style>
     </head>
@@ -310,7 +313,7 @@
             function negativequantity(lineHandle){
                 const values = {
                     lineitemhandle: lineHandle,
-                    quantity: -1
+                    quantity: -6
                 }
                 let output = document.getElementById('negativeQuantity');
                 output.innerHTML = "<div class='title'>Negative Quanity (REMOVE): </div>";
