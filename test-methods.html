@@ -38,14 +38,14 @@
                     lineItemType: "REGULAR"
                 }
                 let output = document.getElementById('output');
-                VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((appContext, lineItem) => {
-                    alert(values.productId)
+                VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {
+                    // alert(values.productId)
                     // if (lineItem.productId === values.productId){
                     //     testOutput = '<div class="success">No variant test case success</div>';
                     // }else{
                     //     testOutput = '<div class="error">No variant test case failed</div>';
                     // }
-                    output.innerHTML = "<div>AppContext: " + appContext+"</div> <br/> <div>lineItem: " + lineItem+ "</div>";
+                    output.innerHTML = "<div>AppContext: " + res+"</div> <br/> ";
                 }).catch(err=>{
                     alert("AF")
                     testOutput = '<div class="error">Error: No variant test case failed</div>';
