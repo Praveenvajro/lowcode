@@ -39,13 +39,13 @@
                 }
                 let output = document.getElementById('output');
                 VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((appContext, lineItem) => {
-                    // alert(res)
-                    if (lineItem.productId === values.productId){
-                        testOutput = '<div class="success">No variant test case success</div>';
-                    }else{
-                        testOutput = '<div class="error">No variant test case failed</div>';
-                    }
-                    output.innerHTML = testOutput +"<br/> <div>AppContext: " + appContext+"</div> <br/> <div>lineItem: " + lineItem+ "</div>";
+                    alert(values.productId)
+                    // if (lineItem.productId === values.productId){
+                    //     testOutput = '<div class="success">No variant test case success</div>';
+                    // }else{
+                    //     testOutput = '<div class="error">No variant test case failed</div>';
+                    // }
+                    output.innerHTML = "<div>AppContext: " + appContext+"</div> <br/> <div>lineItem: " + lineItem+ "</div>";
                 }).catch(err=>{
                     alert("AF")
                     testOutput = '<div class="error">Error: No variant test case failed</div>';
