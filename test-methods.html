@@ -2,6 +2,17 @@
 <html lang="en">
     <head>
         <script src="./vajro-sdk.js"></script>
+        <style>
+            .success {
+                background: greenyellow;
+            }
+            .error{
+                background: red;
+            }
+            .title{
+                background: blue;
+            }
+        </style>
     </head>
     <body>
         <div id="novariant"></div>
@@ -27,7 +38,7 @@
                     lineItemType: "REGULAR"
                 }
                 let output = document.getElementById('novariant');
-                output.innerHTML = "<div>No Variant: </div>";
+                output.innerHTML = "<div class='title'>No Variant: </div>";
                 VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then(({appContext, lineItem}) => {
                     testOutput = '<div class="success">No variant test case success</div>';
                     output.innerHTML = output.innerHTML + testOutput;
@@ -53,7 +64,7 @@
                     lineItemType: "REGULAR"
                 }
                 let output = document.getElementById('singleproduct');
-                output.innerHTML = "<div>Singe Product: </div>";
+                output.innerHTML = "<div class='title'>Singe Product: </div>";
                 VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
                     testOutput = '<div class="success">Single Product variant test case success</div>';
                     output.innerHTML = output.innerHTML + testOutput;
@@ -73,7 +84,7 @@
                     lineItemType: "REGULAR"
                 }
                 let output = document.getElementById('invalidProduct');
-                output.innerHTML = "<div>Invalid Product: </div>";
+                output.innerHTML = "<div class='title'>Invalid Product: </div>";
                 VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
                 }).catch(err=>{
                     testOutput = `<div class="error">Error: ${err.message}</div>`;
@@ -91,7 +102,7 @@
                     lineItemType: "REGULAR"
                 }
                 let output = document.getElementById('invalidVariant');
-                output.innerHTML = "<div>Invalid Variant: </div>";
+                output.innerHTML = "<div class='title'>Invalid Variant: </div>";
                 VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
                 }).catch(err=>{
                     testOutput = `<div class="error">Error: ${err.message}</div>`;
@@ -120,7 +131,7 @@
                     lineItemType: "REGULAR"
                 }
                 let output = document.getElementById('multiVariTwoVariRegular');
-                output.innerHTML = "<div>Two Variants with REGULAR: </div>";
+                output.innerHTML = "<div class='title'>Two Variants with REGULAR: </div>";
                 VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
                     testOutput = '<div class="success">Two Variants with REGULAR test case success</div>';
                     output.innerHTML = output.innerHTML + testOutput;
@@ -151,7 +162,7 @@
                     lineItemType: "HIDDEN"
                 }
                 let output = document.getElementById('multiVariTwoVariHidden');
-                output.innerHTML = "<div>Two Variants with HIDDEN: </div>";
+                output.innerHTML = "<div class='title'>Two Variants with HIDDEN: </div>";
                 VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
                     testOutput = '<div class="success">Two Variants with HIDDEN test case success</div>';
                     output.innerHTML = output.innerHTML + testOutput;
@@ -171,7 +182,7 @@
                     lineItemType: "REGULAR"
                 }
                 let output = document.getElementById('multiVariThreeVari');
-                output.innerHTML = "<div>Three Variants: </div>";
+                output.innerHTML = "<div class='title'>Three Variants: </div>";
                 VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
                     testOutput = '<div class="success">Three Variants test case success</div>';
                     output.innerHTML = output.innerHTML + testOutput;
@@ -191,7 +202,7 @@
                     lineItemType: "REGULAR"
                 }
                 let output = document.getElementById('withoutProductId');
-                output.innerHTML = "<div>Without Product ID: </div>";
+                output.innerHTML = "<div class='title'>Without Product ID: </div>";
                 VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
                     
                 }).catch(err=>{
@@ -210,7 +221,7 @@
                     lineItemType: "REGULAR"
                 }
                 let output = document.getElementById('withoutVariantId');
-                output.innerHTML = "<div>Without Variant ID: </div>";
+                output.innerHTML = "<div class='title'>Without Variant ID: </div>";
                 VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
                     
                 }).catch(err=>{
@@ -229,7 +240,7 @@
                     lineItemType: "REGULAR"
                 }
                 let output = document.getElementById('aboveQuantity');
-                output.innerHTML = "<div>Above Qantity: </div>";
+                output.innerHTML = "<div class='title'>Above Qantity: </div>";
                 VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
                     
                 }).catch(err=>{
@@ -259,7 +270,7 @@
                     lineItemType: "REGULAR"
                 }
                 let output = document.getElementById('checkCustomAttributesJson');
-                output.innerHTML = "<div>Check Custom Attribute JSON: </div>";
+                output.innerHTML = "<div class='title'>Check Custom Attribute JSON: </div>";
                 VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
                     testOutput = '<div class="success">Custom Attribute JSON added. test case success</div>';
                     output.innerHTML = output.innerHTML + testOutput;
