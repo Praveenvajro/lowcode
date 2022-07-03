@@ -31,7 +31,7 @@
 
             function testNoVariant(){
                 const values = {
-                    productId: "6878543315135",
+                    productId: "",
                     variantId: "40423668482239",
                     quantity: 1, 
                     customAttributes:  {},
@@ -39,14 +39,13 @@
                 }
                 let output = document.getElementById('output');
                 VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then(({appContext, lineItem}) => {
-                    if (lineItem.productId === values.productId){
-                        testOutput = '<div class="success">No variant test case success</div>';
-                    }else{
-                        testOutput = '<div class="error">No variant test case failed</div>';
-                    }
-                    output.innerHTML = testOutput + "<br/> <div>AppContext: " + JSON.stringify(appContext)+"</div> <br/> <div>lineItem: " + JSON.stringify(lineItem)+ "</div>";
+                    // if (lineItem.productId === values.productId){
+                    //     testOutput = '<div class="success">No variant test case success</div>';
+                    // }else{
+                    //     testOutput = '<div class="error">No variant test case failed</div>';
+                    // }
+                    // output.innerHTML = testOutput + "<br/> <div>AppContext: " + JSON.stringify(appContext)+"</div> <br/> <div>lineItem: " + JSON.stringify(lineItem)+ "</div>";
                 }).catch(err=>{
-                    alert("AF")
                     testOutput = '<div class="error">Error: No variant test case failed</div>';
                     output.innerHTML = "error: "+ err;
                 });
