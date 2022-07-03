@@ -37,17 +37,15 @@
                     customAttributes:  {},
                     lineItemType: "REGULAR"
                 }
-                // alert(JSON.stringify(values));
                 let output = document.getElementById('output');
                 VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {
-                    const result = JSON.stringify(res)
+                    // alert(values.productId)
                     // if (lineItem.productId === values.productId){
                     //     testOutput = '<div class="success">No variant test case success</div>';
                     // }else{
                     //     testOutput = '<div class="error">No variant test case failed</div>';
                     // }
-                    alert(result)
-                    output.innerHTML = "<div>AppContext: " + result.appContent+"</div> <br/> <div>LineItem: " + result.lineItem+"</div> <br/> ";
+                    output.innerHTML = "<div>AppContext: " + res.appContext+"</div> <br/> <div>lineItem: " + res.lineItem+ "</div>";
                 }).catch(err=>{
                     alert("AF")
                     testOutput = '<div class="error">Error: No variant test case failed</div>';
