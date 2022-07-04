@@ -35,6 +35,13 @@
         <div id="negativeQuantity"></div>
         <div id="checkQuantityInt"></div>
         <div id="removedLineItem"></div>
+        <div><b>Update Line Item in Cart (ACTION)</b></div>
+        <div id="noLineItemHandleUpdate"></div>
+        <!-- <div id="negativeQuantityUpdate"></div> -->
+        <!-- <div id="checkQuantityIntUpdate"></div> -->
+        <div id="nullCheckAllParamUpdate"></div>
+        <div id="checkCustomAttributesStringUpdate"></div>
+        <div id="updateQuantityLineItem"></div>
         <script>
             var testOutput;
 
@@ -49,11 +56,12 @@
                 let output = document.getElementById('novariant');
                 output.innerHTML = "<div class='title'>No Variant (ADD): </div>";
                 VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then(({appContext, lineItem}) => {
-                    var lineHandle = lineItem.lineItemHandle
+                    let lineHandle = lineItem.lineItemHandle
                     testOutput = '<div class="success">No variant test case success</div>';
                     output.innerHTML = output.innerHTML + testOutput;
+                    nullCheckAllParamUpdate(lineHandle)
                     negativequantity(lineHandle)
-                    // checkQuantityInt(lineHandle)
+                    checkQuantityInt(lineHandle)
                     removedLineItem(lineHandle)
                     // if (lineItem.productId === values.productId){
                     //     testOutput = '<div class="success">No variant test case success</div>';
@@ -284,9 +292,12 @@
                 }
                 let output = document.getElementById('checkCustomAttributesJson');
                 output.innerHTML = "<div class='title'>Check Custom Attribute JSON (ADD): </div>";
-                VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+                VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then(({appContext, lineItem})=>{
                     testOutput = '<div class="success">Custom Attribute JSON added. test case success</div>';
                     output.innerHTML = output.innerHTML + testOutput;
+                    let lineHandle = lineItem.lineItemHandle
+                    checkCustomAttributesStringUpdate(lineHandle)
+                    updateQuantityLineItem(lineHandle)
                 }).catch(err=>{
                     testOutput = `<div class="error">Error: ${err.message}</div>`;
                     output.innerHTML = output.innerHTML + testOutput;
@@ -313,7 +324,7 @@
             function negativequantity(lineHandle){
                 const values = {
                     lineitemhandle: lineHandle,
-                    quantity: -1
+                    quantity: -6
                 }
                 let output = document.getElementById('negativeQuantity');
                 output.innerHTML = "<div class='title'>Negative Quanity (REMOVE): </div>";
@@ -325,20 +336,20 @@
                 });
             }
 
-            // function checkQuantityInt(lineHandle){
-            //     const values = {
-            //         lineitemhandle: lineHandle,
-            //         quantity: '0'
-            //     }
-            //     let output = document.getElementById('checkQuantityInt');
-            //     output.innerHTML = "<div class='title'>Check the Quantity Integer (REMOVE): </div>";
-            //     VajroSDK.removeLineItemFromCart(values.lineitemhandle, values.quantity).then((res)=>{
+            function checkQuantityInt(lineHandle){
+                const values = {
+                    lineitemhandle: lineHandle,
+                    quantity: '0'
+                }
+                let output = document.getElementById('checkQuantityInt');
+                output.innerHTML = "<div class='title'>Check the Quantity Integer (REMOVE): </div>";
+                VajroSDK.removeLineItemFromCart(values.lineitemhandle, values.quantity).then((res)=>{
                     
-            //     }).catch(err=>{
-            //         testOutput = `<div class="error">Error: ${err.message}</div>`;
-            //         output.innerHTML = output.innerHTML + testOutput + JSON.stringify(err);
-            //     });
-            // }
+                }).catch(err=>{
+                    testOutput = `<div class="error">Error: ${err.message}</div>`;
+                    output.innerHTML = output.innerHTML + testOutput + JSON.stringify(err);
+                });
+            }
 
             function removedLineItem(lineHandle){
                 const values = {
@@ -349,6 +360,87 @@
                 output.innerHTML = "<div class='title'>Remove Line Item from cart (REMOVE): </div>";
                 VajroSDK.removeLineItemFromCart(values.lineitemhandle, values.quantity).then((res)=>{
                     testOutput = '<div class="success">Product Removed from Cart test case success</div>';
+                    output.innerHTML = output.innerHTML + testOutput;
+                }).catch(err=>{
+                    testOutput = `<div class="error">Error: ${err.message}</div>`;
+                    output.innerHTML = output.innerHTML + testOutput;
+                });
+            }
+
+            function noLineItemHandleUpdate(){
+                const values = {
+                    lineitemhandle: "",
+                    quantity: 1,
+                    lineItemType: null,
+                    customAttributes: null
+                }
+                let output = document.getElementById('noLineItemHandleUpdate');
+                output.innerHTML = "<div class='title'>No LineItem Handle (UPDATE): </div>";
+                VajroSDK.updateLineItemInCart(values.lineitemhandle, values.quantity, values.lineItemType, values.customAttributes).then((res)=>{
+                    
+                }).catch(err=>{
+                    testOutput = `<div class="error">Error: ${err.message}</div>`;
+                    output.innerHTML = output.innerHTML + testOutput;
+                });
+            }
+            noLineItemHandleUpdate()
+
+            function nullCheckAllParamUpdate(lineHandle){
+                const values = {
+                    lineitemhandle: lineHandle,
+                    quantity: "",
+                    lineItemType: "",
+                    customAttributes: ""
+                }
+                let output = document.getElementById('nullCheckAllParamUpdate');
+                output.innerHTML = "<div class='title'>Null Check All Param (UPDATE): </div>";
+                VajroSDK.updateLineItemInCart(values.lineitemhandle, values.quantity, values.lineItemType, values.customAttributes).then((res)=>{
+                    
+                }).catch(err=>{
+                    testOutput = `<div class="error">Error: ${err.message}</div>`;
+                    output.innerHTML = output.innerHTML + testOutput;
+                });
+            }
+
+            function checkCustomAttributesStringUpdate(lineHandle){
+                const values = {
+                    lineitemhandle: lineHandle,
+                    quantity: null,
+                    lineItemType: null,
+                    customAttributes: "Handle"
+                }
+                let output = document.getElementById('checkCustomAttributesStringUpdate');
+                output.innerHTML = "<div class='title'>Check Custom Attributes is JSON or Not (UPDATE): </div>";
+                VajroSDK.updateLineItemInCart(values.lineitemhandle, values.quantity, values.lineItemType, values.customAttributes).then((res)=>{
+                    
+                }).catch(err=>{
+                    testOutput = `<div class="error">Error: ${err.message}</div>`;
+                    output.innerHTML = output.innerHTML + testOutput;
+                });
+            }
+
+            function updateQuantityLineItem(lineHandle){
+                const values = {
+                    lineitemhandle: lineHandle,
+                    quantity: null,
+                    lineItemType: null,
+                    customAttributes: {
+                        "Brand": "Roshan (+₹5)",
+                        "vjr_hidden_products": [{
+                            "hidden_product_id": "7268228530367",
+                            "product_id": "6733619167423",
+                            "option_string": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MTcyMjM1NjY2MjQ2Mw==",
+                            "option_value": "Roshan",
+                            "custom_option_title": "Brand",
+                            "parent_option_name": "Brand",
+                            "price": "5.0"
+                        }]
+                    }
+                }
+                let output = document.getElementById('updateQuantityLineItem');
+                output.innerHTML = "<div class='title'>Update the Line Item in Cart (UPDATE): </div>";
+                VajroSDK.updateLineItemInCart(values.lineitemhandle, values.quantity, values.lineItemType, values.customAttributes).then((res)=>{
+                    testOutput = '<div class="success">Update Line Item in Cart test case success</div>';
                     output.innerHTML = output.innerHTML + testOutput;
                 }).catch(err=>{
                     testOutput = `<div class="error">Error: ${err.message}</div>`;
