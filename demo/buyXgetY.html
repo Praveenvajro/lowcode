@@ -2,9 +2,10 @@
 <html lang="en">
     <head>
         <title>Buy X & Get Y</title>
-        <script src="../vajro-sdk.js"></script>
+        <script src="./vajro-sdk.js"></script>
     </head>
     <body>
+        <h1>Hello world!</h1>
         <script>
             const FreeProductMapping = {
                 6741457207487: [
@@ -35,8 +36,8 @@
                     VajroSDK.addLineItemToCart(
                         productInfo.productId,
                         productInfo.variantId,
-                        productInfo.quantity = 1,
-                        productInfo.customAttributes = {},
+                        (productInfo.quantity = 1),
+                        (productInfo.customAttributes = {}),
                         productInfo.lineItemType
                     )
                         .then(resolve)
