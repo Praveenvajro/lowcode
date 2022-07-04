@@ -24,7 +24,7 @@
 </head>
 <body>
     <div id="output">fdgfdg</div>
-    <!-- <h2>No Variant </h2>
+    <h2>No Variant </h2>
     <button type="button" name="noVariant" id="noVariant" onclick ="noVariant('Welcome to Cart')"> Add to Cart </button>
     <h2>Single Product </h2>
     <button type="button" name="singleProduct" id="singleProduct" onclick ="singleProduct('Welcome to Cart')"> Add to Cart </button>
@@ -45,7 +45,7 @@
     <h2>Above Limited Quantity  </h2>
     <button type="button" name="aboveQuantity" id="aboveQuantity" onclick ="aboveQuantity('Welcome to Cart')"> Add to Cart </button>
     <h2>Checking Custom Attributes is JSON or not  </h2>
-    <button type="button" name="checkCustomAttributesJson" id="checkCustomAttributesJson" onclick ="checkCustomAttributesJson('Welcome to Cart')"> Add to Cart </button> -->
+    <button type="button" name="checkCustomAttributesJson" id="checkCustomAttributesJson" onclick ="checkCustomAttributesJson('Welcome to Cart')"> Add to Cart </button>
 </body>
 </html>
 
@@ -88,7 +88,7 @@
 function noVariant(msg){
     const values = {
         productId: "6878543315135",
-        variantId: "40423668482239",
+        variantId: "",
         quantity: 1, 
         customAttributes:  {},
         lineItemType: "REGULAR"
@@ -115,7 +115,7 @@ function noVariant(msg){
 function singleProduct(msg){
     const values = {
         productId: "6741457207487",
-        variantId: "40014956429503",
+        variantId: "",
         quantity: 1, 
         customAttributes:  {},
         lineItemType: "REGULAR"
