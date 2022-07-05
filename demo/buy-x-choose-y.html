@@ -35,12 +35,12 @@
             .show {
                 display: block;
             }
-            .hide{
+            .hide {
                 display: none;
             }
         </style>
     </head>
-    <body class="hide" id="body">
+    <body id="body">
         <h3 class="heading">Please choose one of the free product</h3>
         <div id="output"></div>
         <div class="container-fluid">
@@ -84,7 +84,7 @@
                         productInfo.variantId,
                         (productInfo.quantity = 1),
                         (productInfo.customAttributes = {}),
-                        productInfo.lineItemType = 'READONLY'
+                        (productInfo.lineItemType = 'READONLY')
                     )
                         .then(() => {
                             Object.keys(state.productDetails).forEach((id) => {
@@ -151,8 +151,8 @@
                         `;
 
                     slider.innerHTML += productCard;
-                    let body = document.getElementById('body');
-                    body.classList.add('show');
+                    // let body = document.getElementById('body');
+                    // body.classList.add('show');
                 });
             };
 
