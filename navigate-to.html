@@ -58,7 +58,7 @@
         <script type="text/javascript">
             let output = document.getElementById("output");
             VajroSDK.subscribe(VajroSDK.Triggers.ON_PAGE_LOADED,(appContext, product) => {
-                output.innerHTML = JSON.stringify(appContext);
+                output.innerHTML = JSON.stringify(appContext)+ " PRODUCT: "+ JSON.stringify(product);
             })
             function navigateto(){
                 let navigationType = document.getElementById("navigationType").value.toString();
