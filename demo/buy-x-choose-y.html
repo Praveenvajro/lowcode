@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Buy X & Choose Y</title>
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+            crossorigin="anonymous"
+        />
+        <script src="./vajro-sdk.js"></script>
+        <style>
+            .height {
+                height: 200px;
+            }
+
+            .width {
+                width: 200px;
+            }
+
+            .capitalize {
+                text-transform: capitalize;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="row flex-nowrap" id="slider"></div>
+        </div>
+        <script>
+            const FreeProductMapping = {
+                6741457207487: [
+                    {
+                        productId: '6928843636927',
+                        variantId: '40574334304447',
+                        lineItemType: 'READONLY'
+                    },
+                    {
+                        productId: '6733619167423',
+                        variantId: '41722470400191',
+                        lineItemType: 'READONLY'
+                    }
+                ],
+                6928830267583: [
+                    {
+                        productId: '6750261739711',
+                        variantId: '41722470400191',
+                        lineItemType: 'READONLY'
+                    }
+                ]
+            };
+
+            const storeURL = 'https://praveenn-vjro.myshopify.com';
+
+            const state = {};
+            const slider = document.getElementById('slider');
+            let subscribedProducts = Object.keys(FreeProductMapping);
+
+            function handleAddProduct(productId) {
+                let productInfo = state.productDetails[productId];
+                return new Promise((resolve, reject) => {
+                    VajroSDK.addLineItemToCart(
+                        productInfo.productId,
+                        productInfo.variantId,
+                        (productInfo.quantity = 1),
+                        (productInfo.customAttributes = {}),
+                        productInfo.lineItemType
+                    )
+                        .then(() => {
+                            Object.keys(state.productDetails).forEach((id) => {
+                                if (state.productDetails[id]) {
+                                    if (id === productId) {
+                                        state.productDetails[id].inCart = true;
+                                    } else {
+                                        state.productDetails[id].inCart = false;
+                                    }
+                                }
+                            });
+                            renderProductSlider();
+                        })
+                        .catch(reject);
+                });
+            }
+
+            function handleRemoveProduct(productId) {
+                let productInfo = state.productDetails[productId];
+                return new Promise((resolve, reject) => {
+                    VajroSDK.addLineItemToCart(
+                        productInfo.productId,
+                        productInfo.variantId,
+                        (productInfo.quantity = 1),
+                        (productInfo.customAttributes = {}),
+                        productInfo.lineItemType
+                    )
+                        .then(resolve)
+                        .catch(reject);
+                });
+            }
+
+            const renderProductSlider = () => {
+                slider.innerHTML = '';
+                let { productDetails } = state;
+                Object.keys(productDetails).forEach(
+                    ({ title, image, inCart, disabled }) => {
+                        let actionTitle = inCart ? 'Remove Cart' : 'Add Cart';
+                        let actionHandle = inCart
+                            ? `handleAddProduct`
+                            : `handleRemoveProduct`;
+
+                        let productCard = `
+                        <div class="col-2">
+                            <div class="card card-block height width">
+                                <img
+                                    class="card-img-top width"
+                                    src="${image}"
+                                />
+                                <h5 class="card-title capitalize">${title}</h5>
+                                <button class="btn btn-primary" disabled="${disabled}" onclick="${actionHandle}('${productDetails.productId}')">${actionTitle}</button>
+                            </div>
+                        </div>
+                        `;
+
+                        slider.innerHTML += productCard;
+                    }
+                );
+            };
+
+            const fetchProductDetails = (productId) => {
+                let apiURL = `${storeURL}/admin/products/${productId}.json`;
+                return new Promise((resolve, reject) => {
+                    fetch(apiURL).then((res) => {
+                        res.json().then(({ product: { images } }) => {
+                            let { src: image, title } = images[0];
+                            resolve({ productId, image, title });
+                        });
+                    });
+                });
+            };
+
+            const handleLineItemAdded = (appContext, lineItem) => {
+                let { productId } = lineItem;
+                if (subscribedProducts.includes(productId)) {
+                    let subProductsToChoose = FreeProductMapping[productId];
+                    if (subProductsToChoose) {
+                        let promises = [];
+                        subProductsToChoose.forEach((subProduct) => {
+                            let promise = fetchProductDetails(
+                                subProduct.productId
+                            );
+                            promises.push(promise);
+                        });
+                        Promise.all(promises)
+                            .then((res) => {
+                                let products = {};
+                                res.forEach(({ productId, image, title }) => {
+                                    products[productId] = {
+                                        image,
+                                        title,
+                                        inCart: false,
+                                        disabled: false
+                                    };
+                                });
+                                state.productDetails = products;
+                                renderProductSlider();
+                            })
+                            .catch((err) => {
+                                alert(JSON.stringify(err));
+                            });
+                    }
+                }
+            };
+
+            VajroSDK.subscribe(
+                VajroSDK.Triggers.LINE_ITEM_ADDED_TO_CART,
+                handleLineItemAdded
+            );
+        </script>
+    </body>
+</html>
