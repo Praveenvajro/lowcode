@@ -141,7 +141,6 @@
 
             const handleLineItemAdded = (appContext, lineItem) => {
                 let { productId } = lineItem;
-                output.innerHTML = productId;
 
                 if (subscribedProducts.includes(productId)) {
                     let subProductsToChoose = FreeProductMapping[productId];
@@ -155,6 +154,7 @@
                         });
                         Promise.all(promises)
                             .then((res) => {
+                                output.innerHTML = JSON.stringify(res);
                                 let products = {};
                                 res.forEach(({ productId, image, title }) => {
                                     products[productId] = {
