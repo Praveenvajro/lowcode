@@ -144,6 +144,41 @@
                     image: 'https://cdn.shopify.com/s/files/1/0577/3056/4287/products/mobile_charger.jpg?v=1624025315',
                     title: 'charger',
                     productId: '6750261739711'
+                },
+                6750261739712: {
+                    image: 'https://cdn.shopify.com/s/files/1/0577/3056/4287/products/mobile_charger.jpg?v=1624025315',
+                    title: 'charger',
+                    productId: '6750261739711'
+                },
+                6750261739713: {
+                    image: 'https://cdn.shopify.com/s/files/1/0577/3056/4287/products/mobile_charger.jpg?v=1624025315',
+                    title: 'charger',
+                    productId: '6750261739711'
+                },
+                6750261739714: {
+                    image: 'https://cdn.shopify.com/s/files/1/0577/3056/4287/products/mobile_charger.jpg?v=1624025315',
+                    title: 'charger',
+                    productId: '6750261739711'
+                },
+                6750261739715: {
+                    image: 'https://cdn.shopify.com/s/files/1/0577/3056/4287/products/mobile_charger.jpg?v=1624025315',
+                    title: 'charger',
+                    productId: '6750261739711'
+                },
+                6750261739716: {
+                    image: 'https://cdn.shopify.com/s/files/1/0577/3056/4287/products/mobile_charger.jpg?v=1624025315',
+                    title: 'charger',
+                    productId: '6750261739711'
+                },
+                6750261739717: {
+                    image: 'https://cdn.shopify.com/s/files/1/0577/3056/4287/products/mobile_charger.jpg?v=1624025315',
+                    title: 'charger',
+                    productId: '6750261739711'
+                },
+                6750261739718: {
+                    image: 'https://cdn.shopify.com/s/files/1/0577/3056/4287/products/mobile_charger.jpg?v=1624025315',
+                    title: 'charger',
+                    productId: '6750261739711'
                 }
             };
 
@@ -178,7 +213,6 @@
                         });
                         Promise.all(promises)
                             .then((res) => {
-                                output.innerHTML = JSON.stringify(res);
                                 let products = {};
                                 res.forEach(({ productId, image, title }) => {
                                     products[productId] = {
