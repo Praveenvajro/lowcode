@@ -86,7 +86,7 @@
 // testNoVariant();
 
 VajroSDK.subscribe(VajroSDK.Triggers.ON_PAGE_LOADED,(appContext, product) => {
-    output.innerHTML = appContext;
+    output.innerHTML = JSON.stringify(appContext);
 })
 
 function noVariant(msg){

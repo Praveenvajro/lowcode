@@ -4,7 +4,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Navigate To</title>
-        <script src="./navigateto.js"></script>
+        <script src="./vajro-sdk.js"></script>
         <style>
             input, textarea, select {
                 font: 1.25rem / 1.5 sans-serif;
@@ -58,7 +58,7 @@
         <script type="text/javascript">
             let output = document.getElementById("output");
             VajroSDK.subscribe(VajroSDK.Triggers.ON_PAGE_LOADED,(appContext, product) => {
-                output.innerHTML = appContext;
+                output.innerHTML = JSON.stringify(appContext);
             })
             function navigateto(){
                 let navigationType = document.getElementById("navigationType").value.toString();
