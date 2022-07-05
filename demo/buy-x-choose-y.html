@@ -15,16 +15,22 @@
             }
 
             .width {
+                min-height: 150px;
                 width: 200px;
             }
 
             .capitalize {
                 text-transform: capitalize;
             }
+            #slider {
+                width: 100%;
+                overflow-x: auto;
+                height: 250px;
+            }
         </style>
     </head>
     <body>
-        <div>Hello World - Buy X & Choose Y</div>
+        <div>Please choose one of the free product</div>
         <div id="output"></div>
         <div class="container-fluid">
             <div class="row flex-nowrap" id="slider"></div>
@@ -103,15 +109,14 @@
             const renderProductSlider = () => {
                 slider.innerHTML = '';
                 let { productDetails } = state;
-                Object.keys(productDetails).forEach(
-                    (id) => {
-                        let { title, image, inCart, disabled } = productDetails[id];
-                        let actionTitle = inCart ? 'Remove Cart' : 'Add Cart';
-                        let actionHandle = inCart
-                            ? `handleAddProduct`
-                            : `handleRemoveProduct`;
+                Object.keys(productDetails).forEach((id) => {
+                    let { title, image, inCart, disabled } = productDetails[id];
+                    let actionTitle = inCart ? 'Remove Cart' : 'Add Cart';
+                    let actionHandle = inCart
+                        ? `handleAddProduct`
+                        : `handleRemoveProduct`;
 
-                        let productCard = `
+                    let productCard = `
                         <div class="col-2">
                             <div class="card card-block height width">
                                 <img
@@ -124,9 +129,8 @@
                         </div>
                         `;
 
-                        slider.innerHTML += productCard;
-                    }
-                );
+                    slider.innerHTML += productCard;
+                });
             };
 
             const productsImages = {
