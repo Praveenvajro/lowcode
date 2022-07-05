@@ -71,8 +71,6 @@
 
             function handleAddProduct(productId) {
                 let productInfo = state.productDetails[productId];
-                alert(productId, 'productId');
-                output.innerHTML = `${productId} - product adding; ${productInfo.image}`;
                 return new Promise((resolve, reject) => {
                     VajroSDK.addLineItemToCart(
                         productInfo.productId,
@@ -91,6 +89,7 @@
                                     }
                                 }
                             });
+                            output.innerHTML = JSON.stringify(state.productDetails);
                             renderProductSlider();
                         })
                         .catch(reject);
