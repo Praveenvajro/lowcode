@@ -18,6 +18,7 @@
         </style>
     </head>
     <body>
+        <div id="testLowCodeAutomated">Test Low Code Automated
         <div><b>Add line item to cart (ACTION)</b></div>
         <div id="novariant"></div>
         <div id="singleproduct"></div>
@@ -42,7 +43,10 @@
         <div id="nullCheckAllParamUpdate"></div>
         <div id="checkCustomAttributesStringUpdate"></div>
         <div id="updateQuantityLineItem"></div>
+    </div>
+    <button type="button" id="lowcodeautomate" onclick="lowcodeautomate()">Automate Test Button Don't click</button>
         <script>
+            function lowcodeautomate(){
             var testOutput;
 
             function noVariant(){
@@ -447,6 +451,7 @@
                     output.innerHTML = output.innerHTML + testOutput;
                 });
             }
+        }
         </script>
     </body>
 </html>

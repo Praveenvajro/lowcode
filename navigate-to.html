@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Navigate To</title>
         <script src="./vajro-sdk.js"></script>
+        <script src="./productoptionselected.js"></script>
         <style>
             input, textarea, select {
                 font: 1.25rem / 1.5 sans-serif;
@@ -58,7 +59,10 @@
         <script type="text/javascript">
             let output = document.getElementById("output");
             VajroSDK.subscribe(VajroSDK.Triggers.ON_PAGE_LOADED,(appContext, product) => {
-                output.innerHTML = JSON.stringify(appContext)+ " PRODUCT: "+ JSON.stringify(product);
+                // output.innerHTML = JSON.stringify(appContext)+ " PRODUCT: "+ JSON.stringify(product);
+            })
+            VajroSDK.subscribe(VajroSDK.Triggers.PRODUCT_OPTION_SELECTED,(appContext, product, productVariant) => {
+                output.innerHTML = JSON.stringify(appContext)+ " PRODUCT: "+ JSON.stringify(product)+ " PRODUCT_VARIANT: "+ JSON.stringify(productVariant);
             })
             function navigateto(){
                 let navigationType = document.getElementById("navigationType").value.toString();
