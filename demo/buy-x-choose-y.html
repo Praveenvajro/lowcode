@@ -24,7 +24,6 @@
         </style>
     </head>
     <body>
-        <div>Hello World - Buy X Choose Y</div>
         <div class="container-fluid">
             <div class="row flex-nowrap" id="slider"></div>
         </div>
@@ -171,9 +170,47 @@
                 }
             };
 
+            const handleLineItemUpdated = (appContext, lineItem) => {
+                let { productId } = lineItem;
+                if (subscribedProducts.includes(productId)) {
+                    let subProductsToChoose = FreeProductMapping[productId];
+                    if (subProductsToChoose) {
+                        let promises = [];
+                        subProductsToChoose.forEach((subProduct) => {
+                            let promise = fetchProductDetails(
+                                subProduct.productId
+                            );
+                            promises.push(promise);
+                        });
+                        Promise.all(promises)
+                            .then((res) => {
+                                let products = {};
+                                res.forEach(({ productId, image, title }) => {
+                                    products[productId] = {
+                                        image,
+                                        title,
+                                        inCart: false,
+                                        disabled: false
+                                    };
+                                });
+                                state.productDetails = products;
+                                renderProductSlider();
+                            })
+                            .catch((err) => {
+                                alert(JSON.stringify(err));
+                            });
+                    }
+                }
+            };
+
             VajroSDK.subscribe(
                 VajroSDK.Triggers.LINE_ITEM_ADDED_TO_CART,
                 handleLineItemAdded
+            );
+
+            VajroSDK.subscribe(
+                VajroSDK.Triggers.LINE_ITEM_UPDATED,
+                handleLineItemUpdated
             );
         </script>
     </body>
