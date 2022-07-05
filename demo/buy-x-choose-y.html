@@ -32,12 +32,15 @@
             .heading {
                 padding: 15px;
             }
-            .hide {
+            .show {
+                display: block;
+            }
+            .hide{
                 display: none;
             }
         </style>
     </head>
-    <body class="none" id="body">
+    <body class="hide" id="body">
         <h3 class="heading">Please choose one of the free product</h3>
         <div id="output"></div>
         <div class="container-fluid">
@@ -149,7 +152,7 @@
 
                     slider.innerHTML += productCard;
                     let body = document.getElementById('body');
-                    body.classList.toggle('hide');
+                    body.classList.add('show');
                 });
             };
 
