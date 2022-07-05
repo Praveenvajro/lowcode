@@ -32,9 +32,12 @@
             .heading {
                 padding: 15px;
             }
+            .hide {
+                display: none;
+            }
         </style>
     </head>
-    <body>
+    <body class="none" id="body">
         <h3 class="heading">Please choose one of the free product</h3>
         <div id="output"></div>
         <div class="container-fluid">
@@ -72,12 +75,13 @@
             function handleAddProduct(productId) {
                 let productInfo = state.productDetails[productId];
                 return new Promise((resolve, reject) => {
+                    output.innerHTML = JSON.stringify(productInfo);
                     VajroSDK.addLineItemToCart(
                         productInfo.productId,
                         productInfo.variantId,
                         (productInfo.quantity = 1),
                         (productInfo.customAttributes = {}),
-                        productInfo.lineItemType
+                        productInfo.lineItemType = 'READONLY'
                     )
                         .then(() => {
                             Object.keys(state.productDetails).forEach((id) => {
@@ -89,7 +93,9 @@
                                     }
                                 }
                             });
-                            output.innerHTML = JSON.stringify(state.productDetails);
+                            output.innerHTML = JSON.stringify(
+                                state.productDetails
+                            );
                             renderProductSlider();
                         })
                         .catch(reject);
@@ -142,6 +148,8 @@
                         `;
 
                     slider.innerHTML += productCard;
+                    let body = document.getElementById('body');
+                    body.classList.toggle('hide');
                 });
             };
 
