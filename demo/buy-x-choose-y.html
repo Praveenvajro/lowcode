@@ -160,17 +160,24 @@
                 6928843636927: {
                     image: 'https://cdn.shopify.com/s/files/1/0577/3056/4287/products/4_zu_3_teaser_05.jpg?v=1648808832',
                     title: 'iphone 6s',
-                    productId: '6928843636927'
+                    productId: '6928843636927',
+                    variantId: '40574334304447',
+                    lineItemType: 'READONLY'
                 },
                 6733619167423: {
                     image: 'https://cdn.shopify.com/s/files/1/0577/3056/4287/products/bags2.jpg?v=1623325323',
                     title: 'bags',
-                    productId: '6733619167423'
+                    productId: '6733619167423',
+                    variantId: '41722470400191',
+                    lineItemType: 'READONLY'
                 },
                 6750261739711: {
                     image: 'https://cdn.shopify.com/s/files/1/0577/3056/4287/products/mobile_charger.jpg?v=1624025315',
                     title: 'charger',
-                    productId: '6750261739711'
+                    productId: '6750261739711',
+                    productId: '6750261739711',
+                    variantId: '41722470400191',
+                    lineItemType: 'READONLY'
                 }
             };
 
@@ -203,12 +210,14 @@
                         Promise.all(promises)
                             .then((res) => {
                                 let products = {};
-                                res.forEach(({ productId, image, title }) => {
+                                res.forEach(({ productId, image, title, variantId }) => {
                                     products[productId] = {
                                         image,
                                         title,
                                         inCart: false,
-                                        disabled: false
+                                        disabled: false,
+                                        productId,
+                                        variantId
                                     };
                                 });
                                 state.productDetails = products;
@@ -236,12 +245,14 @@
                         Promise.all(promises)
                             .then((res) => {
                                 let products = {};
-                                res.forEach(({ productId, image, title }) => {
+                                res.forEach(({ productId, image, title, variantId }) => {
                                     products[productId] = {
                                         image,
                                         title,
                                         inCart: false,
-                                        disabled: false
+                                        disabled: false,
+                                        variantId,
+                                        productId
                                     };
                                 });
                                 state.productDetails = products;
