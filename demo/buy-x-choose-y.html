@@ -27,20 +27,16 @@
             #slider {
                 width: 100%;
                 overflow-x: auto;
-                height: 250px;
             }
             .heading {
                 padding: 15px;
             }
-            .show {
-                display: block;
-            }
-            .hide {
-                display: none;
+            .slider-height{
+                height: 250px;
             }
         </style>
     </head>
-    <body id="body">
+    <body>
         <h3 class="heading">Please choose one of the free product</h3>
         <div id="output"></div>
         <div class="container-fluid">
@@ -147,8 +143,7 @@
                         `;
 
                     slider.innerHTML += productCard;
-                    // let body = document.getElementById('body');
-                    // body.classList.add('show');
+                    slider.classList.add('slider-height');
                 });
             };
 
