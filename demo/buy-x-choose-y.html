@@ -105,26 +105,22 @@
 
             function handleRemoveProduct(productId) {
                 let productInfo = state.productDetails[productId];
-                output.innerHTML = JSON.stringify(productInfo);
-                VajroSDK.removeLineItemFromCart(productInfo.lineItemHandle, 0)
-                    .then(() => {
-                        output.innerHTML = JSON.stringify(state.productDetails);
-                        Object.keys(state.productDetails).forEach((id) => {
-                            if (state.productDetails[id]) {
-                                if (id === productId) {
-                                    state.productDetails[id].inCart = false;
-                                    state.productDetails[id].lineItemHandle =
-                                        null;
-                                } else {
-                                    state.productDetails[id].disabled = false;
-                                }
+                VajroSDK.removeLineItemFromCart(
+                    productInfo.lineItemHandle,
+                    0
+                ).then(() => {
+                    Object.keys(state.productDetails).forEach((id) => {
+                        if (state.productDetails[id]) {
+                            if (id === productId) {
+                                state.productDetails[id].inCart = false;
+                                state.productDetails[id].lineItemHandle = null;
+                            } else {
+                                state.productDetails[id].disabled = false;
                             }
-                        });
-                        renderProductSlider();
-                    })
-                    .catch((err) => {
-                        output.innerHTML = JSON.stringify(err);
+                        }
                     });
+                    renderProductSlider();
+                });
             }
 
             const renderProductSlider = () => {
