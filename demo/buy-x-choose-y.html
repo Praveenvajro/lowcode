@@ -106,7 +106,7 @@
             function handleRemoveProduct(productId) {
                 let productInfo = state.productDetails[productId];
                 output.innerHTML = JSON.stringify(productInfo);
-                VajroSDK.removeLineItemFromCart(productInfo.lineItemHandle, 1)
+                VajroSDK.removeLineItemFromCart(productInfo.lineItemHandle, 0)
                     .then(() => {
                         output.innerHTML = JSON.stringify(state.productDetails);
                         Object.keys(state.productDetails).forEach((id) => {
