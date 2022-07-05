@@ -5,21 +5,20 @@
         <script src="./vajro-sdk.js"></script>
     </head>
     <body>
-        <h1>Hello world!</h1>
         <script>
             const FreeProductMapping = {
-                6741457207487: [
-                    {
-                        productId: '6928843636927',
-                        variantId: '40574334304447',
-                        lineItemType: 'READONLY'
-                    },
-                    {
-                        productId: '6733619167423',
-                        variantId: '41722470400191',
-                        lineItemType: 'READONLY'
-                    }
-                ],
+                // 6741457207487: [
+                //     {
+                //         productId: '6928843636927',
+                //         variantId: '40574334304447',
+                //         lineItemType: 'READONLY'
+                //     },
+                //     {
+                //         productId: '6733619167423',
+                //         variantId: '41722470400191',
+                //         lineItemType: 'READONLY'
+                //     }
+                // ],
                 6928830267583: [
                     {
                         productId: '6750261739711',
@@ -66,9 +65,35 @@
                 }
             };
 
+            const handleLineItemUpdated = (appContext, updateType, lineItem) => {
+                let { productId } = lineItem;
+                if (subscribedProducts.includes(productId)) {
+                    let subProductsToProcess = FreeProductMapping[productId];
+                    if (subProductsToProcess) {
+                        let promises = [];
+                        subProductsToProcess.forEach((subProduct) => {
+                            let promise = addLineItem(subProduct);
+                            promises.push(promise);
+                        });
+                        Promise.all(promises)
+                            .then(() => {
+                                alert('Sub products added successfully');
+                            })
+                            .catch((err) => {
+                                alert(JSON.stringify(err));
+                            });
+                    }
+                }
+            };
+
             VajroSDK.subscribe(
                 VajroSDK.Triggers.LINE_ITEM_ADDED_TO_CART,
                 handleLineItemAdded
+            );
+
+            VajroSDK.subscribe(
+                VajroSDK.Triggers.LINE_ITEM_UPDATED,
+                handleLineItemUpdated
             );
         </script>
     </body>
