@@ -29,7 +29,7 @@
                 overflow-x: auto;
                 height: 250px;
             }
-            .heading{
+            .heading {
                 padding: 15px;
             }
         </style>
@@ -137,9 +137,7 @@
                                 <h5 class="card-title capitalize">${title}</h5>
                                 <button class="btn btn-primary" ${
                                     disabled ? 'disabled' : ''
-                                } onclick="${actionHandle}('${
-                        productDetails.productId
-                    }')">${actionTitle}</button>
+                                } onclick="${actionHandle}('${id}')">${actionTitle}</button>
                             </div>
                         </div>
                         `;
