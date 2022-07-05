@@ -31,13 +31,13 @@
             .heading {
                 padding: 15px;
             }
-            .slider-height{
+            .slider-height {
                 height: 250px;
             }
-            .parent-height{
+            .parent-height {
                 height: 72px;
             }
-            .default-height{
+            .default-height {
                 height: 0;
             }
         </style>
@@ -79,42 +79,47 @@
 
             function handleAddProduct(productId) {
                 let productInfo = state.productDetails[productId];
-                return new Promise((resolve, reject) => {
-                    VajroSDK.addLineItemToCart(
-                        productInfo.productId,
-                        productInfo.variantId,
-                        (productInfo.quantity = 1),
-                        (productInfo.customAttributes = {}),
-                        (productInfo.lineItemType = 'READONLY')
-                    )
-                        .then(() => {
-                            Object.keys(state.productDetails).forEach((id) => {
-                                if (state.productDetails[id]) {
-                                    if (id === productId) {
-                                        state.productDetails[id].inCart = true;
-                                    } else {
-                                        state.productDetails[id].inCart = false;
-                                    }
-                                }
-                            });
-                            renderProductSlider();
-                        })
-                        .catch(reject);
+                VajroSDK.addLineItemToCart(
+                    productInfo.productId,
+                    productInfo.variantId,
+                    (productInfo.quantity = 1),
+                    (productInfo.customAttributes = {}),
+                    (productInfo.lineItemType = 'READONLY')
+                ).then(({ lineItem }) => {
+                    let { lineItemHandle } = lineItem;
+                    Object.keys(state.productDetails).forEach((id) => {
+                        if (state.productDetails[id]) {
+                            if (id === productId) {
+                                state.productDetails[id].inCart = true;
+                                state.productDetails[id].lineItemHandle =
+                                    lineItemHandle;
+                            } else {
+                                state.productDetails[id].disabled = true;
+                                state.productDetails[id].inCart = false;
+                            }
+                        }
+                    });
+                    renderProductSlider();
                 });
             }
 
             function handleRemoveProduct(productId) {
                 let productInfo = state.productDetails[productId];
-                return new Promise((resolve, reject) => {
-                    VajroSDK.addLineItemToCart(
-                        productInfo.productId,
-                        productInfo.variantId,
-                        (productInfo.quantity = 1),
-                        (productInfo.customAttributes = {}),
-                        productInfo.lineItemType
-                    )
-                        .then(resolve)
-                        .catch(reject);
+                VajroSDK.removeLineItemFromCart(
+                    productInfo.lineItemHandle,
+                    1
+                ).then(() => {
+                    Object.keys(state.productDetails).forEach((id) => {
+                        if (state.productDetails[id]) {
+                            if (id === productId) {
+                                state.productDetails[id].inCart = false;
+                                state.productDetails[id].lineItemHandle = null;
+                            } else {
+                                state.productDetails[id].disabled = false;
+                            }
+                        }
+                    });
+                    renderProductSlider();
                 });
             }
 
@@ -209,16 +214,23 @@
                         Promise.all(promises)
                             .then((res) => {
                                 let products = {};
-                                res.forEach(({ productId, image, title, variantId }) => {
-                                    products[productId] = {
+                                res.forEach(
+                                    ({
+                                        productId,
                                         image,
                                         title,
-                                        inCart: false,
-                                        disabled: false,
-                                        productId,
                                         variantId
-                                    };
-                                });
+                                    }) => {
+                                        products[productId] = {
+                                            image,
+                                            title,
+                                            inCart: false,
+                                            disabled: false,
+                                            productId,
+                                            variantId
+                                        };
+                                    }
+                                );
                                 state.productDetails = products;
                                 renderProductSlider();
                             })
@@ -244,16 +256,23 @@
                         Promise.all(promises)
                             .then((res) => {
                                 let products = {};
-                                res.forEach(({ productId, image, title, variantId }) => {
-                                    products[productId] = {
+                                res.forEach(
+                                    ({
+                                        productId,
                                         image,
                                         title,
-                                        inCart: false,
-                                        disabled: false,
-                                        variantId,
-                                        productId
-                                    };
-                                });
+                                        variantId
+                                    }) => {
+                                        products[productId] = {
+                                            image,
+                                            title,
+                                            inCart: false,
+                                            disabled: false,
+                                            variantId,
+                                            productId
+                                        };
+                                    }
+                                );
                                 state.productDetails = products;
                                 renderProductSlider();
                             })
