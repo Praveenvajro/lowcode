@@ -14,13 +14,14 @@
                 height: 200px;
             }
 
-            .width {
+            .img-width {
                 min-height: 150px;
                 width: 200px;
             }
 
             .capitalize {
                 text-transform: capitalize;
+                text-align: center;
             }
             #slider {
                 width: 100%;
@@ -30,7 +31,7 @@
         </style>
     </head>
     <body>
-        <div>Please choose one of the free product</div>
+        <h3>Please choose one of the free product</h3>
         <div id="output"></div>
         <div class="container-fluid">
             <div class="row flex-nowrap" id="slider"></div>
@@ -111,21 +112,30 @@
                 slider.innerHTML = '';
                 let { productDetails } = state;
                 Object.keys(productDetails).forEach((id) => {
-                    let { title, image, inCart, disabled } = productDetails[id];
+                    let {
+                        title,
+                        image,
+                        inCart = false,
+                        disabled = false
+                    } = productDetails[id];
                     let actionTitle = inCart ? 'Remove Cart' : 'Add Cart';
                     let actionHandle = inCart
-                        ? `handleAddProduct`
-                        : `handleRemoveProduct`;
+                        ? 'handleRemoveProduct'
+                        : `handleAddProduct`;
 
                     let productCard = `
                         <div class="col-lg-2 col-xs-3">
-                            <div class="card card-block height width">
+                            <div class="card card-block height">
                                 <img
-                                    class="card-img-top width"
+                                    class="card-img-top img-width"
                                     src="${image}"
                                 />
                                 <h5 class="card-title capitalize">${title}</h5>
-                                <button class="btn btn-primary" disabled="${disabled}" onclick="${actionHandle}('${productDetails.productId}')">${actionTitle}</button>
+                                <button class="btn btn-primary" ${
+                                    disabled ? 'disabled' : ''
+                                } onclick="${actionHandle}('${
+                        productDetails.productId
+                    }')">${actionTitle}</button>
                             </div>
                         </div>
                         `;
