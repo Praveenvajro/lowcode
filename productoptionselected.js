@@ -11072,7 +11072,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var productOptionSelected = function (appContext, product, productVariant) {
-    (0,_communications_listeners__WEBPACK_IMPORTED_MODULE_1__.dispatch)(_constants_triggers__WEBPACK_IMPORTED_MODULE_0__["default"].LINE_ITEM_ADDED_TO_CART, [
+    (0,_communications_listeners__WEBPACK_IMPORTED_MODULE_1__.dispatch)(_constants_triggers__WEBPACK_IMPORTED_MODULE_0__["default"].PRODUCT_OPTION_SELECTED, [
         appContext,
         product,
         productVariant,
