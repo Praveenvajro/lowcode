@@ -108,6 +108,7 @@
                 output.innerHTML = JSON.stringify(productInfo);
                 VajroSDK.removeLineItemFromCart(productInfo.lineItemHandle, 1)
                     .then(() => {
+                        output.innerHTML = JSON.stringify(state.productDetails);
                         Object.keys(state.productDetails).forEach((id) => {
                             if (state.productDetails[id]) {
                                 if (id === productId) {
