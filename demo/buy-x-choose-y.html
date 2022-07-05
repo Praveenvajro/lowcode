@@ -104,7 +104,8 @@
                 slider.innerHTML = '';
                 let { productDetails } = state;
                 Object.keys(productDetails).forEach(
-                    ({ title, image, inCart, disabled }) => {
+                    (id) => {
+                        let { title, image, inCart, disabled } = productDetails[id];
                         let actionTitle = inCart ? 'Remove Cart' : 'Add Cart';
                         let actionHandle = inCart
                             ? `handleAddProduct`
@@ -145,6 +146,9 @@
                     productId: '6750261739711'
                 }
             };
+
+            state.productDetails = productsImages;
+            renderProductSlider();
 
             const fetchProductDetails = (productId) => {
                 return Promise.resolve(productsImages[productId]);
