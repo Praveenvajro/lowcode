@@ -127,16 +127,35 @@
                 );
             };
 
+            const productsImages = {
+                6928843636927: {
+                    image: 'https://cdn.shopify.com/s/files/1/0577/3056/4287/products/4_zu_3_teaser_05.jpg?v=1648808832',
+                    title: 'iphone 6s',
+                    productId: '6928843636927'
+                },
+                6733619167423: {
+                    image: 'https://cdn.shopify.com/s/files/1/0577/3056/4287/products/bags2.jpg?v=1623325323',
+                    title: 'bags',
+                    productId: '6733619167423'
+                },
+                6750261739711: {
+                    image: 'https://cdn.shopify.com/s/files/1/0577/3056/4287/products/mobile_charger.jpg?v=1624025315',
+                    title: 'charger',
+                    productId: '6750261739711'
+                }
+            };
+
             const fetchProductDetails = (productId) => {
-                let apiURL = `${storeURL}/admin/products/${productId}.json`;
-                return new Promise((resolve, reject) => {
-                    fetch(apiURL).then((res) => {
-                        res.json().then(({ product: { images } }) => {
-                            let { src: image, title } = images[0];
-                            resolve({ productId, image, title });
-                        });
-                    });
-                });
+                return Promise.resolve(productsImages[productId]);
+                // let apiURL = `${storeURL}/admin/products/${productId}.json`;
+                // return new Promise((resolve, reject) => {
+                //     fetch(apiURL).then((res) => {
+                //         res.json().then(({ product: { images } }) => {
+                //             let { src: image, title } = images[0];
+                //             resolve({ productId, image, title });
+                //         });
+                //     });
+                // });
             };
 
             const handleLineItemAdded = (appContext, lineItem) => {
