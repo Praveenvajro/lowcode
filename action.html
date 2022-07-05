@@ -61,7 +61,7 @@
 //         customAttributes:  {},
 //         lineItemType: "REGULAR"
 //     }
-//     let output = document.getElementById('output');
+    let output = document.getElementById('output');
 //     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res) => {
 //         if (lineItem.productId === values.productId){
 //              testOutput = '<div class="success">No variant test case success</div>';
@@ -84,6 +84,10 @@
 //     // }
 // }
 // testNoVariant();
+
+VajroSDK.subscribe(VajroSDK.Triggers.ON_PAGE_LOADED,(appContext, product) => {
+    output.innerHTML = appContext;
+})
 
 function noVariant(msg){
     const values = {

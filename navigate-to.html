@@ -56,6 +56,10 @@
         </div>
 
         <script type="text/javascript">
+            let output = document.getElementById("output");
+            VajroSDK.subscribe(VajroSDK.Triggers.ON_PAGE_LOADED,(appContext, product) => {
+                output.innerHTML = appContext;
+            })
             function navigateto(){
                 let navigationType = document.getElementById("navigationType").value.toString();
                 let productCollectionId  = document.getElementById("productCollectionId").value.toString();
