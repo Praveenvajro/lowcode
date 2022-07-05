@@ -34,12 +34,18 @@
             .slider-height{
                 height: 250px;
             }
+            .parent-height{
+                height: 72px;
+            }
+            .default-height{
+                height: 0;
+            }
         </style>
     </head>
     <body>
-        <h3 class="heading">Please choose one of the free product</h3>
         <div id="output"></div>
-        <div class="container-fluid">
+        <div class="container-fluid default-height" id="parent">
+            <h3 class="heading">Please choose one of the free product</h3>
             <div class="row flex-nowrap" id="slider"></div>
         </div>
         <script>
@@ -144,6 +150,8 @@
 
                     slider.innerHTML += productCard;
                     slider.classList.add('slider-height');
+                    const parent = document.getElementById('parent');
+                    parent.classList.add('parent-height');
                 });
             };
 
