@@ -10914,9 +10914,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var addLineItemToCart = function (productId, variantId, quantity, customAttributes, lineItemType, unitPrice) {
-    if (quantity === void 0) { quantity = 1; }
     if (lineItemType === void 0) { lineItemType = 'REGULAR'; }
     return new Promise(function (resolve, reject) {
+        if (!quantity) {
+            quantity = 1;
+        }
         var data = {
             productId: productId,
             variantId: variantId,
@@ -10925,11 +10927,8 @@ var addLineItemToCart = function (productId, variantId, quantity, customAttribut
             lineItemType: lineItemType,
             unitPrice: unitPrice
         };
-        console.log(data);
-        alert(data.quantity);
         var validate = (0,_addLineItemToCart_schema__WEBPACK_IMPORTED_MODULE_1__.addLineItemToCartSchema)(data);
         if (validate) {
-            alert(data.quantity);
             (0,_communications_dispatcher__WEBPACK_IMPORTED_MODULE_2__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].ADD_LINE_ITEM_TO_CART, data)
                 .then(function (data) {
                 resolve(data);
