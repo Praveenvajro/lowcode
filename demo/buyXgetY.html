@@ -113,17 +113,18 @@
                                 let {
                                     cartLineItems: { lineItems }
                                 } = appContext;
-                                let subLineItemHandle;
+                                let subLineItemHandle, subId;
                                 for (let {
                                     lineItemHandle,
                                     productId: id
                                 } of lineItems) {
                                     if (id === productId) {
                                         subLineItemHandle = lineItemHandle;
+                                        subId = id;
                                         break;
                                     }
                                 }
-                                output.innerHTML += `<div>subLineItemHandle: ${subLineItemHandle}</div>`;
+                                output.innerHTML += `<div>subLineItemHandle: ${subLineItemHandle}, ${subId}</div>`;
                                 if (updateType === 'Delete') {
                                     promise = removeLineItem(
                                         subLineItemHandle,
