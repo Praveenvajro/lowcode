@@ -89,12 +89,10 @@
                         subProductsToProcess.forEach((subProduct) => {
                             let promise;
                             if (updateType === 'Increment') {
-                                output.innerHTML += `<div>Increment: ${Object.assign(
-                                    {},
-                                    subProduct,
-                                    {
+                                output.innerHTML += `<div>Increment: ${JSON.stringify(
+                                    Object.assign({}, subProduct, {
                                         quantity
-                                    }
+                                    })
                                 )}</div>`;
 
                                 promise = addLineItem(
