@@ -28,6 +28,8 @@
     <button type="button" name="noVariant" id="noVariant" onclick ="noVariant('Welcome to Cart')"> Add to Cart </button>
     <h2>Single Product </h2>
     <button type="button" name="singleProduct" id="singleProduct" onclick ="singleProduct('Welcome to Cart')"> Add to Cart </button>
+    <h2>Multiple Variants (2 variant) without give VariantID and lineItemType as REGULAR</h2>
+    <button type="button" name="multiVariWithoutVariantID" id="multiVariWithoutVariantID" onclick ="multiVariWithoutVariantID('Welcome to Cart')"> Add to Cart </button>
     <h2>Invalid Product ID </h2>
     <button type="button" name="invalidProduct" id="invalidProduct" onclick ="invalidProduct('Welcome to Cart')"> Add to Cart </button>
     <h2>Invalid Variant ID </h2>
@@ -95,7 +97,8 @@ function noVariant(msg){
         variantId: "",
         quantity: 1, 
         customAttributes:  {},
-        lineItemType: "REGULAR"
+        lineItemType: "REGULAR",
+        unitPrice: 700.00
     }
     let output = document.getElementById('output');
     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
@@ -139,6 +142,42 @@ function singleProduct(msg){
     //     window.appInterface.addLineItemToCart(result)
     // }
 }
+
+function multiVariWithoutVariantID(msg){
+    const values = {
+        productId: "6733619167423",
+        variantId: "",
+        quantity: 4, 
+        customAttributes: {
+            "Brand": "wildcraft (+₹3)",
+            "vjr_hidden_products": [{
+                "hidden_product_id": "7268231676095",
+                "product_id": "6733619167423",
+                "option_string": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MTcyMjM2MDIwMTQwNw==",
+                "option_value": "wildcraft",
+                "custom_option_title": "Brand",
+                "parent_option_name": "Brand",
+                "price": "3.0"
+            }]
+        },
+        lineItemType: "REGULAR"
+    }
+    VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+        alert('Added line item to cart');
+    }).catch(err=>{
+        alert(err.message)
+    });
+    // const result = JSON.stringify(values)
+    // if (window.webkit != undefined) {
+    //     if (window.webkit.messageHandlers.addLineItemToCart != undefined) {
+    //         window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
+    //     }
+    // }
+    // if (window.appInterface != undefined) {
+    //     window.appInterface.addLineItemToCart(result)
+    // }
+}
+
 
 function invalidProduct(msg){
     const values = {
