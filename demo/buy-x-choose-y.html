@@ -32,10 +32,10 @@
                 padding: 20px;
                 font-size: 32px;
             }
-            .heading{
+            .heading {
                 padding: 10px;
             }
-            .title{
+            .title {
                 text-transform: capitalize;
                 font-size: 32px;
             }
@@ -43,7 +43,7 @@
     </head>
     <body>
         <div class="container-fluid">
-            <h3 class="heading">Please choose one of the free product</h3>
+            <h1 class="heading">Please choose one of the free product</h1>
             <div class="row flex-nowrap" id="slider"></div>
         </div>
         <script>
@@ -132,7 +132,10 @@
 
             const renderProductSlider = () => {
                 slider.innerHTML = '';
-                let { productDetails } = state;
+                let {
+                    productDetails,
+                    appColors: { buy_button }
+                } = state;
                 Object.keys(productDetails).forEach((id) => {
                     let {
                         title,
@@ -153,9 +156,9 @@
                                     src="${image}"
                                 />
                                 <h5 class="card-title title">${title}</h5>
-                                <button class="btn btn-primary button" ${
-                                    disabled ? 'disabled' : ''
-                                } onclick="${actionHandle}('${id}')">${actionTitle}</button>
+                                <button class="btn btn-primary button" style="background-color:${buy_button}" ${
+                        disabled ? 'disabled' : ''
+                    } onclick="${actionHandle}('${id}')">${actionTitle}</button>
                             </div>
                         </div>
                         `;
@@ -274,6 +277,8 @@
 
             const handleLineItemAdded = (appContext, lineItem) => {
                 let { productId } = lineItem;
+                let { appColors } = appContext;
+                state.appColors = appColors;
 
                 if (subscribedProducts.includes(productId)) {
                     let subProductsToChoose = FreeProductMapping[productId];
