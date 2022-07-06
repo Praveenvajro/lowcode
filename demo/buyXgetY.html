@@ -88,13 +88,17 @@
                 lineItem
             ) => {
                 let { productId, quantity } = lineItem;
-                let { lineItems } = appContext;
+                let {
+                    cartLineItems: { lineItems }
+                } = appContext;
                 let normalizedLineItems = lineItems.reduce((obj, lineItem) => {
                     let { productId } = lineItem;
                     obj[productId] = lineItem;
                     return obj;
                 }, {});
-                output.innerHTML += `<div>${JSON.stringify(normalizedLineItems)}</div>`;
+                output.innerHTML += `<div>${JSON.stringify(
+                    normalizedLineItems
+                )}</div>`;
                 if (subscribedProducts.includes(productId)) {
                     let subProductsToProcess = FreeProductMapping[productId];
                     if (subProductsToProcess) {
