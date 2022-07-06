@@ -10925,8 +10925,11 @@ var addLineItemToCart = function (productId, variantId, quantity, customAttribut
             lineItemType: lineItemType,
             unitPrice: unitPrice
         };
+        console.log(data);
+        alert(data.quantity);
         var validate = (0,_addLineItemToCart_schema__WEBPACK_IMPORTED_MODULE_1__.addLineItemToCartSchema)(data);
         if (validate) {
+            alert(data.quantity);
             (0,_communications_dispatcher__WEBPACK_IMPORTED_MODULE_2__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].ADD_LINE_ITEM_TO_CART, data)
                 .then(function (data) {
                 resolve(data);
