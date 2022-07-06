@@ -43,7 +43,6 @@
         </style>
     </head>
     <body>
-        <div id="output"></div>
         <div class="container-fluid default-height" id="parent">
             <h3 class="heading">Please choose one of the free product</h3>
             <div class="row flex-nowrap" id="slider"></div>
@@ -79,12 +78,21 @@
 
             function handleAddProduct(productId) {
                 let productInfo = state.productDetails[productId];
+                if (!productInfo.quantity) {
+                    productInfo.quantity = 1;
+                }
+                if (!productInfo.customAttributes) {
+                    productInfo.customAttributes = {};
+                }
+                if (!productInfo.lineItemType) {
+                    productInfo.lineItemType = 'READONLY';
+                }
                 VajroSDK.addLineItemToCart(
                     productInfo.productId,
                     productInfo.variantId,
-                    (productInfo.quantity = 1),
-                    (productInfo.customAttributes = {}),
-                    (productInfo.lineItemType = 'READONLY')
+                    productInfo.quantity,
+                    productInfo.customAttributes,
+                    productInfo.lineItemType
                 ).then(({ lineItem }) => {
                     let { lineItemHandle } = lineItem;
                     Object.keys(state.productDetails).forEach((id) => {
@@ -176,6 +184,72 @@
                     lineItemType: 'READONLY'
                 },
                 6750261739711: {
+                    image: 'https://cdn.shopify.com/s/files/1/0577/3056/4287/products/mobile_charger.jpg?v=1624025315',
+                    title: 'charger',
+                    productId: '6750261739711',
+                    productId: '6750261739711',
+                    variantId: '41722470400191',
+                    lineItemType: 'READONLY'
+                },
+                69288436369271: {
+                    image: 'https://cdn.shopify.com/s/files/1/0577/3056/4287/products/4_zu_3_teaser_05.jpg?v=1648808832',
+                    title: 'iphone 6s',
+                    productId: '6928843636927',
+                    variantId: '40574334304447',
+                    lineItemType: 'READONLY'
+                },
+                67336191674233: {
+                    image: 'https://cdn.shopify.com/s/files/1/0577/3056/4287/products/bags2.jpg?v=1623325323',
+                    title: 'bags',
+                    productId: '6733619167423',
+                    variantId: '39990425288895',
+                    lineItemType: 'READONLY'
+                },
+                67502617397111: {
+                    image: 'https://cdn.shopify.com/s/files/1/0577/3056/4287/products/mobile_charger.jpg?v=1624025315',
+                    title: 'charger',
+                    productId: '6750261739711',
+                    productId: '6750261739711',
+                    variantId: '41722470400191',
+                    lineItemType: 'READONLY'
+                },
+                69288436369272: {
+                    image: 'https://cdn.shopify.com/s/files/1/0577/3056/4287/products/4_zu_3_teaser_05.jpg?v=1648808832',
+                    title: 'iphone 6s',
+                    productId: '6928843636927',
+                    variantId: '40574334304447',
+                    lineItemType: 'READONLY'
+                },
+                67336191674232: {
+                    image: 'https://cdn.shopify.com/s/files/1/0577/3056/4287/products/bags2.jpg?v=1623325323',
+                    title: 'bags',
+                    productId: '6733619167423',
+                    variantId: '39990425288895',
+                    lineItemType: 'READONLY'
+                },
+                67502617397112: {
+                    image: 'https://cdn.shopify.com/s/files/1/0577/3056/4287/products/mobile_charger.jpg?v=1624025315',
+                    title: 'charger',
+                    productId: '6750261739711',
+                    productId: '6750261739711',
+                    variantId: '41722470400191',
+                    lineItemType: 'READONLY'
+                },
+                69288436369273: {
+                    image: 'https://cdn.shopify.com/s/files/1/0577/3056/4287/products/4_zu_3_teaser_05.jpg?v=1648808832',
+                    title: 'iphone 6s',
+                    productId: '6928843636927',
+                    variantId: '40574334304447',
+                    lineItemType: 'READONLY'
+                },
+                673361916742323: {
+                    image: 'https://cdn.shopify.com/s/files/1/0577/3056/4287/products/bags2.jpg?v=1623325323',
+                    title: 'bags',
+                    productId: '6733619167423',
+                    variantId: '39990425288895',
+                    lineItemType: 'READONLY'
+                },
+                67502617397113: {
                     image: 'https://cdn.shopify.com/s/files/1/0577/3056/4287/products/mobile_charger.jpg?v=1624025315',
                     title: 'charger',
                     productId: '6750261739711',
