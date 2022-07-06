@@ -5,10 +5,7 @@
         <script src="./vajro-sdk.js"></script>
     </head>
     <body>
-        <div>Hello World</div>
-        <div id="output"></div>
         <script>
-            const output = document.getElementById('output');
             const FreeProductMapping = {
                 // 6741457207487: [
                 //     {
@@ -69,15 +66,10 @@
                         let promises = [];
                         subProductsToAdd.forEach((subProduct) => {
                             let promise = addLineItem(subProduct);
+                            alert(subProduct.productId);
                             promises.push(promise);
                         });
-                        Promise.all(promises)
-                            .then(() => {
-                                alert('Sub products added successfully');
-                            })
-                            .catch((err) => {
-                                alert(JSON.stringify(err));
-                            });
+                        Promise.all(promises).then().catch();
                     }
                 }
             };
@@ -96,9 +88,6 @@
                     obj[productId] = lineItem;
                     return obj;
                 }, {});
-                output.innerHTML += `<div>${JSON.stringify(
-                    normalizedLineItems
-                )}</div>`;
                 if (subscribedProducts.includes(productId)) {
                     let subProductsToProcess = FreeProductMapping[productId];
                     if (subProductsToProcess) {
@@ -106,12 +95,6 @@
                         subProductsToProcess.forEach((subProduct) => {
                             let promise;
                             if (updateType === 'Increment') {
-                                output.innerHTML += `<div>Increment: ${JSON.stringify(
-                                    Object.assign({}, subProduct, {
-                                        quantity
-                                    })
-                                )}</div>`;
-
                                 promise = addLineItem(
                                     Object.assign({}, subProduct, {
                                         quantity
@@ -123,7 +106,6 @@
                             ) {
                                 let { lineItemHandle } =
                                     normalizedLineItems[subProduct.productId];
-                                output.innerHTML += `<div>lineItemHandle: ${lineItemHandle}, ${subProduct.productId}</div>`;
                                 if (updateType === 'Delete') {
                                     promise = removeLineItem(lineItemHandle, 0);
                                 } else {
@@ -135,13 +117,7 @@
                             }
                             promises.push(promise);
                         });
-                        Promise.all(promises)
-                            .then((res) => {
-                                alert(JSON.stringify(res));
-                            })
-                            .catch((err) => {
-                                alert(JSON.stringify(err));
-                            });
+                        Promise.all(promises).then().catch();
                     }
                 }
             };
