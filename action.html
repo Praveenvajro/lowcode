@@ -38,6 +38,8 @@
     <button type="button" name="invalidVariant" id="invalidVariant" onclick ="invalidVariant('Welcome to Cart')"> Add to Cart </button>
     <h2>Multiple Variants (2 variant) with Custom Attributes and lineItemType as REGULAR</h2>
     <button type="button" name="multiVariTwoVariRegular" id="multiVariTwoVariRegular" onclick ="multiVariTwoVariRegular('Welcome to Cart')"> Add to Cart </button>
+    <h2>Multiple Variants (2 variant) with same product different Custom Attributes and lineItemType as REGULAR</h2>
+    <button type="button" name="multiVariTwoVariChangeCA" id="multiVariTwoVariChangeCA" onclick ="multiVariTwoVariChangeCA('Welcome to Cart')"> Add to Cart </button>
     <h2>Multiple Variants (2 variant) with Custom Attributes and lineItemType as HIDDEN</h2>
     <button type="button" name="multiVariTwoVariHidden" id="multiVariTwoVariHidden" onclick ="multiVariTwoVariHidden('Welcome to Cart')"> Add to Cart </button>
     <h2>Multiple Variants (3 variant) </h2>
@@ -271,6 +273,41 @@ function multiVariTwoVariRegular(msg){
                 "price": "3.0"
             }]
         },
+        lineItemType: "REGULAR"
+    }
+    VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+        alert('Added line item to cart');
+    }).catch(err=>{
+        alert(err.message)
+    });
+    // const result = JSON.stringify(values)
+    // if (window.webkit != undefined) {
+    //     if (window.webkit.messageHandlers.addLineItemToCart != undefined) {
+    //         window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
+    //     }
+    // }
+    // if (window.appInterface != undefined) {
+    //     window.appInterface.addLineItemToCart(result)
+    // }
+}
+
+function multiVariTwoVariChangeCA(msg){
+    const values = {
+        productId: "6733619167423",
+        variantId: "39990425288895",
+        quantity: 4, 
+        customAttributes: {
+                        "Brand": "Roshan (+₹5)",
+                        "vjr_hidden_products": [{
+                            "hidden_product_id": "7268228530367",
+                            "product_id": "6733619167423",
+                            "option_string": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MTcyMjM1NjY2MjQ2Mw==",
+                            "option_value": "Roshan",
+                            "custom_option_title": "Brand",
+                            "parent_option_name": "Brand",
+                            "price": "5.0"
+                        }]
+                    },
         lineItemType: "REGULAR"
     }
     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
