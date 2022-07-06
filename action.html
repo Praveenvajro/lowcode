@@ -28,6 +28,8 @@
     <button type="button" name="noVariant" id="noVariant" onclick ="noVariant('Welcome to Cart')"> Add to Cart </button>
     <h2>Single Product </h2>
     <button type="button" name="singleProduct" id="singleProduct" onclick ="singleProduct('Welcome to Cart')"> Add to Cart </button>
+    <h2>Single Product Without Quantity</h2>
+    <button type="button" name="singleProductWithoutQuantity" id="singleProductWithoutQuantity" onclick ="singleProductWithoutQuantity('Welcome to Cart')"> Add to Cart </button>
     <h2>Multiple Variants (2 variant) without give VariantID and lineItemType as REGULAR</h2>
     <button type="button" name="multiVariWithoutVariantID" id="multiVariWithoutVariantID" onclick ="multiVariWithoutVariantID('Welcome to Cart')"> Add to Cart </button>
     <h2>Invalid Product ID </h2>
@@ -123,7 +125,31 @@ function singleProduct(msg){
     const values = {
         productId: "6741457207487",
         variantId: "",
-        quantity: 1, 
+        quantity: 3, 
+        customAttributes:  {},
+        lineItemType: "REGULAR"
+    }
+    VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+        alert('Added line item to cart');
+    }).catch(err=>{
+        alert(err.message)
+    });
+    // const result = JSON.stringify(values)
+    // if (window.webkit != undefined) {
+    //     if (window.webkit.messageHandlers.addLineItemToCart != undefined) {
+    //         window.webkit.messageHandlers.addLineItemToCart.postMessage(result)
+    //     }
+    // }
+    // if (window.appInterface != undefined) {
+    //     window.appInterface.addLineItemToCart(result)
+    // }
+}
+
+function singleProductWithoutQuantity(msg){
+    const values = {
+        productId: "6741457207487",
+        variantId: "",
+        quantity: "", 
         customAttributes:  {},
         lineItemType: "REGULAR"
     }
@@ -374,7 +400,7 @@ function aboveQuantity(msg){
     const values = {
         productId: "6741457207487",
         variantId: "40014956429503",
-        quantity: 4, 
+        quantity: 8, 
         customAttributes:  {},
         lineItemType: "REGULAR"
     }
@@ -413,8 +439,10 @@ function checkCustomAttributesJson(msg){
         },
         lineItemType: "REGULAR"
     }
-    VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+    VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then(({appContext, lineItem})=>{
         alert('Added line item to cart');
+        let lineHandle = lineItem.lineItemHandle
+        updateQuantityLineItem(lineHandle)
     }).catch(err=>{
         alert(err.message)
     });
@@ -428,4 +456,29 @@ function checkCustomAttributesJson(msg){
     //     window.appInterface.addLineItemToCart(result)
     // }
 }
+
+function updateQuantityLineItem(lineHandle){
+                const values = {
+                    lineitemhandle: lineHandle,
+                    quantity: null,
+                    lineItemType: null,
+                    customAttributes: {
+                        "Brand": "Roshan (+₹5)",
+                        "vjr_hidden_products": [{
+                            "hidden_product_id": "7268228530367",
+                            "product_id": "6733619167423",
+                            "option_string": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MTcyMjM1NjY2MjQ2Mw==",
+                            "option_value": "Roshan",
+                            "custom_option_title": "Brand",
+                            "parent_option_name": "Brand",
+                            "price": "5.0"
+                        }]
+                    }
+                }
+                VajroSDK.updateLineItemInCart(values.lineitemhandle, values.quantity, values.lineItemType, values.customAttributes).then((res)=>{
+                    alert('Updated line item to cart');
+                }).catch(err=>{
+                    alert(err.message)
+                });
+            }
 </script>

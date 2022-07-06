@@ -22,6 +22,8 @@
         <div><b>Add line item to cart (ACTION)</b></div>
         <div id="novariant"></div>
         <div id="singleproduct"></div>
+        <div id="singleProductWithoutQuantity"></div>
+        <div id="multiVariWithoutVariantID"></div>
         <div id="invalidProduct"></div>
         <div id="invalidVariant"></div>
         <div id="multiVariTwoVariRegular"></div>
@@ -52,7 +54,7 @@
             function noVariant(){
                 const values = {
                     productId: "6878543315135",
-                    variantId: "40423668482239",
+                    variantId: "",
                     quantity: 1, 
                     customAttributes:  {},
                     lineItemType: "REGULAR"
@@ -80,11 +82,31 @@
             }
             noVariant();
 
+            function singleProductWithoutQuantity(){
+                const values = {
+                    productId: "6741457207487",
+                    variantId: "",
+                    quantity: "", 
+                    customAttributes:  {},
+                    lineItemType: "REGULAR"
+                }
+                let output = document.getElementById('singleProductWithoutQuantity');
+                output.innerHTML = "<div class='title'>Singe Product Without Quantity(ADD): </div>";
+                VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+                    testOutput = '<div class="success">Single Product Without Quantity test case success</div>';
+                    output.innerHTML = output.innerHTML + testOutput;
+                }).catch(err=>{
+                    testOutput = `<div class="error">Error: ${err.message}</div>`;
+                    output.innerHTML = output.innerHTML + testOutput;
+                });
+            }
+            singleProductWithoutQuantity()
+
             function singleProduct(){
                 const values = {
                     productId: "6741457207487",
-                    variantId: "40014956429503",
-                    quantity: 1, 
+                    variantId: "",
+                    quantity: 3, 
                     customAttributes:  {},
                     lineItemType: "REGULAR"
                 }
@@ -99,6 +121,36 @@
                 });
             }
             singleProduct()
+
+            function multiVariWithoutVariantID(){
+                const values = {
+                    productId: "6733619167423",
+                    variantId: "",
+                    quantity: 4, 
+                    customAttributes: {
+                        "Brand": "wildcraft (+₹3)",
+                        "vjr_hidden_products": [{
+                            "hidden_product_id": "7268231676095",
+                            "product_id": "6733619167423",
+                            "option_string": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MTcyMjM2MDIwMTQwNw==",
+                            "option_value": "wildcraft",
+                            "custom_option_title": "Brand",
+                            "parent_option_name": "Brand",
+                            "price": "3.0"
+                        }]
+                    },
+                    lineItemType: "REGULAR"
+                }
+                let output = document.getElementById('multiVariWithoutVariantID');
+                output.innerHTML = "<div class='title'>Multiple Variants (2 variant) without give VariantID and lineItemType as REGULAR (ADD): </div>";
+                VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+                    
+                }).catch(err=>{
+                    testOutput = `<div class="error">Error: ${err.message}</div>`;
+                    output.innerHTML = output.innerHTML + testOutput;
+                });
+            }
+            multiVariWithoutVariantID()
 
             function invalidProduct(){
                 const values = {
@@ -260,7 +312,7 @@
                 const values = {
                     productId: "6741457207487",
                     variantId: "40014956429503",
-                    quantity: 4, 
+                    quantity: 8, 
                     customAttributes:  {},
                     lineItemType: "REGULAR"
                 }
