@@ -31,6 +31,7 @@
                 width: 390px;
                 padding: 20px;
                 font-size: 32px;
+                font-weight: bold;
             }
             .heading {
                 padding: 10px;
@@ -38,6 +39,9 @@
             .title {
                 text-transform: capitalize;
                 font-size: 32px;
+            }
+            .heading {
+                font-weight: bold;
             }
         </style>
     </head>
@@ -134,7 +138,7 @@
                 slider.innerHTML = '';
                 let {
                     productDetails,
-                    appColors: { buy_button }
+                    appColors: { buy_button = '#f54900' } = {}
                 } = state;
                 Object.keys(productDetails).forEach((id) => {
                     let {
