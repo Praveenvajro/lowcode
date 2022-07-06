@@ -94,7 +94,7 @@
                     obj[productId] = lineItem;
                     return obj;
                 }, {});
-                output.innerHTML += `<div>${updateType}</div>`;
+                output.innerHTML += `<div>${JSON.stringify(normalizedLineItems)}</div>`;
                 if (subscribedProducts.includes(productId)) {
                     let subProductsToProcess = FreeProductMapping[productId];
                     if (subProductsToProcess) {
