@@ -10914,10 +10914,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var addLineItemToCart = function (productId, variantId, quantity, customAttributes, lineItemType, unitPrice) {
+    if (quantity === void 0) { quantity = 1; }
     if (lineItemType === void 0) { lineItemType = 'REGULAR'; }
-    if (!quantity) {
-        quantity = 1;
-    }
     return new Promise(function (resolve, reject) {
         var data = {
             productId: productId,
