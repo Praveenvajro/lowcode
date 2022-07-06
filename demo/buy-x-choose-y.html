@@ -16,7 +16,7 @@
                 height: 100%;
             }
             .product-card {
-                height: 400px;
+                height: 470px;
                 width: 400px !important;
                 align-items: center;
             }
@@ -29,10 +29,15 @@
             }
             .button {
                 width: 390px;
-                padding: 10px;
+                padding: 20px;
+                font-size: 32px;
             }
             .heading{
                 padding: 10px;
+            }
+            .title{
+                text-transform: capitalize;
+                font-size: 32px;
             }
         </style>
     </head>
@@ -147,7 +152,7 @@
                                     class="card-img-top img-width"
                                     src="${image}"
                                 />
-                                <h5 class="card-title capitalize">${title}</h5>
+                                <h5 class="card-title title">${title}</h5>
                                 <button class="btn btn-primary button" ${
                                     disabled ? 'disabled' : ''
                                 } onclick="${actionHandle}('${id}')">${actionTitle}</button>
