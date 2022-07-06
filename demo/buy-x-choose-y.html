@@ -11,12 +11,12 @@
         <script src="./vajro-sdk.js"></script>
         <style>
             .height {
-                height: 200px;
-                max-width: 200px;
+                height: 300px;
+                max-width: 300px;
             }
 
             .img-width {
-                min-height: 150px;
+                min-height: 250px;
                 width: 200px;
             }
 
@@ -32,7 +32,7 @@
                 padding: 15px;
             }
             .slider-height {
-                height: 250px;
+                height: 350px;
             }
             .parent-height {
                 height: 72px;
@@ -147,7 +147,7 @@
                         : `handleAddProduct`;
 
                     let productCard = `
-                        <div class="col-lg-2 col-xs-3">
+                        <div class="col-lg-2 col-xs-1">
                             <div class="card card-block height">
                                 <img
                                     class="card-img-top img-width"
@@ -258,6 +258,9 @@
                     lineItemType: 'READONLY'
                 }
             };
+
+            state.productDetails = productsImages;
+            renderProductSlider();
 
             const fetchProductDetails = (productId) => {
                 return Promise.resolve(productsImages[productId]);
