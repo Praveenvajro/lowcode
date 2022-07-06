@@ -442,6 +442,7 @@ function checkCustomAttributesJson(msg){
     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then(({appContext, lineItem})=>{
         alert('Added line item to cart');
         let lineHandle = lineItem.lineItemHandle
+        alert(lineHandle)
         updateQuantityLineItem(lineHandle)
     }).catch(err=>{
         alert(err.message)
