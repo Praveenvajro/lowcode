@@ -87,6 +87,12 @@
                 lineItem
             ) => {
                 let { productId, quantity } = lineItem;
+                let { lineItems } = appContext;
+                let normalizedLineItems = lineItems.reduce((obj, lineItem) => {
+                    let { productId } = lineItem;
+                    obj[productId] = lineItem;
+                    return obj;
+                }, {});
                 output.innerHTML += `<div>${updateType}</div>`;
                 if (subscribedProducts.includes(productId)) {
                     let subProductsToProcess = FreeProductMapping[productId];
@@ -110,29 +116,14 @@
                                 updateType === 'Decrement' ||
                                 updateType === 'Delete'
                             ) {
-                                let {
-                                    cartLineItems: { lineItems }
-                                } = appContext;
-                                let subLineItemHandle, subId;
-                                for (let {
-                                    lineItemHandle,
-                                    productId: id
-                                } of lineItems) {
-                                    if (id === productId) {
-                                        subLineItemHandle = lineItemHandle;
-                                        subId = id;
-                                        break;
-                                    }
-                                }
-                                output.innerHTML += `<div>subLineItemHandle: ${subLineItemHandle}, ${subId}</div>`;
+                                let { lineItemHandle } =
+                                    normalizedLineItems[subProduct.productId];
+                                output.innerHTML += `<div>lineItemHandle: ${subLineItemHandle}, ${subProduct.productId}</div>`;
                                 if (updateType === 'Delete') {
-                                    promise = removeLineItem(
-                                        subLineItemHandle,
-                                        0
-                                    );
+                                    promise = removeLineItem(lineItemHandle, 0);
                                 } else {
                                     promise = removeLineItem(
-                                        subLineItemHandle,
+                                        lineItemHandle,
                                         quantity
                                     );
                                 }
