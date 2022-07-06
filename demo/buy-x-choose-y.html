@@ -10,40 +10,34 @@
         />
         <script src="./vajro-sdk.js"></script>
         <style>
-            .height {
-                height: 300px;
-                max-width: 300px;
-            }
-
-            .img-width {
-                min-height: 250px;
-                width: 200px;
-            }
-
-            .capitalize {
-                text-transform: capitalize;
-                text-align: center;
-            }
             #slider {
                 width: 100%;
                 overflow-x: auto;
+                height: 100%;
             }
-            .heading {
-                padding: 15px;
+            .container {
+                height: 500px;
             }
-            .slider-height {
-                height: 350px;
+            .product-card {
+                height: 400px;
+                width: 400px !important;
+                align-items: center;
             }
-            .parent-height {
-                height: 72px;
+            img {
+                height: 300px;
+                width: 300px !important;
             }
-            .default-height {
-                height: 0;
+            .width {
+                max-width: 500px !important;
+            }
+            .button {
+                width: 390px;
+                padding: 10px;
             }
         </style>
     </head>
     <body>
-        <div class="container-fluid default-height" id="parent">
+        <div class="container-fluid container">
             <h3 class="heading">Please choose one of the free product</h3>
             <div class="row flex-nowrap" id="slider"></div>
         </div>
@@ -147,14 +141,14 @@
                         : `handleAddProduct`;
 
                     let productCard = `
-                        <div class="col-lg-2 col-xs-1">
-                            <div class="card card-block height">
+                        <div class="col-5 col-xs-12 width">
+                            <div class="card card-block product-card">
                                 <img
                                     class="card-img-top img-width"
                                     src="${image}"
                                 />
                                 <h5 class="card-title capitalize">${title}</h5>
-                                <button class="btn btn-primary" ${
+                                <button class="btn btn-primary button" ${
                                     disabled ? 'disabled' : ''
                                 } onclick="${actionHandle}('${id}')">${actionTitle}</button>
                             </div>
@@ -163,8 +157,6 @@
 
                     slider.innerHTML += productCard;
                     slider.classList.add('slider-height');
-                    const parent = document.getElementById('parent');
-                    parent.classList.add('parent-height');
                 });
             };
 
