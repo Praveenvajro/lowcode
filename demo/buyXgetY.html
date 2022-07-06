@@ -33,12 +33,18 @@
             let subscribedProducts = Object.keys(FreeProductMapping);
 
             const addLineItem = (productInfo) => {
+                if (!productInfo.quantity) {
+                    productInfo.quantity = 1;
+                }
+                if (!productInfo.customAttributes) {
+                    productInfo.customAttributes = {};
+                }
                 return new Promise((resolve, reject) => {
                     VajroSDK.addLineItemToCart(
                         productInfo.productId,
                         productInfo.variantId,
-                        (productInfo.quantity = 1),
-                        (productInfo.customAttributes = {}),
+                        productInfo.quantity,
+                        productInfo.customAttributes,
                         productInfo.lineItemType
                     )
                         .then(resolve)
