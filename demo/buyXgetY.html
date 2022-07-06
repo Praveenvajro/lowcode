@@ -5,7 +5,9 @@
         <script src="./vajro-sdk.js"></script>
     </head>
     <body>
+        <div id="output"></div>
         <script>
+            const output = document.getElementById('output');
             const FreeProductMapping = {
                 // 6741457207487: [
                 //     {
@@ -79,6 +81,7 @@
                 lineItem
             ) => {
                 let { productId, quantity } = lineItem;
+                output.innerHTML += `<div>${updateType}</div>`;
                 if (subscribedProducts.includes(productId)) {
                     let subProductsToProcess = FreeProductMapping[productId];
                     if (subProductsToProcess) {
@@ -86,6 +89,7 @@
                         subProductsToProcess.forEach((subProduct) => {
                             let promise;
                             if (updateType === 'Increment') {
+                                output.innerHTML += `<div>Increment: ${JSON.stringify(subProduct)}</div>`;
                                 promise = addLineItem(subProduct);
                             } else if (
                                 updateType === 'Decrement' ||
@@ -104,6 +108,7 @@
                                         break;
                                     }
                                 }
+                                output.innerHTML += `<div>subLineItemHandle: ${subLineItemHandle}</div>`;
                                 if (updateType === 'Delete') {
                                     promise = removeLineItem(
                                         subLineItemHandle,
