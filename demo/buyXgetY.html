@@ -123,7 +123,7 @@
                             ) {
                                 let { lineItemHandle } =
                                     normalizedLineItems[subProduct.productId];
-                                output.innerHTML += `<div>lineItemHandle: ${subLineItemHandle}, ${subProduct.productId}</div>`;
+                                output.innerHTML += `<div>lineItemHandle: ${lineItemHandle}, ${subProduct.productId}</div>`;
                                 if (updateType === 'Delete') {
                                     promise = removeLineItem(lineItemHandle, 0);
                                 } else {
