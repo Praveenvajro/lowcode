@@ -89,8 +89,19 @@
                         subProductsToProcess.forEach((subProduct) => {
                             let promise;
                             if (updateType === 'Increment') {
-                                output.innerHTML += `<div>Increment: ${JSON.stringify(subProduct)}</div>`;
-                                promise = addLineItem(subProduct);
+                                output.innerHTML += `<div>Increment: ${Object.assign(
+                                    {},
+                                    subProduct,
+                                    {
+                                        quantity
+                                    }
+                                )}</div>`;
+
+                                promise = addLineItem(
+                                    Object.assign({}, subProduct, {
+                                        quantity
+                                    })
+                                );
                             } else if (
                                 updateType === 'Decrement' ||
                                 updateType === 'Delete'
