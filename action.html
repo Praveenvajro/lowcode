@@ -477,9 +477,8 @@ function checkCustomAttributesJson(msg){
         lineItemType: "REGULAR"
     }
     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then(({appContext, lineItem})=>{
-        alert('Added line item to cart');
+        
         let lineHandle = lineItem.lineItemHandle
-        alert(lineHandle)
         updateQuantityLineItem(lineHandle)
     }).catch(err=>{
         alert(err.message)
@@ -514,7 +513,7 @@ function updateQuantityLineItem(lineHandle){
                     }
                 }
                 VajroSDK.updateLineItemInCart(values.lineitemhandle, values.quantity, values.lineItemType, values.customAttributes).then((res)=>{
-                    alert('Updated line item to cart');
+                    
                 }).catch(err=>{
                     alert(err.message)
                 });
