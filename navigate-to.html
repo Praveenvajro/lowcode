@@ -56,13 +56,13 @@
         </div>
 
         <script type="text/javascript">
-            let output = document.getElementById("output");
+            // let output = document.getElementById("output");
             VajroSDK.subscribe(VajroSDK.Triggers.ON_PAGE_LOADED,(appContext, product) => {
                 // output.innerHTML = JSON.stringify(appContext)+ " PRODUCT: "+ JSON.stringify(product);
             })
             VajroSDK.subscribe(VajroSDK.Triggers.PRODUCT_OPTION_SELECTED,(appContext, product, productVariant) => {
                 alert("APPCONTEXT: "+ JSON.stringify(appContext))
-                output.innerHTML = JSON.stringify(appContext)+ " PRODUCT: "+ JSON.stringify(product)+ " PRODUCT_VARIANT: "+ JSON.stringify(productVariant);
+                // output.innerHTML = JSON.stringify(appContext)+ " PRODUCT: "+ JSON.stringify(product)+ " PRODUCT_VARIANT: "+ JSON.stringify(productVariant);
             })
             function navigateto(){
                 let navigationType = document.getElementById("navigationType").value.toString();
