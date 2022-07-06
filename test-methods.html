@@ -66,326 +66,326 @@
             function lowcodeautomate(){
             var testOutput;
 
-            function noVariant(){
-                const values = {
-                    productId: "6878543315135",
-                    variantId: "",
-                    quantity: 1, 
-                    customAttributes:  {},
-                    lineItemType: "REGULAR"
-                }
-                let output = document.getElementById('novariant');
-                output.innerHTML = "<div class='title'>No Variant (ADD): </div>";
-                VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then(({appContext, lineItem}) => {
-                    let lineHandle = lineItem.lineItemHandle
-                    testOutput = '<div class="success">No variant test case success</div>';
-                    output.innerHTML = output.innerHTML + testOutput;
-                    if(lineHandle){
-                    nullCheckAllParamUpdate(lineHandle)
-                    negativequantity(lineHandle)
-                    checkQuantityInt(lineHandle)
-                    removedLineItem(lineHandle)
-                    }
-                    // if (lineItem.productId === values.productId){
-                    //     testOutput = '<div class="success">No variant test case success</div>';
-                    // }else{
-                    //     testOutput = '<div class="error">No variant test case failed</div>';
-                    // }
-                    // output.innerHTML = testOutput + "<br/> <div>AppContext: " + JSON.stringify(appContext)+"</div> <br/> <div>lineItem: " + JSON.stringify(lineItem)+ "</div>";
-                }).catch(err=>{
-                    testOutput = `<div class="error">Error: ${err.message}</div>`;
-                    output.innerHTML = output.innerHTML + testOutput;
-                });
-            }
-            noVariant();
+            // function noVariant(){
+            //     const values = {
+            //         productId: "6878543315135",
+            //         variantId: "",
+            //         quantity: 1, 
+            //         customAttributes:  {},
+            //         lineItemType: "REGULAR"
+            //     }
+            //     let output = document.getElementById('novariant');
+            //     output.innerHTML = "<div class='title'>No Variant (ADD): </div>";
+            //     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then(({appContext, lineItem}) => {
+            //         let lineHandle = lineItem.lineItemHandle
+            //         testOutput = '<div class="success">No variant test case success</div>';
+            //         output.innerHTML = output.innerHTML + testOutput;
+            //         if(lineHandle){
+            //         nullCheckAllParamUpdate(lineHandle)
+            //         negativequantity(lineHandle)
+            //         checkQuantityInt(lineHandle)
+            //         removedLineItem(lineHandle)
+            //         }
+            //         // if (lineItem.productId === values.productId){
+            //         //     testOutput = '<div class="success">No variant test case success</div>';
+            //         // }else{
+            //         //     testOutput = '<div class="error">No variant test case failed</div>';
+            //         // }
+            //         // output.innerHTML = testOutput + "<br/> <div>AppContext: " + JSON.stringify(appContext)+"</div> <br/> <div>lineItem: " + JSON.stringify(lineItem)+ "</div>";
+            //     }).catch(err=>{
+            //         testOutput = `<div class="error">Error: ${err.message}</div>`;
+            //         output.innerHTML = output.innerHTML + testOutput;
+            //     });
+            // }
+            // noVariant();
 
-            function singleProductWithoutQuantity(){
-                const values = {
-                    productId: "6741457207487",
-                    variantId: "",
-                    quantity: "", 
-                    customAttributes:  {},
-                    lineItemType: "REGULAR"
-                }
-                let output = document.getElementById('singleProductWithoutQuantity');
-                output.innerHTML = "<div class='title'>Singe Product Without Quantity(ADD): </div>";
-                VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
-                    testOutput = '<div class="success">Single Product Without Quantity test case success</div>';
-                    output.innerHTML = output.innerHTML + testOutput;
-                }).catch(err=>{
-                    testOutput = `<div class="error">Error: ${err.message}</div>`;
-                    output.innerHTML = output.innerHTML + testOutput;
-                });
-            }
-            setTimeout(() => {  singleProductWithoutQuantity() }, 2000);
-            // singleProductWithoutQuantity()
+            // function singleProductWithoutQuantity(){
+            //     const values = {
+            //         productId: "6741457207487",
+            //         variantId: "",
+            //         quantity: "", 
+            //         customAttributes:  {},
+            //         lineItemType: "REGULAR"
+            //     }
+            //     let output = document.getElementById('singleProductWithoutQuantity');
+            //     output.innerHTML = "<div class='title'>Singe Product Without Quantity(ADD): </div>";
+            //     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+            //         testOutput = '<div class="success">Single Product Without Quantity test case success</div>';
+            //         output.innerHTML = output.innerHTML + testOutput;
+            //     }).catch(err=>{
+            //         testOutput = `<div class="error">Error: ${err.message}</div>`;
+            //         output.innerHTML = output.innerHTML + testOutput;
+            //     });
+            // }
+            // setTimeout(() => {  singleProductWithoutQuantity() }, 2000);
+            // // singleProductWithoutQuantity()
 
-            function singleProduct(){
-                const values = {
-                    productId: "6741457207487",
-                    variantId: "",
-                    quantity: 3, 
-                    customAttributes:  {},
-                    lineItemType: "REGULAR"
-                }
-                let output = document.getElementById('singleproduct');
-                output.innerHTML = "<div class='title'>Singe Product (ADD): </div>";
-                VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
-                    testOutput = '<div class="success">Single Product variant test case success</div>';
-                    output.innerHTML = output.innerHTML + testOutput;
-                }).catch(err=>{
-                    testOutput = `<div class="error">Error: ${err.message}</div>`;
-                    output.innerHTML = output.innerHTML + testOutput;
-                });
-            }
-            setTimeout(() => {  singleProductWithoutQuantity() }, 2000);
-            // singleProduct()
+            // function singleProduct(){
+            //     const values = {
+            //         productId: "6741457207487",
+            //         variantId: "",
+            //         quantity: 3, 
+            //         customAttributes:  {},
+            //         lineItemType: "REGULAR"
+            //     }
+            //     let output = document.getElementById('singleproduct');
+            //     output.innerHTML = "<div class='title'>Singe Product (ADD): </div>";
+            //     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+            //         testOutput = '<div class="success">Single Product variant test case success</div>';
+            //         output.innerHTML = output.innerHTML + testOutput;
+            //     }).catch(err=>{
+            //         testOutput = `<div class="error">Error: ${err.message}</div>`;
+            //         output.innerHTML = output.innerHTML + testOutput;
+            //     });
+            // }
+            // setTimeout(() => {  singleProductWithoutQuantity() }, 2000);
+            // // singleProduct()
 
-            function multiVariWithoutVariantID(){
-                const values = {
-                    productId: "6733619167423",
-                    variantId: "",
-                    quantity: 4, 
-                    customAttributes: {
-                        "Brand": "wildcraft (+₹3)",
-                        "vjr_hidden_products": [{
-                            "hidden_product_id": "7268231676095",
-                            "product_id": "6733619167423",
-                            "option_string": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MTcyMjM2MDIwMTQwNw==",
-                            "option_value": "wildcraft",
-                            "custom_option_title": "Brand",
-                            "parent_option_name": "Brand",
-                            "price": "3.0"
-                        }]
-                    },
-                    lineItemType: "REGULAR"
-                }
-                let output = document.getElementById('multiVariWithoutVariantID');
-                output.innerHTML = "<div class='title'>Multiple Variants (2 variant) without give VariantID and lineItemType as REGULAR (ADD): </div>";
-                VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+            // function multiVariWithoutVariantID(){
+            //     const values = {
+            //         productId: "6733619167423",
+            //         variantId: "",
+            //         quantity: 4, 
+            //         customAttributes: {
+            //             "Brand": "wildcraft (+₹3)",
+            //             "vjr_hidden_products": [{
+            //                 "hidden_product_id": "7268231676095",
+            //                 "product_id": "6733619167423",
+            //                 "option_string": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MTcyMjM2MDIwMTQwNw==",
+            //                 "option_value": "wildcraft",
+            //                 "custom_option_title": "Brand",
+            //                 "parent_option_name": "Brand",
+            //                 "price": "3.0"
+            //             }]
+            //         },
+            //         lineItemType: "REGULAR"
+            //     }
+            //     let output = document.getElementById('multiVariWithoutVariantID');
+            //     output.innerHTML = "<div class='title'>Multiple Variants (2 variant) without give VariantID and lineItemType as REGULAR (ADD): </div>";
+            //     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
                     
-                }).catch(err=>{
-                    testOutput = `<div class="error">Error: ${err.message}</div>`;
-                    output.innerHTML = output.innerHTML + testOutput;
-                });
-            }
-            setTimeout(() => {  multiVariWithoutVariantID() }, 2000);
-            // multiVariWithoutVariantID()
+            //     }).catch(err=>{
+            //         testOutput = `<div class="error">Error: ${err.message}</div>`;
+            //         output.innerHTML = output.innerHTML + testOutput;
+            //     });
+            // }
+            // setTimeout(() => {  multiVariWithoutVariantID() }, 2000);
+            // // multiVariWithoutVariantID()
 
-            function invalidProduct(){
-                const values = {
-                    productId: "12346741457207487",
-                    variantId: "40014956429503",
-                    quantity: 1, 
-                    customAttributes:  {},
-                    lineItemType: "REGULAR"
-                }
-                let output = document.getElementById('invalidProduct');
-                output.innerHTML = "<div class='title'>Invalid Product (ADD): </div>";
-                VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
-                }).catch(err=>{
-                    testOutput = `<div class="error">Error: ${err.message}</div>`;
-                    output.innerHTML = output.innerHTML + testOutput;
-                });
-            }
-            setTimeout(() => {  invalidProduct() }, 2000);
-            // invalidProduct()
+            // function invalidProduct(){
+            //     const values = {
+            //         productId: "12346741457207487",
+            //         variantId: "40014956429503",
+            //         quantity: 1, 
+            //         customAttributes:  {},
+            //         lineItemType: "REGULAR"
+            //     }
+            //     let output = document.getElementById('invalidProduct');
+            //     output.innerHTML = "<div class='title'>Invalid Product (ADD): </div>";
+            //     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+            //     }).catch(err=>{
+            //         testOutput = `<div class="error">Error: ${err.message}</div>`;
+            //         output.innerHTML = output.innerHTML + testOutput;
+            //     });
+            // }
+            // setTimeout(() => {  invalidProduct() }, 2000);
+            // // invalidProduct()
 
-            function invalidVariant(){
-                const values = {
-                    productId: "6741457207487",
-                    variantId: "111140014956429503",
-                    quantity: 1, 
-                    customAttributes:  {},
-                    lineItemType: "REGULAR"
-                }
-                let output = document.getElementById('invalidVariant');
-                output.innerHTML = "<div class='title'>Invalid Variant (ADD): </div>";
-                VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
-                }).catch(err=>{
-                    testOutput = `<div class="error">Error: ${err.message}</div>`;
-                    output.innerHTML = output.innerHTML + testOutput;
-                });
-            }
-            setTimeout(() => {  invalidVariant() }, 2000);
-            // invalidVariant()
+            // function invalidVariant(){
+            //     const values = {
+            //         productId: "6741457207487",
+            //         variantId: "111140014956429503",
+            //         quantity: 1, 
+            //         customAttributes:  {},
+            //         lineItemType: "REGULAR"
+            //     }
+            //     let output = document.getElementById('invalidVariant');
+            //     output.innerHTML = "<div class='title'>Invalid Variant (ADD): </div>";
+            //     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+            //     }).catch(err=>{
+            //         testOutput = `<div class="error">Error: ${err.message}</div>`;
+            //         output.innerHTML = output.innerHTML + testOutput;
+            //     });
+            // }
+            // setTimeout(() => {  invalidVariant() }, 2000);
+            // // invalidVariant()
 
-            function multiVariTwoVariRegular(){
-                const values = {
-                    productId: "6733619167423",
-                    variantId: "39990425288895",
-                    quantity: 4, 
-                    customAttributes: {
-                        "Brand": "wildcraft (+₹3)",
-                        "vjr_hidden_products": [{
-                            "hidden_product_id": "7268231676095",
-                            "product_id": "6733619167423",
-                            "option_string": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MTcyMjM2MDIwMTQwNw==",
-                            "option_value": "wildcraft",
-                            "custom_option_title": "Brand",
-                            "parent_option_name": "Brand",
-                            "price": "3.0"
-                        }]
-                    },
-                    lineItemType: "REGULAR"
-                }
-                let output = document.getElementById('multiVariTwoVariRegular');
-                output.innerHTML = "<div class='title'>Two Variants with REGULAR (ADD): </div>";
-                VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
-                    testOutput = '<div class="success">Two Variants with REGULAR test case success</div>';
-                    output.innerHTML = output.innerHTML + testOutput;
-                }).catch(err=>{
-                    testOutput = `<div class="error">Error: ${err.message}</div>`;
-                    output.innerHTML = output.innerHTML + testOutput;
-                });
-            }
-            setTimeout(() => {  multiVariTwoVariRegular() }, 2000);
-            // multiVariTwoVariRegular()
+            // function multiVariTwoVariRegular(){
+            //     const values = {
+            //         productId: "6733619167423",
+            //         variantId: "39990425288895",
+            //         quantity: 4, 
+            //         customAttributes: {
+            //             "Brand": "wildcraft (+₹3)",
+            //             "vjr_hidden_products": [{
+            //                 "hidden_product_id": "7268231676095",
+            //                 "product_id": "6733619167423",
+            //                 "option_string": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MTcyMjM2MDIwMTQwNw==",
+            //                 "option_value": "wildcraft",
+            //                 "custom_option_title": "Brand",
+            //                 "parent_option_name": "Brand",
+            //                 "price": "3.0"
+            //             }]
+            //         },
+            //         lineItemType: "REGULAR"
+            //     }
+            //     let output = document.getElementById('multiVariTwoVariRegular');
+            //     output.innerHTML = "<div class='title'>Two Variants with REGULAR (ADD): </div>";
+            //     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+            //         testOutput = '<div class="success">Two Variants with REGULAR test case success</div>';
+            //         output.innerHTML = output.innerHTML + testOutput;
+            //     }).catch(err=>{
+            //         testOutput = `<div class="error">Error: ${err.message}</div>`;
+            //         output.innerHTML = output.innerHTML + testOutput;
+            //     });
+            // }
+            // setTimeout(() => {  multiVariTwoVariRegular() }, 2000);
+            // // multiVariTwoVariRegular()
 
-            function multiVariTwoVariChangeCA(){
-                const values = {
-                    productId: "6733619167423",
-                    variantId: "39990425288895",
-                    quantity: 4, 
-                    customAttributes: {
-                                    "Brand": "Roshan (+₹5)",
-                                    "vjr_hidden_products": [{
-                                        "hidden_product_id": "7268228530367",
-                                        "product_id": "6733619167423",
-                                        "option_string": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MTcyMjM1NjY2MjQ2Mw==",
-                                        "option_value": "Roshan",
-                                        "custom_option_title": "Brand",
-                                        "parent_option_name": "Brand",
-                                        "price": "5.0"
-                                    }]
-                                },
-                    lineItemType: "REGULAR"
-                }
-                let output = document.getElementById('multiVariTwoVariChangeCA');
-                output.innerHTML = "<div class='title'>Multiple Variants (2 variant) with same product different Custom Attributes (ADD): </div>";
-                VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
-                    testOutput = '<div class="success">Multiple Variants (2 variant) with same product different Custom Attributes test case success</div>';
-                    output.innerHTML = output.innerHTML + testOutput;
-                }).catch(err=>{
-                    testOutput = `<div class="error">Error: ${err.message}</div>`;
-                    output.innerHTML = output.innerHTML + testOutput;
-                });
-            }
-            setTimeout(() => {  multiVariTwoVariChangeCA() }, 2000);
-            // multiVariTwoVariChangeCA()
+            // function multiVariTwoVariChangeCA(){
+            //     const values = {
+            //         productId: "6733619167423",
+            //         variantId: "39990425288895",
+            //         quantity: 4, 
+            //         customAttributes: {
+            //                         "Brand": "Roshan (+₹5)",
+            //                         "vjr_hidden_products": [{
+            //                             "hidden_product_id": "7268228530367",
+            //                             "product_id": "6733619167423",
+            //                             "option_string": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MTcyMjM1NjY2MjQ2Mw==",
+            //                             "option_value": "Roshan",
+            //                             "custom_option_title": "Brand",
+            //                             "parent_option_name": "Brand",
+            //                             "price": "5.0"
+            //                         }]
+            //                     },
+            //         lineItemType: "REGULAR"
+            //     }
+            //     let output = document.getElementById('multiVariTwoVariChangeCA');
+            //     output.innerHTML = "<div class='title'>Multiple Variants (2 variant) with same product different Custom Attributes (ADD): </div>";
+            //     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+            //         testOutput = '<div class="success">Multiple Variants (2 variant) with same product different Custom Attributes test case success</div>';
+            //         output.innerHTML = output.innerHTML + testOutput;
+            //     }).catch(err=>{
+            //         testOutput = `<div class="error">Error: ${err.message}</div>`;
+            //         output.innerHTML = output.innerHTML + testOutput;
+            //     });
+            // }
+            // setTimeout(() => {  multiVariTwoVariChangeCA() }, 2000);
+            // // multiVariTwoVariChangeCA()
             
-            function multiVariTwoVariHidden(){
-                const values = {
-                    productId: "6733619167423",
-                    variantId: "39990425288895",
-                    quantity: 4, 
-                    customAttributes: {
-                        "Brand": "wildcraft (+₹3)",
-                        "vjr_hidden_products": [{
-                            "hidden_product_id": "7268231676095",
-                            "product_id": "6733619167423",
-                            "option_string": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MTcyMjM2MDIwMTQwNw==",
-                            "option_value": "wildcraft",
-                            "custom_option_title": "Brand",
-                            "parent_option_name": "Brand",
-                            "price": "3.0"
-                        }]
-                    },
-                    lineItemType: "HIDDEN"
-                }
-                let output = document.getElementById('multiVariTwoVariHidden');
-                output.innerHTML = "<div class='title'>Two Variants with HIDDEN: </div>";
-                VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
-                    testOutput = '<div class="success">Two Variants with HIDDEN test case success</div>';
-                    output.innerHTML = output.innerHTML + testOutput;
-                }).catch(err=>{
-                    testOutput = `<div class="error">Error: ${err.message}</div>`;
-                    output.innerHTML = output.innerHTML + testOutput;
-                });
-            }
-            setTimeout(() => {  multiVariTwoVariHidden() }, 2000);
-            // multiVariTwoVariHidden()
+            // function multiVariTwoVariHidden(){
+            //     const values = {
+            //         productId: "6733619167423",
+            //         variantId: "39990425288895",
+            //         quantity: 4, 
+            //         customAttributes: {
+            //             "Brand": "wildcraft (+₹3)",
+            //             "vjr_hidden_products": [{
+            //                 "hidden_product_id": "7268231676095",
+            //                 "product_id": "6733619167423",
+            //                 "option_string": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MTcyMjM2MDIwMTQwNw==",
+            //                 "option_value": "wildcraft",
+            //                 "custom_option_title": "Brand",
+            //                 "parent_option_name": "Brand",
+            //                 "price": "3.0"
+            //             }]
+            //         },
+            //         lineItemType: "HIDDEN"
+            //     }
+            //     let output = document.getElementById('multiVariTwoVariHidden');
+            //     output.innerHTML = "<div class='title'>Two Variants with HIDDEN: </div>";
+            //     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+            //         testOutput = '<div class="success">Two Variants with HIDDEN test case success</div>';
+            //         output.innerHTML = output.innerHTML + testOutput;
+            //     }).catch(err=>{
+            //         testOutput = `<div class="error">Error: ${err.message}</div>`;
+            //         output.innerHTML = output.innerHTML + testOutput;
+            //     });
+            // }
+            // setTimeout(() => {  multiVariTwoVariHidden() }, 2000);
+            // // multiVariTwoVariHidden()
 
-            function multiVariThreeVari(){
-                const values = {
-                    productId: "6750261739711",
-                    variantId: "41722507067583",
-                    quantity: 4, 
-                    customAttributes:  {},
-                    lineItemType: "REGULAR"
-                }
-                let output = document.getElementById('multiVariThreeVari');
-                output.innerHTML = "<div class='title'>Three Variants (ADD): </div>";
-                VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
-                    testOutput = '<div class="success">Three Variants test case success</div>';
-                    output.innerHTML = output.innerHTML + testOutput;
-                }).catch(err=>{
-                    testOutput = `<div class="error">Error: ${err.message}</div>`;
-                    output.innerHTML = output.innerHTML + testOutput;
-                });
-            }
-            setTimeout(() => {  multiVariThreeVari() }, 2000);
-            // multiVariThreeVari()
+            // function multiVariThreeVari(){
+            //     const values = {
+            //         productId: "6750261739711",
+            //         variantId: "41722507067583",
+            //         quantity: 4, 
+            //         customAttributes:  {},
+            //         lineItemType: "REGULAR"
+            //     }
+            //     let output = document.getElementById('multiVariThreeVari');
+            //     output.innerHTML = "<div class='title'>Three Variants (ADD): </div>";
+            //     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+            //         testOutput = '<div class="success">Three Variants test case success</div>';
+            //         output.innerHTML = output.innerHTML + testOutput;
+            //     }).catch(err=>{
+            //         testOutput = `<div class="error">Error: ${err.message}</div>`;
+            //         output.innerHTML = output.innerHTML + testOutput;
+            //     });
+            // }
+            // setTimeout(() => {  multiVariThreeVari() }, 2000);
+            // // multiVariThreeVari()
 
-            function withoutProductId(){
-                const values = {
-                    productId: "",
-                    variantId: "41722507067583",
-                    quantity: 4, 
-                    customAttributes:  {},
-                    lineItemType: "REGULAR"
-                }
-                let output = document.getElementById('withoutProductId');
-                output.innerHTML = "<div class='title'>Without Product ID (ADD): </div>";
-                VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+            // function withoutProductId(){
+            //     const values = {
+            //         productId: "",
+            //         variantId: "41722507067583",
+            //         quantity: 4, 
+            //         customAttributes:  {},
+            //         lineItemType: "REGULAR"
+            //     }
+            //     let output = document.getElementById('withoutProductId');
+            //     output.innerHTML = "<div class='title'>Without Product ID (ADD): </div>";
+            //     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
                     
-                }).catch(err=>{
-                    testOutput = `<div class="error">Error: ${err.message}</div>`;
-                    output.innerHTML = output.innerHTML + testOutput;
-                });
-            }
-            setTimeout(() => {  withoutProductId() }, 2000);
-            // withoutProductId()
+            //     }).catch(err=>{
+            //         testOutput = `<div class="error">Error: ${err.message}</div>`;
+            //         output.innerHTML = output.innerHTML + testOutput;
+            //     });
+            // }
+            // setTimeout(() => {  withoutProductId() }, 2000);
+            // // withoutProductId()
 
-            function withoutVariantId(){
-                const values = {
-                    productId: "6750261739711",
-                    variantId: "",
-                    quantity: 4, 
-                    customAttributes:  {},
-                    lineItemType: "REGULAR"
-                }
-                let output = document.getElementById('withoutVariantId');
-                output.innerHTML = "<div class='title'>Without Variant ID (ADD): </div>";
-                VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+            // function withoutVariantId(){
+            //     const values = {
+            //         productId: "6750261739711",
+            //         variantId: "",
+            //         quantity: 4, 
+            //         customAttributes:  {},
+            //         lineItemType: "REGULAR"
+            //     }
+            //     let output = document.getElementById('withoutVariantId');
+            //     output.innerHTML = "<div class='title'>Without Variant ID (ADD): </div>";
+            //     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
                     
-                }).catch(err=>{
-                    testOutput = `<div class="error">Error: ${err.message}</div>`;
-                    output.innerHTML = output.innerHTML + testOutput;
-                });
-            }
-            setTimeout(() => {  withoutVariantId() }, 2000);
-            // withoutVariantId()
+            //     }).catch(err=>{
+            //         testOutput = `<div class="error">Error: ${err.message}</div>`;
+            //         output.innerHTML = output.innerHTML + testOutput;
+            //     });
+            // }
+            // setTimeout(() => {  withoutVariantId() }, 2000);
+            // // withoutVariantId()
 
-            function aboveQuantity(){
-                const values = {
-                    productId: "6741457207487",
-                    variantId: "40014956429503",
-                    quantity: 8, 
-                    customAttributes:  {},
-                    lineItemType: "REGULAR"
-                }
-                let output = document.getElementById('aboveQuantity');
-                output.innerHTML = "<div class='title'>Above Qantity (ADD): </div>";
-                VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+            // function aboveQuantity(){
+            //     const values = {
+            //         productId: "6741457207487",
+            //         variantId: "40014956429503",
+            //         quantity: 8, 
+            //         customAttributes:  {},
+            //         lineItemType: "REGULAR"
+            //     }
+            //     let output = document.getElementById('aboveQuantity');
+            //     output.innerHTML = "<div class='title'>Above Qantity (ADD): </div>";
+            //     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
                     
-                }).catch(err=>{
-                    testOutput = `<div class="error">Error: ${err.message}</div>`;
-                    output.innerHTML = output.innerHTML + testOutput;
-                });
-            }
-            setTimeout(() => {  aboveQuantity() }, 2000);
-            // aboveQuantity()
+            //     }).catch(err=>{
+            //         testOutput = `<div class="error">Error: ${err.message}</div>`;
+            //         output.innerHTML = output.innerHTML + testOutput;
+            //     });
+            // }
+            // setTimeout(() => {  aboveQuantity() }, 2000);
+            // // aboveQuantity()
 
             function checkCustomAttributesJson(){
                 const values = {
@@ -422,121 +422,121 @@
             setTimeout(() => {  checkCustomAttributesJson() }, 2000);
             // checkCustomAttributesJson()
 
-            function nolineItemHandle(){
-                const values = {
-                    lineitemhandle: "",
-                    quantity: 1
-                }
-                let output = document.getElementById('noLineItemHandle');
-                output.innerHTML = "<div class='title'>No LineItem Handle (REMOVE): </div>";
-                VajroSDK.removeLineItemFromCart(values.lineitemhandle, values.quantity).then((res)=>{
+            // function nolineItemHandle(){
+            //     const values = {
+            //         lineitemhandle: "",
+            //         quantity: 1
+            //     }
+            //     let output = document.getElementById('noLineItemHandle');
+            //     output.innerHTML = "<div class='title'>No LineItem Handle (REMOVE): </div>";
+            //     VajroSDK.removeLineItemFromCart(values.lineitemhandle, values.quantity).then((res)=>{
                     
-                }).catch(err=>{
-                    testOutput = `<div class="error">Error: ${err.message}</div>`;
-                    output.innerHTML = output.innerHTML + testOutput;
-                });
-            }
-            setTimeout(() => {  nolineItemHandle() }, 2000);
-            // nolineItemHandle()
+            //     }).catch(err=>{
+            //         testOutput = `<div class="error">Error: ${err.message}</div>`;
+            //         output.innerHTML = output.innerHTML + testOutput;
+            //     });
+            // }
+            // setTimeout(() => {  nolineItemHandle() }, 2000);
+            // // nolineItemHandle()
 
-            function negativequantity(lineHandle){
-                const values = {
-                    lineitemhandle: lineHandle,
-                    quantity: -6
-                }
-                let output = document.getElementById('negativeQuantity');
-                output.innerHTML = "<div class='title'>Negative Quanity (REMOVE): </div>";
-                VajroSDK.removeLineItemFromCart(values.lineitemhandle, values.quantity).then((res)=>{
+            // function negativequantity(lineHandle){
+            //     const values = {
+            //         lineitemhandle: lineHandle,
+            //         quantity: -6
+            //     }
+            //     let output = document.getElementById('negativeQuantity');
+            //     output.innerHTML = "<div class='title'>Negative Quanity (REMOVE): </div>";
+            //     VajroSDK.removeLineItemFromCart(values.lineitemhandle, values.quantity).then((res)=>{
                     
-                }).catch(err=>{
-                    testOutput = `<div class="error">Error: ${err.message}</div>`;
-                    output.innerHTML = output.innerHTML + testOutput + JSON.stringify(err);
-                });
-            }
+            //     }).catch(err=>{
+            //         testOutput = `<div class="error">Error: ${err.message}</div>`;
+            //         output.innerHTML = output.innerHTML + testOutput + JSON.stringify(err);
+            //     });
+            // }
 
-            function checkQuantityInt(lineHandle){
-                const values = {
-                    lineitemhandle: lineHandle,
-                    quantity: '0'
-                }
-                let output = document.getElementById('checkQuantityInt');
-                output.innerHTML = "<div class='title'>Check the Quantity Integer (REMOVE): </div>";
-                VajroSDK.removeLineItemFromCart(values.lineitemhandle, values.quantity).then((res)=>{
+            // function checkQuantityInt(lineHandle){
+            //     const values = {
+            //         lineitemhandle: lineHandle,
+            //         quantity: '0'
+            //     }
+            //     let output = document.getElementById('checkQuantityInt');
+            //     output.innerHTML = "<div class='title'>Check the Quantity Integer (REMOVE): </div>";
+            //     VajroSDK.removeLineItemFromCart(values.lineitemhandle, values.quantity).then((res)=>{
                     
-                }).catch(err=>{
-                    testOutput = `<div class="error">Error: ${err.message}</div>`;
-                    output.innerHTML = output.innerHTML + testOutput + JSON.stringify(err);
-                });
-            }
+            //     }).catch(err=>{
+            //         testOutput = `<div class="error">Error: ${err.message}</div>`;
+            //         output.innerHTML = output.innerHTML + testOutput + JSON.stringify(err);
+            //     });
+            // }
 
-            function removedLineItem(lineHandle){
-                const values = {
-                    lineitemhandle: lineHandle,
-                    quantity: 0
-                }
-                let output = document.getElementById('removedLineItem');
-                output.innerHTML = "<div class='title'>Remove Line Item from cart (REMOVE): </div>";
-                VajroSDK.removeLineItemFromCart(values.lineitemhandle, values.quantity).then((res)=>{
-                    testOutput = '<div class="success">Product Removed from Cart test case success</div>';
-                    output.innerHTML = output.innerHTML + testOutput;
-                }).catch(err=>{
-                    testOutput = `<div class="error">Error: ${err.message}</div>`;
-                    output.innerHTML = output.innerHTML + testOutput;
-                });
-            }
+            // function removedLineItem(lineHandle){
+            //     const values = {
+            //         lineitemhandle: lineHandle,
+            //         quantity: 0
+            //     }
+            //     let output = document.getElementById('removedLineItem');
+            //     output.innerHTML = "<div class='title'>Remove Line Item from cart (REMOVE): </div>";
+            //     VajroSDK.removeLineItemFromCart(values.lineitemhandle, values.quantity).then((res)=>{
+            //         testOutput = '<div class="success">Product Removed from Cart test case success</div>';
+            //         output.innerHTML = output.innerHTML + testOutput;
+            //     }).catch(err=>{
+            //         testOutput = `<div class="error">Error: ${err.message}</div>`;
+            //         output.innerHTML = output.innerHTML + testOutput;
+            //     });
+            // }
 
-            function noLineItemHandleUpdate(){
-                const values = {
-                    lineitemhandle: "",
-                    quantity: 1,
-                    lineItemType: null,
-                    customAttributes: null
-                }
-                let output = document.getElementById('noLineItemHandleUpdate');
-                output.innerHTML = "<div class='title'>No LineItem Handle (UPDATE): </div>";
-                VajroSDK.updateLineItemInCart(values.lineitemhandle, values.quantity, values.lineItemType, values.customAttributes).then((res)=>{
+            // function noLineItemHandleUpdate(){
+            //     const values = {
+            //         lineitemhandle: "",
+            //         quantity: 1,
+            //         lineItemType: null,
+            //         customAttributes: null
+            //     }
+            //     let output = document.getElementById('noLineItemHandleUpdate');
+            //     output.innerHTML = "<div class='title'>No LineItem Handle (UPDATE): </div>";
+            //     VajroSDK.updateLineItemInCart(values.lineitemhandle, values.quantity, values.lineItemType, values.customAttributes).then((res)=>{
                     
-                }).catch(err=>{
-                    testOutput = `<div class="error">Error: ${err.message}</div>`;
-                    output.innerHTML = output.innerHTML + testOutput;
-                });
-            }
-            setTimeout(() => {  noLineItemHandleUpdate() }, 2000);
-            // noLineItemHandleUpdate()
+            //     }).catch(err=>{
+            //         testOutput = `<div class="error">Error: ${err.message}</div>`;
+            //         output.innerHTML = output.innerHTML + testOutput;
+            //     });
+            // }
+            // setTimeout(() => {  noLineItemHandleUpdate() }, 2000);
+            // // noLineItemHandleUpdate()
 
-            function nullCheckAllParamUpdate(lineHandle){
-                const values = {
-                    lineitemhandle: lineHandle,
-                    quantity: "",
-                    lineItemType: "",
-                    customAttributes: ""
-                }
-                let output = document.getElementById('nullCheckAllParamUpdate');
-                output.innerHTML = "<div class='title'>Null Check All Param (UPDATE): </div>";
-                VajroSDK.updateLineItemInCart(values.lineitemhandle, values.quantity, values.lineItemType, values.customAttributes).then((res)=>{
+            // function nullCheckAllParamUpdate(lineHandle){
+            //     const values = {
+            //         lineitemhandle: lineHandle,
+            //         quantity: "",
+            //         lineItemType: "",
+            //         customAttributes: ""
+            //     }
+            //     let output = document.getElementById('nullCheckAllParamUpdate');
+            //     output.innerHTML = "<div class='title'>Null Check All Param (UPDATE): </div>";
+            //     VajroSDK.updateLineItemInCart(values.lineitemhandle, values.quantity, values.lineItemType, values.customAttributes).then((res)=>{
                     
-                }).catch(err=>{
-                    testOutput = `<div class="error">Error: ${err.message}</div>`;
-                    output.innerHTML = output.innerHTML + testOutput;
-                });
-            }
+            //     }).catch(err=>{
+            //         testOutput = `<div class="error">Error: ${err.message}</div>`;
+            //         output.innerHTML = output.innerHTML + testOutput;
+            //     });
+            // }
 
-            function checkCustomAttributesStringUpdate(lineHandle){
-                const values = {
-                    lineitemhandle: lineHandle,
-                    quantity: null,
-                    lineItemType: null,
-                    customAttributes: "Handle"
-                }
-                let output = document.getElementById('checkCustomAttributesStringUpdate');
-                output.innerHTML = "<div class='title'>Check Custom Attributes is JSON or Not (UPDATE): </div>";
-                VajroSDK.updateLineItemInCart(values.lineitemhandle, values.quantity, values.lineItemType, values.customAttributes).then((res)=>{
+            // function checkCustomAttributesStringUpdate(lineHandle){
+            //     const values = {
+            //         lineitemhandle: lineHandle,
+            //         quantity: null,
+            //         lineItemType: null,
+            //         customAttributes: "Handle"
+            //     }
+            //     let output = document.getElementById('checkCustomAttributesStringUpdate');
+            //     output.innerHTML = "<div class='title'>Check Custom Attributes is JSON or Not (UPDATE): </div>";
+            //     VajroSDK.updateLineItemInCart(values.lineitemhandle, values.quantity, values.lineItemType, values.customAttributes).then((res)=>{
                     
-                }).catch(err=>{
-                    testOutput = `<div class="error">Error: ${err.message}</div>`;
-                    output.innerHTML = output.innerHTML + testOutput;
-                });
-            }
+            //     }).catch(err=>{
+            //         testOutput = `<div class="error">Error: ${err.message}</div>`;
+            //         output.innerHTML = output.innerHTML + testOutput;
+            //     });
+            // }
 
             function updateQuantityLineItem(lineHandle){
                 const values = {
