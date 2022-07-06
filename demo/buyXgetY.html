@@ -44,6 +44,14 @@
                 });
             };
 
+            const removeLineItem = (lineItemHandle, quantity) => {
+                return new Promise((resolve, reject) => {
+                    VajroSDK.removeLineItemFromCart(lineItemHandle, quantity)
+                        .then(resolve)
+                        .catch(reject);
+                });
+            };
+
             const handleLineItemAdded = (appContext, lineItem) => {
                 let { productId } = lineItem;
                 if (subscribedProducts.includes(productId)) {
@@ -65,19 +73,54 @@
                 }
             };
 
-            const handleLineItemUpdated = (appContext, updateType, lineItem) => {
-                let { productId } = lineItem;
+            const handleLineItemUpdated = (
+                appContext,
+                updateType,
+                lineItem
+            ) => {
+                let { productId, quantity } = lineItem;
                 if (subscribedProducts.includes(productId)) {
                     let subProductsToProcess = FreeProductMapping[productId];
                     if (subProductsToProcess) {
                         let promises = [];
                         subProductsToProcess.forEach((subProduct) => {
-                            let promise = addLineItem(subProduct);
+                            let promise;
+                            if (updateType === 'Increment') {
+                                promise = addLineItem(subProduct);
+                            } else if (
+                                updateType === 'Decrement' ||
+                                updateType === 'Delete'
+                            ) {
+                                let {
+                                    cartLineItems: { lineItems }
+                                } = appContext;
+                                let subLineItemHandle;
+                                for (let {
+                                    lineItemHandle,
+                                    productId: id
+                                } of lineItems) {
+                                    if (id === productId) {
+                                        subLineItemHandle = lineItemHandle;
+                                        break;
+                                    }
+                                }
+                                if (updateType === 'Delete') {
+                                    promise = removeLineItem(
+                                        subLineItemHandle,
+                                        0
+                                    );
+                                } else {
+                                    promise = removeLineItem(
+                                        subLineItemHandle,
+                                        quantity
+                                    );
+                                }
+                            }
                             promises.push(promise);
                         });
                         Promise.all(promises)
                             .then(() => {
-                                alert('Sub products added successfully');
+                                alert('sub products modified successfully');
                             })
                             .catch((err) => {
                                 alert(JSON.stringify(err));
