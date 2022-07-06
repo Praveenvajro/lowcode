@@ -10973,7 +10973,7 @@ var schema = {
     properties: {
         productId: { type: 'string', nullable: false },
         variantId: { type: 'string', nullable: true },
-        quantity: { type: 'integer', nullable: false },
+        quantity: { type: 'integer', nullable: true },
         customAttributes: { type: 'object', nullable: true },
         lineItemType: { type: 'string', nullable: false }
     },
