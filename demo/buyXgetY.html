@@ -133,8 +133,8 @@
                             promises.push(promise);
                         });
                         Promise.all(promises)
-                            .then(() => {
-                                alert('sub products modified successfully');
+                            .then((res) => {
+                                alert(JSON.stringify(res));
                             })
                             .catch((err) => {
                                 alert(JSON.stringify(err));
