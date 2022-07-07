@@ -10767,6 +10767,7 @@ var actionDidComplete = function (json) {
                 type: 'Internal SDK Error',
                 message: 'Dispatch Handler not found'
             };
+        alert(dispatchHandler);
         dispatchHandler && dispatchHandler(appContext, lineItem, error, value);
     }
     catch (err) {
