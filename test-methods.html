@@ -562,9 +562,11 @@
                 let output = document.getElementById('updateQuantityLineItem');
                 output.innerHTML = "<div class='title'>Update the Line Item in Cart (UPDATE): </div>";
                 VajroSDK.updateLineItemInCart(values.lineitemhandle, values.quantity, values.lineItemType, values.customAttributes).then((res)=>{
+                    alert("SDSF")
                     testOutput = '<div class="success">Update Line Item in Cart test case success</div>';
                     output.innerHTML = output.innerHTML + testOutput;
                 }).catch(err=>{
+                    alert("error")
                     testOutput = `<div class="error">Error: ${err.message}</div>`;
                     output.innerHTML = output.innerHTML + testOutput;
                 });
