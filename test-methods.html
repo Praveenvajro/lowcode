@@ -419,7 +419,7 @@
                     }, 10000);
                 }).catch(err=>{
                     testOutput = `<div class="error">Error: ${err.message}</div>`;
-                    output.innerHTML = output.innerHTML + testOutput;
+                    output.innerHTML = output.innerHTML + testOutput + JSON.stringify(err);
                 });
             }
             setTimeout(() => {  checkCustomAttributesJson() }, 2000);
@@ -564,7 +564,6 @@
                 }
                 let output = document.getElementById('updateQuantityLineItem');
                 output.innerHTML = "<div class='title'>Update the Line Item in Cart (UPDATE): </div>";
-                alert("EFEFEFEFE")
                 VajroSDK.updateLineItemInCart(values.lineitemhandle, values.quantity, values.lineItemType, values.customAttributes, values.unitPrice).then((res)=>{
                     alert("SDSF")
                     testOutput = '<div class="success">Update Line Item in Cart test case success</div>';
