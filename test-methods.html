@@ -534,7 +534,7 @@
                 }
                 let output = document.getElementById('checkCustomAttributesStringUpdate');
                 output.innerHTML = "<div class='title'>Check Custom Attributes is JSON or Not (UPDATE): </div>";
-                VajroSDK.updateLineItemInCart(values.lineitemhandle, values.quantity, values.lineItemType, values.customAttributes).then((res)=>{
+                VajroSDK.updateLineItemInCart(values.lineitemhandle, values.quantity, values.lineItemType, values.customAttributes).then(({appContext, lineItem})=>{
                     
                 }).catch(err=>{
                     testOutput = `<div class="error">Error: ${err.message}</div>`;
