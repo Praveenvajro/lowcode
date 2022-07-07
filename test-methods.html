@@ -413,8 +413,10 @@
                     testOutput = '<div class="success">Custom Attribute JSON added. test case success</div>';
                     output.innerHTML = output.innerHTML + testOutput;
                     let lineHandle = lineItem.lineItemHandle
-                    checkCustomAttributesStringUpdate(lineHandle)
-                    updateQuantityLineItem(lineHandle)
+                    setTimeout(() => {
+                        checkCustomAttributesStringUpdate(lineHandle)
+                        updateQuantityLineItem(lineHandle)
+                    }, 10000);
                 }).catch(err=>{
                     testOutput = `<div class="error">Error: ${err.message}</div>`;
                     output.innerHTML = output.innerHTML + testOutput;
