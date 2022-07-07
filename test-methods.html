@@ -539,6 +539,7 @@
                 }).catch(err=>{
                     testOutput = `<div class="error">Error: ${err.message}</div>`;
                     output.innerHTML = output.innerHTML + testOutput;
+                    return;
                 });
             }
 
