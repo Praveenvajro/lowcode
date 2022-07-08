@@ -11426,6 +11426,7 @@ var pushToHub = function (key, func) {
     hub[key] = func;
 };
 var getFromHub = function (key) {
+    alert(key);
     if (!hub[key])
         return false;
     return hub[key];
