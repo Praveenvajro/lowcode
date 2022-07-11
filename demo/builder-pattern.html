@@ -25,7 +25,7 @@
             let output = document.getElementById('output');
 
             function addProduct() {
-                new VajroSDK.AddLineItemToCartBuilder()
+                    VajroSDK.addLineItemToCartNew()
                     .setProductId('6750261739711')
                     .setVariantId('41722470400191')
                     .setCustomAttributes({})
@@ -40,7 +40,7 @@
             }
 
             function addProductWithError() {
-                new VajroSDK.AddLineItemToCartBuilder()
+                    VajroSDK.addLineItemToCartNew()
                     .setProductId(null)
                     .setVariantId()
                     .run()
