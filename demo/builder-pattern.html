@@ -29,7 +29,9 @@
                         output.innerHTML +=
                             '<div>Product added successfully</div>';
                     })
-                    .catch();
+                    .catch((err)=>{
+                        output.innerHTML += `Error: ${JSON.stringify(err)}`;
+                    });
             }
 
             function addProductWithError() {
