@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            button{
+                padding: 20px;
+            }
+        </style>
+        <script src="./vajro-sdk.js"></script>
+    </head>
+    <body>
+        <div>Builder pattern Example</div>
+        <button onclick="addProduct()">Add a Product</button>
+        <button onclick="addProductWithError()">Add a Product</button>
+        <div id="output"></div>
+        <script>
+            let output = document.getElementById('output');
+
+            function addProduct() {
+                new VajroSDK.AddLineItemToCartBuilder()
+                    .setProductId('6750261739711')
+                    .setVariantId('41722470400191')
+                    .run()
+                    .then(() => {
+                        output.innerHTML +=
+                            '<div>Product added successfully</div>';
+                    })
+                    .catch();
+            }
+
+            function addProductWithError() {
+                new VajroSDK.AddLineItemToCartBuilder()
+                    .setProductId(null)
+                    .setVariantId()
+                    .run()
+                    .then()
+                    .catch((err) => {
+                        output.innerHTML += `Error: ${JSON.stringify(err)}`;
+                    });
+            }
+        </script>
+    </body>
+</html>
