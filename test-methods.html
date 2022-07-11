@@ -81,12 +81,12 @@
                     let lineHandle = lineItem.lineItemHandle
                     testOutput = '<div class="success">No variant test case success</div>';
                     output.innerHTML = output.innerHTML + testOutput;
-                    if(lineHandle){
-                    nullCheckAllParamUpdate(lineHandle)
-                    negativequantity(lineHandle)
-                    checkQuantityInt(lineHandle)
-                    removedLineItem(lineHandle)
-                    }
+                    // if(lineHandle){
+                    // nullCheckAllParamUpdate(lineHandle)
+                    // negativequantity(lineHandle)
+                    // checkQuantityInt(lineHandle)
+                    // removedLineItem(lineHandle)
+                    // }
                     // if (lineItem.productId === values.productId){
                     //     testOutput = '<div class="success">No variant test case success</div>';
                     // }else{
@@ -561,7 +561,7 @@
                             "price": "5.0"
                         }]
                     },
-                    unitPrice: null
+                    unitPrice: 3000
                 }
                 let output = document.getElementById('updateQuantityLineItem');
                 output.innerHTML = "<div class='title'>Update the Line Item in Cart (UPDATE): </div>";
