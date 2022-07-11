@@ -10923,6 +10923,10 @@ var AddLineItemToCart = function (productId, variantId, quantity, customAttribut
             customAttributes: customAttributes,
             lineItemType: lineItemType
         };
+        var outputDiv = document.getElementById('output');
+        if (outputDiv) {
+            outputDiv.innerHTML += "<div>".concat(JSON.stringify(data), "</div>");
+        }
         var validate = (0,_addLineItemToCart_schema__WEBPACK_IMPORTED_MODULE_1__.addLineItemToCartSchema)(data);
         if (validate) {
             (0,_communications_dispatcher__WEBPACK_IMPORTED_MODULE_2__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].ADD_LINE_ITEM_TO_CART, data)
