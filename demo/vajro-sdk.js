@@ -10905,8 +10905,8 @@ var Triggers;
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "AddLineItemToCartBuilder": () => (/* binding */ AddLineItemToCartBuilder),
-/* harmony export */   "addLineItemToCart": () => (/* binding */ addLineItemToCart)
+/* harmony export */   "addLineItemToCart": () => (/* binding */ addLineItemToCart),
+/* harmony export */   "addLineItemToCartNew": () => (/* binding */ addLineItemToCartNew)
 /* harmony export */ });
 /* harmony import */ var _constants_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../constants/actions */ "./src/constants/actions.ts");
 /* harmony import */ var _addLineItemToCart_schema__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./addLineItemToCart.schema */ "./src/methods/cart/add-line-item-to-cart/addLineItemToCart.schema.ts");
@@ -10950,7 +10950,7 @@ var AddLineItemToCartBuilder = function () {
     var productId;
     var variantId = null;
     var quantity = 1;
-    var customAttributes = null;
+    var customAttributes = {};
     var lineItemType = 'REGULAR';
     return {
         setProductId: function (value) {
@@ -10985,6 +10985,9 @@ var AddLineItemToCartBuilder = function () {
             return AddLineItemToCart(productId, variantId, quantity, customAttributes, lineItemType);
         }
     };
+};
+var addLineItemToCartNew = function () {
+    return new AddLineItemToCartBuilder();
 };
 var addLineItemToCart = function (productId, variantId, quantity, customAttributes, lineItemType) {
     if (quantity === void 0) { quantity = 1; }
@@ -11445,8 +11448,8 @@ var updateLineItemInCartSchema = ajv.compile(schema);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "AddLineItemToCartBuilder": () => (/* reexport safe */ _cart_add_line_item_to_cart_addLineItemToCart_action__WEBPACK_IMPORTED_MODULE_0__.AddLineItemToCartBuilder),
 /* harmony export */   "addLineItemToCart": () => (/* reexport safe */ _cart_add_line_item_to_cart_addLineItemToCart_action__WEBPACK_IMPORTED_MODULE_0__.addLineItemToCart),
+/* harmony export */   "addLineItemToCartNew": () => (/* reexport safe */ _cart_add_line_item_to_cart_addLineItemToCart_action__WEBPACK_IMPORTED_MODULE_0__.addLineItemToCartNew),
 /* harmony export */   "lineItemAddedToCart": () => (/* reexport safe */ _cart_add_line_item_to_cart_addLineItemToCart_trigger__WEBPACK_IMPORTED_MODULE_1__.lineItemAddedToCart),
 /* harmony export */   "lineItemUpdated": () => (/* reexport safe */ _cart_add_line_item_to_cart_addLineItemToCart_trigger__WEBPACK_IMPORTED_MODULE_1__.lineItemUpdated),
 /* harmony export */   "navigateTo": () => (/* reexport safe */ _cart_navigate_to_navigateTo_action__WEBPACK_IMPORTED_MODULE_5__.navigateTo),
@@ -13234,10 +13237,10 @@ var __webpack_exports__ = {};
   \**********************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "AddLineItemToCartBuilder": () => (/* reexport safe */ _methods_methods__WEBPACK_IMPORTED_MODULE_0__.AddLineItemToCartBuilder),
 /* harmony export */   "Triggers": () => (/* reexport safe */ _constants_triggers__WEBPACK_IMPORTED_MODULE_3__["default"]),
 /* harmony export */   "actionDidComplete": () => (/* reexport safe */ _communications_dispatcher__WEBPACK_IMPORTED_MODULE_2__.actionDidComplete),
 /* harmony export */   "addLineItemToCart": () => (/* reexport safe */ _methods_methods__WEBPACK_IMPORTED_MODULE_0__.addLineItemToCart),
+/* harmony export */   "addLineItemToCartNew": () => (/* reexport safe */ _methods_methods__WEBPACK_IMPORTED_MODULE_0__.addLineItemToCartNew),
 /* harmony export */   "getVar": () => (/* reexport safe */ _common_actions_commonActions__WEBPACK_IMPORTED_MODULE_1__.getVar),
 /* harmony export */   "lineItemAddedToCart": () => (/* reexport safe */ _methods_methods__WEBPACK_IMPORTED_MODULE_0__.lineItemAddedToCart),
 /* harmony export */   "lineItemUpdated": () => (/* reexport safe */ _methods_methods__WEBPACK_IMPORTED_MODULE_0__.lineItemUpdated),
