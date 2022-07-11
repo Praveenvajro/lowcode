@@ -10767,7 +10767,6 @@ var actionDidComplete = function (json) {
                 type: 'Internal SDK Error',
                 message: 'Dispatch Handler not found'
             };
-        alert(dispatchHandler);
         dispatchHandler && dispatchHandler(appContext, lineItem, error, value);
     }
     catch (err) {
@@ -10929,11 +10928,9 @@ var addLineItemToCart = function (productId, variantId, quantity, customAttribut
             unitPrice: unitPrice
         };
         var validate = (0,_addLineItemToCart_schema__WEBPACK_IMPORTED_MODULE_1__.addLineItemToCartSchema)(data);
-        alert(data.unitPrice);
         if (validate) {
             (0,_communications_dispatcher__WEBPACK_IMPORTED_MODULE_2__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].ADD_LINE_ITEM_TO_CART, data)
                 .then(function (data) {
-                alert('added');
                 resolve(data);
             })["catch"](function (error) {
                 reject(error);
@@ -11311,11 +11308,9 @@ var updateLineItemInCart = function (lineItemHandle, quantity, lineItemType, cus
             unitPrice: unitPrice
         };
         var validate = (0,_updateLineItemInCart_schema__WEBPACK_IMPORTED_MODULE_1__.updateLineItemInCartSchema)(data);
-        alert(data.unitPrice);
         if (validate) {
             (0,_communications_dispatcher__WEBPACK_IMPORTED_MODULE_2__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].UPDATE_LINE_ITEM_IN_CART, data)
                 .then(function (data) {
-                alert('updated');
                 resolve(data);
             })["catch"](function (error) {
                 reject(error);
@@ -11426,7 +11421,6 @@ var pushToHub = function (key, func) {
     hub[key] = func;
 };
 var getFromHub = function (key) {
-    alert(key);
     if (!hub[key])
         return false;
     return hub[key];
