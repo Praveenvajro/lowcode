@@ -77,7 +77,7 @@
                 }
                 let output = document.getElementById('novariant');
                 output.innerHTML = "<div class='title'>No Variant (ADD): </div>";
-                VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then(({appContext, lineItem}) => {
+                VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType, values.unitPrice).then(({appContext, lineItem}) => {
                     let lineHandle = lineItem.lineItemHandle
                     testOutput = '<div class="success">No variant test case success</div>';
                     output.innerHTML = output.innerHTML + testOutput;
@@ -565,13 +565,10 @@
                 }
                 let output = document.getElementById('updateQuantityLineItem');
                 output.innerHTML = "<div class='title'>Update the Line Item in Cart (UPDATE): </div>";
-                alert("going to update")
                 VajroSDK.updateLineItemInCart(values.lineitemhandle, values.quantity, values.lineItemType, values.customAttributes, values.unitPrice).then((res)=>{
-                    alert("SDSF")
                     testOutput = '<div class="success">Update Line Item in Cart test case success</div>';
                     output.innerHTML = output.innerHTML + testOutput;
                 }).catch(err=>{
-                    alert("error")
                     testOutput = `<div class="error">Error: ${err.message}</div>`;
                     output.innerHTML = output.innerHTML + testOutput;
                 });
