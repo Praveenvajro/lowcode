@@ -126,9 +126,22 @@
                                     );
                                 }
                             } else if (updateType === 'Delete') {
-                                let { lineItemHandle } =
-                                    normalizedLineItems[productId];
-                                promise = removeLineItem(lineItemHandle, 0);
+                                if (buyQty > quantity) {
+                                    promise.push(Promise.resolve());
+                                } else if (buyQty === quantity) {
+                                    let {
+                                        lineItemHandle,
+                                        quantity: freeProductQty
+                                    } = normalizedLineItems[productId];
+                                    promise = removeLineItem(
+                                        lineItemHandle,
+                                        freeProductQty - freeQty
+                                    );
+                                } else {
+                                    let { lineItemHandle } =
+                                        normalizedLineItems[productId];
+                                    promise = removeLineItem(lineItemHandle, 0);
+                                }
                             }
                             promises.push(promise);
                         });
