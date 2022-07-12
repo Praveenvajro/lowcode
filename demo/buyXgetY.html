@@ -71,7 +71,10 @@
                                     normalizedLineItems[productId].quantity;
                             }
                             let freeProductQty = Math.floor(quantity / buyQty);
-                            if (freeProductQty){
+                            alert(
+                                `freeProductQty - ${freeProductQty}, freeProductCartQty - ${freeProductCartQty}`
+                            );
+                            if (freeProductQty) {
                                 let promise = addFreeProduct(
                                     productId,
                                     variantId,
@@ -147,6 +150,9 @@
                                     lineItemHandle,
                                     quantity: freeProductQty
                                 } = normalizedLineItems[productId];
+                                alert(
+                                    `freeProductQty - ${freeProductQty}, freeProductQtyToRemove - ${freeProductQtyToRemove}`
+                                );
                                 promise = removeLineItem(
                                     lineItemHandle,
                                     freeProductQty - freeProductQtyToRemove
