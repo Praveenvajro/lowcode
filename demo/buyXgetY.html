@@ -50,6 +50,14 @@
 
             const handleLineItemAdded = (appContext, lineItem) => {
                 let { productId, quantity } = lineItem;
+                let {
+                    cartLineItems: { lineItems }
+                } = appContext;
+                let normalizedLineItems = lineItems.reduce((obj, lineItem) => {
+                    let { productId } = lineItem;
+                    obj[productId] = lineItem;
+                    return obj;
+                }, {});
                 if (subscribedProducts.includes(productId)) {
                     let subProductsToAdd = FreeProductsMapping[productId];
                     if (subProductsToAdd) {
@@ -57,11 +65,16 @@
                         subProductsToAdd.forEach((subProduct) => {
                             let { buyQty, freeQty, productId, variantId } =
                                 subProduct;
+                            let freeProductCartQty;
+                            if (normalizedLineItems[productId]) {
+                                freeProductCartQty =
+                                    normalizedLineItems[productId].quantity;
+                            }
                             if (buyQty === quantity) {
                                 let promise = addFreeProduct(
                                     productId,
                                     variantId,
-                                    freeQty
+                                    freeQty + (freeProductCartQty || 0)
                                 );
                                 promises.push(promise);
                             } else if (buyQty < quantity) {
@@ -71,7 +84,7 @@
                                 let promise = addFreeProduct(
                                     productId,
                                     variantId,
-                                    freeProductQty
+                                    freeProductQty + (freeProductCartQty || 0)
                                 );
                                 promises.push(promise);
                             }
