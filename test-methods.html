@@ -60,6 +60,8 @@
         <div id="nullCheckAllParamUpdate"></div>
         <div id="checkCustomAttributesStringUpdate"></div>
         <div id="updateQuantityLineItem"></div>
+        <div><b>Set Code Block Content (ACTION)</b></div>
+        <div id="changeWebviewContent"></div>
     </div>
     <button type="button" id="lowcodeautomate" onclick="lowcodeautomate()">Automate Test Button Don't click</button>
         <script>
@@ -573,6 +575,25 @@
                     output.innerHTML = output.innerHTML + testOutput;
                 });
             }
+
+            function changeWebviewContent(){
+                const values = {
+                    codeBlockId: "above_price_details",
+                    contentType: "url",
+                    contentData: "https://praveenvajro.github.io/lowcode/action.html",
+                    visibility: true
+                }
+                let output = document.getElementById('changeWebviewContent');
+                output.innerHTML = "<div class='title'>Update the Webview Content (UPDATE WEBVIEW): </div>";
+                VajroSDK.setCodeBlockContent(values.codeBlockId, values.contentType, values.contentData, values.visibility).then((res)=>{
+                    testOutput = '<div class="success">Update Webview Content test case success</div>';
+                    output.innerHTML = output.innerHTML + testOutput;
+                }).catch(err=>{
+                    testOutput = `<div class="error">Error: ${err.message}</div>`;
+                    output.innerHTML = output.innerHTML + testOutput;
+                });
+            }
+            changeWebviewContent()
         }
         </script>
     </body>
