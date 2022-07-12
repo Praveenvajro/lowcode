@@ -77,6 +77,7 @@
                         subProductsToAdd.forEach((subProduct) => {
                             let { buyQty, freeQty, productId, variantId } =
                                 subProduct;
+                                alert(`buyQty - ${buyQty}, quantity - ${quantity}`);
                             if (buyQty === quantity) {
                                 let promise = addFreeProduct(
                                     productId,
@@ -114,6 +115,7 @@
                                 subProduct;
                             let promise;
                             if (updateType === 'Increment') {
+                                alert(`productId - ${productId}, quantity - ${quantity}, buyQty - ${buyQty}`);
                                 if (quantity % buyQty === 0) {
                                     let { quantity: freeProductQty } =
                                         normalizedLineItems[productId];
@@ -124,6 +126,8 @@
                                     );
                                 }
                             } else if (updateType === 'Decrement') {
+                                alert(`productId - ${productId}, quantity - ${quantity}, buyQty - ${buyQty}`);
+                                alert(JSON.stringify(normalizedLineItems));
                                 let {
                                     lineItemHandle,
                                     quantity: freeProductQty
