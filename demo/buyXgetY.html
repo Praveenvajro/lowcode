@@ -70,17 +70,8 @@
                                 freeProductCartQty =
                                     normalizedLineItems[productId].quantity;
                             }
-                            if (buyQty === quantity) {
-                                let promise = addFreeProduct(
-                                    productId,
-                                    variantId,
-                                    freeQty + (freeProductCartQty || 0)
-                                );
-                                promises.push(promise);
-                            } else if (buyQty < quantity) {
-                                let freeProductQty = Math.floor(
-                                    quantity / buyQty
-                                );
+                            let freeProductQty = Math.floor(quantity / buyQty);
+                            if (freeProductQty){
                                 let promise = addFreeProduct(
                                     productId,
                                     variantId,
@@ -149,30 +140,17 @@
                                     );
                                 }
                             } else if (updateType === 'Delete') {
-                                if (buyQty > quantity) {
-                                    promise.push(Promise.resolve());
-                                } else if (buyQty === quantity) {
-                                    let {
-                                        lineItemHandle,
-                                        quantity: freeProductQty
-                                    } = normalizedLineItems[productId];
-                                    promise = removeLineItem(
-                                        lineItemHandle,
-                                        freeProductQty - freeQty
-                                    );
-                                } else {
-                                    let freeProductQty = Math.floor(
-                                        quantity / buyQty
-                                    );
-                                    let { quantity } =
-                                        normalizedLineItems[productId];
-                                    let { lineItemHandle } =
-                                        normalizedLineItems[productId];
-                                    promise = removeLineItem(
-                                        lineItemHandle,
-                                        quantity - freeProductQty
-                                    );
-                                }
+                                let freeProductQtyToRemove = Math.floor(
+                                    quantity / buyQty
+                                );
+                                let {
+                                    lineItemHandle,
+                                    quantity: freeProductQty
+                                } = normalizedLineItems[productId];
+                                promise = removeLineItem(
+                                    lineItemHandle,
+                                    freeProductQty - freeProductQtyToRemove
+                                );
                             }
                             promises.push(promise);
                         });
