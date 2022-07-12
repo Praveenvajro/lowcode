@@ -64,6 +64,16 @@
                                     freeQty
                                 );
                                 promises.push(promise);
+                            } else if (buyQty < quantity) {
+                                let freeProductQty = Math.floor(
+                                    quantity / buyQty
+                                );
+                                let promise = addFreeProduct(
+                                    productId,
+                                    variantId,
+                                    freeQty
+                                );
+                                promises.push(promise);
                             }
                         });
                         Promise.all(promises).then().catch();
