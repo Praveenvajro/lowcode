@@ -161,9 +161,17 @@
                                         freeProductQty - freeQty
                                     );
                                 } else {
+                                    let freeProductQty = Math.floor(
+                                        quantity / buyQty
+                                    );
+                                    let { quantity } =
+                                        normalizedLineItems[productId];
                                     let { lineItemHandle } =
                                         normalizedLineItems[productId];
-                                    promise = removeLineItem(lineItemHandle, 0);
+                                    promise = removeLineItem(
+                                        lineItemHandle,
+                                        quantity - freeProductQty
+                                    );
                                 }
                             }
                             promises.push(promise);
