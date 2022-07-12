@@ -70,7 +70,8 @@
                                 freeProductCartQty =
                                     normalizedLineItems[productId].quantity;
                             }
-                            let freeProductQty = ((quantity - quantity % buyQty) / buyQty) * freeQty;
+                            let freeProductQty =
+                                Math.floor(quantity / buyQty) * freeQty;
                             alert(
                                 `freeProductQty - ${freeProductQty}, freeProductCartQty - ${freeProductCartQty}`
                             );
