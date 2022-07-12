@@ -499,6 +499,7 @@
 					VajroSDK.removeLineItemFromCart()
 						.setLineItemHandle(values.lineitemhandle)
 						.setQuantity(values.quantity)
+						.exec()
 						.then(res => {})
 						.catch(err => {
 							testOutput = `<div class="error">Error: ${err.message}</div>`
