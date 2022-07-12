@@ -83,12 +83,12 @@
                     let lineHandle = lineItem.lineItemHandle
                     testOutput = '<div class="success">No variant test case success</div>';
                     output.innerHTML = output.innerHTML + testOutput;
-                    // if(lineHandle){
+                    if(lineHandle){
                     // nullCheckAllParamUpdate(lineHandle)
                     // negativequantity(lineHandle)
-                    // checkQuantityInt(lineHandle)
+                    checkQuantityInt(lineHandle)
                     // removedLineItem(lineHandle)
-                    // }
+                    }
                     // if (lineItem.productId === values.productId){
                     //     testOutput = '<div class="success">No variant test case success</div>';
                     // }else{
@@ -460,20 +460,20 @@
             //     });
             // }
 
-            // function checkQuantityInt(lineHandle){
-            //     const values = {
-            //         lineitemhandle: lineHandle,
-            //         quantity: '0'
-            //     }
-            //     let output = document.getElementById('checkQuantityInt');
-            //     output.innerHTML = "<div class='title'>Check the Quantity Integer (REMOVE): </div>";
-            //     VajroSDK.removeLineItemFromCart(values.lineitemhandle, values.quantity).then((res)=>{
+            function checkQuantityInt(lineHandle){
+                const values = {
+                    lineitemhandle: lineHandle,
+                    quantity: '0'
+                }
+                let output = document.getElementById('checkQuantityInt');
+                output.innerHTML = "<div class='title'>Check the Quantity Integer (REMOVE): </div>";
+                VajroSDK.removeLineItemFromCart(values.lineitemhandle, values.quantity).then((res)=>{
                     
-            //     }).catch(err=>{
-            //         testOutput = `<div class="error">Error: ${err.message}</div>`;
-            //         output.innerHTML = output.innerHTML + testOutput + JSON.stringify(err);
-            //     });
-            // }
+                }).catch(err=>{
+                    testOutput = `<div class="error">Error: ${err.message}</div>`;
+                    output.innerHTML = output.innerHTML + testOutput + JSON.stringify(err);
+                });
+            }
 
             // function removedLineItem(lineHandle){
             //     const values = {
