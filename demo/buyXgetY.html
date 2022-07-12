@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
     <head>
         <title>Buy X & Get Y</title>
@@ -6,6 +5,16 @@
     </head>
     <body>
         <script>
+            const FreeProductsMapping = {
+                6928830267583: [
+                    {
+                        buyQty: 3,
+                        freeQty: 1,
+                        productId: '6928843636927',
+                        variantId: '40574334304447'
+                    }
+                ]
+            };
             const FreeProductMapping = {
                 // 6741457207487: [
                 //     {
@@ -35,22 +44,16 @@
                 ]
             };
 
-            let subscribedProducts = Object.keys(FreeProductMapping);
+            let subscribedProducts = Object.keys(FreeProductsMapping);
 
-            const addLineItem = (productInfo) => {
-                if (!productInfo.quantity) {
-                    productInfo.quantity = 1;
-                }
-                if (!productInfo.customAttributes) {
-                    productInfo.customAttributes = {};
-                }
+            const addFreeProduct = (productId, variantId, quantity) => {
                 return new Promise((resolve, reject) => {
                     VajroSDK.addLineItemToCart(
-                        productInfo.productId,
-                        productInfo.variantId,
-                        productInfo.quantity,
-                        productInfo.customAttributes,
-                        productInfo.lineItemType
+                        productId,
+                        variantId,
+                        quantity,
+                        {},
+                        'READONLY'
                     )
                         .then(resolve)
                         .catch(reject);
@@ -66,15 +69,22 @@
             };
 
             const handleLineItemAdded = (appContext, lineItem) => {
-                let { productId } = lineItem;
+                let { productId, quantity } = lineItem;
                 if (subscribedProducts.includes(productId)) {
-                    let subProductsToAdd = FreeProductMapping[productId];
+                    let subProductsToAdd = FreeProductsMapping[productId];
                     if (subProductsToAdd) {
                         let promises = [];
                         subProductsToAdd.forEach((subProduct) => {
-                            let promise = addLineItem(subProduct);
-                            alert(subProduct.productId);
-                            promises.push(promise);
+                            let { buyQty, freeQty, productId, variantId } =
+                                subProduct;
+                            if (buyQty === quantity) {
+                                let promise = addFreeProduct(
+                                    productId,
+                                    variantId,
+                                    freeQty
+                                );
+                                promises.push(promise);
+                            }
                         });
                         Promise.all(promises).then().catch();
                     }
@@ -96,31 +106,41 @@
                     return obj;
                 }, {});
                 if (subscribedProducts.includes(productId)) {
-                    let subProductsToProcess = FreeProductMapping[productId];
+                    let subProductsToProcess = FreeProductsMapping[productId];
                     if (subProductsToProcess) {
                         let promises = [];
                         subProductsToProcess.forEach((subProduct) => {
+                            let { buyQty, freeQty, productId, variantId } =
+                                subProduct;
                             let promise;
                             if (updateType === 'Increment') {
-                                promise = addLineItem(
-                                    Object.assign({}, subProduct, {
-                                        quantity
-                                    })
-                                );
-                            } else if (
-                                updateType === 'Decrement' ||
-                                updateType === 'Delete'
-                            ) {
-                                let { lineItemHandle } =
-                                    normalizedLineItems[subProduct.productId];
-                                if (updateType === 'Delete') {
-                                    promise = removeLineItem(lineItemHandle, 0);
-                                } else {
-                                    promise = removeLineItem(
-                                        lineItemHandle,
-                                        quantity
+                                if (quantity % buyQty === 0) {
+                                    let { quantity: freeProductQty } =
+                                        normalizedLineItems[productId];
+                                    promise = addFreeProduct(
+                                        productId,
+                                        variantId,
+                                        freeQty + freeProductQty
                                     );
                                 }
+                            } else if (updateType === 'Decrement') {
+                                let {
+                                    lineItemHandle,
+                                    quantity: freeProductQty
+                                } = normalizedLineItems[productId];
+                                if (
+                                    quantity % buyQty < buyQty &&
+                                    buyQty - (quantity % buyQty) === 1
+                                ) {
+                                    promise = removeLineItem(
+                                        lineItemHandle,
+                                        freeProductQty - freeQty
+                                    );
+                                }
+                            } else if (updateType === 'Delete') {
+                                let { lineItemHandle } =
+                                    normalizedLineItems[productId];
+                                promise = removeLineItem(lineItemHandle, 0);
                             }
                             promises.push(promise);
                         });
