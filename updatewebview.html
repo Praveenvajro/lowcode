@@ -1,120 +1,132 @@
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <script src="./set-block-content.js"></script>
-        <style>
-            input, textarea, select {
-                font: 1.25rem / 1.5 sans-serif;
-                display: block;
-                box-sizing: border-box;
-                width: 100%;
-                padding: 0.5rem 0.75rem;
-            }
-            button {
-                background-color: #4CAF50;
-                border: none;
-                color: white;
-                padding: 15px 85px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 30px;
-                margin: 4px 2px;
-                cursor: pointer;
-            }
-            form {
-                box-sizing: border-box;
-                padding: 2rem;
-                border-radius: 1rem;
-                background-color: hsl(0, 0%, 100%);
-                border: 4px solid hsl(0, 0%, 90%);
-                /* display: grid;
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="./set-block-content.js"></script>
+		<style>
+			input,
+			textarea,
+			select {
+				font: 1.25rem / 1.5 sans-serif;
+				display: block;
+				box-sizing: border-box;
+				width: 100%;
+				padding: 0.5rem 0.75rem;
+			}
+			button {
+				background-color: #4caf50;
+				border: none;
+				color: white;
+				padding: 15px 85px;
+				text-align: center;
+				text-decoration: none;
+				display: inline-block;
+				font-size: 30px;
+				margin: 4px 2px;
+				cursor: pointer;
+			}
+			form {
+				box-sizing: border-box;
+				padding: 2rem;
+				border-radius: 1rem;
+				background-color: hsl(0, 0%, 100%);
+				border: 4px solid hsl(0, 0%, 90%);
+				/* display: grid;
                 grid-template-columns: 1fr 1fr;
                 gap: 2rem; */
-            }
-        </style>
-    </head>
-<body>
-    <div id="output"></div>
-        <div>
-        <form name="webviewupdate" id="webviewupdate">
-            <label for="fcodeBlockId">CodeBlockId:</label>
-            <select type="text" id="codeBlockId" name="codeBlockId">
-                <option value="">Select the Code Block</option>
-                <option value="above_image_carousel">ABOVE_IMAGE_CAROUSEL</option>
-                <option value="above_product_details">ABOVE_PRODUCT_DETAILS</option>
-                <option value="above_product_description">ABOVE_PRODUCT_DESCRIPTION</option>
-                <option value="above_variants">ABOVE_VARIANTS</option>
-                <option value="above_add_to_cart">ABOVE_ADD_TO_CART</option>
-                <option value="above_recently_viewed">ABOVE_RECENTLY_VIEWED</option>
-                <option value="below_recently_viewed">BELOW_RECENTLY_VIEWED</option>
-                <option value="above_cart_item">ABOVE_CART_ITEM</option>
-                <option value="below_cart_item">BELOW_CART_ITEM</option>
-                <option value="below_add_more">BELOW_ADD_MORE_FROM_WISHLIST</option>
-                <option value="above_price_details">ABOVE_PRICE_DETAILS</option>
-                <option value="below_price_details">BELOW_PRICE_DETAILS</option>
-                <option value="above_clear_cart">ABOVE_CLEAR_CART</option>
-            </select><br><br>
-            <label for="fcontentType">ContentType:</label>
-            <select type="text" id="contentType" name="contentType">
-                <option value="">Select the Content Type</option>
-                <option value="url">URL</option>
-                <option value="code">CODE</option>
-            </select><br><br>
-            <label for="fcontentdata">ContentData:</label>
-            <textarea type="textarea" id="urlContentData" name="urlContentData">https://praveenvajro.github.io/lowcode/variable-set.html</textarea>
-            <textarea type="textarea" id="codeContentData" name="codeContentData"><html lang="en">
+			}
+		</style>
+	</head>
+	<body>
+		<div id="output"></div>
+		<div>
+			<form name="webviewupdate" id="webviewupdate">
+				<label for="fcodeBlockId">CodeBlockId:</label>
+				<select type="text" id="codeBlockId" name="codeBlockId">
+					<option value="">Select the Code Block</option>
+					<option value="above_image_carousel">ABOVE_IMAGE_CAROUSEL</option>
+					<option value="above_product_details">ABOVE_PRODUCT_DETAILS</option>
+					<option value="above_product_description">ABOVE_PRODUCT_DESCRIPTION</option>
+					<option value="above_variants">ABOVE_VARIANTS</option>
+					<option value="above_add_to_cart">ABOVE_ADD_TO_CART</option>
+					<option value="above_recently_viewed">ABOVE_RECENTLY_VIEWED</option>
+					<option value="below_recently_viewed">BELOW_RECENTLY_VIEWED</option>
+					<option value="above_cart_item">ABOVE_CART_ITEM</option>
+					<option value="below_cart_item">BELOW_CART_ITEM</option>
+					<option value="below_add_more">BELOW_ADD_MORE_FROM_WISHLIST</option>
+					<option value="above_price_details">ABOVE_PRICE_DETAILS</option>
+					<option value="below_price_details">BELOW_PRICE_DETAILS</option>
+					<option value="above_clear_cart">ABOVE_CLEAR_CART</option></select
+				><br /><br />
+				<label for="fcontentType">ContentType:</label>
+				<select type="text" id="contentType" name="contentType">
+					<option value="">Select the Content Type</option>
+					<option value="url">URL</option>
+					<option value="code">CODE</option></select
+				><br /><br />
+				<label for="fcontentdata">ContentData:</label>
+				<textarea type="textarea" id="urlContentData" name="urlContentData">
+https://praveenvajro.github.io/lowcode/variable-set.html</textarea
+				>
+				<textarea type="textarea" id="codeContentData" name="codeContentData">
+<html lang="en">
                 <head>
                     <meta charset="UTF-8" />
                     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
                     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                     <title>Document</title>
                 </head>
-                <body><h2>This is the updated webview</h2></body></html></textarea><br><br>
-            <label for="fvisibility">Visibility:</label>
-            <select type="text" id="visibility" name="visibility">
-                <option value="">Select the Visibility</option>
-                <option value="true">True</option>
-                <option value="false">False</option>
-            </select><br><br>
-            <button type="button" onclick="updatewebview()"> Update in Cart</button>
-        </form>
-        </div>
+                <body><h2>This is the updated webview</h2></body></html></textarea
+				><br /><br />
+				<label for="fvisibility">Visibility:</label>
+				<select type="text" id="visibility" name="visibility">
+					<option value="">Select the Visibility</option>
+					<option value="true">True</option>
+					<option value="false">False</option></select
+				><br /><br />
+				<button type="button" onclick="updatewebview()">Update in Cart</button>
+			</form>
+		</div>
 
-        <script type="text/javascript">
-            function updatewebview(){
-                let output = document.getElementById('output');
-                output.innerHTML = 'this is sample one';
-                let codeBlockId = document.getElementById("codeBlockId").value.toString();
-                let contentType  = document.getElementById("contentType").value.toString();
-                let visibility  = JSON.parse(document.getElementById("visibility").value);
-                let contentData = "";
-                if(contentType == "url"){
-                    contentData  = document.getElementById("urlContentData").value.toString();
-                    // document.getElementById("codeContentData").style.visibility = "hidden";
-                    // document.getElementById("urlContentData").style.visibility = "visible";
-                    // console.log("codeBlockId: "+codeBlockId)
-                    // console.log("contentType: "+contentType)
-                    // console.log("urlContentData: "+urlContentData)
-                    // console.log("visibility: "+visibility)
-                }else if(contentType == "code"){
-                    contentData  = document.getElementById("codeContentData").value.toString();
-                    // document.getElementById("codeContentData").style.visibility = "visible";
-                    // document.getElementById("urlContentData").style.visibility = "hidden";
-                    // console.log("codeBlockId: "+codeBlockId)
-                    // console.log("contentType: "+contentType)
-                    // console.log("codeContentData: "+codeContentData)
-                    // console.log("visibility: "+visibility)
-                }
-                VajroSDK.setCodeBlockContent(codeBlockId, contentType, contentData, visibility).then((res) => {
-                    output.innerHTML = 'Set Block Content';
-                })
-                .catch((err) => {
-                    output.innerHTML = output.innerHTML + " "+ err.errors[0].instancePath +" "+ err.errors[0].message;
-                });
-            }
-        </script> 
-</body>
+		<script type="text/javascript">
+			function updatewebview() {
+				let output = document.getElementById("output")
+				output.innerHTML = "this is sample one"
+				let codeBlockId = document.getElementById("codeBlockId").value.toString()
+				let contentType = document.getElementById("contentType").value.toString()
+				let visibility = JSON.parse(document.getElementById("visibility").value)
+				let contentData = ""
+				if (contentType == "url") {
+					contentData = document.getElementById("urlContentData").value.toString()
+					// document.getElementById("codeContentData").style.visibility = "hidden";
+					// document.getElementById("urlContentData").style.visibility = "visible";
+					// console.log("codeBlockId: "+codeBlockId)
+					// console.log("contentType: "+contentType)
+					// console.log("urlContentData: "+urlContentData)
+					// console.log("visibility: "+visibility)
+				} else if (contentType == "code") {
+					contentData = document.getElementById("codeContentData").value.toString()
+					// document.getElementById("codeContentData").style.visibility = "visible";
+					// document.getElementById("urlContentData").style.visibility = "hidden";
+					// console.log("codeBlockId: "+codeBlockId)
+					// console.log("contentType: "+contentType)
+					// console.log("codeContentData: "+codeContentData)
+					// console.log("visibility: "+visibility)
+				}
+				VajroSDK.setCodeBlockContent(codeBlockId, contentType, contentData, visibility)
+					.then(res => {
+						output.innerHTML = "Set Block Content"
+					})
+					.catch(err => {
+						output.innerHTML =
+							output.innerHTML +
+							" " +
+							err.errors[0].instancePath +
+							" " +
+							err.errors[0].message
+					})
+			}
+		</script>
+	</body>
 </html>

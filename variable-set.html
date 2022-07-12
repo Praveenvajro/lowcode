@@ -1,100 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
-        <style>
-            button {
-                background: greenyellow;
-            }
-            body{
-                height: 300px;
-                border: 1px solid;
-            }
-        </style>
-    </head>
-    <body>
-        <div>
-            <label for="">Key:</label>
-            <input type="text" id="key" placeholder="key"/>
-        </div>
-        <div>
-            <label for="">Value:</label>
-            <textarea id="value" placeholder="" type="textarea"></textarea>
-        </div>
-        <button onclick="setVariableShort()">Set Variable Short</button>
-        <button onclick="setVariableLong()">Set Variable Long</button>
-        <button onclick="getVariable()">Get Variable</button>
-        <button onclick="clearbutton();">Clear</button>
-        <div>
-            <span>Output: </span>
-            <span id="output"></span>
-        </div>
-        <script src="./variable-set-sdk.js"></script>
-        <script>
-            let output = document.getElementById('output');
-            function setVariableShort() {
-                let key = document.getElementById('key').value;
-                let value = document.getElementById('value').value;
-                VajroSDK.setVar(
-                    key,
-                    value,
-                    'SHORT'
-                )
-                    .then((res) => {
-                        let div = document.createElement('div');
-                        div.innerText = JSON.stringify(res);
-                        output.appendChild(div);
-                    })
-                    .catch((err) => {
-                        let div = document.createElement('div');
-                        div.innerText = JSON.stringify(err);
-                        output.appendChild(div);
-                    });
-            }
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			button {
+				background: greenyellow;
+			}
+			body {
+				height: 300px;
+				border: 1px solid;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<label for="">Key:</label>
+			<input type="text" id="key" placeholder="key" />
+		</div>
+		<div>
+			<label for="">Value:</label>
+			<textarea id="value" placeholder="" type="textarea"></textarea>
+		</div>
+		<button onclick="setVariableShort()">Set Variable Short</button>
+		<button onclick="setVariableLong()">Set Variable Long</button>
+		<button onclick="getVariable()">Get Variable</button>
+		<button onclick="clearbutton();">Clear</button>
+		<div>
+			<span>Output: </span>
+			<span id="output"></span>
+		</div>
+		<script src="./variable-set-sdk.js"></script>
+		<script>
+			let output = document.getElementById("output")
+			function setVariableShort() {
+				let key = document.getElementById("key").value
+				let value = document.getElementById("value").value
+				VajroSDK.setVar(key, value, "SHORT")
+					.then(res => {
+						let div = document.createElement("div")
+						div.innerText = JSON.stringify(res)
+						output.appendChild(div)
+					})
+					.catch(err => {
+						let div = document.createElement("div")
+						div.innerText = JSON.stringify(err)
+						output.appendChild(div)
+					})
+			}
 
-            function setVariableLong() {
-                let key = document.getElementById('key').value;
-                let value = document.getElementById('value').value;
-                VajroSDK.setVar(
-                    key,
-                    value,
-                    'LONG'
-                )
-                    .then((res) => {
-                        let div = document.createElement('div');
-                        div.innerText = JSON.stringify(res);
-                        output.appendChild(div);
-                    })
-                    .catch((err) => {
-                        let div = document.createElement('div');
-                        div.innerText = JSON.stringify(err);
-                        output.appendChild(div);
-                    });
-            }
+			function setVariableLong() {
+				let key = document.getElementById("key").value
+				let value = document.getElementById("value").value
+				VajroSDK.setVar(key, value, "LONG")
+					.then(res => {
+						let div = document.createElement("div")
+						div.innerText = JSON.stringify(res)
+						output.appendChild(div)
+					})
+					.catch(err => {
+						let div = document.createElement("div")
+						div.innerText = JSON.stringify(err)
+						output.appendChild(div)
+					})
+			}
 
-            function getVariable() {
-                let key = document.getElementById('key').value;
-                VajroSDK.getVar(key)
-                    .then((res) => {
-                        let div = document.createElement('div');
-                        div.innerText = JSON.stringify(res);
-                        output.appendChild(div);
-                    })
-                    .catch((err) => {
-                        let div = document.createElement('div');
-                        div.innerText = JSON.stringify(err);
-                        output.appendChild(div);
-                    });
-            }
-            
-            function clearbutton(){
-                // document.getElementById('key').value = '';
-                // document.getElementById('value').value = '';
-                output.appendChild("");
-            }
-        </script>
-    </body>
+			function getVariable() {
+				let key = document.getElementById("key").value
+				VajroSDK.getVar(key)
+					.then(res => {
+						let div = document.createElement("div")
+						div.innerText = JSON.stringify(res)
+						output.appendChild(div)
+					})
+					.catch(err => {
+						let div = document.createElement("div")
+						div.innerText = JSON.stringify(err)
+						output.appendChild(div)
+					})
+			}
+
+			function clearbutton() {
+				// document.getElementById('key').value = '';
+				// document.getElementById('value').value = '';
+				output.appendChild("")
+			}
+		</script>
+	</body>
 </html>

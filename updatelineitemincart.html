@@ -1,49 +1,50 @@
 <html lang="en">
-    <head>
-        <script src="./vajro-sdk.js"></script>
-        <style>
-            input, textarea {
-                font: 1.25rem / 1.5 sans-serif;
-                display: block;
-                box-sizing: border-box;
-                width: 100%;
-                padding: 0.5rem 0.75rem;
-            }
-            button {
-                background-color: #4CAF50;
-                border: none;
-                color: white;
-                padding: 15px 85px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 30px;
-                margin: 4px 2px;
-                cursor: pointer;
-            }
-            form {
-                box-sizing: border-box;
-                padding: 2rem;
-                border-radius: 1rem;
-                background-color: hsl(0, 0%, 100%);
-                border: 4px solid hsl(0, 0%, 90%);
-                /* display: grid;
+	<head>
+		<script src="./vajro-sdk.js"></script>
+		<style>
+			input,
+			textarea {
+				font: 1.25rem / 1.5 sans-serif;
+				display: block;
+				box-sizing: border-box;
+				width: 100%;
+				padding: 0.5rem 0.75rem;
+			}
+			button {
+				background-color: #4caf50;
+				border: none;
+				color: white;
+				padding: 15px 85px;
+				text-align: center;
+				text-decoration: none;
+				display: inline-block;
+				font-size: 30px;
+				margin: 4px 2px;
+				cursor: pointer;
+			}
+			form {
+				box-sizing: border-box;
+				padding: 2rem;
+				border-radius: 1rem;
+				background-color: hsl(0, 0%, 100%);
+				border: 4px solid hsl(0, 0%, 90%);
+				/* display: grid;
                 grid-template-columns: 1fr 1fr;
                 gap: 2rem; */
-            }
-
-        </style>
-    </head>
-    <body>
-        <div id="output"></div>
-        <div>
-        <form name="updateform" id="updateform">
-            <label for="flineitemhandle">LineItemHandle:</label>
-            <input type="text" id="lineitemhandle" name="lineitemhandle"/><br><br>
-            <label for="fquantity">Quantity:</label>
-            <input type="text" id="quantity" name="quantity"/><br><br>
-            <label for="fcustomattribute">CustomAttributes:</label>
-            <textarea type="textarea" id="customattribute" name="customattribute">{
+			}
+		</style>
+	</head>
+	<body>
+		<div id="output"></div>
+		<div>
+			<form name="updateform" id="updateform">
+				<label for="flineitemhandle">LineItemHandle:</label>
+				<input type="text" id="lineitemhandle" name="lineitemhandle" /><br /><br />
+				<label for="fquantity">Quantity:</label>
+				<input type="text" id="quantity" name="quantity" /><br /><br />
+				<label for="fcustomattribute">CustomAttributes:</label>
+				<textarea type="textarea" id="customattribute" name="customattribute">
+{
                 "Brand": "Roshan (+₹5)",
                 "vjr_hidden_products": [{
                     "hidden_product_id": "7268228530367",
@@ -54,33 +55,53 @@
                     "parent_option_name": "Brand",
                     "price": "5.0"
                 }]
-            }</textarea><br><br>
-            <label for="flineitemtype">LineItemType:</label>
-            <input type="text" id="lineitemtype" name="lineitemtype"/><br><br>
-            <button type="button" onclick="updatelineitemsubmit()"> Update in Cart</button>
-        </form>
-        </div>   
-        
-        <script type="text/javascript">
-            function updatelineitemsubmit(){
-                let output = document.getElementById('output');
-                output.innerHTML = 'this is sample one';
-                let lineitemhandle = document.getElementById("lineitemhandle").value.toString()
-                let quantity  = (document.getElementById("quantity").value != '') ? parseInt(document.getElementById("quantity").value) : null
-                let customattribute  = (document.getElementById("customattribute").value != '') ? JSON.parse(document.getElementById("customattribute").value) : null
-                let lineitemtype  = (document.getElementById("lineitemtype").value != '') ? document.getElementById("lineitemtype").value.toString() : null
-                // console.log("lineitemhandle: "+lineitemhandle)
-                // console.log("quantity: "+quantity)
-                // console.log("lineitemtype: "+lineitemtype)
-                // console.log("customattribute: "+customattribute)
-                VajroSDK.updateLineItemInCart(lineitemhandle, quantity, lineitemtype, customattribute).then((res) => {
-                    output.innerHTML = 'Update line item to cart';
-                })
-                .catch((err) => {
-                    output.innerHTML = output.innerHTML + " "+ err.errors[0].instancePath +" "+ err.errors[0].message;
-                });
-            }
-        </script> 
-    </body>
-</html>
+            }</textarea
+				><br /><br />
+				<label for="flineitemtype">LineItemType:</label>
+				<input type="text" id="lineitemtype" name="lineitemtype" /><br /><br />
+				<button type="button" onclick="updatelineitemsubmit()">Update in Cart</button>
+			</form>
+		</div>
 
+		<script type="text/javascript">
+			function updatelineitemsubmit() {
+				let output = document.getElementById("output")
+				output.innerHTML = "this is sample one"
+				let lineitemhandle = document.getElementById("lineitemhandle").value.toString()
+				let quantity =
+					document.getElementById("quantity").value != ""
+						? parseInt(document.getElementById("quantity").value)
+						: null
+				let customattribute =
+					document.getElementById("customattribute").value != ""
+						? JSON.parse(document.getElementById("customattribute").value)
+						: null
+				let lineitemtype =
+					document.getElementById("lineitemtype").value != ""
+						? document.getElementById("lineitemtype").value.toString()
+						: null
+				// console.log("lineitemhandle: "+lineitemhandle)
+				// console.log("quantity: "+quantity)
+				// console.log("lineitemtype: "+lineitemtype)
+				// console.log("customattribute: "+customattribute)
+				VajroSDK.updateLineItemInCart(
+					lineitemhandle,
+					quantity,
+					lineitemtype,
+					customattribute
+				)
+					.then(res => {
+						output.innerHTML = "Update line item to cart"
+					})
+					.catch(err => {
+						output.innerHTML =
+							output.innerHTML +
+							" " +
+							err.errors[0].instancePath +
+							" " +
+							err.errors[0].message
+					})
+			}
+		</script>
+	</body>
+</html>

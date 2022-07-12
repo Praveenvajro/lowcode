@@ -1,42 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        body{
-            height: "100px";
-        }
-    </style>
-</head>
-<body>
-    <div id="output"></div>
-    <script src="./vajro-sdk.js"></script>
-    <script>
-        const values = {
-            productId: "6878543315135",
-            variantId: "40423668482239",
-            quantity: 1, 
-            customAttributes:  {},
-            lineItemType: "REGULAR"
-        }
-        let output = document.getElementById('output');
-        let queryObj = new URLSearchParams(location.search);
-        if (queryObj.has('appInfo')) {
-            try {
-                let appInfoObj = JSON.parse(decodeURIComponent(queryObj.get('appInfo') || '{}'));
-                output.innerHTML = output.innerHTML + JSON.stringify(appInfoObj || 'param not found');
-            } catch (err) {
-                output.innerHTML = output.innerHTML + JSON.stringify(err || 'Unable to get appInfo');
-            }
-        }
-        VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
-            document.write(`<h1>Added line item to cart</h1>`);
-        }).catch(err=>{
-            output.innerHTML = output.innerHTML + JSON.stringify(err || 'Error object not found');
-        });
-    </script>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			body {
+				height: "100px";
+			}
+		</style>
+	</head>
+	<body>
+		<div id="output"></div>
+		<script src="./vajro-sdk.js"></script>
+		<script>
+			const values = {
+				productId: "6878543315135",
+				variantId: "40423668482239",
+				quantity: 1,
+				customAttributes: {},
+				lineItemType: "REGULAR"
+			}
+			let output = document.getElementById("output")
+			let queryObj = new URLSearchParams(location.search)
+			if (queryObj.has("appInfo")) {
+				try {
+					let appInfoObj = JSON.parse(decodeURIComponent(queryObj.get("appInfo") || "{}"))
+					output.innerHTML =
+						output.innerHTML + JSON.stringify(appInfoObj || "param not found")
+				} catch (err) {
+					output.innerHTML =
+						output.innerHTML + JSON.stringify(err || "Unable to get appInfo")
+				}
+			}
+			VajroSDK.addLineItemToCart(
+				values.productId,
+				values.variantId,
+				values.quantity,
+				values.customAttributes,
+				values.lineItemType
+			)
+				.then(res => {
+					document.write(`<h1>Added line item to cart</h1>`)
+				})
+				.catch(err => {
+					output.innerHTML =
+						output.innerHTML + JSON.stringify(err || "Error object not found")
+				})
+		</script>
+	</body>
 </html>
