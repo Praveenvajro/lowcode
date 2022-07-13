@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <script src="./vajro-sdk.js"></script>
+    </head>
+    <body>
+        <script>
+            const FreeProductsMapping = {
+                1000: [
+                    {
+                        freeQty: 1,
+                        productId: '6928843636927',
+                        variantId: '40574334304447'
+                    }
+                ],
+                2000: [
+                    {
+                        freeQty: 2,
+                        productId: '6928843636927',
+                        variantId: '40574334304447'
+                    }
+                ],
+                1500: [
+                    {
+                        freeQty: 1,
+                        productId: '6928843636927',
+                        variantId: '40574334304447'
+                    }
+                ]
+            };
+
+            let thresholdAmounts = Object.keys(FreeProductsMapping);
+            let sortedAmounts = thresholdAmounts.sort((a, b) => a - b);
+
+            const addFreeProduct = (productId, variantId, quantity) => {
+                return new Promise((resolve, reject) => {
+                    VajroSDK.addLineItemToCart(
+                        productId,
+                        variantId,
+                        quantity,
+                        {},
+                        'READONLY'
+                    )
+                        .then(resolve)
+                        .catch(reject);
+                });
+            };
+
+            const removeLineItem = (lineItemHandle, quantity) => {
+                return new Promise((resolve, reject) => {
+                    VajroSDK.removeLineItemFromCart(lineItemHandle, quantity)
+                        .then(resolve)
+                        .catch(reject);
+                });
+            };
+
+            const handleLineItemAdded = (appContext, lineItem) => {
+                let { productId, quantity } = lineItem;
+                let {
+                    cartLineItems: { lineItems, totalAfterSavings }
+                } = appContext;
+
+                let normalizedLineItems = lineItems.reduce((obj, lineItem) => {
+                    let { productId } = lineItem;
+                    obj[productId] = lineItem;
+                    return obj;
+                }, {});
+
+                let currentIdx;
+
+                for (const [index, amount] of sortedAmounts.entries()) {
+                    if (totalAfterSavings <= amount) {
+                        currentIdx = index;
+                        break;
+                    }
+                }
+
+                let preProductRemovePromise;
+                let previousIdx = currentIdx - 1;
+                if (sortedAmounts[previousIdx]) {
+                    preProductRemovePromise = new Promise((resolve, reject) => {
+                        let preProductsToRemove =
+                            FreeProductsMapping[sortedAmounts[previousIdx]];
+                        let promises = [];
+                        preProductsToRemove.forEach((subProduct) => {
+                            let { freeQty, productId, variantId } = subProduct;
+                            let freeProductCartQty =
+                                normalizedLineItems[productId].quantity;
+                            let promise = removeLineItem(
+                                lineItemHandle,
+                                freeProductCartQty - freeQty
+                            );
+                            promises.push(promise);
+                        });
+                        Promise.all(promises).then(resolve).catch(reject);
+                    });
+                } else {
+                    preProductRemovePromise = Promise.resolve();
+                }
+
+                preProductRemovePromise.then(() => {
+                    let amountToAdd = sortedAmounts[currentIdx];
+                    let subProductsToAdd = FreeProductsMapping[amountToAdd];
+
+                    let promises = [];
+                    subProductsToAdd.forEach((subProduct) => {
+                        let { freeQty, productId, variantId } = subProduct;
+                        let freeProductCartQty;
+                        if (normalizedLineItems[productId]) {
+                            freeProductCartQty =
+                                normalizedLineItems[productId].quantity;
+                        }
+                        let freeProductQty =
+                            Math.floor(quantity / buyQty) * freeQty;
+                        let promise = addFreeProduct(
+                            productId,
+                            variantId,
+                            freeQty + (freeProductCartQty || 0)
+                        );
+                        promises.push(promise);
+                    });
+                    Promise.all(promises).then().catch();
+                });
+            };
+
+            const handleLineItemUpdated = (
+                appContext,
+                updateType,
+                lineItem
+            ) => {
+                let { productId, quantity } = lineItem;
+                let {
+                    cartLineItems: { lineItems }
+                } = appContext;
+                let normalizedLineItems = lineItems.reduce((obj, lineItem) => {
+                    let { productId } = lineItem;
+                    obj[productId] = lineItem;
+                    return obj;
+                }, {});
+                if (subscribedProducts.includes(productId)) {
+                    let subProductsToProcess = FreeProductsMapping[productId];
+                    if (subProductsToProcess) {
+                        let promises = [];
+                        subProductsToProcess.forEach((subProduct) => {
+                            let { buyQty, freeQty, productId, variantId } =
+                                subProduct;
+                            let promise;
+                            if (updateType === 'Increment') {
+                                if (quantity % buyQty === 0) {
+                                    if (normalizedLineItems[productId]) {
+                                        let { quantity: freeProductQty } =
+                                            normalizedLineItems[productId];
+                                        promise = addFreeProduct(
+                                            productId,
+                                            variantId,
+                                            freeQty + freeProductQty
+                                        );
+                                    } else {
+                                        promise = addFreeProduct(
+                                            productId,
+                                            variantId,
+                                            freeQty
+                                        );
+                                    }
+                                }
+                            } else if (updateType === 'Decrement') {
+                                let {
+                                    lineItemHandle,
+                                    quantity: freeProductQty
+                                } = normalizedLineItems[productId];
+                                if (
+                                    quantity % buyQty < buyQty &&
+                                    buyQty - (quantity % buyQty) === 1
+                                ) {
+                                    promise = removeLineItem(
+                                        lineItemHandle,
+                                        freeProductQty - freeQty
+                                    );
+                                }
+                            } else if (updateType === 'Delete') {
+                                let freeProductQtyToRemove =
+                                    Math.floor(quantity / buyQty) * freeQty;
+                                let {
+                                    lineItemHandle,
+                                    quantity: freeProductQty
+                                } = normalizedLineItems[productId];
+                                promise = removeLineItem(
+                                    lineItemHandle,
+                                    freeProductQty - freeProductQtyToRemove
+                                );
+                            }
+                            promises.push(promise);
+                        });
+                        Promise.all(promises).then().catch();
+                    }
+                }
+            };
+
+            VajroSDK.subscribe(
+                VajroSDK.Triggers.LINE_ITEM_ADDED_TO_CART,
+                handleLineItemAdded
+            );
+
+//             VajroSDK.subscribe(
+//                 VajroSDK.Triggers.LINE_ITEM_UPDATED,
+//                 handleLineItemUpdated
+//             );
+        </script>
+    </body>
+</html>
