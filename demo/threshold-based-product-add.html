@@ -8,6 +8,7 @@
         <script src="./vajro-sdk.js"></script>
     </head>
     <body>
+        <div>Threshold based product add</div>
         <script>
             const FreeProductsMapping = {
                 1000: [
@@ -81,6 +82,8 @@
 
                 let preProductRemovePromise;
                 let previousIdx = currentIdx - 1;
+                alert(`index - ${currentIdx}, ${previousIdx}`);
+                
                 if (sortedAmounts[previousIdx]) {
                     preProductRemovePromise = new Promise((resolve, reject) => {
                         let preProductsToRemove =
@@ -116,6 +119,7 @@
                         }
                         let freeProductQty =
                             Math.floor(quantity / buyQty) * freeQty;
+                        alert(`product qty - ${freeQty + (freeProductCartQty || 0)}`);
                         let promise = addFreeProduct(
                             productId,
                             variantId,
