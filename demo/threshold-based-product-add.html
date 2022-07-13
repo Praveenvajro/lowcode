@@ -74,7 +74,7 @@
                 let currentIdx;
 
                 for (const [index, amount] of sortedAmounts.entries()) {
-                    if (totalAfterSavings <= amount) {
+                    if (totalAfterSavings >= amount) {
                         currentIdx = index;
                         break;
                     }
