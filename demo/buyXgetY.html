@@ -1,7 +1,7 @@
 <html lang="en">
 	<head>
 		<title>Buy X & Get Y</title>
-		<script src="./vajro-sdk.js"></script>
+		<script src="../example_build/vajro-sdk-build.js"></script>
 	</head>
 	<body>
 		<div id="">Buy X and Get Y the Product</div>
@@ -29,18 +29,40 @@
 
 			const addFreeProduct = (productId, variantId, quantity) => {
 				return new Promise((resolve, reject) => {
-					VajroSDK.addLineItemToCart(productId, variantId, quantity, {}, "READONLY")
-						.then(resolve)
-						.catch(reject)
+					VajroSDK.addLineItemToCart()
+						.setProductId(productId)
+						.setVariantId(variantId)
+						.setQuantity(quantity)
+						.setCustomAttributes({})
+						.setLineItemType("READONLY")
+						.exec()
+						.then(res => {
+							toastMessage("Free Product Added")
+							resolve()
+						})
+						.catch(err => {
+							toastMessage(err.message)
+							reject()
+						})
 				})
 			}
 
 			const removeLineItem = (lineItemHandle, quantity) => {
 				return new Promise((resolve, reject) => {
 					VajroSDK.removeLineItemFromCart(lineItemHandle, quantity)
-						.then(resolve)
-						.catch(reject)
+						.then(res => {
+							toastMessage("Free Product Removed")
+							resolve()
+						})
+						.catch(err => {
+							toastMessage(err.message)
+							reject()
+						})
 				})
+			}
+
+			const toastMessage = message => {
+				VajroSDK.showToastMessage().setMessage(message).exec()
 			}
 
 			const handleLineItemAdded = (appContext, lineItem) => {
