@@ -108,7 +108,7 @@
                 preProductRemovePromise.then(() => {
                     let amountToAdd = sortedAmounts[currentIdx];
                     let subProductsToAdd = FreeProductsMapping[amountToAdd];
-
+                    alert(JSON.stringify(subProductsToAdd));
                     let promises = [];
                     subProductsToAdd.forEach((subProduct) => {
                         let { freeQty, productId, variantId } = subProduct;
