@@ -117,8 +117,6 @@
                             freeProductCartQty =
                                 normalizedLineItems[productId].quantity;
                         }
-                        let freeProductQty =
-                            Math.floor(quantity / buyQty) * freeQty;
                         alert(`product qty - ${freeQty + (freeProductCartQty || 0)}`);
                         let promise = addFreeProduct(
                             productId,
