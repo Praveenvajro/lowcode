@@ -1,6 +1,5 @@
 // window.lineItemAddedToCart = (appContext, lineItem) => {
 //     console.log(appContext, lineItem, 'hello');
-//     alert(JSON.stringify(lineItem));
 //     document.getElementById('info').innerHTML =
 //         JSON.stringify(lineItem);
 // };
