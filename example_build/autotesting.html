@@ -124,7 +124,7 @@
 				//     }
 				//     let output = document.getElementById('singleProductWithoutQuantity');
 				//     output.innerHTML = "<div class='title'>Singe Product Without Quantity(ADD): </div>";
-				//     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+				//     VajroSDK.addLineItemToCart().setProductId(values.productId).setVariantId(values.variantId).setQuantity(values.quantity).setCustomAttribute(values.customAttributes).setLineItemType(values.lineItemType).exec().then((res)=>{
 				//         testOutput = '<div class="success">Single Product Without Quantity test case success</div>';
 				//         output.innerHTML = output.innerHTML + testOutput;
 				//     }).catch(err=>{
@@ -145,7 +145,7 @@
 				//     }
 				//     let output = document.getElementById('singleproduct');
 				//     output.innerHTML = "<div class='title'>Singe Product (ADD): </div>";
-				//     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+				//     VajroSDK.addLineItemToCart().setProductId(values.productId).setVariantId(values.variantId).setQuantity(values.quantity).setCustomAttribute(values.customAttributes).setLineItemType(values.lineItemType).exec().then((res)=>{
 				//         testOutput = '<div class="success">Single Product variant test case success</div>';
 				//         output.innerHTML = output.innerHTML + testOutput;
 				//     }).catch(err=>{
@@ -177,7 +177,7 @@
 				//     }
 				//     let output = document.getElementById('multiVariWithoutVariantID');
 				//     output.innerHTML = "<div class='title'>Multiple Variants (2 variant) without give VariantID and lineItemType as REGULAR (ADD): </div>";
-				//     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+				//     VajroSDK.addLineItemToCart().setProductId(values.productId).setVariantId(values.variantId).setQuantity(values.quantity).setCustomAttribute(values.customAttributes).setLineItemType(values.lineItemType).exec().then((res)=>{
 
 				//     }).catch(err=>{
 				//         testOutput = `<div class="error">Error: ${err.message}</div>`;
@@ -197,7 +197,7 @@
 				//     }
 				//     let output = document.getElementById('invalidProduct');
 				//     output.innerHTML = "<div class='title'>Invalid Product (ADD): </div>";
-				//     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+				//     VajroSDK.addLineItemToCart().setProductId(values.productId).setVariantId(values.variantId).setQuantity(values.quantity).setCustomAttribute(values.customAttributes).setLineItemType(values.lineItemType).exec().then((res)=>{
 				//     }).catch(err=>{
 				//         testOutput = `<div class="error">Error: ${err.message}</div>`;
 				//         output.innerHTML = output.innerHTML + testOutput;
@@ -216,7 +216,7 @@
 				//     }
 				//     let output = document.getElementById('invalidVariant');
 				//     output.innerHTML = "<div class='title'>Invalid Variant (ADD): </div>";
-				//     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+				//     VajroSDK.addLineItemToCart().setProductId(values.productId).setVariantId(values.variantId).setQuantity(values.quantity).setCustomAttribute(values.customAttributes).setLineItemType(values.lineItemType).exec().then((res)=>{
 				//     }).catch(err=>{
 				//         testOutput = `<div class="error">Error: ${err.message}</div>`;
 				//         output.innerHTML = output.innerHTML + testOutput;
@@ -246,7 +246,7 @@
 				//     }
 				//     let output = document.getElementById('multiVariTwoVariRegular');
 				//     output.innerHTML = "<div class='title'>Two Variants with REGULAR (ADD): </div>";
-				//     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+				//     VajroSDK.addLineItemToCart().setProductId(values.productId).setVariantId(values.variantId).setQuantity(values.quantity).setCustomAttribute(values.customAttributes).setLineItemType(values.lineItemType).exec().then((res)=>{
 				//         testOutput = '<div class="success">Two Variants with REGULAR test case success</div>';
 				//         output.innerHTML = output.innerHTML + testOutput;
 				//     }).catch(err=>{
@@ -278,7 +278,7 @@
 				//     }
 				//     let output = document.getElementById('multiVariTwoVariChangeCA');
 				//     output.innerHTML = "<div class='title'>Multiple Variants (2 variant) with same product different Custom Attributes (ADD): </div>";
-				//     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+				//     VajroSDK.addLineItemToCart().setProductId(values.productId).setVariantId(values.variantId).setQuantity(values.quantity).setCustomAttribute(values.customAttributes).setLineItemType(values.lineItemType).exec().then((res)=>{
 				//         testOutput = '<div class="success">Multiple Variants (2 variant) with same product different Custom Attributes test case success</div>';
 				//         output.innerHTML = output.innerHTML + testOutput;
 				//     }).catch(err=>{
@@ -310,7 +310,7 @@
 				//     }
 				//     let output = document.getElementById('multiVariTwoVariHidden');
 				//     output.innerHTML = "<div class='title'>Two Variants with HIDDEN: </div>";
-				//     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+				//     VajroSDK.addLineItemToCart().setProductId(values.productId).setVariantId(values.variantId).setQuantity(values.quantity).setCustomAttribute(values.customAttributes).setLineItemType(values.lineItemType).exec().then((res)=>{
 				//         testOutput = '<div class="success">Two Variants with HIDDEN test case success</div>';
 				//         output.innerHTML = output.innerHTML + testOutput;
 				//     }).catch(err=>{
@@ -331,7 +331,7 @@
 				//     }
 				//     let output = document.getElementById('multiVariThreeVari');
 				//     output.innerHTML = "<div class='title'>Three Variants (ADD): </div>";
-				//     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+				//     VajroSDK.addLineItemToCart().setProductId(values.productId).setVariantId(values.variantId).setQuantity(values.quantity).setCustomAttribute(values.customAttributes).setLineItemType(values.lineItemType).exec().then((res)=>{
 				//         testOutput = '<div class="success">Three Variants test case success</div>';
 				//         output.innerHTML = output.innerHTML + testOutput;
 				//     }).catch(err=>{
@@ -352,7 +352,7 @@
 				//     }
 				//     let output = document.getElementById('withoutProductId');
 				//     output.innerHTML = "<div class='title'>Without Product ID (ADD): </div>";
-				//     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+				//     VajroSDK.addLineItemToCart().setProductId(values.productId).setVariantId(values.variantId).setQuantity(values.quantity).setCustomAttribute(values.customAttributes).setLineItemType(values.lineItemType).exec().then((res)=>{
 
 				//     }).catch(err=>{
 				//         testOutput = `<div class="error">Error: ${err.message}</div>`;
@@ -372,7 +372,7 @@
 				//     }
 				//     let output = document.getElementById('withoutVariantId');
 				//     output.innerHTML = "<div class='title'>Without Variant ID (ADD): </div>";
-				//     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+				//     VajroSDK.addLineItemToCart().setProductId(values.productId).setVariantId(values.variantId).setQuantity(values.quantity).setCustomAttribute(values.customAttributes).setLineItemType(values.lineItemType).exec().then((res)=>{
 
 				//     }).catch(err=>{
 				//         testOutput = `<div class="error">Error: ${err.message}</div>`;
@@ -392,7 +392,7 @@
 				//     }
 				//     let output = document.getElementById('aboveQuantity');
 				//     output.innerHTML = "<div class='title'>Above Qantity (ADD): </div>";
-				//     VajroSDK.addLineItemToCart(values.productId, values.variantId, values.quantity, values.customAttributes, values.lineItemType).then((res)=>{
+				//     VajroSDK.addLineItemToCart().setProductId(values.productId).setVariantId(values.variantId).setQuantity(values.quantity).setCustomAttribute(values.customAttributes).setLineItemType(values.lineItemType).exec().then((res)=>{
 
 				//     }).catch(err=>{
 				//         testOutput = `<div class="error">Error: ${err.message}</div>`;
@@ -463,7 +463,7 @@
 				//     }
 				//     let output = document.getElementById('noLineItemHandle');
 				//     output.innerHTML = "<div class='title'>No LineItem Handle (REMOVE): </div>";
-				//     VajroSDK.removeLineItemFromCart(values.lineitemhandle, values.quantity).then((res)=>{
+				//     VajroSDK.removeLineItemFromCart().setLineItemHandle(values.lineitemhandle).setQuantity(values.quantity).exec().then((res)=>{
 
 				//     }).catch(err=>{
 				//         testOutput = `<div class="error">Error: ${err.message}</div>`;
@@ -480,7 +480,7 @@
 				//     }
 				//     let output = document.getElementById('negativeQuantity');
 				//     output.innerHTML = "<div class='title'>Negative Quanity (REMOVE): </div>";
-				//     VajroSDK.removeLineItemFromCart(values.lineitemhandle, values.quantity).then((res)=>{
+				//     VajroSDK.removeLineItemFromCart().setLineItemHandle(values.lineitemhandle).setQuantity(values.quantity).exec().then((res)=>{
 
 				//     }).catch(err=>{
 				//         testOutput = `<div class="error">Error: ${err.message}</div>`;
@@ -504,10 +504,13 @@
 						.catch(err => {
 							testOutput = `<div class="error">Error: ${err.message}</div>`
 							output.innerHTML = output.innerHTML + testOutput
+							alert("complete")
 							VajroSDK.showToastMessage()
 								.setMessage(err.message)
 								.exec()
-								.then(res => {})
+								.then(res => {
+									alert("Toast Error")
+								})
 								.catch(err => {})
 						})
 				}
@@ -519,7 +522,7 @@
 				//     }
 				//     let output = document.getElementById('removedLineItem');
 				//     output.innerHTML = "<div class='title'>Remove Line Item from cart (REMOVE): </div>";
-				//     VajroSDK.removeLineItemFromCart(values.lineitemhandle, values.quantity).then((res)=>{
+				//     VajroSDK.removeLineItemFromCart().setLineItemHandle(values.lineitemhandle).setQuantity(values.quantity).exec().then((res)=>{
 				//         testOutput = '<div class="success">Product Removed from Cart test case success</div>';
 				//         output.innerHTML = output.innerHTML + testOutput;
 				//     }).catch(err=>{
@@ -537,7 +540,7 @@
 				//     }
 				//     let output = document.getElementById('noLineItemHandleUpdate');
 				//     output.innerHTML = "<div class='title'>No LineItem Handle (UPDATE): </div>";
-				//     VajroSDK.updateLineItemInCart(values.lineitemhandle, values.quantity, values.lineItemType, values.customAttributes).then((res)=>{
+				//     VajroSDK.updateLineItemInCart().setLineItemHandle(values.lineitemhandle).setQuantity(values.quantity).setLineItemType(values.lineItemType).setCustomAttributes(values.customAttributes).exec().then((res)=>{
 
 				//     }).catch(err=>{
 				//         testOutput = `<div class="error">Error: ${err.message}</div>`;
@@ -556,7 +559,7 @@
 				//     }
 				//     let output = document.getElementById('nullCheckAllParamUpdate');
 				//     output.innerHTML = "<div class='title'>Null Check All Param (UPDATE): </div>";
-				//     VajroSDK.updateLineItemInCart(values.lineitemhandle, values.quantity, values.lineItemType, values.customAttributes).then((res)=>{
+				//     VajroSDK.updateLineItemInCart().setLineItemHandle(values.lineitemhandle).setQuantity(values.quantity).setLineItemType(values.lineItemType).setCustomAttributes(values.customAttributes).exec().then((res)=>{
 
 				//     }).catch(err=>{
 				//         testOutput = `<div class="error">Error: ${err.message}</div>`;
