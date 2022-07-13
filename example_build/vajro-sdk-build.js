@@ -14118,6 +14118,7 @@ var VajroSDK
 					return {
 						setMessage: function (value) {
 							message = value
+							alert("message: " + message)
 							return this
 						},
 						exec: function () {
@@ -14134,6 +14135,7 @@ var VajroSDK
 					}
 				}
 				var showToastMessage = function () {
+					alert("call the main function")
 					return new showToastMessageBuilder()
 				}
 
