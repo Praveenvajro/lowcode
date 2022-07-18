@@ -13,15 +13,7 @@
 	</head>
 	<body>
 		<div id="output"></div>
-		<script src="./vajro-sdk.js"></script>
 		<script>
-			const values = {
-				productId: "6878543315135",
-				variantId: "40423668482239",
-				quantity: 1,
-				customAttributes: {},
-				lineItemType: "REGULAR"
-			}
 			let output = document.getElementById("output")
 			let queryObj = new URLSearchParams(location.search)
 			if (queryObj.has("appInfo")) {
@@ -34,20 +26,6 @@
 						output.innerHTML + JSON.stringify(err || "Unable to get appInfo")
 				}
 			}
-			VajroSDK.addLineItemToCart(
-				values.productId,
-				values.variantId,
-				values.quantity,
-				values.customAttributes,
-				values.lineItemType
-			)
-				.then(res => {
-					document.write(`<h1>Added line item to cart</h1>`)
-				})
-				.catch(err => {
-					output.innerHTML =
-						output.innerHTML + JSON.stringify(err || "Error object not found")
-				})
 		</script>
 	</body>
 </html>
