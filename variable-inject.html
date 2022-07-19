@@ -10,6 +10,7 @@
 				height: "100px";
 			}
 		</style>
+		<script src="./vajro-sdk-prod.js" />
 	</head>
 	<body>
 		<div id="output"></div>
@@ -26,6 +27,13 @@
 						output.innerHTML + JSON.stringify(err || "Unable to get appInfo")
 				}
 			}
+			VajroSDK.subscribe(
+				VajroSDK.Triggers.CART_CHECKOUT,
+				()=>{
+					alert('cart checkout');
+					output.innerHTML += 'cart checkout';
+				}
+			);
 		</script>
 	</body>
 </html>
