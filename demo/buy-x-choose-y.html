@@ -1,178 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Buy X & Choose Y</title>
-        <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-            crossorigin="anonymous"
-        />
-        <script src="./vajro-sdk.js"></script>
-        <style>
-            .container-fluid{
-                padding-right: 0;
-            }
-            #slider {
-                width: 100%;
-                overflow-x: auto;
-                height: 100%;
-            }
-            .product-card {
-                height: 470px;
-                width: 400px !important;
-                align-items: center;
-            }
-            img {
-                height: 300px;
-                object-fit: contain;
-            }
-            .width {
-                max-width: 500px !important;
-            }
-            .button {
-                width: 225px;
-                padding: 3px 0;
-                font-size: 16px;
-                font-weight: bold;
-            }
-            .heading {
-                padding: 10px;
-                font-size: clamp(15px, 4vw, 32px);
-                font-weight: bold;
-            }
-            .title {
-                text-transform: capitalize;
-                font-size: 12px;
-            }
-            .card {
-                align-items: center;
-                text-align: center;
-            }
-            .list-group-item{
-                border: none !important;
-                padding-right: 10px;
-            }
-            @media only screen and (max-width: 425px) {
-                .card{
-                    max-width: 125px;
-                }
-                img{
-                    height: 150px;
-                }
-                .button{
-                    width: 100px;
-                }
-            }
-            
-        </style>
-    </head>
-    <body>
-        <div class="container-fluid">
-            <h1 class="heading">Please choose one of the free product</h1>
-            <div class="row flex-nowrap" id="slider">
-                <ul class="list-group list-group-horizontal" id="list">
-                </ul>
-            </div>
-        </div>
-        <script>
-            const FreeProductMapping = {
-                6741457207487: [
-                    {
-                        productId: '6928843636927',
-                        variantId: '40574334304447',
-                        lineItemType: 'READONLY'
-                    },
-                    {
-                        productId: '6733619167423',
-                        variantId: '39990425288895',
-                        lineItemType: 'READONLY'
-                    }
-                ],
-                6928830267583: [
-                    {
-                        productId: '6750261739711',
-                        variantId: '41722470400191',
-                        lineItemType: 'READONLY'
-                    }
-                ]
-            };
-            const storeURL = 'https://praveenn-vjro.myshopify.com';
-            const state = {};
-            const slider = document.getElementById('list');
-            let subscribedProducts = Object.keys(FreeProductMapping);
-            function handleAddProduct(productId) {
-                let productInfo = state.productDetails[productId];
-                if (!productInfo.quantity) {
-                    productInfo.quantity = 1;
-                }
-                if (!productInfo.customAttributes) {
-                    productInfo.customAttributes = {};
-                }
-                if (!productInfo.lineItemType) {
-                    productInfo.lineItemType = 'READONLY';
-                }
-                VajroSDK.addLineItemToCart(
-                    productInfo.productId,
-                    productInfo.variantId,
-                    productInfo.quantity,
-                    productInfo.customAttributes,
-                    productInfo.lineItemType
-                ).then(({ lineItem }) => {
-                    let { lineItemHandle } = lineItem;
-                    Object.keys(state.productDetails).forEach((id) => {
-                        if (state.productDetails[id]) {
-                            if (id === productId) {
-                                state.productDetails[id].inCart = true;
-                                state.productDetails[id].lineItemHandle =
-                                    lineItemHandle;
-                            } else {
-                                state.productDetails[id].disabled = true;
-                                state.productDetails[id].inCart = false;
-                            }
-                        }
-                    });
-                    renderProductSlider();
-                });
-            }
-            function handleRemoveProduct(productId) {
-                let productInfo = state.productDetails[productId];
-                VajroSDK.removeLineItemFromCart(
-                    productInfo.lineItemHandle,
-                    0
-                ).then(() => {
-                    Object.keys(state.productDetails).forEach((id) => {
-                        if (state.productDetails[id]) {
-                            if (id === productId) {
-                                state.productDetails[id].inCart = false;
-                                state.productDetails[id].lineItemHandle = null;
-                            } else {
-                                state.productDetails[id].disabled = false;
-                            }
-                        }
-                    });
-                    renderProductSlider();
-                });
-            }
-            const renderProductSlider = () => {
-                slider.innerHTML = '';
-                let {
-                    productDetails,
-                    appColors: { buy_button = '#f54900' } = {}
-                } = state;
-                Object.keys(productDetails).forEach((id) => {
-                    let {
-                        title,
-                        image,
-                        inCart = false,
-                        disabled = false
-                    } = productDetails[id];
-                    let actionTitle = inCart ? 'Remove Cart' : 'Add Cart';
-                    let actionHandle = inCart
-                        ? 'handleRemoveProduct'
-                        : `handleAddProduct`;
-                        let productCard =  `<li class="list-group-item">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Buy X & Choose Y</title>
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+			crossorigin="anonymous"
+		/>
+		<script src="https://praveenvajro.github.io/lowcode/example_build/vajro-sdk-build.js"></script>
+		<style>
+			.container-fluid {
+				padding-right: 0;
+			}
+			#slider {
+				width: 100%;
+				overflow-x: auto;
+				height: 100%;
+			}
+			.product-card {
+				height: 470px;
+				width: 400px !important;
+				align-items: center;
+			}
+			img {
+				height: 300px;
+				object-fit: contain;
+			}
+			.width {
+				max-width: 500px !important;
+			}
+			.button {
+				width: 225px;
+				padding: 3px 0;
+				font-size: 16px;
+				font-weight: bold;
+			}
+			.heading {
+				padding: 10px;
+				font-size: clamp(15px, 4vw, 32px);
+				font-weight: bold;
+			}
+			.title {
+				text-transform: capitalize;
+				font-size: 12px;
+			}
+			.card {
+				align-items: center;
+				text-align: center;
+			}
+			.list-group-item {
+				border: none !important;
+				padding-right: 10px;
+			}
+			@media only screen and (max-width: 425px) {
+				.card {
+					max-width: 125px;
+				}
+				img {
+					height: 150px;
+				}
+				.button {
+					width: 100px;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container-fluid">
+			<h1 class="heading">Please choose one of the free product</h1>
+			<div class="row flex-nowrap" id="slider">
+				<ul class="list-group list-group-horizontal" id="list"></ul>
+			</div>
+		</div>
+		<script>
+			const FreeProductMapping = {
+				7316598522008: [
+					// iPhone
+					{
+						buyQty: 2,
+						freeQty: 2,
+						productId: "7316598751384",
+						variantId: "41833338241176",
+						lineItemType: "READONLY"
+					} // wireless charger
+				],
+				7316601176216: [
+					// PS5 Game
+					{
+						buyQty: 2,
+						freeQty: 2,
+						productId: "7316578926744",
+						variantId: "41833255370904",
+						lineItemType: "READONLY"
+					} // Laptop Bag
+				]
+			}
+			const storeURL = "https://praveenn-vjro.myshopify.com"
+			const state = {}
+			const slider = document.getElementById("list")
+			let subscribedProducts = Object.keys(FreeProductMapping)
+			function handleAddProduct(productId) {
+				alert(JSON.stringify(state))
+				let productInfo = state.productDetails[productId]
+				let calculateCartFreeQuantity =
+					state.productDetails[productId].calculateFreeProductFromCart
+				if (!productInfo.quantity) {
+					productInfo.quantity = calculateCartFreeQuantity
+				}
+				if (!productInfo.customAttributes) {
+					productInfo.customAttributes = {}
+				}
+				if (!productInfo.lineItemType) {
+					productInfo.lineItemType = "READONLY"
+				}
+				VajroSDK.addLineItemToCart()
+					.setProductId(productInfo.productId)
+					.setVariantId(productInfo.variantId)
+					.setQuantity(productInfo.quantity)
+					.setCustomAttributes(productInfo.customAttributes)
+					.setLineItemType(productInfo.lineItemType)
+					.exec()
+					.then(({ lineItem }) => {
+						let { lineItemHandle } = lineItem
+						Object.keys(state.productDetails).forEach(id => {
+							if (state.productDetails[id]) {
+								if (id === productId) {
+									state.productDetails[id].inCart = true
+									state.productDetails[id].lineItemHandle = lineItemHandle
+								} else {
+									state.productDetails[id].disabled = true
+									state.productDetails[id].inCart = false
+								}
+							}
+						})
+						renderProductSlider()
+					})
+			}
+			function handleRemoveProduct(productId) {
+				let productInfo = state.productDetails[productId]
+				VajroSDK.removeLineItemFromCart()
+					.setLineItemHandle(productInfo.lineItemHandle)
+					.setQuantity(0)
+					.exec()
+					.then(() => {
+						Object.keys(state.productDetails).forEach(id => {
+							if (state.productDetails[id]) {
+								if (id === productId) {
+									state.productDetails[id].inCart = false
+									state.productDetails[id].lineItemHandle = null
+								} else {
+									state.productDetails[id].disabled = false
+								}
+							}
+						})
+						renderProductSlider()
+					})
+			}
+			const renderProductSlider = () => {
+				slider.innerHTML = ""
+				let { productDetails, appColors: { buy_button = "#f54900" } = {} } = state
+				Object.keys(productDetails).forEach(id => {
+					let { title, image, inCart = false, disabled = false } = productDetails[id]
+					let actionTitle = inCart ? "Remove Cart" : "Add Cart"
+					let actionHandle = inCart ? "handleRemoveProduct" : `handleAddProduct`
+					let productCard = `<li class="list-group-item">
                         <div class="card">
                             <img
                                 class="card-img-top"
@@ -182,211 +175,155 @@
                             <div class="card-body">
                                 <h5 class="card-title title">${title}</h5>
                                 <button class="btn btn-primary button" style="background-color:${buy_button}" ${
-                        disabled ? 'disabled' : ''
-                    } onclick="${actionHandle}('${id}')">${actionTitle}</button>
+						disabled ? "disabled" : ""
+					} onclick="${actionHandle}('${id}')">${actionTitle}</button>
                             </div>
                         </div>
                     </li>`
-                    slider.innerHTML += productCard;
-                    slider.classList.add('slider-height');
-                });
-            };
-            const productsImages = {
-                6928843636927: {
-                    image: 'https://cdn.shopify.com/s/files/1/0577/3056/4287/products/4_zu_3_teaser_05.jpg?v=1648808832',
-                    title: 'iphone 6s',
-                    productId: '6928843636927',
-                    variantId: '40574334304447',
-                    lineItemType: 'READONLY'
-                },
-                6733619167423: {
-                    image: 'https://cdn.shopify.com/s/files/1/0577/3056/4287/products/bags2.jpg?v=1623325323',
-                    title: 'bags',
-                    productId: '6733619167423',
-                    variantId: '39990425288895',
-                    lineItemType: 'READONLY'
-                },
-                6750261739711: {
-                    image: 'https://cdn.shopify.com/s/files/1/0577/3056/4287/products/mobile_charger.jpg?v=1624025315',
-                    title: 'charger',
-                    productId: '6750261739711',
-                    productId: '6750261739711',
-                    variantId: '41722470400191',
-                    lineItemType: 'READONLY'
-                },
-                69288436369271: {
-                    image: 'https://cdn.shopify.com/s/files/1/0577/3056/4287/products/4_zu_3_teaser_05.jpg?v=1648808832',
-                    title: 'iphone 6s',
-                    productId: '6928843636927',
-                    variantId: '40574334304447',
-                    lineItemType: 'READONLY'
-                },
-                67336191674233: {
-                    image: 'https://cdn.shopify.com/s/files/1/0577/3056/4287/products/bags2.jpg?v=1623325323',
-                    title: 'bags',
-                    productId: '6733619167423',
-                    variantId: '39990425288895',
-                    lineItemType: 'READONLY'
-                },
-                67502617397111: {
-                    image: 'https://cdn.shopify.com/s/files/1/0577/3056/4287/products/mobile_charger.jpg?v=1624025315',
-                    title: 'charger',
-                    productId: '6750261739711',
-                    productId: '6750261739711',
-                    variantId: '41722470400191',
-                    lineItemType: 'READONLY'
-                },
-                69288436369272: {
-                    image: 'https://cdn.shopify.com/s/files/1/0577/3056/4287/products/4_zu_3_teaser_05.jpg?v=1648808832',
-                    title: 'iphone 6s',
-                    productId: '6928843636927',
-                    variantId: '40574334304447',
-                    lineItemType: 'READONLY'
-                },
-                67336191674232: {
-                    image: 'https://cdn.shopify.com/s/files/1/0577/3056/4287/products/bags2.jpg?v=1623325323',
-                    title: 'bags',
-                    productId: '6733619167423',
-                    variantId: '39990425288895',
-                    lineItemType: 'READONLY'
-                },
-                67502617397112: {
-                    image: 'https://cdn.shopify.com/s/files/1/0577/3056/4287/products/mobile_charger.jpg?v=1624025315',
-                    title: 'charger',
-                    productId: '6750261739711',
-                    productId: '6750261739711',
-                    variantId: '41722470400191',
-                    lineItemType: 'READONLY'
-                },
-                69288436369273: {
-                    image: 'https://cdn.shopify.com/s/files/1/0577/3056/4287/products/4_zu_3_teaser_05.jpg?v=1648808832',
-                    title: 'iphone 6s',
-                    productId: '6928843636927',
-                    variantId: '40574334304447',
-                    lineItemType: 'READONLY'
-                },
-                673361916742323: {
-                    image: 'https://cdn.shopify.com/s/files/1/0577/3056/4287/products/bags2.jpg?v=1623325323',
-                    title: 'bags',
-                    productId: '6733619167423',
-                    variantId: '39990425288895',
-                    lineItemType: 'READONLY'
-                },
-                67502617397113: {
-                    image: 'https://cdn.shopify.com/s/files/1/0577/3056/4287/products/mobile_charger.jpg?v=1624025315',
-                    title: 'charger',
-                    productId: '6750261739711',
-                    productId: '6750261739711',
-                    variantId: '41722470400191',
-                    lineItemType: 'READONLY'
-                }
-            };
-            state.productDetails = productsImages;
-            renderProductSlider();
-            const fetchProductDetails = (productId) => {
-                return Promise.resolve(productsImages[productId]);
-                // let apiURL = `${storeURL}/admin/products/${productId}.json`;
-                // return new Promise((resolve, reject) => {
-                //     fetch(apiURL).then((res) => {
-                //         res.json().then(({ product: { images } }) => {
-                //             let { src: image, title } = images[0];
-                //             resolve({ productId, image, title });
-                //         });
-                //     });
-                // });
-            };
-            const handleLineItemAdded = (appContext, lineItem) => {
-                let { productId } = lineItem;
-                let { appColors } = appContext;
-                state.appColors = appColors;
-                if (subscribedProducts.includes(productId)) {
-                    let subProductsToChoose = FreeProductMapping[productId];
-                    if (subProductsToChoose) {
-                        let promises = [];
-                        subProductsToChoose.forEach((subProduct) => {
-                            let promise = fetchProductDetails(
-                                subProduct.productId
-                            );
-                            promises.push(promise);
-                        });
-                        Promise.all(promises)
-                            .then((res) => {
-                                let products = {};
-                                res.forEach(
-                                    ({
-                                        productId,
-                                        image,
-                                        title,
-                                        variantId
-                                    }) => {
-                                        products[productId] = {
-                                            image,
-                                            title,
-                                            inCart: false,
-                                            disabled: false,
-                                            productId,
-                                            variantId
-                                        };
-                                    }
-                                );
-                                state.productDetails = products;
-                                renderProductSlider();
-                            })
-                            .catch((err) => {
-                                alert(JSON.stringify(err));
-                            });
-                    }
-                }
-            };
-            const handleLineItemUpdated = (appContext, lineItem) => {
-                let { productId } = lineItem;
-                if (subscribedProducts.includes(productId)) {
-                    let subProductsToChoose = FreeProductMapping[productId];
-                    if (subProductsToChoose) {
-                        let promises = [];
-                        subProductsToChoose.forEach((subProduct) => {
-                            let promise = fetchProductDetails(
-                                subProduct.productId
-                            );
-                            promises.push(promise);
-                        });
-                        Promise.all(promises)
-                            .then((res) => {
-                                let products = {};
-                                res.forEach(
-                                    ({
-                                        productId,
-                                        image,
-                                        title,
-                                        variantId
-                                    }) => {
-                                        products[productId] = {
-                                            image,
-                                            title,
-                                            inCart: false,
-                                            disabled: false,
-                                            variantId,
-                                            productId
-                                        };
-                                    }
-                                );
-                                state.productDetails = products;
-                                renderProductSlider();
-                            })
-                            .catch((err) => {
-                                alert(JSON.stringify(err));
-                            });
-                    }
-                }
-            };
-            VajroSDK.subscribe(
-                VajroSDK.Triggers.LINE_ITEM_ADDED_TO_CART,
-                handleLineItemAdded
-            );
-            VajroSDK.subscribe(
-                VajroSDK.Triggers.LINE_ITEM_UPDATED,
-                handleLineItemUpdated
-            );
-        </script>
-    </body>
+					slider.innerHTML += productCard
+					slider.classList.add("slider-height")
+				})
+			}
+			const productsImages = {
+				7316598751384: {
+					image: "https://cdn.shopify.com/s/files/1/0463/3640/9752/products/iphone_wireless_charger.jpg?v=1657738334",
+					title: "Wireless Charger",
+					productId: "7316598751384",
+					variantId: "41833338241176",
+					lineItemType: "READONLY"
+				},
+				7316578926744: {
+					image: "https://cdn.shopify.com/s/files/1/0463/3640/9752/products/Laptop-Bag.webp?v=1657708863",
+					title: "LaPbag",
+					productId: "7316578926744",
+					variantId: "41833255370904",
+					lineItemType: "READONLY"
+				}
+			}
+			state.productDetails = productsImages
+			renderProductSlider()
+			const fetchProductDetails = (productId, calculateFreeProductFromCart) => {
+				alert(
+					JSON.stringify({
+						...productsImages[productId],
+						calculateFreeProductFromCart: calculateFreeProductFromCart
+					})
+				)
+				return Promise.resolve({
+					...productsImages[productId],
+					calculateFreeProductFromCart: calculateFreeProductFromCart
+				})
+				// return Promise.resolve(productsImages[productId]);
+				// let apiURL = `${storeURL}/admin/products/${productId}.json`;
+				// return new Promise((resolve, reject) => {
+				//     fetch(apiURL).then((res) => {
+				//         res.json().then(({ product: { images } }) => {
+				//             let { src: image, title } = images[0];
+				//             resolve({ productId, image, title });
+				//         });
+				//     });
+				// });
+			}
+			const handleLineItemAdded = (appContext, lineItem) => {
+				let { productId, quantity } = lineItem
+				let {
+					appColors,
+					cartLineItems: { lineItems }
+				} = appContext
+				let normalizedLineItems = lineItems.reduce((obj, lineItem) => {
+					let { productId } = lineItem
+					obj[productId] = lineItem
+					return obj
+				}, {})
+				state.appColors = appColors
+				if (subscribedProducts.includes(productId)) {
+					let subProductsToChoose = FreeProductMapping[productId]
+					// alert(JSON.stringify(subProductsToChoose))
+					if (subProductsToChoose) {
+						let promises = []
+						subProductsToChoose.forEach(subProduct => {
+							let { buyQty, freeQty } = subProduct
+							let freeProductCartQty
+							if (normalizedLineItems[productId]) {
+								freeProductCartQty = normalizedLineItems[productId].quantity
+							}
+							alert(freeProductCartQty)
+							let freeProductQty = Math.floor(quantity / buyQty) * freeQty
+							let calculateFreeProductFromCart =
+								freeProductQty + (freeProductCartQty || 0)
+							let promise = fetchProductDetails(
+								subProduct.productId,
+								calculateFreeProductFromCart
+							)
+							promises.push(promise)
+						})
+						Promise.all(promises)
+							.then(res => {
+								alert(JSON.stringify(res))
+								let products = {}
+								res.forEach(
+									({
+										productId,
+										image,
+										title,
+										variantId,
+										calculateFreeProductFromCart
+									}) => {
+										products[productId] = {
+											image,
+											title,
+											inCart: false,
+											disabled: false,
+											productId,
+											variantId,
+											calculateFreeProductFromCart
+										}
+									}
+								)
+								state.productDetails = products
+								// alert(products)
+								renderProductSlider()
+							})
+							.catch(err => {
+								alert(JSON.stringify(err))
+							})
+					}
+				}
+			}
+			const handleLineItemUpdated = (appContext, lineItem) => {
+				let { productId } = lineItem
+				if (subscribedProducts.includes(productId)) {
+					let subProductsToChoose = FreeProductMapping[productId]
+					if (subProductsToChoose) {
+						let promises = []
+						subProductsToChoose.forEach(subProduct => {
+							let promise = fetchProductDetails(subProduct.productId)
+							promises.push(promise)
+						})
+						Promise.all(promises)
+							.then(res => {
+								let products = {}
+								res.forEach(({ productId, image, title, variantId }) => {
+									products[productId] = {
+										image,
+										title,
+										inCart: false,
+										disabled: false,
+										variantId,
+										productId
+									}
+								})
+								state.productDetails = products
+								renderProductSlider()
+							})
+							.catch(err => {
+								alert(JSON.stringify(err))
+							})
+					}
+				}
+			}
+			VajroSDK.subscribe(VajroSDK.Triggers.LINE_ITEM_ADDED_TO_CART, handleLineItemAdded)
+			VajroSDK.subscribe(VajroSDK.Triggers.LINE_ITEM_UPDATED, handleLineItemUpdated)
+		</script>
+	</body>
 </html>
