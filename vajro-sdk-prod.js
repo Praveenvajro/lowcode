@@ -13980,11 +13980,11 @@ var VajroSDK
 					let value
 					let lifeTime
 					return {
-						setKey(key) {
+						setKey(value) {
 							key = value
 							return this
 						},
-						setValue(value) {
+						setValue(val) {
 							value = value
 							return this
 						},
