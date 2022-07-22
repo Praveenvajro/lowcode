@@ -15423,6 +15423,8 @@ var VajroSDK
 					return hub[key]
 				}
 				const removeFromHub = key => {
+					alert(hub)
+					alert(key)
 					if (hub[key]) Reflect.deleteProperty(hub, key)
 				}
 
