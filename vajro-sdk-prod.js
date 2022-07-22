@@ -15417,6 +15417,7 @@ var VajroSDK
 				const pushToHub = (key, func) => {
 					if (hub[key]) return false
 					hub[key] = func
+					alert(JSON.stringify(hub))
 				}
 				const getFromHub = key => {
 					if (!hub[key]) return false
