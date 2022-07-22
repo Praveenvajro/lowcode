@@ -14348,6 +14348,7 @@ var VajroSDK
 						res = __rest(json, ["error", "appContext", "actionId"])
 					let dispatchHandler = (0,
 					_utils_actionHub__WEBPACK_IMPORTED_MODULE_0__.getFromHub)(actionId)
+					alert("dispatchHandler: " + dispatchHandler)
 					if (!dispatchHandler)
 						throw {
 							code: 1103,
