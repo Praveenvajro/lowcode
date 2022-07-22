@@ -13985,7 +13985,7 @@ var VajroSDK
 							return this
 						},
 						setValue(val) {
-							value = value
+							value = val
 							return this
 						},
 						setLifeTime(value) {
