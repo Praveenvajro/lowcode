@@ -13778,7 +13778,9 @@ var VajroSDK
 					/* harmony export */ getVar: () =>
 						/* reexport safe */ _get_var_getVar_action__WEBPACK_IMPORTED_MODULE_1__.getVar,
 					/* harmony export */ setVar: () =>
-						/* reexport safe */ _set_var_setVar_action__WEBPACK_IMPORTED_MODULE_0__.setVar
+						/* reexport safe */ _set_var_setVar_action__WEBPACK_IMPORTED_MODULE_0__.setVar,
+					/* harmony export */ showToastMessage: () =>
+						/* reexport safe */ _show_toast_message_showToastMessage_action__WEBPACK_IMPORTED_MODULE_2__.showToastMessage
 					/* harmony export */
 				})
 				/* harmony import */ var _set_var_setVar_action__WEBPACK_IMPORTED_MODULE_0__ =
@@ -13788,6 +13790,10 @@ var VajroSDK
 				/* harmony import */ var _get_var_getVar_action__WEBPACK_IMPORTED_MODULE_1__ =
 					__webpack_require__(
 						/*! ./get-var/getVar.action */ "./src/common-actions/get-var/getVar.action.ts"
+					)
+				/* harmony import */ var _show_toast_message_showToastMessage_action__WEBPACK_IMPORTED_MODULE_2__ =
+					__webpack_require__(
+						/*! ./show-toast-message/showToastMessage.action */ "./src/common-actions/show-toast-message/showToastMessage.action.ts"
 					)
 
 				/***/
@@ -13814,39 +13820,66 @@ var VajroSDK
 					__webpack_require__(
 						/*! ./getVar.schema */ "./src/common-actions/get-var/getVar.schema.ts"
 					)
+				/* harmony import */ var _utils_errorNormalizer__WEBPACK_IMPORTED_MODULE_3__ =
+					__webpack_require__(
+						/*! ../../utils/errorNormalizer */ "./src/utils/errorNormalizer.ts"
+					)
 
-				var getVar = function (key) {
-					return new Promise(function (resolve, reject) {
-						var data = {
-							key: key
+				const GetVar = function (key) {
+					return new Promise((resolve, reject) => {
+						let data = {
+							key
 						}
-						var validate = (0,
+						const validate = (0,
 						_getVar_schema__WEBPACK_IMPORTED_MODULE_2__.getVarSchema)(data)
 						if (validate) {
 							;(0, _communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__.dispatch)(
 								_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].GET_VAR,
 								data
 							)
-								.then(function (data) {
+								.then(data => {
 									try {
-										resolve(JSON.parse(data))
+										resolve(JSON.parse(data.value))
 									} catch (err) {
 										reject(err)
 									}
 								})
-								["catch"](function (error) {
+								.catch(error => {
 									reject(error)
 								})
 						} else {
 							if (_getVar_schema__WEBPACK_IMPORTED_MODULE_2__.getVarSchema.errors) {
-								reject({
-									status: "error",
-									errors: _getVar_schema__WEBPACK_IMPORTED_MODULE_2__.getVarSchema
-										.errors
-								})
+								let error = (0,
+								_utils_errorNormalizer__WEBPACK_IMPORTED_MODULE_3__.normalizeError)(
+									_getVar_schema__WEBPACK_IMPORTED_MODULE_2__.getVarSchema.errors
+								)
+								reject(error)
 							}
 						}
 					})
+				}
+				const getVarBuilder = function () {
+					let name
+					return {
+						setGetVar(value) {
+							name = value
+							return this
+						},
+						exec() {
+							if (!name) {
+								let error = {
+									code: 1101,
+									message: "Parameter's Value Empty",
+									type: "Internal SDK Error"
+								}
+								return Promise.reject(error)
+							}
+							return GetVar(name)
+						}
+					}
+				}
+				const getVar = function () {
+					return new getVarBuilder()
 				}
 
 				/***/
@@ -13870,8 +13903,8 @@ var VajroSDK
 				/* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_0___default =
 					/*#__PURE__*/ __webpack_require__.n(ajv__WEBPACK_IMPORTED_MODULE_0__)
 
-				var ajv = new (ajv__WEBPACK_IMPORTED_MODULE_0___default())()
-				var schema = {
+				const ajv = new (ajv__WEBPACK_IMPORTED_MODULE_0___default())()
+				const schema = {
 					type: "object",
 					properties: {
 						key: { type: "string", nullable: false }
@@ -13879,7 +13912,7 @@ var VajroSDK
 					required: ["key"],
 					additionalProperties: false
 				}
-				var getVarSchema = ajv.compile(schema)
+				const getVarSchema = ajv.compile(schema)
 
 				/***/
 			},
@@ -13901,42 +13934,79 @@ var VajroSDK
 					__webpack_require__(
 						/*! ../../communications/dispatcher */ "./src/communications/dispatcher.ts"
 					)
-				/* harmony import */ var _setVar_schema__WEBPACK_IMPORTED_MODULE_2__ =
+				/* harmony import */ var _utils_errorNormalizer__WEBPACK_IMPORTED_MODULE_2__ =
+					__webpack_require__(
+						/*! ../../utils/errorNormalizer */ "./src/utils/errorNormalizer.ts"
+					)
+				/* harmony import */ var _setVar_schema__WEBPACK_IMPORTED_MODULE_3__ =
 					__webpack_require__(
 						/*! ./setVar.schema */ "./src/common-actions/set-var/setVar.schema.ts"
 					)
 
-				var setVar = function (key, value, lifeTime) {
-					return new Promise(function (resolve, reject) {
-						var valueStr = JSON.stringify(value)
-						var data = {
-							key: key,
+				const SetVar = function (key, value, lifeTime) {
+					return new Promise((resolve, reject) => {
+						let valueStr = JSON.stringify(value)
+						let data = {
+							key,
 							value: valueStr,
-							lifeTime: lifeTime
+							lifeTime
 						}
-						var validate = (0,
-						_setVar_schema__WEBPACK_IMPORTED_MODULE_2__.setVarSchema)(data)
+						const validate = (0,
+						_setVar_schema__WEBPACK_IMPORTED_MODULE_3__.setVarSchema)(data)
 						if (validate) {
 							;(0, _communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__.dispatch)(
 								_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].SET_VAR,
 								data
 							)
-								.then(function (data) {
+								.then(data => {
 									resolve(data)
 								})
-								["catch"](function (error) {
+								.catch(error => {
 									reject(error)
 								})
 						} else {
-							if (_setVar_schema__WEBPACK_IMPORTED_MODULE_2__.setVarSchema.errors) {
-								reject({
-									status: "error",
-									errors: _setVar_schema__WEBPACK_IMPORTED_MODULE_2__.setVarSchema
-										.errors
-								})
+							if (_setVar_schema__WEBPACK_IMPORTED_MODULE_3__.setVarSchema.errors) {
+								let error = (0,
+								_utils_errorNormalizer__WEBPACK_IMPORTED_MODULE_2__.normalizeError)(
+									_setVar_schema__WEBPACK_IMPORTED_MODULE_3__.setVarSchema.errors
+								)
+								reject(error)
 							}
 						}
 					})
+				}
+				const setVarBuilder = function () {
+					let key
+					let value
+					let lifeTime
+					return {
+						setKey(value) {
+							key = value
+							return this
+						},
+						setValue(val) {
+							value = val
+							return this
+						},
+						setLifeTime(value) {
+							lifeTime = value
+							return this
+						},
+						exec() {
+							if (!key && !value) {
+								let error = {
+									code: 1101,
+									message: "Parameter's Value Empty",
+									type: "Internal SDK Error"
+								}
+								return Promise.reject(error)
+							}
+							return SetVar(key, value, lifeTime)
+						}
+					}
+				}
+				const setVar = function () {
+					return new setVarBuilder()
 				}
 
 				/***/
@@ -13960,13 +14030,13 @@ var VajroSDK
 				/* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_0___default =
 					/*#__PURE__*/ __webpack_require__.n(ajv__WEBPACK_IMPORTED_MODULE_0__)
 
-				var ajv = new (ajv__WEBPACK_IMPORTED_MODULE_0___default())()
+				const ajv = new (ajv__WEBPACK_IMPORTED_MODULE_0___default())()
 				var LifeTime
 				;(function (LifeTime) {
 					LifeTime["SHORT"] = "SHORT"
 					LifeTime["LONG"] = "LONG"
 				})(LifeTime || (LifeTime = {}))
-				var schema = {
+				const schema = {
 					type: "object",
 					properties: {
 						key: { type: "string", nullable: false },
@@ -13976,7 +14046,192 @@ var VajroSDK
 					required: ["key"],
 					additionalProperties: false
 				}
-				var setVarSchema = ajv.compile(schema)
+				const setVarSchema = ajv.compile(schema)
+
+				/***/
+			},
+
+		/***/ "./src/common-actions/show-toast-message/showToastMessage.action.ts":
+			/*!**************************************************************************!*\
+  !*** ./src/common-actions/show-toast-message/showToastMessage.action.ts ***!
+  \**************************************************************************/
+			/***/ (__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+				"use strict"
+				__webpack_require__.r(__webpack_exports__)
+				/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+					/* harmony export */ showToastMessage: () => /* binding */ showToastMessage
+					/* harmony export */
+				})
+				/* harmony import */ var _constants_actions__WEBPACK_IMPORTED_MODULE_0__ =
+					__webpack_require__(/*! ../../constants/actions */ "./src/constants/actions.ts")
+				/* harmony import */ var _communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__ =
+					__webpack_require__(
+						/*! ../../communications/dispatcher */ "./src/communications/dispatcher.ts"
+					)
+				/* harmony import */ var _utils_errorNormalizer__WEBPACK_IMPORTED_MODULE_2__ =
+					__webpack_require__(
+						/*! ../../utils/errorNormalizer */ "./src/utils/errorNormalizer.ts"
+					)
+				/* harmony import */ var _showToastMessage_schema__WEBPACK_IMPORTED_MODULE_3__ =
+					__webpack_require__(
+						/*! ./showToastMessage.schema */ "./src/common-actions/show-toast-message/showToastMessage.schema.ts"
+					)
+
+				const ShowToastMessage = function (message) {
+					return new Promise((resolve, reject) => {
+						let data = {
+							message
+						}
+						const validate = (0,
+						_showToastMessage_schema__WEBPACK_IMPORTED_MODULE_3__.showToastMessageSchema)(
+							data
+						)
+						if (validate) {
+							;(0, _communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__.dispatch)(
+								_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"]
+									.SHOW_TOAST_MESSAGE,
+								data
+							)
+								.then(data => {
+									resolve(data)
+								})
+								.catch(error => {
+									reject(error)
+								})
+						} else {
+							if (
+								_showToastMessage_schema__WEBPACK_IMPORTED_MODULE_3__
+									.showToastMessageSchema.errors
+							) {
+								let error = (0,
+								_utils_errorNormalizer__WEBPACK_IMPORTED_MODULE_2__.normalizeError)(
+									_showToastMessage_schema__WEBPACK_IMPORTED_MODULE_3__
+										.showToastMessageSchema.errors
+								)
+								reject(error)
+							}
+						}
+					})
+				}
+				const showToastMessageBuilder = function () {
+					let message
+					return {
+						setMessage(value) {
+							message = value
+							return this
+						},
+						exec() {
+							if (!message) {
+								let error = {
+									code: 1101,
+									message: "error message is empty",
+									type: "Internal SDK Error"
+								}
+								return Promise.reject(error)
+							}
+							return ShowToastMessage(message)
+						}
+					}
+				}
+				const showToastMessage = function () {
+					return new showToastMessageBuilder()
+				}
+
+				/***/
+			},
+
+		/***/ "./src/common-actions/show-toast-message/showToastMessage.schema.ts":
+			/*!**************************************************************************!*\
+  !*** ./src/common-actions/show-toast-message/showToastMessage.schema.ts ***!
+  \**************************************************************************/
+			/***/ (__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+				"use strict"
+				__webpack_require__.r(__webpack_exports__)
+				/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+					/* harmony export */ schema: () => /* binding */ schema,
+					/* harmony export */ showToastMessageSchema: () =>
+						/* binding */ showToastMessageSchema
+					/* harmony export */
+				})
+				/* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+					/*! ajv */ "./node_modules/ajv/dist/ajv.js"
+				)
+				/* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_0___default =
+					/*#__PURE__*/ __webpack_require__.n(ajv__WEBPACK_IMPORTED_MODULE_0__)
+
+				const ajv = new (ajv__WEBPACK_IMPORTED_MODULE_0___default())()
+				const schema = {
+					type: "object",
+					properties: {
+						message: { type: "string", nullable: false }
+					},
+					required: ["message"],
+					additionalProperties: false
+				}
+				const showToastMessageSchema = ajv.compile(schema)
+
+				/***/
+			},
+
+		/***/ "./src/common-triggers/cart-cleared/cartCleared.ts":
+			/*!*********************************************************!*\
+  !*** ./src/common-triggers/cart-cleared/cartCleared.ts ***!
+  \*********************************************************/
+			/***/ (__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+				"use strict"
+				__webpack_require__.r(__webpack_exports__)
+				/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+					/* harmony export */ cartCleared: () => /* binding */ cartCleared
+					/* harmony export */
+				})
+				/* harmony import */ var _constants_triggers__WEBPACK_IMPORTED_MODULE_0__ =
+					__webpack_require__(
+						/*! ../../constants/triggers */ "./src/constants/triggers.ts"
+					)
+				/* harmony import */ var _communications_listeners__WEBPACK_IMPORTED_MODULE_1__ =
+					__webpack_require__(
+						/*! ../../communications/listeners */ "./src/communications/listeners.ts"
+					)
+
+				const cartCleared = appContext => {
+					;(0, _communications_listeners__WEBPACK_IMPORTED_MODULE_1__.dispatch)(
+						_constants_triggers__WEBPACK_IMPORTED_MODULE_0__["default"].CART_CLEARED,
+						[appContext],
+						{ appContext }
+					)
+				}
+
+				/***/
+			},
+
+		/***/ "./src/common-triggers/checkout-completed/checkoutCompleted.ts":
+			/*!*********************************************************************!*\
+  !*** ./src/common-triggers/checkout-completed/checkoutCompleted.ts ***!
+  \*********************************************************************/
+			/***/ (__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+				"use strict"
+				__webpack_require__.r(__webpack_exports__)
+				/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+					/* harmony export */ checkoutCompleted: () => /* binding */ checkoutCompleted
+					/* harmony export */
+				})
+				/* harmony import */ var _constants_triggers__WEBPACK_IMPORTED_MODULE_0__ =
+					__webpack_require__(
+						/*! ../../constants/triggers */ "./src/constants/triggers.ts"
+					)
+				/* harmony import */ var _communications_listeners__WEBPACK_IMPORTED_MODULE_1__ =
+					__webpack_require__(
+						/*! ../../communications/listeners */ "./src/communications/listeners.ts"
+					)
+
+				const checkoutCompleted = appContext => {
+					;(0, _communications_listeners__WEBPACK_IMPORTED_MODULE_1__.dispatch)(
+						_constants_triggers__WEBPACK_IMPORTED_MODULE_0__["default"]
+							.CHECKOUT_COMPLETED,
+						[appContext],
+						{ appContext }
+					)
+				}
 
 				/***/
 			},
@@ -13989,6 +14244,10 @@ var VajroSDK
 				"use strict"
 				__webpack_require__.r(__webpack_exports__)
 				/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+					/* harmony export */ cartCleared: () =>
+						/* reexport safe */ _cart_cleared_cartCleared__WEBPACK_IMPORTED_MODULE_2__.cartCleared,
+					/* harmony export */ checkoutCompleted: () =>
+						/* reexport safe */ _checkout_completed_checkoutCompleted__WEBPACK_IMPORTED_MODULE_1__.checkoutCompleted,
 					/* harmony export */ onPageLoaded: () =>
 						/* reexport safe */ _on_page_loaded_onPageLoaded_trigger__WEBPACK_IMPORTED_MODULE_0__.onPageLoaded
 					/* harmony export */
@@ -13996,6 +14255,14 @@ var VajroSDK
 				/* harmony import */ var _on_page_loaded_onPageLoaded_trigger__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
 						/*! ./on-page-loaded/onPageLoaded.trigger */ "./src/common-triggers/on-page-loaded/onPageLoaded.trigger.ts"
+					)
+				/* harmony import */ var _checkout_completed_checkoutCompleted__WEBPACK_IMPORTED_MODULE_1__ =
+					__webpack_require__(
+						/*! ./checkout-completed/checkoutCompleted */ "./src/common-triggers/checkout-completed/checkoutCompleted.ts"
+					)
+				/* harmony import */ var _cart_cleared_cartCleared__WEBPACK_IMPORTED_MODULE_2__ =
+					__webpack_require__(
+						/*! ./cart-cleared/cartCleared */ "./src/common-triggers/cart-cleared/cartCleared.ts"
 					)
 
 				/***/
@@ -14021,10 +14288,14 @@ var VajroSDK
 						/*! ../../communications/listeners */ "./src/communications/listeners.ts"
 					)
 
-				var onPageLoaded = function (appContext, product) {
+				const onPageLoaded = (appContext, product) => {
 					;(0, _communications_listeners__WEBPACK_IMPORTED_MODULE_1__.dispatch)(
 						_constants_triggers__WEBPACK_IMPORTED_MODULE_0__["default"].ON_PAGE_LOADED,
-						[appContext, product]
+						[appContext, product],
+						{
+							appContext,
+							product
+						}
 					)
 				}
 
@@ -14050,53 +14321,60 @@ var VajroSDK
 				/* harmony import */ var nanoid__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
 					/*! nanoid */ "./node_modules/nanoid/index.browser.js"
 				)
-
-				var actionDidComplete = function (json) {
-					try {
-						var _a = json.error,
-							error = _a === void 0 ? null : _a,
-							_b = json.appContext,
-							appContext = _b === void 0 ? null : _b,
-							_c = json.lineItem,
-							lineItem = _c === void 0 ? null : _c,
-							actionId = json.actionId,
-							_d = json.value,
-							value = _d === void 0 ? null : _d
-						var dispatchHandler = (0,
-						_utils_actionHub__WEBPACK_IMPORTED_MODULE_0__.getFromHub)(actionId)
-						if (!dispatchHandler)
-							throw {
-								code: 1125,
-								type: "Internal SDK Error",
-								message: "Dispatch Handler not found"
+				var __rest =
+					(undefined && undefined.__rest) ||
+					function (s, e) {
+						var t = {}
+						for (var p in s)
+							if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+								t[p] = s[p]
+						if (s != null && typeof Object.getOwnPropertySymbols === "function")
+							for (
+								var i = 0, p = Object.getOwnPropertySymbols(s);
+								i < p.length;
+								i++
+							) {
+								if (
+									e.indexOf(p[i]) < 0 &&
+									Object.prototype.propertyIsEnumerable.call(s, p[i])
+								)
+									t[p[i]] = s[p[i]]
 							}
-						dispatchHandler && dispatchHandler(appContext, lineItem, error, value)
-					} catch (err) {
-						throw {
-							code: 1125,
-							type: "Internal SDK Error",
-							message: err.message
-						}
+						return t
 					}
+
+				const actionDidComplete = json => {
+					const { error = null, appContext, actionId } = json,
+						res = __rest(json, ["error", "appContext", "actionId"])
+					let dispatchHandler = (0,
+					_utils_actionHub__WEBPACK_IMPORTED_MODULE_0__.getFromHub)(actionId)
+					if (!dispatchHandler)
+						throw {
+							code: 1103,
+							type: "Internal SDK Error",
+							message: "Dispatch Handler not found"
+						}
+					dispatchHandler(appContext, res, error)
+					;(0, _utils_actionHub__WEBPACK_IMPORTED_MODULE_0__.removeFromHub)(actionId)
 				}
-				var dispatch = function (action, data) {
-					var actionId = (0, nanoid__WEBPACK_IMPORTED_MODULE_2__.nanoid)()
-					return new Promise(function (resolve, reject) {
-						var startTime = performance.now()
+				const dispatch = (action, data) => {
+					let actionId = (0, nanoid__WEBPACK_IMPORTED_MODULE_2__.nanoid)()
+					return new Promise((resolve, reject) => {
+						let startTime = performance.now()
 						if (window.webkit && window.webkit.messageHandlers[action]) {
 							// For iOS
 							window.webkit.messageHandlers[action].postMessage(
-								JSON.stringify(Object.assign({}, data, { actionId: actionId }))
+								JSON.stringify(Object.assign({}, data, { actionId }))
 							)
 						} else if (window.appInterface && window.appInterface[action]) {
 							// For Android
 							window.appInterface[action](
-								JSON.stringify(Object.assign({}, data, { actionId: actionId }))
+								JSON.stringify(Object.assign({}, data, { actionId }))
 							)
 						}
-						var actionDidHandler = function (appContext, lineItem, error, value) {
-							var endTime = performance.now()
-							var duration = Math.round(endTime - startTime)
+						const actionDidHandler = (appContext, res, error) => {
+							let endTime = performance.now()
+							let duration = Math.round(endTime - startTime)
 							if (error && Object.keys(error).length) {
 								if (!error.type) {
 									error.type = "App Exception"
@@ -14110,22 +14388,21 @@ var VajroSDK
 									duration
 								)
 							} else {
-								resolve(
-									value
-										? JSON.parse(value)
-										: { appContext: appContext, lineItem: lineItem }
-								)
+								let response = Object.assign({ appContext }, res)
+								resolve(response)
 								;(0, _utils_logger__WEBPACK_IMPORTED_MODULE_1__.logAction)(
 									action,
 									data,
-									value ? value : { appContext: appContext, lineItem: lineItem },
+									response,
 									null,
 									duration
 								)
 							}
 						}
-						;(0,
-						_utils_actionHub__WEBPACK_IMPORTED_MODULE_0__.pushToHub)(actionId, actionDidHandler)
+						;(0, _utils_actionHub__WEBPACK_IMPORTED_MODULE_0__.pushToHub)(
+							actionId,
+							actionDidHandler
+						)
 					})
 				}
 
@@ -14147,8 +14424,8 @@ var VajroSDK
 				/* harmony import */ var _utils_logger__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(/*! ../utils/logger */ "./src/utils/logger.ts")
 
-				var subscribers = {}
-				var subscribe = function (trigger, handler) {
+				const subscribers = {}
+				const subscribe = (trigger, handler) => {
 					var _a
 					if (!subscribers[trigger]) {
 						subscribers[trigger] = [handler]
@@ -14158,13 +14435,15 @@ var VajroSDK
 							: _a.push(handler)
 					}
 				}
-				var dispatch = function (trigger, data) {
-					var handlers = subscribers[trigger]
+				const dispatch = (trigger, data, obj) => {
+					let handlers = subscribers[trigger]
 					if (handlers) {
-						handlers.forEach(function (handler) {
-							handler.apply(void 0, data)
-							;(0,
-							_utils_logger__WEBPACK_IMPORTED_MODULE_0__.logTrigger)(trigger, data)
+						handlers.forEach(handler => {
+							handler(...data)
+							;(0, _utils_logger__WEBPACK_IMPORTED_MODULE_0__.logTrigger)(
+								trigger,
+								obj
+							)
 						})
 					}
 				}
@@ -14192,6 +14471,7 @@ var VajroSDK
 					Actions["SET_VAR"] = "setVar"
 					Actions["GET_VAR"] = "getVar"
 					Actions["NAVIGATE_TO"] = "navigateTo"
+					Actions["SHOW_TOAST_MESSAGE"] = "showToastMessage"
 				})(Actions || (Actions = {}))
 				/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = Actions
 
@@ -14214,6 +14494,8 @@ var VajroSDK
 					Triggers["LINE_ITEM_ADDED_TO_CART"] = "LINE_ITEM_ADDED_TO_CART"
 					Triggers["LINE_ITEM_UPDATED"] = "LINE_ITEM_UPDATED"
 					Triggers["ON_PAGE_LOADED"] = "ON_PAGE_LOADED"
+					Triggers["CHECKOUT_COMPLETED"] = "CHECKOUT_COMPLETED"
+					Triggers["CART_CLEARED"] = "CART_CLEARED"
 				})(Triggers || (Triggers = {}))
 				/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = Triggers
 
@@ -14243,31 +14525,31 @@ var VajroSDK
 					__webpack_require__(
 						/*! ../../../communications/dispatcher */ "./src/communications/dispatcher.ts"
 					)
+				/* harmony import */ var _utils_errorNormalizer__WEBPACK_IMPORTED_MODULE_3__ =
+					__webpack_require__(
+						/*! ../../../utils/errorNormalizer */ "./src/utils/errorNormalizer.ts"
+					)
 
-				var addLineItemToCart = function (
+				const AddLineItemToCart = function (
 					productId,
 					variantId,
 					quantity,
 					customAttributes,
 					lineItemType,
-					unitPrice
+					unitPrice,
+					invokeTrigger
 				) {
-					if (lineItemType === void 0) {
-						lineItemType = "REGULAR"
-					}
-					return new Promise(function (resolve, reject) {
-						if (!quantity) {
-							quantity = 1
+					return new Promise((resolve, reject) => {
+						let data = {
+							productId,
+							variantId,
+							quantity,
+							customAttributes,
+							lineItemType,
+							unitPrice,
+							invokeTrigger
 						}
-						var data = {
-							productId: productId,
-							variantId: variantId,
-							quantity: quantity,
-							customAttributes: customAttributes,
-							lineItemType: lineItemType,
-							unitPrice: unitPrice
-						}
-						var validate = (0,
+						const validate = (0,
 						_addLineItemToCart_schema__WEBPACK_IMPORTED_MODULE_1__.addLineItemToCartSchema)(
 							data
 						)
@@ -14277,10 +14559,10 @@ var VajroSDK
 									.ADD_LINE_ITEM_TO_CART,
 								data
 							)
-								.then(function (data) {
+								.then(data => {
 									resolve(data)
 								})
-								["catch"](function (error) {
+								.catch(error => {
 									reject(error)
 								})
 						} else {
@@ -14288,14 +14570,76 @@ var VajroSDK
 								_addLineItemToCart_schema__WEBPACK_IMPORTED_MODULE_1__
 									.addLineItemToCartSchema.errors
 							) {
-								reject({
-									status: "error",
-									errors: _addLineItemToCart_schema__WEBPACK_IMPORTED_MODULE_1__
+								let error = (0,
+								_utils_errorNormalizer__WEBPACK_IMPORTED_MODULE_3__.normalizeError)(
+									_addLineItemToCart_schema__WEBPACK_IMPORTED_MODULE_1__
 										.addLineItemToCartSchema.errors
-								})
+								)
+								reject(error)
 							}
 						}
 					})
+				}
+				const AddLineItemToCartBuilder = function () {
+					let productId
+					let variantId = null
+					let quantity = 1
+					let customAttributes = {}
+					let lineItemType = "REGULAR"
+					let unitPrice = null
+					let invokeTrigger = true
+					return {
+						setProductId(value) {
+							productId = value
+							return this
+						},
+						setVariantId(value) {
+							variantId = value
+							return this
+						},
+						setQuantity(value) {
+							quantity = value
+							return this
+						},
+						setCustomAttributes(value) {
+							customAttributes = value
+							return this
+						},
+						setLineItemType(value) {
+							lineItemType = value
+							return this
+						},
+						setUnitPrice(value) {
+							unitPrice = value
+							return this
+						},
+						setInvokeTrigger(value) {
+							invokeTrigger = value
+							return this
+						},
+						exec() {
+							if (!productId) {
+								let error = {
+									code: 1101,
+									message: "productId is missing",
+									type: "Internal SDK Error"
+								}
+								return Promise.reject(error)
+							}
+							return AddLineItemToCart(
+								productId,
+								variantId,
+								quantity,
+								customAttributes,
+								lineItemType,
+								unitPrice,
+								invokeTrigger
+							)
+						}
+					}
+				}
+				const addLineItemToCart = function () {
+					return new AddLineItemToCartBuilder()
 				}
 
 				/***/
@@ -14320,26 +14664,27 @@ var VajroSDK
 				/* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_0___default =
 					/*#__PURE__*/ __webpack_require__.n(ajv__WEBPACK_IMPORTED_MODULE_0__)
 
-				var ajv = new (ajv__WEBPACK_IMPORTED_MODULE_0___default())()
+				const ajv = new (ajv__WEBPACK_IMPORTED_MODULE_0___default())()
 				var LineItemType
 				;(function (LineItemType) {
 					LineItemType["REGULAR"] = "REGULAR"
 					LineItemType["HIDDEN"] = "HIDDEN"
 				})(LineItemType || (LineItemType = {}))
-				var schema = {
+				const schema = {
 					type: "object",
 					properties: {
 						productId: { type: "string", nullable: false },
 						variantId: { type: "string", nullable: true },
-						quantity: { type: "integer", nullable: true },
+						quantity: { type: "integer", nullable: false },
 						customAttributes: { type: "object", nullable: true },
 						lineItemType: { type: "string", nullable: false },
-						unitPrice: { type: "number", nullable: true }
+						unitPrice: { type: "number", nullable: true },
+						invokeTrigger: { type: "boolean", nullable: false }
 					},
-					required: ["productId"],
+					required: ["productId", "invokeTrigger"],
 					additionalProperties: false
 				}
-				var addLineItemToCartSchema = ajv.compile(schema)
+				const addLineItemToCartSchema = ajv.compile(schema)
 
 				/***/
 			},
@@ -14366,18 +14711,27 @@ var VajroSDK
 						/*! ../../../communications/listeners */ "./src/communications/listeners.ts"
 					)
 
-				var lineItemAddedToCart = function (appContext, lineItem) {
+				const lineItemAddedToCart = (appContext, lineItem) => {
 					;(0, _communications_listeners__WEBPACK_IMPORTED_MODULE_1__.dispatch)(
 						_constants_triggers__WEBPACK_IMPORTED_MODULE_0__["default"]
 							.LINE_ITEM_ADDED_TO_CART,
-						[appContext, lineItem]
+						[appContext, lineItem],
+						{
+							appContext,
+							lineItem
+						}
 					)
 				}
-				var lineItemUpdated = function (appContext, updateType, lineItem) {
+				const lineItemUpdated = (appContext, updateType, lineItem) => {
 					;(0, _communications_listeners__WEBPACK_IMPORTED_MODULE_1__.dispatch)(
 						_constants_triggers__WEBPACK_IMPORTED_MODULE_0__["default"]
 							.LINE_ITEM_UPDATED,
-						[appContext, updateType, lineItem]
+						[appContext, updateType, lineItem],
+						{
+							appContext,
+							updateType,
+							lineItem
+						}
 					)
 				}
 
@@ -14399,49 +14753,82 @@ var VajroSDK
 					__webpack_require__(
 						/*! ../../../constants/actions */ "./src/constants/actions.ts"
 					)
-				/* harmony import */ var _navigateTo_schema__WEBPACK_IMPORTED_MODULE_1__ =
-					__webpack_require__(
-						/*! ./navigateTo.schema */ "./src/methods/cart/navigate-to/navigateTo.schema.ts"
-					)
-				/* harmony import */ var _communications_dispatcher__WEBPACK_IMPORTED_MODULE_2__ =
+				/* harmony import */ var _communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__ =
 					__webpack_require__(
 						/*! ../../../communications/dispatcher */ "./src/communications/dispatcher.ts"
 					)
+				/* harmony import */ var _navigateTo_schema__WEBPACK_IMPORTED_MODULE_2__ =
+					__webpack_require__(
+						/*! ./navigateTo.schema */ "./src/methods/cart/navigate-to/navigateTo.schema.ts"
+					)
+				/* harmony import */ var _utils_errorNormalizer__WEBPACK_IMPORTED_MODULE_3__ =
+					__webpack_require__(
+						/*! ../../../utils/errorNormalizer */ "./src/utils/errorNormalizer.ts"
+					)
 
-				var navigateTo = function (navigationType, handle) {
-					return new Promise(function (resolve, reject) {
-						var data = {
-							navigationType: navigationType,
-							handle: handle
+				const NavigateTo = function (navigationType, handle) {
+					return new Promise((resolve, reject) => {
+						let data = {
+							navigationType,
+							handle
 						}
-						var validate = (0,
-						_navigateTo_schema__WEBPACK_IMPORTED_MODULE_1__.navigateToSchema)(data)
+						const validate = (0,
+						_navigateTo_schema__WEBPACK_IMPORTED_MODULE_2__.navigateToSchema)(data)
 						console.log(validate, "validate")
 						if (validate) {
-							;(0, _communications_dispatcher__WEBPACK_IMPORTED_MODULE_2__.dispatch)(
+							;(0, _communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__.dispatch)(
 								_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"]
 									.NAVIGATE_TO,
 								data
 							)
-								.then(function (data) {
+								.then(data => {
 									resolve(data)
 								})
-								["catch"](function (error) {
+								.catch(error => {
 									reject(error)
 								})
 						} else {
 							if (
-								_navigateTo_schema__WEBPACK_IMPORTED_MODULE_1__.navigateToSchema
+								_navigateTo_schema__WEBPACK_IMPORTED_MODULE_2__.navigateToSchema
 									.errors
 							) {
-								reject({
-									status: "error",
-									errors: _navigateTo_schema__WEBPACK_IMPORTED_MODULE_1__
-										.navigateToSchema.errors
-								})
+								let error = (0,
+								_utils_errorNormalizer__WEBPACK_IMPORTED_MODULE_3__.normalizeError)(
+									_navigateTo_schema__WEBPACK_IMPORTED_MODULE_2__.navigateToSchema
+										.errors
+								)
+								reject(error)
 							}
 						}
 					})
+				}
+				const navigateToBuilder = function () {
+					let navigationType
+					let handle = null
+					return {
+						setNavigationType(value) {
+							navigationType = value
+							return this
+						},
+						setHandle(value) {
+							handle = value
+							return this
+						},
+						exec() {
+							if (!navigationType) {
+								let error = {
+									code: 1101,
+									message: "Invalid navigation type",
+									type: "Internal SDK Error"
+								}
+								return Promise.reject(error)
+							}
+							return NavigateTo(navigationType, handle)
+						}
+					}
+				}
+				const navigateTo = function () {
+					return new navigateToBuilder()
 				}
 
 				/***/
@@ -14465,7 +14852,7 @@ var VajroSDK
 				/* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_0___default =
 					/*#__PURE__*/ __webpack_require__.n(ajv__WEBPACK_IMPORTED_MODULE_0__)
 
-				var ajv = new (ajv__WEBPACK_IMPORTED_MODULE_0___default())()
+				const ajv = new (ajv__WEBPACK_IMPORTED_MODULE_0___default())()
 				var NavigationType
 				;(function (NavigationType) {
 					NavigationType["HOME"] = "home"
@@ -14473,7 +14860,7 @@ var VajroSDK
 					NavigationType["PDP"] = "pdp"
 					NavigationType["COLLECTION"] = "collection"
 				})(NavigationType || (NavigationType = {}))
-				var schema = {
+				const schema = {
 					type: "object",
 					properties: {
 						navigationType: { type: "string", nullable: false, minLength: 1 },
@@ -14482,7 +14869,7 @@ var VajroSDK
 					required: ["navigationType"],
 					additionalProperties: false
 				}
-				var navigateToSchema = ajv.compile(schema)
+				const navigateToSchema = ajv.compile(schema)
 
 				/***/
 			},
@@ -14507,19 +14894,23 @@ var VajroSDK
 					__webpack_require__(
 						/*! ../../../communications/dispatcher */ "./src/communications/dispatcher.ts"
 					)
-				/* harmony import */ var _removeLineItemFromCart_schema__WEBPACK_IMPORTED_MODULE_2__ =
+				/* harmony import */ var _utils_errorNormalizer__WEBPACK_IMPORTED_MODULE_2__ =
+					__webpack_require__(
+						/*! ../../../utils/errorNormalizer */ "./src/utils/errorNormalizer.ts"
+					)
+				/* harmony import */ var _removeLineItemFromCart_schema__WEBPACK_IMPORTED_MODULE_3__ =
 					__webpack_require__(
 						/*! ./removeLineItemFromCart.schema */ "./src/methods/cart/remove-line-item-from-cart/removeLineItemFromCart.schema.ts"
 					)
 
-				var removeLineItemFromCart = function (lineItemHandle, quantity) {
-					return new Promise(function (resolve, reject) {
-						var data = {
-							lineItemHandle: lineItemHandle,
-							quantity: quantity
+				const RemoveLineItemFromCart = function (lineItemHandle, quantity) {
+					return new Promise((resolve, reject) => {
+						let data = {
+							lineItemHandle,
+							quantity
 						}
-						var validate = (0,
-						_removeLineItemFromCart_schema__WEBPACK_IMPORTED_MODULE_2__.removeLineItemFromCartSchema)(
+						const validate = (0,
+						_removeLineItemFromCart_schema__WEBPACK_IMPORTED_MODULE_3__.removeLineItemFromCartSchema)(
 							data
 						)
 						if (validate) {
@@ -14531,25 +14922,54 @@ var VajroSDK
 									.REMOVE_LINE_ITEM_FROM_CART,
 								data
 							)
-								.then(function (data) {
+								.then(data => {
 									resolve(data)
 								})
-								["catch"](function (error) {
+								.catch(error => {
 									reject(error)
 								})
 						} else {
 							if (
-								_removeLineItemFromCart_schema__WEBPACK_IMPORTED_MODULE_2__
+								_removeLineItemFromCart_schema__WEBPACK_IMPORTED_MODULE_3__
 									.removeLineItemFromCartSchema.errors
 							) {
-								reject({
-									status: "error",
-									errors: _removeLineItemFromCart_schema__WEBPACK_IMPORTED_MODULE_2__
+								let error = (0,
+								_utils_errorNormalizer__WEBPACK_IMPORTED_MODULE_2__.normalizeError)(
+									_removeLineItemFromCart_schema__WEBPACK_IMPORTED_MODULE_3__
 										.removeLineItemFromCartSchema.errors
-								})
+								)
+								reject(error)
 							}
 						}
 					})
+				}
+				const removeLineItemFromCartBuilder = function () {
+					let lineItemHandle
+					let quantity = null
+					return {
+						setLineItemHandle(value) {
+							lineItemHandle = value
+							return this
+						},
+						setQuantity(value) {
+							quantity = value
+							return this
+						},
+						exec() {
+							if (!lineItemHandle) {
+								let error = {
+									code: 1101,
+									message: "Invalid LineItemHandle",
+									type: "Internal SDK Error"
+								}
+								return Promise.reject(error)
+							}
+							return RemoveLineItemFromCart(lineItemHandle, quantity)
+						}
+					}
+				}
+				const removeLineItemFromCart = function () {
+					return new removeLineItemFromCartBuilder()
 				}
 
 				/***/
@@ -14574,8 +14994,8 @@ var VajroSDK
 				/* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_0___default =
 					/*#__PURE__*/ __webpack_require__.n(ajv__WEBPACK_IMPORTED_MODULE_0__)
 
-				var ajv = new (ajv__WEBPACK_IMPORTED_MODULE_0___default())()
-				var schema = {
+				const ajv = new (ajv__WEBPACK_IMPORTED_MODULE_0___default())()
+				const schema = {
 					type: "object",
 					properties: {
 						lineItemHandle: { type: "string", nullable: false },
@@ -14584,7 +15004,7 @@ var VajroSDK
 					required: ["lineItemHandle"],
 					additionalProperties: false
 				}
-				var removeLineItemFromCartSchema = ajv.compile(schema)
+				const removeLineItemFromCartSchema = ajv.compile(schema)
 
 				/***/
 			},
@@ -14605,60 +15025,105 @@ var VajroSDK
 					__webpack_require__(
 						/*! ../../../constants/actions */ "./src/constants/actions.ts"
 					)
-				/* harmony import */ var _setCodeBlockContent_schema__WEBPACK_IMPORTED_MODULE_1__ =
-					__webpack_require__(
-						/*! ./setCodeBlockContent.schema */ "./src/methods/cart/set-code-block-content/setCodeBlockContent.schema.ts"
-					)
-				/* harmony import */ var _communications_dispatcher__WEBPACK_IMPORTED_MODULE_2__ =
+				/* harmony import */ var _communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__ =
 					__webpack_require__(
 						/*! ../../../communications/dispatcher */ "./src/communications/dispatcher.ts"
 					)
+				/* harmony import */ var _utils_errorNormalizer__WEBPACK_IMPORTED_MODULE_2__ =
+					__webpack_require__(
+						/*! ../../../utils/errorNormalizer */ "./src/utils/errorNormalizer.ts"
+					)
+				/* harmony import */ var _setCodeBlockContent_schema__WEBPACK_IMPORTED_MODULE_3__ =
+					__webpack_require__(
+						/*! ./setCodeBlockContent.schema */ "./src/methods/cart/set-code-block-content/setCodeBlockContent.schema.ts"
+					)
 
-				var setCodeBlockContent = function (
+				const SetCodeBlockContent = function (
 					codeBlockId,
 					contentType,
 					contentData,
 					visibility
 				) {
-					if (visibility === void 0) {
-						visibility = true
-					}
-					return new Promise(function (resolve, reject) {
-						var data = {
-							codeBlockId: codeBlockId,
-							contentType: contentType,
-							contentData: contentData,
-							visibility: visibility
+					return new Promise((resolve, reject) => {
+						let data = {
+							codeBlockId,
+							contentType,
+							contentData,
+							visibility
 						}
-						var validate = (0,
-						_setCodeBlockContent_schema__WEBPACK_IMPORTED_MODULE_1__.setCodeBlockContentSchema)(
+						const validate = (0,
+						_setCodeBlockContent_schema__WEBPACK_IMPORTED_MODULE_3__.setCodeBlockContentSchema)(
 							data
 						)
 						if (validate) {
-							;(0, _communications_dispatcher__WEBPACK_IMPORTED_MODULE_2__.dispatch)(
+							;(0, _communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__.dispatch)(
 								_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"]
 									.SET_CODE_BLOCK_CONTENT,
 								data
 							)
-								.then(function (data) {
+								.then(data => {
 									resolve(data)
 								})
-								["catch"](function (error) {
+								.catch(error => {
 									reject(error)
 								})
 						} else {
 							if (
-								_setCodeBlockContent_schema__WEBPACK_IMPORTED_MODULE_1__
+								_setCodeBlockContent_schema__WEBPACK_IMPORTED_MODULE_3__
 									.setCodeBlockContentSchema.errors
 							) {
-								reject({
-									status: "error",
-									errors: _setCodeBlockContent_schema__WEBPACK_IMPORTED_MODULE_1__
+								let error = (0,
+								_utils_errorNormalizer__WEBPACK_IMPORTED_MODULE_2__.normalizeError)(
+									_setCodeBlockContent_schema__WEBPACK_IMPORTED_MODULE_3__
 										.setCodeBlockContentSchema.errors
-								})
+								)
+								reject(error)
 							}
 						}
 					})
+				}
+				const setCodeBlockContentBuilder = function () {
+					let codeBlockId
+					let contentType
+					let contentData
+					let visibility = true
+					return {
+						setCodeBlockId(value) {
+							codeBlockId = value
+							return this
+						},
+						setContentType(value) {
+							contentType = value
+							return this
+						},
+						setContentData(value) {
+							contentData = value
+							return this
+						},
+						setVisibility(value) {
+							visibility = value
+							return this
+						},
+						exec() {
+							if (!codeBlockId && !contentType && !contentData) {
+								let error = {
+									code: 1101,
+									message: "Parameter's Value Empty",
+									type: "Internal SDK Error"
+								}
+								return Promise.reject(error)
+							}
+							return SetCodeBlockContent(
+								codeBlockId,
+								contentType,
+								contentData,
+								visibility
+							)
+						}
+					}
+				}
+				const setCodeBlockContent = function () {
+					return new setCodeBlockContentBuilder()
 				}
 
 				/***/
@@ -14683,7 +15148,7 @@ var VajroSDK
 				/* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_0___default =
 					/*#__PURE__*/ __webpack_require__.n(ajv__WEBPACK_IMPORTED_MODULE_0__)
 
-				var ajv = new (ajv__WEBPACK_IMPORTED_MODULE_0___default())()
+				const ajv = new (ajv__WEBPACK_IMPORTED_MODULE_0___default())()
 				var codeBlockId
 				;(function (codeBlockId) {
 					codeBlockId["ABOVE_IMAGE_CAROUSEL"] = "above_image_carousel"
@@ -14705,7 +15170,7 @@ var VajroSDK
 					contentType["URL"] = "url"
 					contentType["CODE"] = "code"
 				})(contentType || (contentType = {}))
-				var schema = {
+				const schema = {
 					type: "object",
 					properties: {
 						codeBlockId: { type: "string", nullable: false },
@@ -14716,7 +15181,7 @@ var VajroSDK
 					required: ["codeBlockId", "contentType", "contentData"],
 					additionalProperties: false
 				}
-				var setCodeBlockContentSchema = ajv.compile(schema)
+				const setCodeBlockContentSchema = ajv.compile(schema)
 
 				/***/
 			},
@@ -14737,62 +15202,113 @@ var VajroSDK
 					__webpack_require__(
 						/*! ../../../constants/actions */ "./src/constants/actions.ts"
 					)
-				/* harmony import */ var _updateLineItemInCart_schema__WEBPACK_IMPORTED_MODULE_1__ =
-					__webpack_require__(
-						/*! ./updateLineItemInCart.schema */ "./src/methods/cart/update-line-item-in-cart/updateLineItemInCart.schema.ts"
-					)
-				/* harmony import */ var _communications_dispatcher__WEBPACK_IMPORTED_MODULE_2__ =
+				/* harmony import */ var _communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__ =
 					__webpack_require__(
 						/*! ../../../communications/dispatcher */ "./src/communications/dispatcher.ts"
 					)
+				/* harmony import */ var _utils_errorNormalizer__WEBPACK_IMPORTED_MODULE_2__ =
+					__webpack_require__(
+						/*! ../../../utils/errorNormalizer */ "./src/utils/errorNormalizer.ts"
+					)
+				/* harmony import */ var _updateLineItemInCart_schema__WEBPACK_IMPORTED_MODULE_3__ =
+					__webpack_require__(
+						/*! ./updateLineItemInCart.schema */ "./src/methods/cart/update-line-item-in-cart/updateLineItemInCart.schema.ts"
+					)
 
-				var updateLineItemInCart = function (
+				const UpdateLineItemInCart = function (
 					lineItemHandle,
 					quantity,
 					lineItemType,
 					customAttributes,
 					unitPrice
 				) {
-					if (lineItemType === void 0) {
-						lineItemType = "REGULAR"
-					}
-					return new Promise(function (resolve, reject) {
-						var data = {
-							lineItemHandle: lineItemHandle,
-							quantity: quantity,
-							lineItemType: lineItemType,
-							customAttributes: customAttributes,
-							unitPrice: unitPrice
+					return new Promise((resolve, reject) => {
+						let data = {
+							lineItemHandle,
+							quantity,
+							lineItemType,
+							customAttributes,
+							unitPrice
 						}
-						var validate = (0,
-						_updateLineItemInCart_schema__WEBPACK_IMPORTED_MODULE_1__.updateLineItemInCartSchema)(
+						const validate = (0,
+						_updateLineItemInCart_schema__WEBPACK_IMPORTED_MODULE_3__.updateLineItemInCartSchema)(
 							data
 						)
 						if (validate) {
-							;(0, _communications_dispatcher__WEBPACK_IMPORTED_MODULE_2__.dispatch)(
+							;(0, _communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__.dispatch)(
 								_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"]
 									.UPDATE_LINE_ITEM_IN_CART,
 								data
 							)
-								.then(function (data) {
+								.then(data => {
 									resolve(data)
 								})
-								["catch"](function (error) {
+								.catch(error => {
 									reject(error)
 								})
 						} else {
 							if (
-								_updateLineItemInCart_schema__WEBPACK_IMPORTED_MODULE_1__
+								_updateLineItemInCart_schema__WEBPACK_IMPORTED_MODULE_3__
 									.updateLineItemInCartSchema.errors
 							) {
-								reject({
-									status: "error",
-									errors: _updateLineItemInCart_schema__WEBPACK_IMPORTED_MODULE_1__
+								let error = (0,
+								_utils_errorNormalizer__WEBPACK_IMPORTED_MODULE_2__.normalizeError)(
+									_updateLineItemInCart_schema__WEBPACK_IMPORTED_MODULE_3__
 										.updateLineItemInCartSchema.errors
-								})
+								)
+								reject(error)
 							}
 						}
 					})
+				}
+				const updateLineItemInCartBuilder = function () {
+					let lineItemHandle
+					let quantity
+					let lineItemType = "REGULAR"
+					let customAttributes = {}
+					let unitPrice = null
+					return {
+						setLineItemHandle(value) {
+							lineItemHandle = value
+							return this
+						},
+						setQuantity(value) {
+							quantity = value
+							return this
+						},
+						setLineItemType(value) {
+							lineItemType = value
+							return this
+						},
+						setCustomAttributes(value) {
+							customAttributes = value
+							return this
+						},
+						setUnitPrice(value) {
+							unitPrice = value
+							return this
+						},
+						exec() {
+							if (!lineItemHandle) {
+								let error = {
+									code: 1101,
+									message: "Invalid LineItemHandle",
+									type: "Internal SDK Error"
+								}
+								return Promise.reject(error)
+							}
+							return UpdateLineItemInCart(
+								lineItemHandle,
+								quantity,
+								lineItemType,
+								customAttributes,
+								unitPrice
+							)
+						}
+					}
+				}
+				const updateLineItemInCart = function () {
+					return new updateLineItemInCartBuilder()
 				}
 
 				/***/
@@ -14817,14 +15333,14 @@ var VajroSDK
 				/* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_0___default =
 					/*#__PURE__*/ __webpack_require__.n(ajv__WEBPACK_IMPORTED_MODULE_0__)
 
-				var ajv = new (ajv__WEBPACK_IMPORTED_MODULE_0___default())()
+				const ajv = new (ajv__WEBPACK_IMPORTED_MODULE_0___default())()
 				var LineItemType
 				;(function (LineItemType) {
 					LineItemType["REGULAR"] = "REGULAR"
 					LineItemType["HIDDEN"] = "HIDDEN"
 					LineItemType["READONLY"] = "READ-ONLY"
 				})(LineItemType || (LineItemType = {}))
-				var schema = {
+				const schema = {
 					type: "object",
 					properties: {
 						lineItemHandle: { type: "string", nullable: false },
@@ -14836,7 +15352,7 @@ var VajroSDK
 					required: ["lineItemHandle"],
 					additionalProperties: false
 				}
-				var updateLineItemInCartSchema = ajv.compile(schema)
+				const updateLineItemInCartSchema = ajv.compile(schema)
 
 				/***/
 			},
@@ -14902,17 +15418,23 @@ var VajroSDK
 				__webpack_require__.r(__webpack_exports__)
 				/* harmony export */ __webpack_require__.d(__webpack_exports__, {
 					/* harmony export */ getFromHub: () => /* binding */ getFromHub,
-					/* harmony export */ pushToHub: () => /* binding */ pushToHub
+					/* harmony export */ pushToHub: () => /* binding */ pushToHub,
+					/* harmony export */ removeFromHub: () => /* binding */ removeFromHub
 					/* harmony export */
 				})
-				var hub = {}
-				var pushToHub = function (key, func) {
+				const hub = {}
+				const pushToHub = (key, func) => {
 					if (hub[key]) return false
 					hub[key] = func
 				}
-				var getFromHub = function (key) {
+				const getFromHub = key => {
 					if (!hub[key]) return false
 					return hub[key]
+				}
+				const removeFromHub = key => {
+					if (hub[key]) {
+						Reflect.deleteProperty(hub, key)
+					}
 				}
 
 				/***/
@@ -14930,25 +15452,26 @@ var VajroSDK
 					/* harmony export */ initAppInfo: () => /* binding */ initAppInfo
 					/* harmony export */
 				})
-				var appInfo = {
+				let appInfo = {
 					appId: null,
 					appVersion: null,
-					mobilePlatform: null
+					mobilePlatform: null,
+					location: null
 				}
-				var initAppInfo = function () {
+				const initAppInfo = () => {
 					if (window.appInfo) {
 						appInfo = window.appInfo
 					} else {
-						var queryObj = new URLSearchParams(location.search)
+						let queryObj = new URLSearchParams(location.search)
 						if (queryObj.has("appInfo")) {
 							try {
-								var appInfoObj = JSON.parse(
+								let appInfoObj = JSON.parse(
 									decodeURIComponent(queryObj.get("appInfo") || "{}")
 								)
 								appInfo = appInfoObj
 							} catch (err) {
 								throw {
-									code: 1005,
+									code: 1102,
 									type: "Internal SDK Error",
 									message: "App info already initialized"
 								}
@@ -14956,8 +15479,30 @@ var VajroSDK
 						}
 					}
 				}
-				var getAppInfo = function () {
+				const getAppInfo = () => {
 					return appInfo
+				}
+
+				/***/
+			},
+
+		/***/ "./src/utils/errorNormalizer.ts":
+			/*!**************************************!*\
+  !*** ./src/utils/errorNormalizer.ts ***!
+  \**************************************/
+			/***/ (__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+				"use strict"
+				__webpack_require__.r(__webpack_exports__)
+				/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+					/* harmony export */ normalizeError: () => /* binding */ normalizeError
+					/* harmony export */
+				})
+				const normalizeError = value => {
+					return {
+						code: 1100,
+						message: value[0].instancePath.replace("/", "") + " " + value[0].message,
+						type: "Internal SDK Error"
+					}
 				}
 
 				/***/
@@ -14982,34 +15527,32 @@ var VajroSDK
 				/* harmony import */ var _appInfo__WEBPACK_IMPORTED_MODULE_1__ =
 					__webpack_require__(/*! ./appInfo */ "./src/utils/appInfo.ts")
 
-				var initLog = function () {
+				const initLog = () => {
 					_datadog_browser_logs__WEBPACK_IMPORTED_MODULE_0__.datadogLogs.init({
 						clientToken: "pub80a531df319db500fb0a92b7316a1bea",
 						site: "datadoghq.com",
 						forwardErrorsToLogs: true,
 						sampleRate: 100,
-						env: "production",
 						service: "js-sdk"
 					})
 				}
-				var log = function (info) {
+				const log = info => {
 					_datadog_browser_logs__WEBPACK_IMPORTED_MODULE_0__.datadogLogs.logger.info(
 						"Vajro JS SDK Logs",
-						info
+						Object.assign(Object.assign({}, info), { env: "production" })
 					)
 				}
-				var logAction = function (action, data, output, error, duration) {
-					var _a = (0, _appInfo__WEBPACK_IMPORTED_MODULE_1__.getAppInfo)(),
-						appId = _a.appId,
-						appVersion = _a.appVersion,
-						mobilePlatform = _a.mobilePlatform
-					var info = {
+				const logAction = (action, data, output, error, duration) => {
+					let { appId, appVersion, mobilePlatform, location } = (0,
+					_appInfo__WEBPACK_IMPORTED_MODULE_1__.getAppInfo)()
+					const info = {
 						app: {
 							app_id: appId,
 							app_version: appVersion,
 							mobile_platform: mobilePlatform,
 							time_utc: Math.round(Date.now() / 1000),
-							duration: duration,
+							duration,
+							location,
 							action: {
 								name: action,
 								input_params: data,
@@ -15020,16 +15563,15 @@ var VajroSDK
 					}
 					log(info)
 				}
-				var logTrigger = function (trigger, data) {
-					var _a = (0, _appInfo__WEBPACK_IMPORTED_MODULE_1__.getAppInfo)(),
-						appId = _a.appId,
-						appVersion = _a.appVersion,
-						mobilePlatform = _a.mobilePlatform
-					var info = {
+				const logTrigger = (trigger, data) => {
+					let { appId, appVersion, mobilePlatform, location } = (0,
+					_appInfo__WEBPACK_IMPORTED_MODULE_1__.getAppInfo)()
+					const info = {
 						app: {
 							app_id: appId,
 							app_version: appVersion,
 							mobile_platform: mobilePlatform,
+							location,
 							time_utc: Math.round(Date.now() / 1000),
 							trigger: {
 								name: trigger,
@@ -17300,6 +17842,10 @@ var VajroSDK
 				/* reexport safe */ _communications_dispatcher__WEBPACK_IMPORTED_MODULE_2__.actionDidComplete,
 			/* harmony export */ addLineItemToCart: () =>
 				/* reexport safe */ _methods_methods__WEBPACK_IMPORTED_MODULE_0__.addLineItemToCart,
+			/* harmony export */ cartCleared: () =>
+				/* reexport safe */ _common_triggers_commonTriggers__WEBPACK_IMPORTED_MODULE_5__.cartCleared,
+			/* harmony export */ checkoutCompleted: () =>
+				/* reexport safe */ _common_triggers_commonTriggers__WEBPACK_IMPORTED_MODULE_5__.checkoutCompleted,
 			/* harmony export */ getVar: () =>
 				/* reexport safe */ _common_actions_commonActions__WEBPACK_IMPORTED_MODULE_1__.getVar,
 			/* harmony export */ lineItemAddedToCart: () =>
@@ -17316,6 +17862,8 @@ var VajroSDK
 				/* reexport safe */ _methods_methods__WEBPACK_IMPORTED_MODULE_0__.setCodeBlockContent,
 			/* harmony export */ setVar: () =>
 				/* reexport safe */ _common_actions_commonActions__WEBPACK_IMPORTED_MODULE_1__.setVar,
+			/* harmony export */ showToastMessage: () =>
+				/* reexport safe */ _common_actions_commonActions__WEBPACK_IMPORTED_MODULE_1__.showToastMessage,
 			/* harmony export */ subscribe: () =>
 				/* reexport safe */ _communications_listeners__WEBPACK_IMPORTED_MODULE_4__.subscribe,
 			/* harmony export */ updateLineItemInCart: () =>
