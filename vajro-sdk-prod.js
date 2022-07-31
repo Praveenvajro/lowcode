@@ -10572,11 +10572,20 @@ const GetVar = function (key) {
                 if (output) {
                     output.innerHTML += `<div><span style="color:blue;">Get Var: </span><span>${JSON.stringify(data)}</span></div>`;
                 }
-                try {
-                    resolve(JSON.parse(data.value));
+                if (typeof data.value === 'string') {
+                    try {
+                        resolve(JSON.parse(data.value));
+                    }
+                    catch (err) {
+                        reject({
+                            code: 1102,
+                            type: 'Internal SDK Error',
+                            message: 'Getter value parse failed'
+                        });
+                    }
                 }
-                catch (err) {
-                    reject(err);
+                else {
+                    resolve(data.value);
                 }
             })
                 .catch((error) => {
