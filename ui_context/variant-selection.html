@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./ui-sdk.js"></script>
+</head>
+<body>
+    
+    <button type="button" id="option_selections" name="option_selections" onclick="optionSelection()">Variant Selection</button>
+    <script>
+        function optionSelection(){
+            const custom_option = [
+                {
+                    "id": "#2df%",
+                    "targetOption": "color",
+                    "optionValue": "Custom Color"
+                },
+                {
+                    "id": "#ewwer3%",
+                    "targetOption": "size",
+                    "optionValue": "Custom Form"
+                }
+            ]
+            VajroSDK.ui.pdp.variantSelection()
+                .setSelectedBgColor("#7FFD4")
+                .setUnSelectedBgColor("#00008B")
+                .setSelectedTextColor("#808080")
+                .setUnSelectedTextColor("#FFFFFF")
+                .setShape("BOX")
+                .setRadius(1)
+                .setBorderColor("#000000")
+                .setFontSize(14)
+                .setFontStyle("BOLD")
+                .setCustomOptions(custom_option)
+                .exec()
+                .then(() => {
+                    console.log("weew")
+							alert("success")
+						})
+						.catch(err => {
+                            console.log(err)
+							alert("error")
+						})
+        }
+    </script>
+</body>
+</html>
