@@ -56,7 +56,51 @@
             </button>
         </div>
         <script>
-            function handleAddProducts() {}
+            let productIds = [
+                '7316599177368',
+                '7316598522008',
+                '7316601405592'
+            ];
+
+            let wronProductIds = [
+                '7316599177368',
+                '7316598522009',
+                '7316601405592'
+            ];
+
+            function handleAddProducts() {
+                let addMultipleProducts = VajroSDK.addMultipleLineItemsToCart();
+                productIds.forEach((id) => {
+                    let lineItem = VajroSDK.utils
+                        .lineItem()
+                        .setProductId(id)
+                        .create();
+                    addMultipleProducts.setProduct(lineItem);
+                });
+
+                addMultipleProducts
+                    .exec()
+                    .then(() => {
+                        VajroSDK.showToastMessage().setMessage(
+                            'Bulk add successfully done'
+                        );
+                    })
+                    .catch(() => {
+                        VajroSDK.showToastMessage().setMessage(
+                            'Bulk add has some error'
+                        );
+                    });
+            }
+
+            function handleAddProductsFail() {}
+
+            function handleUpdateProducts() {}
+
+            function handleUpdateProductsFail() {}
+
+            function handleRemoveProducts() {}
+
+            function handleRemoveProductsFail() {}
         </script>
     </body>
 </html>
