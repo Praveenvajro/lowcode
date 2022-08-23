@@ -9,33 +9,50 @@
             .container {
                 display: flex;
             }
-            button {
-                padding: 5px;
+            .button-success {
+                padding: 8px;
                 margin: 10px;
+                flex: 1;
+                background-color: #14e014;
+                border: none;
+                border-radius: 4px;
+                box-shadow: 2px 2px grey;
+            }
+            .button-fail {
+                padding: 8px;
+                margin: 10px;
+                flex: 1;
+                background-color: #ef1c1c;
+                border: none;
+                border-radius: 4px;
+                box-shadow: 2px 2px grey;
+                color: white;
             }
         </style>
     </head>
     <body>
         <div class="container">
-            <button onclick="handleAddProducts()">Add Products - Pass</button>
-            <button onclick="handleAddProductsFail()">
-                Add Products - Fail
+            <button class="button-success" onclick="handleAddProducts()">
+                Add Products
+            </button>
+            <button class="button-fail" onclick="handleAddProductsFail()">
+                Add Products
             </button>
         </div>
         <div class="container">
-            <button onclick="handleUpdateProducts()">
-                Update Products - Pass
+            <button class="button-success" onclick="handleUpdateProducts()">
+                Update Products
             </button>
-            <button onclick="handleUpdateProductsFail()">
-                Update Products - Fail
+            <button class="button-fail" onclick="handleUpdateProductsFail()">
+                Update Products
             </button>
         </div>
         <div class="container">
-            <button onclick="handleRemoveProducts()">
-                Remove Products - Pass
+            <button class="button-success" onclick="handleRemoveProducts()">
+                Remove Products
             </button>
-            <button onclick="handleRemoveProductsFail()">
-                Remove Products - Fail
+            <button class="button-fail" onclick="handleRemoveProductsFail()">
+                Remove Products
             </button>
         </div>
         <script>
