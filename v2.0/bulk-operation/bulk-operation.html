@@ -4,12 +4,42 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
         <script src="./vajro-sdk.js"></script>
+        <style>
+            .container {
+                display: flex;
+            }
+            button {
+                padding: 5px;
+                margin: 10px;
+            }
+        </style>
     </head>
     <body>
+        <div class="container">
+            <button onclick="handleAddProducts()">Add Products - Pass</button>
+            <button onclick="handleAddProductsFail()">
+                Add Products - Fail
+            </button>
+        </div>
+        <div class="container">
+            <button onclick="handleUpdateProducts()">
+                Update Products - Pass
+            </button>
+            <button onclick="handleUpdateProductsFail()">
+                Update Products - Fail
+            </button>
+        </div>
+        <div class="container">
+            <button onclick="handleRemoveProducts()">
+                Remove Products - Pass
+            </button>
+            <button onclick="handleRemoveProductsFail()">
+                Remove Products - Fail
+            </button>
+        </div>
         <script>
-
+            function handleAddProducts() {}
         </script>
     </body>
 </html>
