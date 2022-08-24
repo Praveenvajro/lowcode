@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="./couponCode-sdk.js"></script>
+    <style>
+        .container {
+            display: flex;
+        }
+        .btn-primary {
+                padding: 8px;
+                margin: 10px;
+                flex: 1;
+                background-color: #14e014;
+                border: none;
+                border-radius: 4px;
+                box-shadow: 2px 2px grey;
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button type="button" class="btn btn-primary" onclick="productCoupon()">
+            Product Discount
+        </button>
+        <button type="button" class="btn btn-primary" onclick="orderCoupon()">
+            Order Discount
+        </button>
+    </div>
+    <div class="container">
+        <button type="button" class="btn btn-primary" onclick="buyxgetyCoupon()">
+            BuyXgetY Coupon
+        </button>
+    </div>
+
+    <script type="text/javascript">
+        function productCoupon(){
+            VajroSDK.addCouponCodeForCheckout()
+            .setCouponCode("IPHONE13")
+            .setCouponDescription("Product Coupon")
+            .exec()
+            .then((res)=>{
+
+            }).catch((err)=>{
+
+            })
+        }
+        function orderCoupon(){
+            VajroSDK.addCouponCodeForCheckout()
+            .setCouponCode("TOTALORDERDISC")
+            .setCouponDescription("No minimum purchase requirement, No usage limits, All customers")
+            .exec()
+            .then((res)=>{
+
+            }).catch((err)=>{
+
+            })
+        }
+        function buyxgetyCoupon(){
+            VajroSDK.addCouponCodeForCheckout()
+            .setCouponCode("BUYXGETY")
+            .setCouponDescription("Buy 2 items Get 1 item free")
+            .exec()
+            .then((res)=>{
+
+            }).catch((err)=>{
+
+            })
+        }
+    </script>
+</body>
+</html>
