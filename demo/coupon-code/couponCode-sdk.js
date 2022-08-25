@@ -14,7 +14,7 @@ var VajroSDK;
 /* harmony export */   "defineGlobal": () => (/* binding */ defineGlobal),
 /* harmony export */   "makePublicApi": () => (/* binding */ makePublicApi)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _tools_catchUserErrors__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../tools/catchUserErrors */ "./node_modules/@datadog/browser-core/esm/tools/catchUserErrors.js");
 /* harmony import */ var _tools_monitor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../tools/monitor */ "./node_modules/@datadog/browser-core/esm/tools/monitor.js");
 /* harmony import */ var _tools_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../tools/utils */ "./node_modules/@datadog/browser-core/esm/tools/utils.js");
@@ -51,7 +51,7 @@ var VajroSDK;
                 //# sourceMappingURL=init.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-core/esm/browser/cookie.js":
 /*!******************************************************************!*\
@@ -69,7 +69,7 @@ var VajroSDK;
 /* harmony export */   "getCurrentSite": () => (/* binding */ getCurrentSite),
 /* harmony export */   "setCookie": () => (/* binding */ setCookie)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _tools_display__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../tools/display */ "./node_modules/@datadog/browser-core/esm/tools/display.js");
 /* harmony import */ var _tools_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../tools/utils */ "./node_modules/@datadog/browser-core/esm/tools/utils.js");
 
@@ -135,7 +135,7 @@ var VajroSDK;
                 //# sourceMappingURL=cookie.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-core/esm/browser/fetchObservable.js":
 /*!***************************************************************************!*\
@@ -148,7 +148,7 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "initFetchObservable": () => (/* binding */ initFetchObservable)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _tools_instrumentMethod__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../tools/instrumentMethod */ "./node_modules/@datadog/browser-core/esm/tools/instrumentMethod.js");
 /* harmony import */ var _tools_monitor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../tools/monitor */ "./node_modules/@datadog/browser-core/esm/tools/monitor.js");
 /* harmony import */ var _tools_observable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../tools/observable */ "./node_modules/@datadog/browser-core/esm/tools/observable.js");
@@ -228,7 +228,7 @@ var VajroSDK;
                 //# sourceMappingURL=fetchObservable.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-core/esm/browser/xhrObservable.js":
 /*!*************************************************************************!*\
@@ -241,7 +241,7 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "initXhrObservable": () => (/* binding */ initXhrObservable)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _tools_instrumentMethod__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../tools/instrumentMethod */ "./node_modules/@datadog/browser-core/esm/tools/instrumentMethod.js");
 /* harmony import */ var _tools_monitor__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../tools/monitor */ "./node_modules/@datadog/browser-core/esm/tools/monitor.js");
 /* harmony import */ var _tools_observable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../tools/observable */ "./node_modules/@datadog/browser-core/esm/tools/observable.js");
@@ -339,7 +339,7 @@ var VajroSDK;
                 //# sourceMappingURL=xhrObservable.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-core/esm/domain/configuration/configuration.js":
 /*!**************************************************************************************!*\
@@ -354,7 +354,7 @@ var VajroSDK;
 /* harmony export */   "buildCookieOptions": () => (/* binding */ buildCookieOptions),
 /* harmony export */   "validateAndBuildConfiguration": () => (/* binding */ validateAndBuildConfiguration)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _browser_cookie__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../browser/cookie */ "./node_modules/@datadog/browser-core/esm/browser/cookie.js");
 /* harmony import */ var _tools_catchUserErrors__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../tools/catchUserErrors */ "./node_modules/@datadog/browser-core/esm/tools/catchUserErrors.js");
 /* harmony import */ var _tools_display__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../tools/display */ "./node_modules/@datadog/browser-core/esm/tools/display.js");
@@ -429,7 +429,7 @@ var VajroSDK;
                 //# sourceMappingURL=configuration.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-core/esm/domain/configuration/endpointBuilder.js":
 /*!****************************************************************************************!*\
@@ -443,7 +443,7 @@ var VajroSDK;
 /* harmony export */   "ENDPOINTS": () => (/* binding */ ENDPOINTS),
 /* harmony export */   "createEndpointBuilder": () => (/* binding */ createEndpointBuilder)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _tools_timeUtils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../tools/timeUtils */ "./node_modules/@datadog/browser-core/esm/tools/timeUtils.js");
 /* harmony import */ var _tools_urlPolyfill__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../tools/urlPolyfill */ "./node_modules/@datadog/browser-core/esm/tools/urlPolyfill.js");
 /* harmony import */ var _tools_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../tools/utils */ "./node_modules/@datadog/browser-core/esm/tools/utils.js");
@@ -492,7 +492,7 @@ var VajroSDK;
                 //# sourceMappingURL=endpointBuilder.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-core/esm/domain/configuration/experimentalFeatures.js":
 /*!*********************************************************************************************!*\
@@ -507,7 +507,7 @@ var VajroSDK;
 /* harmony export */   "resetExperimentalFeatures": () => (/* binding */ resetExperimentalFeatures),
 /* harmony export */   "updateExperimentalFeatures": () => (/* binding */ updateExperimentalFeatures)
                     /* harmony export */
-});
+                });
                 /**
                  * LIMITATION:
                  * For NPM setup, this feature flag singleton is shared between RUM and Logs product.
@@ -538,7 +538,7 @@ var VajroSDK;
                 //# sourceMappingURL=experimentalFeatures.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-core/esm/domain/configuration/intakeSites.js":
 /*!************************************************************************************!*\
@@ -553,14 +553,14 @@ var VajroSDK;
 /* harmony export */   "INTAKE_SITE_US1": () => (/* binding */ INTAKE_SITE_US1),
 /* harmony export */   "INTAKE_SITE_US1_FED": () => (/* binding */ INTAKE_SITE_US1_FED)
                     /* harmony export */
-});
+                });
                 var INTAKE_SITE_STAGING = 'datad0g.com';
                 var INTAKE_SITE_US1 = 'datadoghq.com';
                 var INTAKE_SITE_US1_FED = 'ddog-gov.com';
                 //# sourceMappingURL=intakeSites.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-core/esm/domain/configuration/tags.js":
 /*!*****************************************************************************!*\
@@ -575,7 +575,7 @@ var VajroSDK;
 /* harmony export */   "buildTag": () => (/* binding */ buildTag),
 /* harmony export */   "buildTags": () => (/* binding */ buildTags)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _tools_display__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../tools/display */ "./node_modules/@datadog/browser-core/esm/tools/display.js");
 
                 var TAG_SIZE_LIMIT = 200;
@@ -613,7 +613,7 @@ var VajroSDK;
                 //# sourceMappingURL=tags.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-core/esm/domain/configuration/transportConfiguration.js":
 /*!***********************************************************************************************!*\
@@ -626,7 +626,7 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "computeTransportConfiguration": () => (/* binding */ computeTransportConfiguration)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _tools_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../tools/utils */ "./node_modules/@datadog/browser-core/esm/tools/utils.js");
 /* harmony import */ var _endpointBuilder__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./endpointBuilder */ "./node_modules/@datadog/browser-core/esm/domain/configuration/endpointBuilder.js");
 /* harmony import */ var _tags__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tags */ "./node_modules/@datadog/browser-core/esm/domain/configuration/tags.js");
@@ -671,7 +671,7 @@ var VajroSDK;
                 //# sourceMappingURL=transportConfiguration.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-core/esm/domain/console/consoleObservable.js":
 /*!************************************************************************************!*\
@@ -684,7 +684,7 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "initConsoleObservable": () => (/* binding */ initConsoleObservable)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _tracekit__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../tracekit */ "./node_modules/@datadog/browser-core/esm/domain/tracekit/computeStackTrace.js");
 /* harmony import */ var _tools_error__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../tools/error */ "./node_modules/@datadog/browser-core/esm/tools/error.js");
 /* harmony import */ var _tools_observable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../tools/observable */ "./node_modules/@datadog/browser-core/esm/tools/observable.js");
@@ -756,7 +756,7 @@ var VajroSDK;
                 //# sourceMappingURL=consoleObservable.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-core/esm/domain/error/trackRuntimeError.js":
 /*!**********************************************************************************!*\
@@ -769,7 +769,7 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "trackRuntimeError": () => (/* binding */ trackRuntimeError)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _tools_error__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../tools/error */ "./node_modules/@datadog/browser-core/esm/tools/error.js");
 /* harmony import */ var _tools_timeUtils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../tools/timeUtils */ "./node_modules/@datadog/browser-core/esm/tools/timeUtils.js");
 /* harmony import */ var _tracekit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../tracekit */ "./node_modules/@datadog/browser-core/esm/domain/tracekit/tracekit.js");
@@ -793,7 +793,7 @@ var VajroSDK;
                 //# sourceMappingURL=trackRuntimeError.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-core/esm/domain/report/reportObservable.js":
 /*!**********************************************************************************!*\
@@ -807,7 +807,7 @@ var VajroSDK;
 /* harmony export */   "RawReportType": () => (/* binding */ RawReportType),
 /* harmony export */   "initReportObservable": () => (/* binding */ initReportObservable)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _tools_error__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../tools/error */ "./node_modules/@datadog/browser-core/esm/tools/error.js");
 /* harmony import */ var _tools_monitor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../tools/monitor */ "./node_modules/@datadog/browser-core/esm/tools/monitor.js");
 /* harmony import */ var _tools_observable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../tools/observable */ "./node_modules/@datadog/browser-core/esm/tools/observable.js");
@@ -900,7 +900,7 @@ var VajroSDK;
                 //# sourceMappingURL=reportObservable.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-core/esm/domain/session/oldCookiesMigration.js":
 /*!**************************************************************************************!*\
@@ -918,7 +918,7 @@ var VajroSDK;
 /* harmony export */   "RUM_SESSION_KEY": () => (/* binding */ RUM_SESSION_KEY),
 /* harmony export */   "tryOldCookiesMigration": () => (/* binding */ tryOldCookiesMigration)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _browser_cookie__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../browser/cookie */ "./node_modules/@datadog/browser-core/esm/browser/cookie.js");
 /* harmony import */ var _sessionCookieStore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./sessionCookieStore */ "./node_modules/@datadog/browser-core/esm/domain/session/sessionCookieStore.js");
 
@@ -955,7 +955,7 @@ var VajroSDK;
                 //# sourceMappingURL=oldCookiesMigration.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-core/esm/domain/session/sessionConstants.js":
 /*!***********************************************************************************!*\
@@ -969,7 +969,7 @@ var VajroSDK;
 /* harmony export */   "SESSION_EXPIRATION_DELAY": () => (/* binding */ SESSION_EXPIRATION_DELAY),
 /* harmony export */   "SESSION_TIME_OUT_DELAY": () => (/* binding */ SESSION_TIME_OUT_DELAY)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _tools_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../tools/utils */ "./node_modules/@datadog/browser-core/esm/tools/utils.js");
 
                 var SESSION_TIME_OUT_DELAY = 4 * _tools_utils__WEBPACK_IMPORTED_MODULE_0__.ONE_HOUR;
@@ -977,7 +977,7 @@ var VajroSDK;
                 //# sourceMappingURL=sessionConstants.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-core/esm/domain/session/sessionCookieStore.js":
 /*!*************************************************************************************!*\
@@ -996,7 +996,7 @@ var VajroSDK;
 /* harmony export */   "toSessionString": () => (/* binding */ toSessionString),
 /* harmony export */   "withCookieLockAccess": () => (/* binding */ withCookieLockAccess)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _browser_cookie__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../browser/cookie */ "./node_modules/@datadog/browser-core/esm/browser/cookie.js");
 /* harmony import */ var _tools_browserDetection__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../tools/browserDetection */ "./node_modules/@datadog/browser-core/esm/tools/browserDetection.js");
 /* harmony import */ var _tools_monitor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../tools/monitor */ "./node_modules/@datadog/browser-core/esm/tools/monitor.js");
@@ -1147,7 +1147,7 @@ var VajroSDK;
                 //# sourceMappingURL=sessionCookieStore.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-core/esm/domain/session/sessionManager.js":
 /*!*********************************************************************************!*\
@@ -1162,7 +1162,7 @@ var VajroSDK;
 /* harmony export */   "startSessionManager": () => (/* binding */ startSessionManager),
 /* harmony export */   "stopSessionManager": () => (/* binding */ stopSessionManager)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _tools_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../tools/utils */ "./node_modules/@datadog/browser-core/esm/tools/utils.js");
 /* harmony import */ var _tools_contextHistory__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../tools/contextHistory */ "./node_modules/@datadog/browser-core/esm/tools/contextHistory.js");
 /* harmony import */ var _tools_timeUtils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../tools/timeUtils */ "./node_modules/@datadog/browser-core/esm/tools/timeUtils.js");
@@ -1232,7 +1232,7 @@ var VajroSDK;
                 //# sourceMappingURL=sessionManager.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-core/esm/domain/session/sessionStore.js":
 /*!*******************************************************************************!*\
@@ -1245,7 +1245,7 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "startSessionStore": () => (/* binding */ startSessionStore)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _browser_cookie__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../browser/cookie */ "./node_modules/@datadog/browser-core/esm/browser/cookie.js");
 /* harmony import */ var _tools_monitor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../tools/monitor */ "./node_modules/@datadog/browser-core/esm/tools/monitor.js");
 /* harmony import */ var _tools_observable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../tools/observable */ "./node_modules/@datadog/browser-core/esm/tools/observable.js");
@@ -1370,7 +1370,7 @@ var VajroSDK;
                 //# sourceMappingURL=sessionStore.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-core/esm/domain/telemetry/telemetry.js":
 /*!******************************************************************************!*\
@@ -1390,7 +1390,7 @@ var VajroSDK;
 /* harmony export */   "startFakeTelemetry": () => (/* binding */ startFakeTelemetry),
 /* harmony export */   "startTelemetry": () => (/* binding */ startTelemetry)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _tools_display__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../tools/display */ "./node_modules/@datadog/browser-core/esm/tools/display.js");
 /* harmony import */ var _tools_error__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../tools/error */ "./node_modules/@datadog/browser-core/esm/tools/error.js");
 /* harmony import */ var _tools_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../tools/utils */ "./node_modules/@datadog/browser-core/esm/tools/utils.js");
@@ -1514,7 +1514,7 @@ var VajroSDK;
                 //# sourceMappingURL=telemetry.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-core/esm/domain/tracekit/computeStackTrace.js":
 /*!*************************************************************************************!*\
@@ -1527,7 +1527,7 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "computeStackTrace": () => (/* binding */ computeStackTrace)
                     /* harmony export */
-});
+                });
                 var UNKNOWN_FUNCTION = '?';
                 /**
                  * Computes a stack trace for an exception.
@@ -1627,7 +1627,7 @@ var VajroSDK;
                 //# sourceMappingURL=computeStackTrace.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-core/esm/domain/tracekit/tracekit.js":
 /*!****************************************************************************!*\
@@ -1640,7 +1640,7 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "startUnhandledErrorCollection": () => (/* binding */ startUnhandledErrorCollection)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _tools_instrumentMethod__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../tools/instrumentMethod */ "./node_modules/@datadog/browser-core/esm/tools/instrumentMethod.js");
 /* harmony import */ var _computeStackTrace__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./computeStackTrace */ "./node_modules/@datadog/browser-core/esm/domain/tracekit/computeStackTrace.js");
 
@@ -1739,7 +1739,7 @@ var VajroSDK;
                 //# sourceMappingURL=tracekit.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-core/esm/tools/boundedBuffer.js":
 /*!***********************************************************************!*\
@@ -1752,7 +1752,7 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "BoundedBuffer": () => (/* binding */ BoundedBuffer)
                     /* harmony export */
-});
+                });
                 var BUFFER_LIMIT = 500;
                 var BoundedBuffer = /** @class */ (function () {
                     function BoundedBuffer() {
@@ -1774,7 +1774,7 @@ var VajroSDK;
                 //# sourceMappingURL=boundedBuffer.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-core/esm/tools/browserDetection.js":
 /*!**************************************************************************!*\
@@ -1788,7 +1788,7 @@ var VajroSDK;
 /* harmony export */   "isChromium": () => (/* binding */ isChromium),
 /* harmony export */   "isIE": () => (/* binding */ isIE)
                     /* harmony export */
-});
+                });
                 function isIE() {
                     return Boolean(document.documentMode);
                 }
@@ -1798,7 +1798,7 @@ var VajroSDK;
                 //# sourceMappingURL=browserDetection.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-core/esm/tools/catchUserErrors.js":
 /*!*************************************************************************!*\
@@ -1811,7 +1811,7 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "catchUserErrors": () => (/* binding */ catchUserErrors)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _display__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./display */ "./node_modules/@datadog/browser-core/esm/tools/display.js");
 
                 function catchUserErrors(fn, errorMsg) {
@@ -1831,7 +1831,7 @@ var VajroSDK;
                 //# sourceMappingURL=catchUserErrors.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-core/esm/tools/contextHistory.js":
 /*!************************************************************************!*\
@@ -1845,7 +1845,7 @@ var VajroSDK;
 /* harmony export */   "CLEAR_OLD_CONTEXTS_INTERVAL": () => (/* binding */ CLEAR_OLD_CONTEXTS_INTERVAL),
 /* harmony export */   "ContextHistory": () => (/* binding */ ContextHistory)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _timeUtils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./timeUtils */ "./node_modules/@datadog/browser-core/esm/tools/timeUtils.js");
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils */ "./node_modules/@datadog/browser-core/esm/tools/utils.js");
 
@@ -1946,7 +1946,7 @@ var VajroSDK;
                 //# sourceMappingURL=contextHistory.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-core/esm/tools/contextManager.js":
 /*!************************************************************************!*\
@@ -1959,7 +1959,7 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "createContextManager": () => (/* binding */ createContextManager)
                     /* harmony export */
-});
+                });
                 function createContextManager() {
                     var context = {};
                     return {
@@ -1978,7 +1978,7 @@ var VajroSDK;
                 //# sourceMappingURL=contextManager.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-core/esm/tools/createEventRateLimiter.js":
 /*!********************************************************************************!*\
@@ -1991,7 +1991,7 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "createEventRateLimiter": () => (/* binding */ createEventRateLimiter)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _error__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./error */ "./node_modules/@datadog/browser-core/esm/tools/error.js");
 /* harmony import */ var _timeUtils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./timeUtils */ "./node_modules/@datadog/browser-core/esm/tools/timeUtils.js");
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils */ "./node_modules/@datadog/browser-core/esm/tools/utils.js");
@@ -2033,7 +2033,7 @@ var VajroSDK;
                 //# sourceMappingURL=createEventRateLimiter.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-core/esm/tools/display.js":
 /*!*****************************************************************!*\
@@ -2047,7 +2047,7 @@ var VajroSDK;
 /* harmony export */   "ConsoleApiName": () => (/* binding */ ConsoleApiName),
 /* harmony export */   "display": () => (/* binding */ display)
                     /* harmony export */
-});
+                });
                 /* eslint-disable no-console, local-rules/disallow-side-effects */
                 /**
                  * Keep references on console methods to avoid triggering patched behaviors
@@ -2081,7 +2081,7 @@ var VajroSDK;
                 //# sourceMappingURL=display.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-core/esm/tools/error.js":
 /*!***************************************************************!*\
@@ -2099,7 +2099,7 @@ var VajroSDK;
 /* harmony export */   "getFileFromStackTraceString": () => (/* binding */ getFileFromStackTraceString),
 /* harmony export */   "toStackTraceString": () => (/* binding */ toStackTraceString)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _domain_tracekit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../domain/tracekit */ "./node_modules/@datadog/browser-core/esm/domain/tracekit/computeStackTrace.js");
 /* harmony import */ var _monitor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./monitor */ "./node_modules/@datadog/browser-core/esm/tools/monitor.js");
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils */ "./node_modules/@datadog/browser-core/esm/tools/utils.js");
@@ -2185,7 +2185,7 @@ var VajroSDK;
                 //# sourceMappingURL=error.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-core/esm/tools/instrumentMethod.js":
 /*!**************************************************************************!*\
@@ -2200,7 +2200,7 @@ var VajroSDK;
 /* harmony export */   "instrumentMethodAndCallOriginal": () => (/* binding */ instrumentMethodAndCallOriginal),
 /* harmony export */   "instrumentSetter": () => (/* binding */ instrumentSetter)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _monitor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./monitor */ "./node_modules/@datadog/browser-core/esm/tools/monitor.js");
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils */ "./node_modules/@datadog/browser-core/esm/tools/utils.js");
 
@@ -2278,7 +2278,7 @@ var VajroSDK;
                 //# sourceMappingURL=instrumentMethod.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-core/esm/tools/monitor.js":
 /*!*****************************************************************!*\
@@ -2297,7 +2297,7 @@ var VajroSDK;
 /* harmony export */   "setDebugMode": () => (/* binding */ setDebugMode),
 /* harmony export */   "startMonitorErrorCollection": () => (/* binding */ startMonitorErrorCollection)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _display__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./display */ "./node_modules/@datadog/browser-core/esm/tools/display.js");
                 var __spreadArray = (undefined && undefined.__spreadArray) || function (to, from, pack) {
                     if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
@@ -2367,7 +2367,7 @@ var VajroSDK;
                 //# sourceMappingURL=monitor.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-core/esm/tools/observable.js":
 /*!********************************************************************!*\
@@ -2381,7 +2381,7 @@ var VajroSDK;
 /* harmony export */   "Observable": () => (/* binding */ Observable),
 /* harmony export */   "mergeObservables": () => (/* binding */ mergeObservables)
                     /* harmony export */
-});
+                });
                 var Observable = /** @class */ (function () {
                     function Observable(onFirstSubscribe) {
                         this.onFirstSubscribe = onFirstSubscribe;
@@ -2424,7 +2424,7 @@ var VajroSDK;
                 //# sourceMappingURL=observable.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-core/esm/tools/timeUtils.js":
 /*!*******************************************************************!*\
@@ -2449,7 +2449,7 @@ var VajroSDK;
 /* harmony export */   "timeStampNow": () => (/* binding */ timeStampNow),
 /* harmony export */   "toServerDuration": () => (/* binding */ toServerDuration)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils */ "./node_modules/@datadog/browser-core/esm/tools/utils.js");
 
                 function relativeToClocks(relative) {
@@ -2530,7 +2530,7 @@ var VajroSDK;
                 //# sourceMappingURL=timeUtils.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-core/esm/tools/urlPolyfill.js":
 /*!*********************************************************************!*\
@@ -2550,7 +2550,7 @@ var VajroSDK;
 /* harmony export */   "isValidUrl": () => (/* binding */ isValidUrl),
 /* harmony export */   "normalizeUrl": () => (/* binding */ normalizeUrl)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils */ "./node_modules/@datadog/browser-core/esm/tools/utils.js");
 
                 function normalizeUrl(url) {
@@ -2617,7 +2617,7 @@ var VajroSDK;
                 //# sourceMappingURL=urlPolyfill.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-core/esm/tools/utils.js":
 /*!***************************************************************!*\
@@ -2672,7 +2672,7 @@ var VajroSDK;
 /* harmony export */   "startsWith": () => (/* binding */ startsWith),
 /* harmony export */   "throttle": () => (/* binding */ throttle)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _monitor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./monitor */ "./node_modules/@datadog/browser-core/esm/tools/monitor.js");
 
                 var ONE_SECOND = 1000;
@@ -3129,7 +3129,7 @@ var VajroSDK;
                 //# sourceMappingURL=utils.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-core/esm/transport/batch.js":
 /*!*******************************************************************!*\
@@ -3142,7 +3142,7 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Batch": () => (/* binding */ Batch)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _tools_display__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../tools/display */ "./node_modules/@datadog/browser-core/esm/tools/display.js");
 /* harmony import */ var _tools_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../tools/utils */ "./node_modules/@datadog/browser-core/esm/tools/utils.js");
 /* harmony import */ var _tools_monitor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../tools/monitor */ "./node_modules/@datadog/browser-core/esm/tools/monitor.js");
@@ -3294,7 +3294,7 @@ var VajroSDK;
                 //# sourceMappingURL=batch.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-core/esm/transport/eventBridge.js":
 /*!*************************************************************************!*\
@@ -3308,7 +3308,7 @@ var VajroSDK;
 /* harmony export */   "canUseEventBridge": () => (/* binding */ canUseEventBridge),
 /* harmony export */   "getEventBridge": () => (/* binding */ getEventBridge)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _tools_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../tools/utils */ "./node_modules/@datadog/browser-core/esm/tools/utils.js");
 
                 function getEventBridge() {
@@ -3342,7 +3342,7 @@ var VajroSDK;
                 //# sourceMappingURL=eventBridge.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-core/esm/transport/failedSendBeacon.js":
 /*!******************************************************************************!*\
@@ -3357,7 +3357,7 @@ var VajroSDK;
 /* harmony export */   "addFailedSendBeacon": () => (/* binding */ addFailedSendBeacon),
 /* harmony export */   "startFlushFailedSendBeacons": () => (/* binding */ startFlushFailedSendBeacons)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _domain_configuration__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../domain/configuration */ "./node_modules/@datadog/browser-core/esm/domain/configuration/experimentalFeatures.js");
 /* harmony import */ var _domain_telemetry__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../domain/telemetry */ "./node_modules/@datadog/browser-core/esm/domain/telemetry/telemetry.js");
 /* harmony import */ var _tools_monitor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../tools/monitor */ "./node_modules/@datadog/browser-core/esm/tools/monitor.js");
@@ -3407,7 +3407,7 @@ var VajroSDK;
                 //# sourceMappingURL=failedSendBeacon.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-core/esm/transport/httpRequest.js":
 /*!*************************************************************************!*\
@@ -3420,7 +3420,7 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "HttpRequest": () => (/* binding */ HttpRequest)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _domain_telemetry__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../domain/telemetry */ "./node_modules/@datadog/browser-core/esm/domain/telemetry/telemetry.js");
 /* harmony import */ var _failedSendBeacon__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./failedSendBeacon */ "./node_modules/@datadog/browser-core/esm/transport/failedSendBeacon.js");
 
@@ -3470,7 +3470,7 @@ var VajroSDK;
                 //# sourceMappingURL=httpRequest.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-core/esm/transport/startBatchWithReplica.js":
 /*!***********************************************************************************!*\
@@ -3483,7 +3483,7 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "startBatchWithReplica": () => (/* binding */ startBatchWithReplica)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _batch__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./batch */ "./node_modules/@datadog/browser-core/esm/transport/batch.js");
 /* harmony import */ var _httpRequest__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./httpRequest */ "./node_modules/@datadog/browser-core/esm/transport/httpRequest.js");
 
@@ -3510,7 +3510,7 @@ var VajroSDK;
                 //# sourceMappingURL=startBatchWithReplica.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-logs/esm/boot/logsPublicApi.js":
 /*!**********************************************************************!*\
@@ -3523,7 +3523,7 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "makeLogsPublicApi": () => (/* binding */ makeLogsPublicApi)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/tools/contextManager.js");
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/tools/boundedBuffer.js");
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/tools/utils.js");
@@ -3617,7 +3617,7 @@ var VajroSDK;
                 //# sourceMappingURL=logsPublicApi.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-logs/esm/boot/startLogs.js":
 /*!******************************************************************!*\
@@ -3630,7 +3630,7 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "startLogs": () => (/* binding */ startLogs)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/browser/cookie.js");
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/transport/eventBridge.js");
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/domain/telemetry/telemetry.js");
@@ -3711,7 +3711,7 @@ var VajroSDK;
                 //# sourceMappingURL=startLogs.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-logs/esm/domain/assembly.js":
 /*!*******************************************************************!*\
@@ -3725,7 +3725,7 @@ var VajroSDK;
 /* harmony export */   "getRUMInternalContext": () => (/* binding */ getRUMInternalContext),
 /* harmony export */   "startLogsAssembly": () => (/* binding */ startLogsAssembly)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/tools/createEventRateLimiter.js");
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/tools/timeUtils.js");
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/tools/utils.js");
@@ -3772,7 +3772,7 @@ var VajroSDK;
                 //# sourceMappingURL=assembly.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-logs/esm/domain/configuration.js":
 /*!************************************************************************!*\
@@ -3787,7 +3787,7 @@ var VajroSDK;
 /* harmony export */   "validateAndBuildForwardOption": () => (/* binding */ validateAndBuildForwardOption),
 /* harmony export */   "validateAndBuildLogsConfiguration": () => (/* binding */ validateAndBuildLogsConfiguration)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/tools/utils.js");
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/domain/configuration/configuration.js");
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/tools/display.js");
@@ -3827,7 +3827,7 @@ var VajroSDK;
                 //# sourceMappingURL=configuration.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-logs/esm/domain/lifeCycle.js":
 /*!********************************************************************!*\
@@ -3840,7 +3840,7 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "LifeCycle": () => (/* binding */ LifeCycle)
                     /* harmony export */
-});
+                });
                 var LifeCycle = /** @class */ (function () {
                     function LifeCycle() {
                         this.callbacks = {};
@@ -3869,7 +3869,7 @@ var VajroSDK;
                 //# sourceMappingURL=lifeCycle.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-logs/esm/domain/logger.js":
 /*!*****************************************************************!*\
@@ -3885,7 +3885,7 @@ var VajroSDK;
 /* harmony export */   "STATUSES": () => (/* binding */ STATUSES),
 /* harmony export */   "StatusType": () => (/* binding */ StatusType)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/tools/contextManager.js");
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/tools/utils.js");
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/tools/error.js");
@@ -3974,7 +3974,7 @@ var VajroSDK;
                 //# sourceMappingURL=logger.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-logs/esm/domain/logsCollection/console/consoleCollection.js":
 /*!***************************************************************************************************!*\
@@ -3987,7 +3987,7 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "startConsoleCollection": () => (/* binding */ startConsoleCollection)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/tools/display.js");
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/domain/console/consoleObservable.js");
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/tools/timeUtils.js");
@@ -4029,7 +4029,7 @@ var VajroSDK;
                 //# sourceMappingURL=consoleCollection.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-logs/esm/domain/logsCollection/logger/loggerCollection.js":
 /*!*************************************************************************************************!*\
@@ -4044,7 +4044,7 @@ var VajroSDK;
 /* harmony export */   "isAuthorized": () => (/* binding */ isAuthorized),
 /* harmony export */   "startLoggerCollection": () => (/* binding */ startLoggerCollection)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/tools/display.js");
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/tools/utils.js");
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/tools/timeUtils.js");
@@ -4089,7 +4089,7 @@ var VajroSDK;
                 //# sourceMappingURL=loggerCollection.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-logs/esm/domain/logsCollection/networkError/networkErrorCollection.js":
 /*!*************************************************************************************************************!*\
@@ -4105,7 +4105,7 @@ var VajroSDK;
 /* harmony export */   "computeXhrResponseData": () => (/* binding */ computeXhrResponseData),
 /* harmony export */   "startNetworkErrorCollection": () => (/* binding */ startNetworkErrorCollection)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/tools/utils.js");
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/browser/xhrObservable.js");
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/browser/fetchObservable.js");
@@ -4316,7 +4316,7 @@ var VajroSDK;
                 //# sourceMappingURL=networkErrorCollection.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-logs/esm/domain/logsCollection/report/reportCollection.js":
 /*!*************************************************************************************************!*\
@@ -4329,7 +4329,7 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "startReportCollection": () => (/* binding */ startReportCollection)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/domain/report/reportObservable.js");
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/tools/error.js");
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/tools/timeUtils.js");
@@ -4376,7 +4376,7 @@ var VajroSDK;
                 //# sourceMappingURL=reportCollection.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-logs/esm/domain/logsCollection/runtimeError/runtimeErrorCollection.js":
 /*!*************************************************************************************************************!*\
@@ -4389,7 +4389,7 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "startRuntimeErrorCollection": () => (/* binding */ startRuntimeErrorCollection)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/tools/utils.js");
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/tools/observable.js");
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/domain/error/trackRuntimeError.js");
@@ -4428,7 +4428,7 @@ var VajroSDK;
                 //# sourceMappingURL=runtimeErrorCollection.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-logs/esm/domain/logsSessionManager.js":
 /*!*****************************************************************************!*\
@@ -4443,7 +4443,7 @@ var VajroSDK;
 /* harmony export */   "startLogsSessionManager": () => (/* binding */ startLogsSessionManager),
 /* harmony export */   "startLogsSessionManagerStub": () => (/* binding */ startLogsSessionManagerStub)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/domain/session/sessionManager.js");
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/tools/utils.js");
 
@@ -4489,7 +4489,7 @@ var VajroSDK;
                 //# sourceMappingURL=logsSessionManager.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-logs/esm/domain/reportAgentError.js":
 /*!***************************************************************************!*\
@@ -4502,7 +4502,7 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "reportAgentError": () => (/* binding */ reportAgentError)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/tools/error.js");
 /* harmony import */ var _logger__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./logger */ "./node_modules/@datadog/browser-logs/esm/domain/logger.js");
 
@@ -4523,7 +4523,7 @@ var VajroSDK;
                 //# sourceMappingURL=reportAgentError.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-logs/esm/entries/main.js":
 /*!****************************************************************!*\
@@ -4539,7 +4539,7 @@ var VajroSDK;
 /* harmony export */   "StatusType": () => (/* reexport safe */ _domain_logger__WEBPACK_IMPORTED_MODULE_2__.StatusType),
 /* harmony export */   "datadogLogs": () => (/* binding */ datadogLogs)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/boot/init.js");
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/tools/utils.js");
 /* harmony import */ var _boot_logsPublicApi__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../boot/logsPublicApi */ "./node_modules/@datadog/browser-logs/esm/boot/logsPublicApi.js");
@@ -4554,7 +4554,7 @@ var VajroSDK;
                 //# sourceMappingURL=main.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-logs/esm/transport/startLogsBatch.js":
 /*!****************************************************************************!*\
@@ -4567,7 +4567,7 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "startLogsBatch": () => (/* binding */ startLogsBatch)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/transport/startBatchWithReplica.js");
 
                 function startLogsBatch(configuration, lifeCycle) {
@@ -4580,7 +4580,7 @@ var VajroSDK;
                 //# sourceMappingURL=startLogsBatch.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/@datadog/browser-logs/esm/transport/startLogsBridge.js":
 /*!*****************************************************************************!*\
@@ -4593,7 +4593,7 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "startLogsBridge": () => (/* binding */ startLogsBridge)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/transport/eventBridge.js");
 
                 function startLogsBridge(lifeCycle) {
@@ -4605,7 +4605,7 @@ var VajroSDK;
                 //# sourceMappingURL=startLogsBridge.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/ajv.js":
 /*!**************************************!*\
@@ -4660,7 +4660,7 @@ var VajroSDK;
                 //# sourceMappingURL=ajv.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/compile/codegen/code.js":
 /*!*******************************************************!*\
@@ -4826,7 +4826,7 @@ var VajroSDK;
                 //# sourceMappingURL=code.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/compile/codegen/index.js":
 /*!********************************************************!*\
@@ -5534,7 +5534,7 @@ var VajroSDK;
                 //# sourceMappingURL=index.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/compile/codegen/scope.js":
 /*!********************************************************!*\
@@ -5688,7 +5688,7 @@ var VajroSDK;
                 //# sourceMappingURL=scope.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/compile/errors.js":
 /*!*************************************************!*\
@@ -5822,7 +5822,7 @@ var VajroSDK;
                 //# sourceMappingURL=errors.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/compile/index.js":
 /*!************************************************!*\
@@ -6075,7 +6075,7 @@ var VajroSDK;
                 //# sourceMappingURL=index.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/compile/names.js":
 /*!************************************************!*\
@@ -6114,7 +6114,7 @@ var VajroSDK;
                 //# sourceMappingURL=names.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/compile/ref_error.js":
 /*!****************************************************!*\
@@ -6137,7 +6137,7 @@ var VajroSDK;
                 //# sourceMappingURL=ref_error.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/compile/resolve.js":
 /*!**************************************************!*\
@@ -6303,7 +6303,7 @@ var VajroSDK;
                 //# sourceMappingURL=resolve.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/compile/rules.js":
 /*!************************************************!*\
@@ -6340,7 +6340,7 @@ var VajroSDK;
                 //# sourceMappingURL=rules.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/compile/util.js":
 /*!***********************************************!*\
@@ -6529,7 +6529,7 @@ var VajroSDK;
                 //# sourceMappingURL=util.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/compile/validate/applicability.js":
 /*!*****************************************************************!*\
@@ -6559,7 +6559,7 @@ var VajroSDK;
                 //# sourceMappingURL=applicability.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/compile/validate/boolSchema.js":
 /*!**************************************************************!*\
@@ -6620,7 +6620,7 @@ var VajroSDK;
                 //# sourceMappingURL=boolSchema.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/compile/validate/dataType.js":
 /*!************************************************************!*\
@@ -6833,7 +6833,7 @@ var VajroSDK;
                 //# sourceMappingURL=dataType.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/compile/validate/defaults.js":
 /*!************************************************************!*\
@@ -6879,7 +6879,7 @@ var VajroSDK;
                 //# sourceMappingURL=defaults.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/compile/validate/index.js":
 /*!*********************************************************!*\
@@ -7400,7 +7400,7 @@ var VajroSDK;
                 //# sourceMappingURL=index.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/compile/validate/keyword.js":
 /*!***********************************************************!*\
@@ -7535,7 +7535,7 @@ var VajroSDK;
                 //# sourceMappingURL=keyword.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/compile/validate/subschema.js":
 /*!*************************************************************!*\
@@ -7627,7 +7627,7 @@ var VajroSDK;
                 //# sourceMappingURL=subschema.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/core.js":
 /*!***************************************!*\
@@ -8255,7 +8255,7 @@ var VajroSDK;
                 //# sourceMappingURL=core.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/runtime/equal.js":
 /*!************************************************!*\
@@ -8273,7 +8273,7 @@ var VajroSDK;
                 //# sourceMappingURL=equal.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/runtime/ucs2length.js":
 /*!*****************************************************!*\
@@ -8308,7 +8308,7 @@ var VajroSDK;
                 //# sourceMappingURL=ucs2length.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/runtime/uri.js":
 /*!**********************************************!*\
@@ -8325,7 +8325,7 @@ var VajroSDK;
                 //# sourceMappingURL=uri.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/runtime/validation_error.js":
 /*!***********************************************************!*\
@@ -8347,7 +8347,7 @@ var VajroSDK;
                 //# sourceMappingURL=validation_error.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/vocabularies/applicator/additionalItems.js":
 /*!**************************************************************************!*\
@@ -8407,7 +8407,7 @@ var VajroSDK;
                 //# sourceMappingURL=additionalItems.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/vocabularies/applicator/additionalProperties.js":
 /*!*******************************************************************************!*\
@@ -8524,7 +8524,7 @@ var VajroSDK;
                 //# sourceMappingURL=additionalProperties.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/vocabularies/applicator/allOf.js":
 /*!****************************************************************!*\
@@ -8558,7 +8558,7 @@ var VajroSDK;
                 //# sourceMappingURL=allOf.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/vocabularies/applicator/anyOf.js":
 /*!****************************************************************!*\
@@ -8581,7 +8581,7 @@ var VajroSDK;
                 //# sourceMappingURL=anyOf.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/vocabularies/applicator/contains.js":
 /*!*******************************************************************!*\
@@ -8687,7 +8687,7 @@ var VajroSDK;
                 //# sourceMappingURL=contains.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/vocabularies/applicator/dependencies.js":
 /*!***********************************************************************!*\
@@ -8783,7 +8783,7 @@ var VajroSDK;
                 //# sourceMappingURL=dependencies.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/vocabularies/applicator/if.js":
 /*!*************************************************************!*\
@@ -8860,7 +8860,7 @@ var VajroSDK;
                 //# sourceMappingURL=if.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/vocabularies/applicator/index.js":
 /*!****************************************************************!*\
@@ -8915,7 +8915,7 @@ var VajroSDK;
                 //# sourceMappingURL=index.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/vocabularies/applicator/items.js":
 /*!****************************************************************!*\
@@ -8978,7 +8978,7 @@ var VajroSDK;
                 //# sourceMappingURL=items.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/vocabularies/applicator/items2020.js":
 /*!********************************************************************!*\
@@ -9019,7 +9019,7 @@ var VajroSDK;
                 //# sourceMappingURL=items2020.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/vocabularies/applicator/not.js":
 /*!**************************************************************!*\
@@ -9056,7 +9056,7 @@ var VajroSDK;
                 //# sourceMappingURL=not.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/vocabularies/applicator/oneOf.js":
 /*!****************************************************************!*\
@@ -9127,7 +9127,7 @@ var VajroSDK;
                 //# sourceMappingURL=oneOf.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/vocabularies/applicator/patternProperties.js":
 /*!****************************************************************************!*\
@@ -9213,7 +9213,7 @@ var VajroSDK;
                 //# sourceMappingURL=patternProperties.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/vocabularies/applicator/prefixItems.js":
 /*!**********************************************************************!*\
@@ -9236,7 +9236,7 @@ var VajroSDK;
                 //# sourceMappingURL=prefixItems.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/vocabularies/applicator/properties.js":
 /*!*********************************************************************!*\
@@ -9301,7 +9301,7 @@ var VajroSDK;
                 //# sourceMappingURL=properties.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/vocabularies/applicator/propertyNames.js":
 /*!************************************************************************!*\
@@ -9350,7 +9350,7 @@ var VajroSDK;
                 //# sourceMappingURL=propertyNames.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/vocabularies/applicator/thenElse.js":
 /*!*******************************************************************!*\
@@ -9374,7 +9374,7 @@ var VajroSDK;
                 //# sourceMappingURL=thenElse.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/vocabularies/code.js":
 /*!****************************************************!*\
@@ -9516,7 +9516,7 @@ var VajroSDK;
                 //# sourceMappingURL=code.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/vocabularies/core/id.js":
 /*!*******************************************************!*\
@@ -9537,7 +9537,7 @@ var VajroSDK;
                 //# sourceMappingURL=id.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/vocabularies/core/index.js":
 /*!**********************************************************!*\
@@ -9564,7 +9564,7 @@ var VajroSDK;
                 //# sourceMappingURL=index.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/vocabularies/core/ref.js":
 /*!********************************************************!*\
@@ -9697,7 +9697,7 @@ var VajroSDK;
                 //# sourceMappingURL=ref.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/vocabularies/discriminator/index.js":
 /*!*******************************************************************!*\
@@ -9808,7 +9808,7 @@ var VajroSDK;
                 //# sourceMappingURL=index.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/vocabularies/discriminator/types.js":
 /*!*******************************************************************!*\
@@ -9828,7 +9828,7 @@ var VajroSDK;
                 //# sourceMappingURL=types.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/vocabularies/draft7.js":
 /*!******************************************************!*\
@@ -9856,7 +9856,7 @@ var VajroSDK;
                 //# sourceMappingURL=draft7.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/vocabularies/format/format.js":
 /*!*************************************************************!*\
@@ -9959,7 +9959,7 @@ var VajroSDK;
                 //# sourceMappingURL=format.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/vocabularies/format/index.js":
 /*!************************************************************!*\
@@ -9976,7 +9976,7 @@ var VajroSDK;
                 //# sourceMappingURL=index.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/vocabularies/metadata.js":
 /*!********************************************************!*\
@@ -10005,7 +10005,7 @@ var VajroSDK;
                 //# sourceMappingURL=metadata.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/vocabularies/validation/const.js":
 /*!****************************************************************!*\
@@ -10041,7 +10041,7 @@ var VajroSDK;
                 //# sourceMappingURL=const.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/vocabularies/validation/enum.js":
 /*!***************************************************************!*\
@@ -10100,7 +10100,7 @@ var VajroSDK;
                 //# sourceMappingURL=enum.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/vocabularies/validation/index.js":
 /*!****************************************************************!*\
@@ -10144,7 +10144,7 @@ var VajroSDK;
                 //# sourceMappingURL=index.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/vocabularies/validation/limitItems.js":
 /*!*********************************************************************!*\
@@ -10179,7 +10179,7 @@ var VajroSDK;
                 //# sourceMappingURL=limitItems.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/vocabularies/validation/limitLength.js":
 /*!**********************************************************************!*\
@@ -10217,7 +10217,7 @@ var VajroSDK;
                 //# sourceMappingURL=limitLength.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/vocabularies/validation/limitNumber.js":
 /*!**********************************************************************!*\
@@ -10255,7 +10255,7 @@ var VajroSDK;
                 //# sourceMappingURL=limitNumber.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/vocabularies/validation/limitProperties.js":
 /*!**************************************************************************!*\
@@ -10290,7 +10290,7 @@ var VajroSDK;
                 //# sourceMappingURL=limitProperties.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/vocabularies/validation/multipleOf.js":
 /*!*********************************************************************!*\
@@ -10327,7 +10327,7 @@ var VajroSDK;
                 //# sourceMappingURL=multipleOf.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/vocabularies/validation/pattern.js":
 /*!******************************************************************!*\
@@ -10362,7 +10362,7 @@ var VajroSDK;
                 //# sourceMappingURL=pattern.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/vocabularies/validation/required.js":
 /*!*******************************************************************!*\
@@ -10452,7 +10452,7 @@ var VajroSDK;
                 //# sourceMappingURL=required.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/vocabularies/validation/uniqueItems.js":
 /*!**********************************************************************!*\
@@ -10527,7 +10527,7 @@ var VajroSDK;
                 //# sourceMappingURL=uniqueItems.js.map
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/fast-deep-equal/index.js":
 /*!***********************************************!*\
@@ -10585,7 +10585,7 @@ var VajroSDK;
 
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/json-schema-traverse/index.js":
 /*!****************************************************!*\
@@ -10690,7 +10690,7 @@ var VajroSDK;
 
 
                 /***/
-}),
+            }),
 
 /***/ "./src/common-actions/commonActions.ts":
 /*!*********************************************!*\
@@ -10705,7 +10705,7 @@ var VajroSDK;
 /* harmony export */   "setVar": () => (/* reexport safe */ _set_var_setVar_action__WEBPACK_IMPORTED_MODULE_0__.setVar),
 /* harmony export */   "showToastMessage": () => (/* reexport safe */ _show_toast_message_showToastMessage_action__WEBPACK_IMPORTED_MODULE_2__.showToastMessage)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _set_var_setVar_action__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./set-var/setVar.action */ "./src/common-actions/set-var/setVar.action.ts");
 /* harmony import */ var _get_var_getVar_action__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./get-var/getVar.action */ "./src/common-actions/get-var/getVar.action.ts");
 /* harmony import */ var _show_toast_message_showToastMessage_action__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./show-toast-message/showToastMessage.action */ "./src/common-actions/show-toast-message/showToastMessage.action.ts");
@@ -10715,7 +10715,7 @@ var VajroSDK;
 
 
                 /***/
-}),
+            }),
 
 /***/ "./src/common-actions/get-var/getVar.action.ts":
 /*!*****************************************************!*\
@@ -10728,7 +10728,7 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "getVar": () => (/* binding */ getVar)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _constants_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../constants/actions */ "./src/constants/actions.ts");
 /* harmony import */ var _communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../communications/dispatcher */ "./src/communications/dispatcher.ts");
 /* harmony import */ var _getVar_schema__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./getVar.schema */ "./src/common-actions/get-var/getVar.schema.ts");
@@ -10800,7 +10800,7 @@ var VajroSDK;
 
 
                 /***/
-}),
+            }),
 
 /***/ "./src/common-actions/get-var/getVar.schema.ts":
 /*!*****************************************************!*\
@@ -10814,7 +10814,7 @@ var VajroSDK;
 /* harmony export */   "getVarSchema": () => (/* binding */ getVarSchema),
 /* harmony export */   "schema": () => (/* binding */ schema)
                     /* harmony export */
-});
+                });
 /* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ajv */ "./node_modules/ajv/dist/ajv.js");
 /* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(ajv__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -10831,7 +10831,7 @@ var VajroSDK;
 
 
                 /***/
-}),
+            }),
 
 /***/ "./src/common-actions/set-var/setVar.action.ts":
 /*!*****************************************************!*\
@@ -10844,7 +10844,7 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "setVar": () => (/* binding */ setVar)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _constants_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../constants/actions */ "./src/constants/actions.ts");
 /* harmony import */ var _communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../communications/dispatcher */ "./src/communications/dispatcher.ts");
 /* harmony import */ var _utils_errorNormalizer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/errorNormalizer */ "./src/utils/errorNormalizer.ts");
@@ -10915,7 +10915,7 @@ var VajroSDK;
 
 
                 /***/
-}),
+            }),
 
 /***/ "./src/common-actions/set-var/setVar.schema.ts":
 /*!*****************************************************!*\
@@ -10929,7 +10929,7 @@ var VajroSDK;
 /* harmony export */   "schema": () => (/* binding */ schema),
 /* harmony export */   "setVarSchema": () => (/* binding */ setVarSchema)
                     /* harmony export */
-});
+                });
 /* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ajv */ "./node_modules/ajv/dist/ajv.js");
 /* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(ajv__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -10953,7 +10953,7 @@ var VajroSDK;
 
 
                 /***/
-}),
+            }),
 
 /***/ "./src/common-actions/show-toast-message/showToastMessage.action.ts":
 /*!**************************************************************************!*\
@@ -10966,7 +10966,7 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "showToastMessage": () => (/* binding */ showToastMessage)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _constants_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../constants/actions */ "./src/constants/actions.ts");
 /* harmony import */ var _communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../communications/dispatcher */ "./src/communications/dispatcher.ts");
 /* harmony import */ var _utils_errorNormalizer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/errorNormalizer */ "./src/utils/errorNormalizer.ts");
@@ -11024,7 +11024,7 @@ var VajroSDK;
 
 
                 /***/
-}),
+            }),
 
 /***/ "./src/common-actions/show-toast-message/showToastMessage.schema.ts":
 /*!**************************************************************************!*\
@@ -11038,7 +11038,7 @@ var VajroSDK;
 /* harmony export */   "schema": () => (/* binding */ schema),
 /* harmony export */   "showToastMessageSchema": () => (/* binding */ showToastMessageSchema)
                     /* harmony export */
-});
+                });
 /* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ajv */ "./node_modules/ajv/dist/ajv.js");
 /* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(ajv__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -11055,7 +11055,7 @@ var VajroSDK;
 
 
                 /***/
-}),
+            }),
 
 /***/ "./src/common-triggers/cart-cleared/cartCleared.ts":
 /*!*********************************************************!*\
@@ -11068,7 +11068,7 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "cartCleared": () => (/* binding */ cartCleared)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _constants_triggers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../constants/triggers */ "./src/constants/triggers.ts");
 /* harmony import */ var _communications_listeners__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../communications/listeners */ "./src/communications/listeners.ts");
 
@@ -11079,7 +11079,7 @@ var VajroSDK;
 
 
                 /***/
-}),
+            }),
 
 /***/ "./src/common-triggers/checkout-completed/checkoutCompleted.ts":
 /*!*********************************************************************!*\
@@ -11092,7 +11092,7 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "checkoutCompleted": () => (/* binding */ checkoutCompleted)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _constants_triggers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../constants/triggers */ "./src/constants/triggers.ts");
 /* harmony import */ var _communications_listeners__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../communications/listeners */ "./src/communications/listeners.ts");
 
@@ -11103,7 +11103,7 @@ var VajroSDK;
 
 
                 /***/
-}),
+            }),
 
 /***/ "./src/common-triggers/commonTriggers.ts":
 /*!***********************************************!*\
@@ -11118,7 +11118,7 @@ var VajroSDK;
 /* harmony export */   "checkoutCompleted": () => (/* reexport safe */ _checkout_completed_checkoutCompleted__WEBPACK_IMPORTED_MODULE_1__.checkoutCompleted),
 /* harmony export */   "onPageLoaded": () => (/* reexport safe */ _on_page_loaded_onPageLoaded_trigger__WEBPACK_IMPORTED_MODULE_0__.onPageLoaded)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _on_page_loaded_onPageLoaded_trigger__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./on-page-loaded/onPageLoaded.trigger */ "./src/common-triggers/on-page-loaded/onPageLoaded.trigger.ts");
 /* harmony import */ var _checkout_completed_checkoutCompleted__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./checkout-completed/checkoutCompleted */ "./src/common-triggers/checkout-completed/checkoutCompleted.ts");
 /* harmony import */ var _cart_cleared_cartCleared__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./cart-cleared/cartCleared */ "./src/common-triggers/cart-cleared/cartCleared.ts");
@@ -11128,7 +11128,7 @@ var VajroSDK;
 
 
                 /***/
-}),
+            }),
 
 /***/ "./src/common-triggers/on-page-loaded/onPageLoaded.trigger.ts":
 /*!********************************************************************!*\
@@ -11141,7 +11141,7 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "onPageLoaded": () => (/* binding */ onPageLoaded)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _constants_triggers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../constants/triggers */ "./src/constants/triggers.ts");
 /* harmony import */ var _communications_listeners__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../communications/listeners */ "./src/communications/listeners.ts");
 
@@ -11155,7 +11155,7 @@ var VajroSDK;
 
 
                 /***/
-}),
+            }),
 
 /***/ "./src/communications/dispatcher.ts":
 /*!******************************************!*\
@@ -11169,7 +11169,7 @@ var VajroSDK;
 /* harmony export */   "actionDidComplete": () => (/* binding */ actionDidComplete),
 /* harmony export */   "dispatch": () => (/* binding */ dispatch)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _utils_actionHub__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../utils/actionHub */ "./src/utils/actionHub.ts");
 /* harmony import */ var _utils_logger__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/logger */ "./src/utils/logger.ts");
 /* harmony import */ var nanoid__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! nanoid */ "./node_modules/nanoid/index.browser.js");
@@ -11233,7 +11233,7 @@ var VajroSDK;
 
 
                 /***/
-}),
+            }),
 
 /***/ "./src/communications/listeners.ts":
 /*!*****************************************!*\
@@ -11247,7 +11247,7 @@ var VajroSDK;
 /* harmony export */   "dispatch": () => (/* binding */ dispatch),
 /* harmony export */   "subscribe": () => (/* binding */ subscribe)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _utils_logger__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/logger */ "./src/utils/logger.ts");
 
                 const subscribers = {};
@@ -11272,7 +11272,7 @@ var VajroSDK;
 
 
                 /***/
-}),
+            }),
 
 /***/ "./src/constants/actions.ts":
 /*!**********************************!*\
@@ -11285,7 +11285,7 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
                     /* harmony export */
-});
+                });
                 var Actions;
                 (function (Actions) {
                     Actions["ADD_LINE_ITEM_TO_CART"] = "addLineItemToCart";
@@ -11304,7 +11304,7 @@ var VajroSDK;
 
 
                 /***/
-}),
+            }),
 
 /***/ "./src/constants/triggers.ts":
 /*!***********************************!*\
@@ -11317,7 +11317,7 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
                     /* harmony export */
-});
+                });
                 var Triggers;
                 (function (Triggers) {
                     Triggers["LINE_ITEM_ADDED_TO_CART"] = "LINE_ITEM_ADDED_TO_CART";
@@ -11330,7 +11330,7 @@ var VajroSDK;
 
 
                 /***/
-}),
+            }),
 
 /***/ "./src/methods/cart/add-coupon-code/addCouponCode.action.ts":
 /*!******************************************************************!*\
@@ -11343,7 +11343,7 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "addCouponCode": () => (/* binding */ addCouponCode)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _constants_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../constants/actions */ "./src/constants/actions.ts");
 /* harmony import */ var _addCouponCode_schema__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./addCouponCode.schema */ "./src/methods/cart/add-coupon-code/addCouponCode.schema.ts");
 /* harmony import */ var _communications_dispatcher__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../communications/dispatcher */ "./src/communications/dispatcher.ts");
@@ -11389,6 +11389,8 @@ var VajroSDK;
                             return this;
                         },
                         exec() {
+                            alert(coupon)
+                            alert(description)
                             if (!coupon) {
                                 let error = {
                                     code: 1101,
@@ -11410,12 +11412,13 @@ var VajroSDK;
                     };
                 };
                 const addCouponCode = function () {
+                    alert("add coupon")
                     return new AddCouponCodeBuilder();
                 };
 
 
                 /***/
-}),
+            }),
 
 /***/ "./src/methods/cart/add-coupon-code/addCouponCode.schema.ts":
 /*!******************************************************************!*\
@@ -11429,7 +11432,7 @@ var VajroSDK;
 /* harmony export */   "addCouponCodeSchema": () => (/* binding */ addCouponCodeSchema),
 /* harmony export */   "schema": () => (/* binding */ schema)
                     /* harmony export */
-});
+                });
 /* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ajv */ "./node_modules/ajv/dist/ajv.js");
 /* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(ajv__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -11447,7 +11450,7 @@ var VajroSDK;
 
 
                 /***/
-}),
+            }),
 
 /***/ "./src/methods/cart/add-line-item-to-cart/addLineItemToCart.action.ts":
 /*!****************************************************************************!*\
@@ -11460,7 +11463,7 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "addLineItemToCart": () => (/* binding */ addLineItemToCart)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _constants_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../constants/actions */ "./src/constants/actions.ts");
 /* harmony import */ var _addLineItemToCart_schema__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./addLineItemToCart.schema */ "./src/methods/cart/add-line-item-to-cart/addLineItemToCart.schema.ts");
 /* harmony import */ var _communications_dispatcher__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../communications/dispatcher */ "./src/communications/dispatcher.ts");
@@ -11548,7 +11551,7 @@ var VajroSDK;
 
 
                 /***/
-}),
+            }),
 
 /***/ "./src/methods/cart/add-line-item-to-cart/addLineItemToCart.schema.ts":
 /*!****************************************************************************!*\
@@ -11562,7 +11565,7 @@ var VajroSDK;
 /* harmony export */   "addLineItemToCartSchema": () => (/* binding */ addLineItemToCartSchema),
 /* harmony export */   "schema": () => (/* binding */ schema)
                     /* harmony export */
-});
+                });
 /* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ajv */ "./node_modules/ajv/dist/ajv.js");
 /* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(ajv__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -11589,7 +11592,7 @@ var VajroSDK;
 
 
                 /***/
-}),
+            }),
 
 /***/ "./src/methods/cart/add-line-item-to-cart/addLineItemToCart.trigger.ts":
 /*!*****************************************************************************!*\
@@ -11603,7 +11606,7 @@ var VajroSDK;
 /* harmony export */   "lineItemAddedToCart": () => (/* binding */ lineItemAddedToCart),
 /* harmony export */   "lineItemUpdated": () => (/* binding */ lineItemUpdated)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _constants_triggers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../constants/triggers */ "./src/constants/triggers.ts");
 /* harmony import */ var _communications_listeners__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../communications/listeners */ "./src/communications/listeners.ts");
 
@@ -11624,7 +11627,7 @@ var VajroSDK;
 
 
                 /***/
-}),
+            }),
 
 /***/ "./src/methods/cart/navigate-to/navigateTo.action.ts":
 /*!***********************************************************!*\
@@ -11637,7 +11640,7 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "navigateTo": () => (/* binding */ navigateTo)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _constants_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../constants/actions */ "./src/constants/actions.ts");
 /* harmony import */ var _communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../communications/dispatcher */ "./src/communications/dispatcher.ts");
 /* harmony import */ var _navigateTo_schema__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./navigateTo.schema */ "./src/methods/cart/navigate-to/navigateTo.schema.ts");
@@ -11702,7 +11705,7 @@ var VajroSDK;
 
 
                 /***/
-}),
+            }),
 
 /***/ "./src/methods/cart/navigate-to/navigateTo.schema.ts":
 /*!***********************************************************!*\
@@ -11716,7 +11719,7 @@ var VajroSDK;
 /* harmony export */   "navigateToSchema": () => (/* binding */ navigateToSchema),
 /* harmony export */   "schema": () => (/* binding */ schema)
                     /* harmony export */
-});
+                });
 /* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ajv */ "./node_modules/ajv/dist/ajv.js");
 /* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(ajv__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -11741,7 +11744,7 @@ var VajroSDK;
 
 
                 /***/
-}),
+            }),
 
 /***/ "./src/methods/cart/remove-coupon-code/removeCouponCode.action.ts":
 /*!************************************************************************!*\
@@ -11754,7 +11757,7 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "removeCouponCode": () => (/* binding */ removeCouponCode)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _constants_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../constants/actions */ "./src/constants/actions.ts");
 /* harmony import */ var _removeCouponCode_schema__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./removeCouponCode.schema */ "./src/methods/cart/remove-coupon-code/removeCouponCode.schema.ts");
 /* harmony import */ var _communications_dispatcher__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../communications/dispatcher */ "./src/communications/dispatcher.ts");
@@ -11812,7 +11815,7 @@ var VajroSDK;
 
 
                 /***/
-}),
+            }),
 
 /***/ "./src/methods/cart/remove-coupon-code/removeCouponCode.schema.ts":
 /*!************************************************************************!*\
@@ -11826,7 +11829,7 @@ var VajroSDK;
 /* harmony export */   "removeCouponCodeSchema": () => (/* binding */ removeCouponCodeSchema),
 /* harmony export */   "schema": () => (/* binding */ schema)
                     /* harmony export */
-});
+                });
 /* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ajv */ "./node_modules/ajv/dist/ajv.js");
 /* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(ajv__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -11843,7 +11846,7 @@ var VajroSDK;
 
 
                 /***/
-}),
+            }),
 
 /***/ "./src/methods/cart/remove-line-item-from-cart/removeLineItemFromCart.action.ts":
 /*!**************************************************************************************!*\
@@ -11856,7 +11859,7 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "removeLineItemFromCart": () => (/* binding */ removeLineItemFromCart)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _constants_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../constants/actions */ "./src/constants/actions.ts");
 /* harmony import */ var _communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../communications/dispatcher */ "./src/communications/dispatcher.ts");
 /* harmony import */ var _utils_errorNormalizer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utils/errorNormalizer */ "./src/utils/errorNormalizer.ts");
@@ -11923,7 +11926,7 @@ var VajroSDK;
 
 
                 /***/
-}),
+            }),
 
 /***/ "./src/methods/cart/remove-line-item-from-cart/removeLineItemFromCart.schema.ts":
 /*!**************************************************************************************!*\
@@ -11937,7 +11940,7 @@ var VajroSDK;
 /* harmony export */   "removeLineItemFromCartSchema": () => (/* binding */ removeLineItemFromCartSchema),
 /* harmony export */   "schema": () => (/* binding */ schema)
                     /* harmony export */
-});
+                });
 /* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ajv */ "./node_modules/ajv/dist/ajv.js");
 /* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(ajv__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -11955,7 +11958,7 @@ var VajroSDK;
 
 
                 /***/
-}),
+            }),
 
 /***/ "./src/methods/cart/set-code-block-content/setCodeBlockContent.action.ts":
 /*!*******************************************************************************!*\
@@ -11968,7 +11971,7 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "setCodeBlockContent": () => (/* binding */ setCodeBlockContent)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _constants_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../constants/actions */ "./src/constants/actions.ts");
 /* harmony import */ var _communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../communications/dispatcher */ "./src/communications/dispatcher.ts");
 /* harmony import */ var _utils_errorNormalizer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utils/errorNormalizer */ "./src/utils/errorNormalizer.ts");
@@ -12044,7 +12047,7 @@ var VajroSDK;
 
 
                 /***/
-}),
+            }),
 
 /***/ "./src/methods/cart/set-code-block-content/setCodeBlockContent.schema.ts":
 /*!*******************************************************************************!*\
@@ -12058,7 +12061,7 @@ var VajroSDK;
 /* harmony export */   "schema": () => (/* binding */ schema),
 /* harmony export */   "setCodeBlockContentSchema": () => (/* binding */ setCodeBlockContentSchema)
                     /* harmony export */
-});
+                });
 /* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ajv */ "./node_modules/ajv/dist/ajv.js");
 /* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(ajv__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -12100,7 +12103,7 @@ var VajroSDK;
 
 
                 /***/
-}),
+            }),
 
 /***/ "./src/methods/cart/update-line-item-in-cart/updateLineItemInCart.action.ts":
 /*!**********************************************************************************!*\
@@ -12113,7 +12116,7 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "updateLineItemInCart": () => (/* binding */ updateLineItemInCart)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _constants_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../constants/actions */ "./src/constants/actions.ts");
 /* harmony import */ var _communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../communications/dispatcher */ "./src/communications/dispatcher.ts");
 /* harmony import */ var _utils_errorNormalizer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utils/errorNormalizer */ "./src/utils/errorNormalizer.ts");
@@ -12195,7 +12198,7 @@ var VajroSDK;
 
 
                 /***/
-}),
+            }),
 
 /***/ "./src/methods/cart/update-line-item-in-cart/updateLineItemInCart.schema.ts":
 /*!**********************************************************************************!*\
@@ -12209,7 +12212,7 @@ var VajroSDK;
 /* harmony export */   "schema": () => (/* binding */ schema),
 /* harmony export */   "updateLineItemInCartSchema": () => (/* binding */ updateLineItemInCartSchema)
                     /* harmony export */
-});
+                });
 /* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ajv */ "./node_modules/ajv/dist/ajv.js");
 /* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(ajv__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -12236,7 +12239,7 @@ var VajroSDK;
 
 
                 /***/
-}),
+            }),
 
 /***/ "./src/methods/cart/variant-selection/variantSelection.action.ts":
 /*!***********************************************************************!*\
@@ -12249,7 +12252,7 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "variantSelection": () => (/* binding */ variantSelection)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _constants_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../constants/actions */ "./src/constants/actions.ts");
 /* harmony import */ var _communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../communications/dispatcher */ "./src/communications/dispatcher.ts");
 /* harmony import */ var _variantSelection_schema__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./variantSelection.schema */ "./src/methods/cart/variant-selection/variantSelection.schema.ts");
@@ -12355,7 +12358,7 @@ var VajroSDK;
 
 
                 /***/
-}),
+            }),
 
 /***/ "./src/methods/cart/variant-selection/variantSelection.schema.ts":
 /*!***********************************************************************!*\
@@ -12369,7 +12372,7 @@ var VajroSDK;
 /* harmony export */   "schema": () => (/* binding */ schema),
 /* harmony export */   "variantSelectionSchema": () => (/* binding */ variantSelectionSchema)
                     /* harmony export */
-});
+                });
 /* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ajv */ "./node_modules/ajv/dist/ajv.js");
 /* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(ajv__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -12418,7 +12421,7 @@ var VajroSDK;
 
 
                 /***/
-}),
+            }),
 
 /***/ "./src/methods/methods.ts":
 /*!********************************!*\
@@ -12439,7 +12442,7 @@ var VajroSDK;
 /* harmony export */   "setCodeBlockContent": () => (/* reexport safe */ _cart_set_code_block_content_setCodeBlockContent_action__WEBPACK_IMPORTED_MODULE_3__.setCodeBlockContent),
 /* harmony export */   "updateLineItemInCart": () => (/* reexport safe */ _cart_update_line_item_in_cart_updateLineItemInCart_action__WEBPACK_IMPORTED_MODULE_4__.updateLineItemInCart)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _cart_add_line_item_to_cart_addLineItemToCart_action__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./cart/add-line-item-to-cart/addLineItemToCart.action */ "./src/methods/cart/add-line-item-to-cart/addLineItemToCart.action.ts");
 /* harmony import */ var _cart_add_line_item_to_cart_addLineItemToCart_trigger__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./cart/add-line-item-to-cart/addLineItemToCart.trigger */ "./src/methods/cart/add-line-item-to-cart/addLineItemToCart.trigger.ts");
 /* harmony import */ var _cart_remove_line_item_from_cart_removeLineItemFromCart_action__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./cart/remove-line-item-from-cart/removeLineItemFromCart.action */ "./src/methods/cart/remove-line-item-from-cart/removeLineItemFromCart.action.ts");
@@ -12459,7 +12462,7 @@ var VajroSDK;
 
 
                 /***/
-}),
+            }),
 
 /***/ "./src/ui-actions/UIActions.ts":
 /*!*************************************!*\
@@ -12472,7 +12475,7 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "ui": () => (/* binding */ ui)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _methods_cart_variant_selection_variantSelection_action__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../methods/cart/variant-selection/variantSelection.action */ "./src/methods/cart/variant-selection/variantSelection.action.ts");
 
                 const ui = {
@@ -12481,7 +12484,7 @@ var VajroSDK;
 
 
                 /***/
-}),
+            }),
 
 /***/ "./src/utils/actionHub.ts":
 /*!********************************!*\
@@ -12496,7 +12499,7 @@ var VajroSDK;
 /* harmony export */   "pushToHub": () => (/* binding */ pushToHub),
 /* harmony export */   "removeFromHub": () => (/* binding */ removeFromHub)
                     /* harmony export */
-});
+                });
                 const hub = {};
                 const pushToHub = (key, func) => {
                     if (hub[key])
@@ -12516,7 +12519,7 @@ var VajroSDK;
 
 
                 /***/
-}),
+            }),
 
 /***/ "./src/utils/appInfo.ts":
 /*!******************************!*\
@@ -12530,7 +12533,7 @@ var VajroSDK;
 /* harmony export */   "getAppInfo": () => (/* binding */ getAppInfo),
 /* harmony export */   "initAppInfo": () => (/* binding */ initAppInfo)
                     /* harmony export */
-});
+                });
                 let appInfo = {
                     appId: null,
                     appVersion: null,
@@ -12564,7 +12567,7 @@ var VajroSDK;
 
 
                 /***/
-}),
+            }),
 
 /***/ "./src/utils/errorNormalizer.ts":
 /*!**************************************!*\
@@ -12577,7 +12580,7 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "normalizeError": () => (/* binding */ normalizeError)
                     /* harmony export */
-});
+                });
                 const normalizeError = (value) => {
                     return {
                         code: 1100,
@@ -12588,7 +12591,7 @@ var VajroSDK;
 
 
                 /***/
-}),
+            }),
 
 /***/ "./src/utils/logger.ts":
 /*!*****************************!*\
@@ -12602,7 +12605,7 @@ var VajroSDK;
 /* harmony export */   "logAction": () => (/* binding */ logAction),
 /* harmony export */   "logTrigger": () => (/* binding */ logTrigger)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _datadog_browser_logs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @datadog/browser-logs */ "./node_modules/@datadog/browser-logs/esm/entries/main.js");
 /* harmony import */ var _appInfo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./appInfo */ "./src/utils/appInfo.ts");
 
@@ -12662,7 +12665,7 @@ var VajroSDK;
 
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/uri-js/dist/es5/uri.all.js":
 /*!*************************************************!*\
@@ -14116,7 +14119,7 @@ var VajroSDK;
 
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/nanoid/index.browser.js":
 /*!**********************************************!*\
@@ -14133,7 +14136,7 @@ var VajroSDK;
 /* harmony export */   "random": () => (/* binding */ random),
 /* harmony export */   "urlAlphabet": () => (/* reexport safe */ _url_alphabet_index_js__WEBPACK_IMPORTED_MODULE_0__.urlAlphabet)
                     /* harmony export */
-});
+                });
 /* harmony import */ var _url_alphabet_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./url-alphabet/index.js */ "./node_modules/nanoid/url-alphabet/index.js");
 
                 let random = bytes => crypto.getRandomValues(new Uint8Array(bytes))
@@ -14171,7 +14174,7 @@ var VajroSDK;
 
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/nanoid/url-alphabet/index.js":
 /*!***************************************************!*\
@@ -14184,13 +14187,13 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "urlAlphabet": () => (/* binding */ urlAlphabet)
                     /* harmony export */
-});
+                });
                 const urlAlphabet =
                     'useandom-26T198340PX75pxJACKVERYMINDBUSHWOLF_GQZbfghjklqvwyzrict'
 
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/refs/data.json":
 /*!**********************************************!*\
@@ -14202,7 +14205,7 @@ var VajroSDK;
                 module.exports = JSON.parse('{"$id":"https://raw.githubusercontent.com/ajv-validator/ajv/master/lib/refs/data.json#","description":"Meta-schema for $data reference (JSON AnySchema extension proposal)","type":"object","required":["$data"],"properties":{"$data":{"type":"string","anyOf":[{"format":"relative-json-pointer"},{"format":"json-pointer"}]}},"additionalProperties":false}');
 
                 /***/
-}),
+            }),
 
 /***/ "./node_modules/ajv/dist/refs/json-schema-draft-07.json":
 /*!**************************************************************!*\
@@ -14214,10 +14217,10 @@ var VajroSDK;
                 module.exports = JSON.parse('{"$schema":"http://json-schema.org/draft-07/schema#","$id":"http://json-schema.org/draft-07/schema#","title":"Core schema meta-schema","definitions":{"schemaArray":{"type":"array","minItems":1,"items":{"$ref":"#"}},"nonNegativeInteger":{"type":"integer","minimum":0},"nonNegativeIntegerDefault0":{"allOf":[{"$ref":"#/definitions/nonNegativeInteger"},{"default":0}]},"simpleTypes":{"enum":["array","boolean","integer","null","number","object","string"]},"stringArray":{"type":"array","items":{"type":"string"},"uniqueItems":true,"default":[]}},"type":["object","boolean"],"properties":{"$id":{"type":"string","format":"uri-reference"},"$schema":{"type":"string","format":"uri"},"$ref":{"type":"string","format":"uri-reference"},"$comment":{"type":"string"},"title":{"type":"string"},"description":{"type":"string"},"default":true,"readOnly":{"type":"boolean","default":false},"examples":{"type":"array","items":true},"multipleOf":{"type":"number","exclusiveMinimum":0},"maximum":{"type":"number"},"exclusiveMaximum":{"type":"number"},"minimum":{"type":"number"},"exclusiveMinimum":{"type":"number"},"maxLength":{"$ref":"#/definitions/nonNegativeInteger"},"minLength":{"$ref":"#/definitions/nonNegativeIntegerDefault0"},"pattern":{"type":"string","format":"regex"},"additionalItems":{"$ref":"#"},"items":{"anyOf":[{"$ref":"#"},{"$ref":"#/definitions/schemaArray"}],"default":true},"maxItems":{"$ref":"#/definitions/nonNegativeInteger"},"minItems":{"$ref":"#/definitions/nonNegativeIntegerDefault0"},"uniqueItems":{"type":"boolean","default":false},"contains":{"$ref":"#"},"maxProperties":{"$ref":"#/definitions/nonNegativeInteger"},"minProperties":{"$ref":"#/definitions/nonNegativeIntegerDefault0"},"required":{"$ref":"#/definitions/stringArray"},"additionalProperties":{"$ref":"#"},"definitions":{"type":"object","additionalProperties":{"$ref":"#"},"default":{}},"properties":{"type":"object","additionalProperties":{"$ref":"#"},"default":{}},"patternProperties":{"type":"object","additionalProperties":{"$ref":"#"},"propertyNames":{"format":"regex"},"default":{}},"dependencies":{"type":"object","additionalProperties":{"anyOf":[{"$ref":"#"},{"$ref":"#/definitions/stringArray"}]}},"propertyNames":{"$ref":"#"},"const":true,"enum":{"type":"array","items":true,"minItems":1,"uniqueItems":true},"type":{"anyOf":[{"$ref":"#/definitions/simpleTypes"},{"type":"array","items":{"$ref":"#/definitions/simpleTypes"},"minItems":1,"uniqueItems":true}]},"format":{"type":"string"},"contentMediaType":{"type":"string"},"contentEncoding":{"type":"string"},"if":{"$ref":"#"},"then":{"$ref":"#"},"else":{"$ref":"#"},"allOf":{"$ref":"#/definitions/schemaArray"},"anyOf":{"$ref":"#/definitions/schemaArray"},"oneOf":{"$ref":"#/definitions/schemaArray"},"not":{"$ref":"#"}},"default":true}');
 
                 /***/
-})
+            })
 
         /******/
-});
+    });
 /************************************************************************/
 /******/ 	// The module cache
 /******/ 	var __webpack_module_cache__ = {};
@@ -14229,14 +14232,14 @@ var VajroSDK;
 /******/ 		if (cachedModule !== undefined) {
 /******/ 			return cachedModule.exports;
             /******/
-}
+        }
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
 /******/ 			// no module.id needed
 /******/ 			// no module.loaded needed
 /******/ 			exports: {}
             /******/
-};
+        };
 /******/
 /******/ 		// Execute the module function
 /******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
@@ -14244,7 +14247,7 @@ var VajroSDK;
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
         /******/
-}
+    }
 /******/
 /************************************************************************/
 /******/ 	/* webpack/runtime/compat get default export */
@@ -14257,9 +14260,9 @@ var VajroSDK;
 /******/ 			__webpack_require__.d(getter, { a: getter });
 /******/ 			return getter;
             /******/
-};
+        };
         /******/
-})();
+    })();
 /******/
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
@@ -14269,19 +14272,19 @@ var VajroSDK;
 /******/ 				if (__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
 /******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
                     /******/
-}
+                }
                 /******/
-}
+            }
             /******/
-};
+        };
         /******/
-})();
+    })();
 /******/
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
         /******/
-})();
+    })();
 /******/
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
@@ -14290,12 +14293,12 @@ var VajroSDK;
 /******/ 			if (typeof Symbol !== 'undefined' && Symbol.toStringTag) {
 /******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
                 /******/
-}
+            }
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
             /******/
-};
+        };
         /******/
-})();
+    })();
     /******/
     /************************************************************************/
     var __webpack_exports__ = {};
@@ -14327,7 +14330,7 @@ var VajroSDK;
 /* harmony export */   "ui": () => (/* reexport safe */ _ui_actions_UIActions__WEBPACK_IMPORTED_MODULE_6__.ui),
 /* harmony export */   "updateLineItemInCart": () => (/* reexport safe */ _methods_methods__WEBPACK_IMPORTED_MODULE_0__.updateLineItemInCart)
             /* harmony export */
-});
+        });
 /* harmony import */ var _methods_methods__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./methods/methods */ "./src/methods/methods.ts");
 /* harmony import */ var _common_actions_commonActions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./common-actions/commonActions */ "./src/common-actions/commonActions.ts");
 /* harmony import */ var _communications_dispatcher__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./communications/dispatcher */ "./src/communications/dispatcher.ts");
