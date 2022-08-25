@@ -11297,7 +11297,8 @@ var VajroSDK;
                     Actions["NAVIGATE_TO"] = "navigateTo";
                     Actions["SHOW_TOAST_MESSAGE"] = "showToastMessage";
                     Actions["VARIANT_SELECTION"] = "variantSelection";
-                    Actions["ADD_COUPON_CODE_FOR_CHECKOUT"] = "addCouponCodeForCheckout";
+                    Actions["ADD_COUPON_CODE"] = "addCouponCode";
+                    Actions["REMOVE_COUPON_CODE"] = "removeCouponCode";
                 })(Actions || (Actions = {}));
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Actions);
 
@@ -11331,35 +11332,35 @@ var VajroSDK;
                 /***/
 }),
 
-/***/ "./src/methods/cart/add-coupon-code-for-checkout/addCouponCodeForCheckout.action.ts":
-/*!******************************************************************************************!*\
-  !*** ./src/methods/cart/add-coupon-code-for-checkout/addCouponCodeForCheckout.action.ts ***!
-  \******************************************************************************************/
+/***/ "./src/methods/cart/add-coupon-code/addCouponCode.action.ts":
+/*!******************************************************************!*\
+  !*** ./src/methods/cart/add-coupon-code/addCouponCode.action.ts ***!
+  \******************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
                 "use strict";
                 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "addCouponCodeForCheckout": () => (/* binding */ addCouponCodeForCheckout)
+/* harmony export */   "addCouponCode": () => (/* binding */ addCouponCode)
                     /* harmony export */
 });
 /* harmony import */ var _constants_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../constants/actions */ "./src/constants/actions.ts");
-/* harmony import */ var _addCouponCodeForCheckout_schema__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./addCouponCodeForCheckout.schema */ "./src/methods/cart/add-coupon-code-for-checkout/addCouponCodeForCheckout.schema.ts");
+/* harmony import */ var _addCouponCode_schema__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./addCouponCode.schema */ "./src/methods/cart/add-coupon-code/addCouponCode.schema.ts");
 /* harmony import */ var _communications_dispatcher__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../communications/dispatcher */ "./src/communications/dispatcher.ts");
 /* harmony import */ var _utils_errorNormalizer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../utils/errorNormalizer */ "./src/utils/errorNormalizer.ts");
 
 
 
 
-                const AddCouponCodeForCheckout = function (couponCode, couponDescription) {
+                const AddCouponCode = function (coupon, description) {
                     return new Promise(function (resolve, reject) {
                         let data = {
-                            couponCode,
-                            couponDescription
+                            coupon,
+                            description
                         };
-                        const validate = (0, _addCouponCodeForCheckout_schema__WEBPACK_IMPORTED_MODULE_1__.addCouponCodeForCheckoutSchema)(data);
+                        const validate = (0, _addCouponCode_schema__WEBPACK_IMPORTED_MODULE_1__.addCouponCodeSchema)(data);
                         if (validate) {
-                            (0, _communications_dispatcher__WEBPACK_IMPORTED_MODULE_2__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].ADD_COUPON_CODE_FOR_CHECKOUT, data)
+                            (0, _communications_dispatcher__WEBPACK_IMPORTED_MODULE_2__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].ADD_COUPON_CODE, data)
                                 .then((data) => {
                                     resolve(data);
                                 })
@@ -11368,64 +11369,64 @@ var VajroSDK;
                                 });
                         }
                         else {
-                            if (_addCouponCodeForCheckout_schema__WEBPACK_IMPORTED_MODULE_1__.addCouponCodeForCheckoutSchema.errors) {
-                                let error = (0, _utils_errorNormalizer__WEBPACK_IMPORTED_MODULE_3__.normalizeError)(_addCouponCodeForCheckout_schema__WEBPACK_IMPORTED_MODULE_1__.addCouponCodeForCheckoutSchema.errors);
+                            if (_addCouponCode_schema__WEBPACK_IMPORTED_MODULE_1__.addCouponCodeSchema.errors) {
+                                let error = (0, _utils_errorNormalizer__WEBPACK_IMPORTED_MODULE_3__.normalizeError)(_addCouponCode_schema__WEBPACK_IMPORTED_MODULE_1__.addCouponCodeSchema.errors);
                                 reject(error);
                             }
                         }
                     });
                 };
-                const AddCouponCodeForCheckoutBuilder = function () {
-                    let couponCode;
-                    let couponDescription;
+                const AddCouponCodeBuilder = function () {
+                    let coupon;
+                    let descripiton;
                     return {
                         setCouponCode(value) {
-                            couponCode = value;
+                            coupon = value;
                             return this;
                         },
                         setCouponDescription(value) {
-                            couponDescription = value;
+                            descripiton = value;
                             return this;
                         },
                         exec() {
-                            if (!couponCode) {
+                            if (!coupon) {
                                 let error = {
                                     code: 1101,
-                                    message: 'couponCode is missing',
+                                    message: 'Coupon Code is missing',
                                     type: 'Internal SDK Error',
                                 };
                                 return Promise.reject(error);
                             }
-                            if (!couponDescription) {
+                            if (!descripiton) {
                                 let error = {
                                     code: 1101,
-                                    message: 'couponDescription is missing',
+                                    message: 'Coupon Description is missing',
                                     type: 'Internal SDK Error',
                                 };
                                 return Promise.reject(error);
                             }
-                            return AddCouponCodeForCheckout(couponCode, couponDescription);
+                            return AddCouponCode(coupon, descripiton);
                         }
                     };
                 };
-                const addCouponCodeForCheckout = function () {
-                    return new AddCouponCodeForCheckoutBuilder();
+                const addCouponCode = function () {
+                    return new AddCouponCodeBuilder();
                 };
 
 
                 /***/
 }),
 
-/***/ "./src/methods/cart/add-coupon-code-for-checkout/addCouponCodeForCheckout.schema.ts":
-/*!******************************************************************************************!*\
-  !*** ./src/methods/cart/add-coupon-code-for-checkout/addCouponCodeForCheckout.schema.ts ***!
-  \******************************************************************************************/
+/***/ "./src/methods/cart/add-coupon-code/addCouponCode.schema.ts":
+/*!******************************************************************!*\
+  !*** ./src/methods/cart/add-coupon-code/addCouponCode.schema.ts ***!
+  \******************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
                 "use strict";
                 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "addCouponCodeForCheckoutSchema": () => (/* binding */ addCouponCodeForCheckoutSchema),
+/* harmony export */   "addCouponCodeSchema": () => (/* binding */ addCouponCodeSchema),
 /* harmony export */   "schema": () => (/* binding */ schema)
                     /* harmony export */
 });
@@ -11436,13 +11437,13 @@ var VajroSDK;
                 const schema = {
                     type: 'object',
                     properties: {
-                        couponCode: { type: 'string', nullable: false },
-                        couponDescription: { type: 'string', nullable: false }
+                        coupon: { type: 'string', nullable: false },
+                        descripiton: { type: 'string', nullable: false }
                     },
-                    required: ['couponCode', 'couponDescription'],
+                    required: ['coupon', 'descripiton'],
                     additionalProperties: false,
                 };
-                const addCouponCodeForCheckoutSchema = ajv.compile(schema);
+                const addCouponCodeSchema = ajv.compile(schema);
 
 
                 /***/
@@ -11737,6 +11738,108 @@ var VajroSDK;
                     additionalProperties: false,
                 };
                 const navigateToSchema = ajv.compile(schema);
+
+
+                /***/
+}),
+
+/***/ "./src/methods/cart/remove-coupon-code/removeCouponCode.action.ts":
+/*!************************************************************************!*\
+  !*** ./src/methods/cart/remove-coupon-code/removeCouponCode.action.ts ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+                "use strict";
+                __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "removeCouponCode": () => (/* binding */ removeCouponCode)
+                    /* harmony export */
+});
+/* harmony import */ var _constants_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../constants/actions */ "./src/constants/actions.ts");
+/* harmony import */ var _removeCouponCode_schema__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./removeCouponCode.schema */ "./src/methods/cart/remove-coupon-code/removeCouponCode.schema.ts");
+/* harmony import */ var _communications_dispatcher__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../communications/dispatcher */ "./src/communications/dispatcher.ts");
+/* harmony import */ var _utils_errorNormalizer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../utils/errorNormalizer */ "./src/utils/errorNormalizer.ts");
+
+
+
+
+                const RemoveCouponCode = function (coupon) {
+                    return new Promise(function (resolve, reject) {
+                        let data = {
+                            coupon
+                        };
+                        const validate = (0, _removeCouponCode_schema__WEBPACK_IMPORTED_MODULE_1__.removeCouponCodeSchema)(data);
+                        if (validate) {
+                            (0, _communications_dispatcher__WEBPACK_IMPORTED_MODULE_2__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].ADD_COUPON_CODE, data)
+                                .then((data) => {
+                                    resolve(data);
+                                })
+                                .catch((error) => {
+                                    reject(error);
+                                });
+                        }
+                        else {
+                            if (_removeCouponCode_schema__WEBPACK_IMPORTED_MODULE_1__.removeCouponCodeSchema.errors) {
+                                let error = (0, _utils_errorNormalizer__WEBPACK_IMPORTED_MODULE_3__.normalizeError)(_removeCouponCode_schema__WEBPACK_IMPORTED_MODULE_1__.removeCouponCodeSchema.errors);
+                                reject(error);
+                            }
+                        }
+                    });
+                };
+                const RemoveCouponCodeBuilder = function () {
+                    let coupon;
+                    return {
+                        setCouponCode(value) {
+                            coupon = value;
+                            return this;
+                        },
+                        exec() {
+                            if (!coupon) {
+                                let error = {
+                                    code: 1101,
+                                    message: 'Coupon Code is missing',
+                                    type: 'Internal SDK Error',
+                                };
+                                return Promise.reject(error);
+                            }
+                            return RemoveCouponCode(coupon);
+                        }
+                    };
+                };
+                const removeCouponCode = function () {
+                    return new RemoveCouponCodeBuilder();
+                };
+
+
+                /***/
+}),
+
+/***/ "./src/methods/cart/remove-coupon-code/removeCouponCode.schema.ts":
+/*!************************************************************************!*\
+  !*** ./src/methods/cart/remove-coupon-code/removeCouponCode.schema.ts ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+                "use strict";
+                __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "removeCouponCodeSchema": () => (/* binding */ removeCouponCodeSchema),
+/* harmony export */   "schema": () => (/* binding */ schema)
+                    /* harmony export */
+});
+/* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ajv */ "./node_modules/ajv/dist/ajv.js");
+/* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(ajv__WEBPACK_IMPORTED_MODULE_0__);
+
+                const ajv = new (ajv__WEBPACK_IMPORTED_MODULE_0___default())();
+                const schema = {
+                    type: 'object',
+                    properties: {
+                        coupon: { type: 'string', nullable: false },
+                    },
+                    required: ['coupon'],
+                    additionalProperties: false,
+                };
+                const removeCouponCodeSchema = ajv.compile(schema);
 
 
                 /***/
@@ -12326,11 +12429,12 @@ var VajroSDK;
                 "use strict";
                 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "addCouponCodeForCheckout": () => (/* reexport safe */ _cart_add_coupon_code_for_checkout_addCouponCodeForCheckout_action__WEBPACK_IMPORTED_MODULE_6__.addCouponCodeForCheckout),
+/* harmony export */   "addCouponCode": () => (/* reexport safe */ _cart_add_coupon_code_addCouponCode_action__WEBPACK_IMPORTED_MODULE_6__.addCouponCode),
 /* harmony export */   "addLineItemToCart": () => (/* reexport safe */ _cart_add_line_item_to_cart_addLineItemToCart_action__WEBPACK_IMPORTED_MODULE_0__.addLineItemToCart),
 /* harmony export */   "lineItemAddedToCart": () => (/* reexport safe */ _cart_add_line_item_to_cart_addLineItemToCart_trigger__WEBPACK_IMPORTED_MODULE_1__.lineItemAddedToCart),
 /* harmony export */   "lineItemUpdated": () => (/* reexport safe */ _cart_add_line_item_to_cart_addLineItemToCart_trigger__WEBPACK_IMPORTED_MODULE_1__.lineItemUpdated),
 /* harmony export */   "navigateTo": () => (/* reexport safe */ _cart_navigate_to_navigateTo_action__WEBPACK_IMPORTED_MODULE_5__.navigateTo),
+/* harmony export */   "removeCouponCode": () => (/* reexport safe */ _cart_remove_coupon_code_removeCouponCode_action__WEBPACK_IMPORTED_MODULE_7__.removeCouponCode),
 /* harmony export */   "removeLineItemFromCart": () => (/* reexport safe */ _cart_remove_line_item_from_cart_removeLineItemFromCart_action__WEBPACK_IMPORTED_MODULE_2__.removeLineItemFromCart),
 /* harmony export */   "setCodeBlockContent": () => (/* reexport safe */ _cart_set_code_block_content_setCodeBlockContent_action__WEBPACK_IMPORTED_MODULE_3__.setCodeBlockContent),
 /* harmony export */   "updateLineItemInCart": () => (/* reexport safe */ _cart_update_line_item_in_cart_updateLineItemInCart_action__WEBPACK_IMPORTED_MODULE_4__.updateLineItemInCart)
@@ -12342,7 +12446,9 @@ var VajroSDK;
 /* harmony import */ var _cart_set_code_block_content_setCodeBlockContent_action__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./cart/set-code-block-content/setCodeBlockContent.action */ "./src/methods/cart/set-code-block-content/setCodeBlockContent.action.ts");
 /* harmony import */ var _cart_update_line_item_in_cart_updateLineItemInCart_action__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./cart/update-line-item-in-cart/updateLineItemInCart.action */ "./src/methods/cart/update-line-item-in-cart/updateLineItemInCart.action.ts");
 /* harmony import */ var _cart_navigate_to_navigateTo_action__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./cart/navigate-to/navigateTo.action */ "./src/methods/cart/navigate-to/navigateTo.action.ts");
-/* harmony import */ var _cart_add_coupon_code_for_checkout_addCouponCodeForCheckout_action__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./cart/add-coupon-code-for-checkout/addCouponCodeForCheckout.action */ "./src/methods/cart/add-coupon-code-for-checkout/addCouponCodeForCheckout.action.ts");
+/* harmony import */ var _cart_add_coupon_code_addCouponCode_action__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./cart/add-coupon-code/addCouponCode.action */ "./src/methods/cart/add-coupon-code/addCouponCode.action.ts");
+/* harmony import */ var _cart_remove_coupon_code_removeCouponCode_action__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./cart/remove-coupon-code/removeCouponCode.action */ "./src/methods/cart/remove-coupon-code/removeCouponCode.action.ts");
+
 
 
 
@@ -14203,7 +14309,7 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Triggers": () => (/* reexport safe */ _constants_triggers__WEBPACK_IMPORTED_MODULE_3__["default"]),
 /* harmony export */   "actionDidComplete": () => (/* reexport safe */ _communications_dispatcher__WEBPACK_IMPORTED_MODULE_2__.actionDidComplete),
-/* harmony export */   "addCouponCodeForCheckout": () => (/* reexport safe */ _methods_methods__WEBPACK_IMPORTED_MODULE_0__.addCouponCodeForCheckout),
+/* harmony export */   "addCouponCode": () => (/* reexport safe */ _methods_methods__WEBPACK_IMPORTED_MODULE_0__.addCouponCode),
 /* harmony export */   "addLineItemToCart": () => (/* reexport safe */ _methods_methods__WEBPACK_IMPORTED_MODULE_0__.addLineItemToCart),
 /* harmony export */   "cartCleared": () => (/* reexport safe */ _common_triggers_commonTriggers__WEBPACK_IMPORTED_MODULE_5__.cartCleared),
 /* harmony export */   "checkoutCompleted": () => (/* reexport safe */ _common_triggers_commonTriggers__WEBPACK_IMPORTED_MODULE_5__.checkoutCompleted),
@@ -14212,6 +14318,7 @@ var VajroSDK;
 /* harmony export */   "lineItemUpdated": () => (/* reexport safe */ _methods_methods__WEBPACK_IMPORTED_MODULE_0__.lineItemUpdated),
 /* harmony export */   "navigateTo": () => (/* reexport safe */ _methods_methods__WEBPACK_IMPORTED_MODULE_0__.navigateTo),
 /* harmony export */   "onPageLoaded": () => (/* reexport safe */ _common_triggers_commonTriggers__WEBPACK_IMPORTED_MODULE_5__.onPageLoaded),
+/* harmony export */   "removeCouponCode": () => (/* reexport safe */ _methods_methods__WEBPACK_IMPORTED_MODULE_0__.removeCouponCode),
 /* harmony export */   "removeLineItemFromCart": () => (/* reexport safe */ _methods_methods__WEBPACK_IMPORTED_MODULE_0__.removeLineItemFromCart),
 /* harmony export */   "setCodeBlockContent": () => (/* reexport safe */ _methods_methods__WEBPACK_IMPORTED_MODULE_0__.setCodeBlockContent),
 /* harmony export */   "setVar": () => (/* reexport safe */ _common_actions_commonActions__WEBPACK_IMPORTED_MODULE_1__.setVar),
