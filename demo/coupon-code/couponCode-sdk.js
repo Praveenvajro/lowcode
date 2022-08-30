@@ -11770,7 +11770,7 @@ var VajroSDK;
                         };
                         const validate = (0, _removeCouponCode_schema__WEBPACK_IMPORTED_MODULE_1__.removeCouponCodeSchema)(data);
                         if (validate) {
-                            (0, _communications_dispatcher__WEBPACK_IMPORTED_MODULE_2__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].ADD_COUPON_CODE, data)
+                            (0, _communications_dispatcher__WEBPACK_IMPORTED_MODULE_2__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].REMOVE_COUPON_CODE, data)
                                 .then((data) => {
                                     resolve(data);
                                 })
