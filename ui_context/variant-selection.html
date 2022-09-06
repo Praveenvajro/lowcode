@@ -12,18 +12,6 @@
     <button type="button" id="option_selections" name="option_selections" onclick="optionSelection()">Variant Selection</button>
     <script>
         function optionSelection(){
-            const custom_option = [
-                {
-                    "id": "#2df%",
-                    "targetOption": "color",
-                    "optionValue": "Custom Color"
-                },
-                {
-                    "id": "#ewwer3%",
-                    "targetOption": "size",
-                    "optionValue": "Custom Form"
-                }
-            ]
             VajroSDK.ui.pdp.variantSelection()
                 .setSelectedBgColor("#7FFFD4")
                 .setUnSelectedBgColor("#00008B")
@@ -31,10 +19,10 @@
                 .setUnSelectedTextColor("#FFFFFF")
                 .setShape("BOX")
                 .setRadius(1)
-                .setBorderColor("#000000")
+                .setSelectedBorderColor("#008000")
+                .setUnSelectedBorderColor("#00FF00")
                 .setFontSize(14)
                 .setFontStyle("BOLD")
-                .setCustomOptions(custom_option)
                 .exec()
                 .then(() => {
                     console.log("weew")
