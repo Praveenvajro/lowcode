@@ -25,12 +25,20 @@
     <script>
         function destroyWebView(){
 
+            const onWebViewDestroy = () => {
+
+            }
             VajroSDK.destroyWebView()
                     .setCodeBlockId("overlay_popup")
                     .setId(randomId)
                     .exec().then(() => {
 
                     })
+                    onWebViewDestroy
+            VajroSDK.subscribe(
+                VajroSDK.Triggers.ON_WEB_VIEW_DESTROY,
+                onWebViewDestroy
+            );
         }
     </script>
 </body>

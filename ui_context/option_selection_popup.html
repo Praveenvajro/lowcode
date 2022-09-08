@@ -12,25 +12,6 @@
     <script>
         const variant = ['42019861037208']
         const productOptionSelected = (appContext, product, productVariant) =>{
-            let productVariant = {
-                                    "productId": "",
-                                    "variantID": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zOTk5MDQyNTI4ODg5NQ==",
-                                    "optional": false,
-                                    "isRequired": false,
-                                    "variantMessage": "",
-                                    "variantTitle": "black / S",
-                                    "sellingPrice": 700,
-                                    "barcode": "",
-                                    "retailPrice": 1000,
-                                    "defLangVariantTitle": "",
-                                    "availableQuantity": 91,
-                                    "variantImageId": "28985655886015",
-                                    "sku": "",
-                                    "imagesArray": [
-                                        "https://cdn.shopify.com/s/files/1/0577/3056/4287/products/bags2.jpg?v=1662359552"
-                                    ],
-                                    "isStockAvailable": true
-                                }
             let variantID = window.atob(productVariant.variantID).split('/').pop()
             if(variant.includes(variantID)){
                 
