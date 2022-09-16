@@ -11228,12 +11228,18 @@ var VajroSDK;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "cartCleared": () => (/* reexport safe */ _cart_cleared_cartCleared__WEBPACK_IMPORTED_MODULE_2__.cartCleared),
 /* harmony export */   "checkoutCompleted": () => (/* reexport safe */ _checkout_completed_checkoutCompleted__WEBPACK_IMPORTED_MODULE_1__.checkoutCompleted),
-/* harmony export */   "onPageLoaded": () => (/* reexport safe */ _on_page_loaded_onPageLoaded_trigger__WEBPACK_IMPORTED_MODULE_0__.onPageLoaded)
+/* harmony export */   "onPageLoaded": () => (/* reexport safe */ _on_page_loaded_onPageLoaded_trigger__WEBPACK_IMPORTED_MODULE_0__.onPageLoaded),
+/* harmony export */   "onWebViewDestroy": () => (/* reexport safe */ _on_webview_destroy_onWebviewDestroy_trigger__WEBPACK_IMPORTED_MODULE_4__.onWebViewDestroy),
+/* harmony export */   "productOptionSelected": () => (/* reexport safe */ _product_option_selected_productOptionSelected_trigger__WEBPACK_IMPORTED_MODULE_3__.productOptionSelected)
                     /* harmony export */
 });
 /* harmony import */ var _on_page_loaded_onPageLoaded_trigger__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./on-page-loaded/onPageLoaded.trigger */ "./src/common-triggers/on-page-loaded/onPageLoaded.trigger.ts");
 /* harmony import */ var _checkout_completed_checkoutCompleted__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./checkout-completed/checkoutCompleted */ "./src/common-triggers/checkout-completed/checkoutCompleted.ts");
 /* harmony import */ var _cart_cleared_cartCleared__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./cart-cleared/cartCleared */ "./src/common-triggers/cart-cleared/cartCleared.ts");
+/* harmony import */ var _product_option_selected_productOptionSelected_trigger__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./product-option-selected/productOptionSelected.trigger */ "./src/common-triggers/product-option-selected/productOptionSelected.trigger.ts");
+/* harmony import */ var _on_webview_destroy_onWebviewDestroy_trigger__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./on-webview-destroy/onWebviewDestroy.trigger */ "./src/common-triggers/on-webview-destroy/onWebviewDestroy.trigger.ts");
+
+
 
 
 
@@ -11262,6 +11268,61 @@ var VajroSDK;
                     (0, _communications_listeners__WEBPACK_IMPORTED_MODULE_1__.dispatch)(_constants_triggers__WEBPACK_IMPORTED_MODULE_0__["default"].ON_PAGE_LOADED, [appContext, product], {
                         appContext,
                         product
+                    });
+                };
+
+
+                /***/
+}),
+
+/***/ "./src/common-triggers/on-webview-destroy/onWebviewDestroy.trigger.ts":
+/*!****************************************************************************!*\
+  !*** ./src/common-triggers/on-webview-destroy/onWebviewDestroy.trigger.ts ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+                "use strict";
+                __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "onWebViewDestroy": () => (/* binding */ onWebViewDestroy)
+                    /* harmony export */
+});
+/* harmony import */ var _constants_triggers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../constants/triggers */ "./src/constants/triggers.ts");
+/* harmony import */ var _communications_listeners__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../communications/listeners */ "./src/communications/listeners.ts");
+
+
+                const onWebViewDestroy = (id, codeBlockId) => {
+                    (0, _communications_listeners__WEBPACK_IMPORTED_MODULE_1__.dispatch)(_constants_triggers__WEBPACK_IMPORTED_MODULE_0__["default"].ON_WEB_VIEW_DESTROY, [id, codeBlockId], {
+                        id,
+                        codeBlockId,
+                    });
+                };
+
+
+                /***/
+}),
+
+/***/ "./src/common-triggers/product-option-selected/productOptionSelected.trigger.ts":
+/*!**************************************************************************************!*\
+  !*** ./src/common-triggers/product-option-selected/productOptionSelected.trigger.ts ***!
+  \**************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+                "use strict";
+                __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "productOptionSelected": () => (/* binding */ productOptionSelected)
+                    /* harmony export */
+});
+/* harmony import */ var _constants_triggers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../constants/triggers */ "./src/constants/triggers.ts");
+/* harmony import */ var _communications_listeners__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../communications/listeners */ "./src/communications/listeners.ts");
+
+
+                const productOptionSelected = (appContext, product, productVariant) => {
+                    (0, _communications_listeners__WEBPACK_IMPORTED_MODULE_1__.dispatch)(_constants_triggers__WEBPACK_IMPORTED_MODULE_0__["default"].PRODUCT_OPTION_SELECTED, [appContext, product, productVariant], {
+                        appContext,
+                        product,
+                        productVariant
                     });
                 };
 
@@ -14434,6 +14495,8 @@ var VajroSDK;
 /* harmony export */   "lineItemUpdated": () => (/* reexport safe */ _methods_methods__WEBPACK_IMPORTED_MODULE_0__.lineItemUpdated),
 /* harmony export */   "navigateTo": () => (/* reexport safe */ _methods_methods__WEBPACK_IMPORTED_MODULE_0__.navigateTo),
 /* harmony export */   "onPageLoaded": () => (/* reexport safe */ _common_triggers_commonTriggers__WEBPACK_IMPORTED_MODULE_5__.onPageLoaded),
+/* harmony export */   "onWebViewDestroy": () => (/* reexport safe */ _common_triggers_commonTriggers__WEBPACK_IMPORTED_MODULE_5__.onWebViewDestroy),
+/* harmony export */   "productOptionSelected": () => (/* reexport safe */ _common_triggers_commonTriggers__WEBPACK_IMPORTED_MODULE_5__.productOptionSelected),
 /* harmony export */   "removeCouponCode": () => (/* reexport safe */ _methods_methods__WEBPACK_IMPORTED_MODULE_0__.removeCouponCode),
 /* harmony export */   "removeLineItemFromCart": () => (/* reexport safe */ _methods_methods__WEBPACK_IMPORTED_MODULE_0__.removeLineItemFromCart),
 /* harmony export */   "setCodeBlockContent": () => (/* reexport safe */ _methods_methods__WEBPACK_IMPORTED_MODULE_0__.setCodeBlockContent),
