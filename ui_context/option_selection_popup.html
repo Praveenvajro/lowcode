@@ -11,11 +11,11 @@
     <div>check the custom option</div>
     <script>
         const variant = ['42019861037208']
-        const productOptionSelected = (appContext, product, productVariant) =>{
-            let variantID = window.atob(productVariant.variantID).split('/').pop()
-            if(variant.includes(variantID)){
+
+        VajroSDK.subscribe(
+                VajroSDK.Triggers.PRODUCT_OPTION_SELECTED, (appContext, product, productVariant) =>{
+            alert("SDDSF")
                 
-                let randomId = makeid(8)
                 VajroSDK.setCodeBlockContent()
                     .setCodeBlockId("overlay_popup")
                     .setContentType("url")
@@ -25,22 +25,8 @@
                     .exec().then(() => {
 
                     })
-            }
-        }
 
-        function makeid(length) {
-            var result           = '';
-            var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-            var charactersLength = characters.length;
-            for ( var i = 0; i < length; i++ ) {
-                result += characters.charAt(Math.floor(Math.random() * charactersLength));
-            }
-            return result;
         }
-
-        VajroSDK.subscribe(
-                VajroSDK.Triggers.PRODUCT_OPTION_SELECTED,
-                productOptionSelected
             );
     </script>
 </body>
