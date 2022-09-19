@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="https://praveenvajro.github.io/lowcode/ui_context/uiComponents-sdk.js"></script>"
+</head>
+<body>
+    <div>Product Image Slider</div>
+    <script>
+        const onPageLoad = (appContext,product) => {
+            const sliderMedia = [{
+				"url": "https://cdn.shopify.com/s/files/1/1891/6405/products/shop-online-from-uae-vegetables-organic-tomatoes-fresh-food-in-dubai-and-abu-dhabi-24624583438.jpg?v\\u003d1513199042",
+				"imageId": "41239678910616",
+				"variantIds": [
+					"7316601798808"
+				]
+			},
+			{
+				"url": "https://cdn.shopify.com/s/files/1/1891/6405/products/shop-online-from-oman-vegetables-portobello-mushroom-fresh-food-in-dubai-and-abu-dhabi-24627340814_d9d7f41d-b84f-4aeb-9dc2-f78fd06db899.jpg?v\\u003d1610598686",
+				"imageId": "41702967640216",
+				"variantIds": [
+					"7316601798808"
+				]
+			},
+			{
+				"url": "https://cdn.shopify.com/s/files/1/0659/9183/5893/products/f65d31497199472abb443dc2dbd9eed0.thumbnail.0000000000.jpg?v\\u003d1662122892",
+				"video_url": "https://cdn.shopify.com/videos/c/vp/f65d31497199472abb443dc2dbd9eed0/f65d31497199472abb443dc2dbd9eed0.SD-480p-0.9Mbps-9082759.mp4",
+				"imageId": "41702970654872",
+				"variantIds": [
+					"7316601798808"
+				]
+			}
+		]
+            VajroSDK.ui.pdp.uiComponents()
+                .productImageSlider()
+                .setSliderMedia(sliderMedia)
+                .setAspectFill(true)
+                .setWishlist({
+                    "align": "TOP_LEFT",
+                    "hide": false
+                })
+                .setSticker({
+                    "align": "BOTTOM_RIGHT",
+                    "hide": false
+                })
+                .setSliderIndicator({
+                    "color": "#987654",
+                    "hide": false
+                })
+                .done()
+                .exec().then(() => {
+
+                })
+        }
+        VajroSDK.subscribe(VajroSDK.Triggers.ON_PAGE_LOADED, onPageLoad);
+    </script>
+</body>
+</html>
