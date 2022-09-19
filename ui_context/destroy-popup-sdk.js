@@ -12274,9 +12274,9 @@ var VajroSDK;
                         contentType: { type: 'string', nullable: false },
                         contentData: { type: 'string', nullable: false },
                         visibility: { type: 'boolean', nullable: false },
-                        id: { type: 'string', nullable: false },
+                        id: { type: 'string', nullable: true },
                     },
-                    required: ['codeBlockId', 'contentType', 'contentData', 'id'],
+                    required: ['codeBlockId', 'contentType', 'contentData'],
                     additionalProperties: false,
                 };
                 const setCodeBlockContentSchema = ajv.compile(schema);
