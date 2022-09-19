@@ -12153,13 +12153,14 @@ var VajroSDK;
 
 
 
-                const SetCodeBlockContent = function (codeBlockId, contentType, contentData, visibility) {
+                const SetCodeBlockContent = function (codeBlockId, contentType, contentData, visibility, id) {
                     return new Promise((resolve, reject) => {
                         let data = {
                             codeBlockId,
                             contentType,
                             contentData,
                             visibility,
+                            id
                         };
                         const validate = (0, _setCodeBlockContent_schema__WEBPACK_IMPORTED_MODULE_3__.setCodeBlockContentSchema)(data);
                         if (validate) {
@@ -12184,6 +12185,7 @@ var VajroSDK;
                     let contentType;
                     let contentData;
                     let visibility = true;
+                    let id = null;
                     return {
                         setCodeBlockId(value) {
                             codeBlockId = value;
@@ -12201,6 +12203,10 @@ var VajroSDK;
                             visibility = value;
                             return this;
                         },
+                        setId(value) {
+                            id = value;
+                            return this;
+                        },
                         exec() {
                             if (!codeBlockId && !contentType && !contentData) {
                                 let error = {
@@ -12210,7 +12216,7 @@ var VajroSDK;
                                 };
                                 return Promise.reject(error);
                             }
-                            return SetCodeBlockContent(codeBlockId, contentType, contentData, visibility);
+                            return SetCodeBlockContent(codeBlockId, contentType, contentData, visibility, id);
                         },
                     };
                 };
@@ -12268,8 +12274,9 @@ var VajroSDK;
                         contentType: { type: 'string', nullable: false },
                         contentData: { type: 'string', nullable: false },
                         visibility: { type: 'boolean', nullable: false },
+                        id: { type: 'string', nullable: false },
                     },
-                    required: ['codeBlockId', 'contentType', 'contentData'],
+                    required: ['codeBlockId', 'contentType', 'contentData', 'id'],
                     additionalProperties: false,
                 };
                 const setCodeBlockContentSchema = ajv.compile(schema);
