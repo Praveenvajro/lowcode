@@ -12368,6 +12368,208 @@ var VajroSDK;
                 /***/
 }),
 
+/***/ "./src/methods/cart/variant-selection/variantSelection.action.ts":
+/*!***********************************************************************!*\
+  !*** ./src/methods/cart/variant-selection/variantSelection.action.ts ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+                "use strict";
+                __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "variantSelection": () => (/* binding */ variantSelection)
+                    /* harmony export */
+});
+                // import Actions from '../../../constants/actions';
+                // import { dispatch } from '../../../communications/dispatcher';
+                // import { variantSelectionSchema } from './variantSelection.schema';
+                // import { normalizeError } from '../../../utils/errorNormalizer';
+                // const VariantSelection = function (
+                //     selectedBgColor: string | null,
+                //     unSelectedBgColor: string | null,
+                //     selectedTextColor: string | null,
+                //     unSelectedTextColor: string | null,
+                //     shape: string | null,
+                //     radius: number | null,
+                //     borderColor: string | null,
+                //     fontSize: number | null,
+                //     fontStyle: string | null,
+                //     customOptions: CustomOption[] | null
+                // ) {
+                //     return new Promise((resolve, reject) => {
+                //         let data = {
+                //             selectedBgColor,
+                //             unSelectedBgColor,
+                //             selectedTextColor,
+                //             unSelectedTextColor,
+                //             shape,
+                //             radius,
+                //             borderColor,
+                //             fontSize,
+                //             fontStyle,
+                //             customOptions
+                //         };
+                //         const validate = variantSelectionSchema(data);
+                //         if (validate) {
+                //             dispatch(Actions.VARIANT_SELECTION, data)
+                //                 .then((data) => {
+                //                     resolve(data);
+                //                 })
+                //                 .catch((error) => {
+                //                     reject(error);
+                //                 });
+                //         } else {
+                //             if (variantSelectionSchema.errors) {
+                //                 let error = normalizeError(variantSelectionSchema.errors);
+                //                 reject(error);
+                //             }
+                //         }
+                //     });
+                // }
+                // const variantSelectionBuilder = function () {
+                //     let selectedBgColor: string | null = null;
+                //     let unSelectedBgColor: string | null = null;
+                //     let selectedTextColor: string | null = null;
+                //     let unSelectedTextColor: string | null = null;
+                //     let shape: string | null = null;
+                //     let radius: number | null = null;
+                //     let borderColor: string | null = null;
+                //     let fontSize: number | null = null;
+                //     let fontStyle: string | null = null;
+                //     let customOptions: CustomOption[] | null = null;
+                //     return {
+                //         setSelectedBgColor(value: string) {
+                //             selectedBgColor = value;
+                //             return this;
+                //         },
+                //         setUnSelectedBgColor(value: string) {
+                //             unSelectedBgColor = value;
+                //             return this;
+                //         },
+                //         setSelectedTextColor(value: string) {
+                //             selectedTextColor = value;
+                //             return this;
+                //         },
+                //         setUnSelectedTextColor(value: string) {
+                //             unSelectedTextColor = value;
+                //             return this;
+                //         },
+                //         setShape(value: string) {
+                //             shape = value;
+                //             return this;
+                //         },
+                //         setRadius(value: number) {
+                //             radius = value;;
+                //             return this;
+                //         },
+                //         setBorderColor(value: string) {
+                //             borderColor = value;
+                //             return this;
+                //         },
+                //         setFontSize(value: number) {
+                //             fontSize = value;;
+                //             return this;
+                //         },
+                //         setFontStyle(value: string) {
+                //             fontStyle = value;
+                //             return this;
+                //         },
+                //         setCustomOptions(value: CustomOption[]) {
+                //             customOptions = value;
+                //             return this;
+                //         },
+                //         exec() {
+                //             return VariantSelection(
+                //                 selectedBgColor,
+                //                 unSelectedBgColor,
+                //                 selectedTextColor,
+                //                 unSelectedTextColor,
+                //                 shape,
+                //                 radius,
+                //                 borderColor,
+                //                 fontSize,
+                //                 fontStyle,
+                //                 customOptions
+                //             );
+                //         },
+                //     };
+                // };
+                const variantSelection = function (callback) {
+                    let selectedBgColor = null;
+                    let unSelectedBgColor = null;
+                    let selectedTextColor = null;
+                    let unSelectedTextColor = null;
+                    let shape = null;
+                    let radius = null;
+                    let borderColor = null;
+                    let fontSize = null;
+                    let fontStyle = null;
+                    let customOptions = null;
+                    return {
+                        setSelectedBgColor(value) {
+                            selectedBgColor = value;
+                            return this;
+                        },
+                        setUnSelectedBgColor(value) {
+                            unSelectedBgColor = value;
+                            return this;
+                        },
+                        setSelectedTextColor(value) {
+                            selectedTextColor = value;
+                            return this;
+                        },
+                        setUnSelectedTextColor(value) {
+                            unSelectedTextColor = value;
+                            return this;
+                        },
+                        setShape(value) {
+                            shape = value;
+                            return this;
+                        },
+                        setRadius(value) {
+                            radius = value;
+                            ;
+                            return this;
+                        },
+                        setBorderColor(value) {
+                            borderColor = value;
+                            return this;
+                        },
+                        setFontSize(value) {
+                            fontSize = value;
+                            ;
+                            return this;
+                        },
+                        setFontStyle(value) {
+                            fontStyle = value;
+                            return this;
+                        },
+                        setCustomOptions(value) {
+                            customOptions = value;
+                            return this;
+                        },
+                        done() {
+                            return callback({
+                                selectedBgColor,
+                                unSelectedBgColor,
+                                selectedTextColor,
+                                unSelectedTextColor,
+                                shape,
+                                radius,
+                                borderColor,
+                                fontSize,
+                                fontStyle,
+                                customOptions
+                            });
+                        },
+                    };
+                    // return new (variantSelectionBuilder as any)();
+                };
+
+
+                /***/
+}),
+
 /***/ "./src/methods/methods.ts":
 /*!********************************!*\
   !*** ./src/methods/methods.ts ***!
@@ -12443,9 +12645,11 @@ var VajroSDK;
 /* harmony export */   "uiComponents": () => (/* binding */ uiComponents)
                     /* harmony export */
 });
-/* harmony import */ var _methods_cart_product_image_slider_productImageSlider_action__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../methods/cart/product-image-slider/productImageSlider.action */ "./src/methods/cart/product-image-slider/productImageSlider.action.ts");
-/* harmony import */ var _constants_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../constants/actions */ "./src/constants/actions.ts");
-/* harmony import */ var _communications_dispatcher__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../communications/dispatcher */ "./src/communications/dispatcher.ts");
+/* harmony import */ var _methods_cart_variant_selection_variantSelection_action__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../methods/cart/variant-selection/variantSelection.action */ "./src/methods/cart/variant-selection/variantSelection.action.ts");
+/* harmony import */ var _methods_cart_product_image_slider_productImageSlider_action__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../methods/cart/product-image-slider/productImageSlider.action */ "./src/methods/cart/product-image-slider/productImageSlider.action.ts");
+/* harmony import */ var _constants_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../constants/actions */ "./src/constants/actions.ts");
+/* harmony import */ var _communications_dispatcher__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../communications/dispatcher */ "./src/communications/dispatcher.ts");
+
 
 
 
@@ -12455,7 +12659,7 @@ var VajroSDK;
                             components: uiObject
                         };
                         console.log(data);
-                        (0, _communications_dispatcher__WEBPACK_IMPORTED_MODULE_2__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_1__["default"].UI_COMPONENTS, data)
+                        (0, _communications_dispatcher__WEBPACK_IMPORTED_MODULE_3__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_2__["default"].UI_COMPONENTS, data)
                             .then((data) => {
                                 resolve(data);
                             })
@@ -12472,11 +12676,11 @@ var VajroSDK;
                     }
                     ;
                     return {
-                        // variantSelection() {
-                        //     return variantSelection(callback.bind(this, 'variantSelection'));
-                        // },
+                        variantSelection() {
+                            return (0, _methods_cart_variant_selection_variantSelection_action__WEBPACK_IMPORTED_MODULE_0__.variantSelection)(callback.bind(this, 'variantSelection'));
+                        },
                         productImageSlider() {
-                            return (0, _methods_cart_product_image_slider_productImageSlider_action__WEBPACK_IMPORTED_MODULE_0__.productImageSlider)(callback.bind(this, 'productImageSlider'));
+                            return (0, _methods_cart_product_image_slider_productImageSlider_action__WEBPACK_IMPORTED_MODULE_1__.productImageSlider)(callback.bind(this, 'productImageSlider'));
                         },
                         exec() {
                             return UiComponents(output);
