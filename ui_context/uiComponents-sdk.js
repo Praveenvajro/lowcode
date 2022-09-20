@@ -12501,10 +12501,10 @@ var VajroSDK;
                     let unSelectedTextColor = null;
                     let shape = null;
                     let radius = null;
-                    let borderColor = null;
+                    let selectedBorderColor = null;
+                    let unSelectedBorderColor = null;
                     let fontSize = null;
                     let fontStyle = null;
-                    let customOptions = null;
                     return {
                         setSelectedBgColor(value) {
                             selectedBgColor = value;
@@ -12531,8 +12531,12 @@ var VajroSDK;
                             ;
                             return this;
                         },
-                        setBorderColor(value) {
-                            borderColor = value;
+                        setSelectedBorderColor(value) {
+                            selectedBorderColor = value;
+                            return this;
+                        },
+                        setUnSelectedBorderColor(value) {
+                            unSelectedBorderColor = value;
                             return this;
                         },
                         setFontSize(value) {
@@ -12544,10 +12548,6 @@ var VajroSDK;
                             fontStyle = value;
                             return this;
                         },
-                        setCustomOptions(value) {
-                            customOptions = value;
-                            return this;
-                        },
                         done() {
                             return callback({
                                 selectedBgColor,
@@ -12556,10 +12556,10 @@ var VajroSDK;
                                 unSelectedTextColor,
                                 shape,
                                 radius,
-                                borderColor,
+                                selectedBorderColor,
+                                unSelectedBorderColor,
                                 fontSize,
-                                fontStyle,
-                                customOptions
+                                fontStyle
                             });
                         },
                     };
