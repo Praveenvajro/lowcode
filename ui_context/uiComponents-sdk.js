@@ -12691,7 +12691,7 @@ var VajroSDK;
                             return this;
                         },
                         setRetailPrice(value) {
-                            sellingPrice = value;
+                            retailPrice = value;
                             ;
                             return this;
                         },
