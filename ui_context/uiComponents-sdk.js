@@ -12394,7 +12394,6 @@ var VajroSDK;
                 //     borderColor: string | null,
                 //     fontSize: number | null,
                 //     fontStyle: string | null,
-                //     customOptions: CustomOption[] | null
                 // ) {
                 //     return new Promise((resolve, reject) => {
                 //         let data = {
@@ -12407,7 +12406,6 @@ var VajroSDK;
                 //             borderColor,
                 //             fontSize,
                 //             fontStyle,
-                //             customOptions
                 //         };
                 //         const validate = variantSelectionSchema(data);
                 //         if (validate) {
@@ -12436,7 +12434,6 @@ var VajroSDK;
                 //     let borderColor: string | null = null;
                 //     let fontSize: number | null = null;
                 //     let fontStyle: string | null = null;
-                //     let customOptions: CustomOption[] | null = null;
                 //     return {
                 //         setSelectedBgColor(value: string) {
                 //             selectedBgColor = value;
@@ -12474,10 +12471,6 @@ var VajroSDK;
                 //             fontStyle = value;
                 //             return this;
                 //         },
-                //         setCustomOptions(value: CustomOption[]) {
-                //             customOptions = value;
-                //             return this;
-                //         },
                 //         exec() {
                 //             return VariantSelection(
                 //                 selectedBgColor,
@@ -12489,7 +12482,6 @@ var VajroSDK;
                 //                 borderColor,
                 //                 fontSize,
                 //                 fontStyle,
-                //                 customOptions
                 //             );
                 //         },
                 //     };
@@ -12633,6 +12625,89 @@ var VajroSDK;
                 /***/
 }),
 
+/***/ "./src/ui-actions/productName.action.ts":
+/*!**********************************************!*\
+  !*** ./src/ui-actions/productName.action.ts ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+                "use strict";
+                __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "productName": () => (/* binding */ productName)
+                    /* harmony export */
+});
+                const productName = function (callback) {
+                    let fontSize = null;
+                    let fontStyle = null;
+                    let fontColor = null;
+                    return {
+                        setFontSize(value) {
+                            fontSize = value;
+                            ;
+                            return this;
+                        },
+                        setFontStyle(value) {
+                            fontStyle = value;
+                            return this;
+                        },
+                        setFontColor(value) {
+                            fontColor = value;
+                            return this;
+                        },
+                        done() {
+                            return callback({
+                                fontSize,
+                                fontStyle,
+                                fontColor
+                            });
+                        }
+                    };
+                };
+
+
+                /***/
+}),
+
+/***/ "./src/ui-actions/productPrice.action.ts":
+/*!***********************************************!*\
+  !*** ./src/ui-actions/productPrice.action.ts ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+                "use strict";
+                __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "productPrice": () => (/* binding */ productPrice)
+                    /* harmony export */
+});
+                const productPrice = function (callback) {
+                    let sellingPrice = null;
+                    let retailPrice = null;
+                    return {
+                        setSellingPrice(value) {
+                            sellingPrice = value;
+                            ;
+                            return this;
+                        },
+                        setRetailPrice(value) {
+                            sellingPrice = value;
+                            ;
+                            return this;
+                        },
+                        done() {
+                            return callback({
+                                sellingPrice,
+                                retailPrice
+                            });
+                        }
+                    };
+                };
+
+
+                /***/
+}),
+
 /***/ "./src/ui-actions/uiComponents.action.ts":
 /*!***********************************************!*\
   !*** ./src/ui-actions/uiComponents.action.ts ***!
@@ -12647,8 +12722,14 @@ var VajroSDK;
 });
 /* harmony import */ var _methods_cart_variant_selection_variantSelection_action__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../methods/cart/variant-selection/variantSelection.action */ "./src/methods/cart/variant-selection/variantSelection.action.ts");
 /* harmony import */ var _methods_cart_product_image_slider_productImageSlider_action__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../methods/cart/product-image-slider/productImageSlider.action */ "./src/methods/cart/product-image-slider/productImageSlider.action.ts");
-/* harmony import */ var _constants_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../constants/actions */ "./src/constants/actions.ts");
-/* harmony import */ var _communications_dispatcher__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../communications/dispatcher */ "./src/communications/dispatcher.ts");
+/* harmony import */ var _productName_action__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./productName.action */ "./src/ui-actions/productName.action.ts");
+/* harmony import */ var _vendorName_action__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./vendorName.action */ "./src/ui-actions/vendorName.action.ts");
+/* harmony import */ var _productPrice_action__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./productPrice.action */ "./src/ui-actions/productPrice.action.ts");
+/* harmony import */ var _constants_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../constants/actions */ "./src/constants/actions.ts");
+/* harmony import */ var _communications_dispatcher__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../communications/dispatcher */ "./src/communications/dispatcher.ts");
+
+
+
 
 
 
@@ -12659,7 +12740,7 @@ var VajroSDK;
                             components: uiObject
                         };
                         console.log(data);
-                        (0, _communications_dispatcher__WEBPACK_IMPORTED_MODULE_3__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_2__["default"].UI_COMPONENTS, data)
+                        (0, _communications_dispatcher__WEBPACK_IMPORTED_MODULE_6__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_5__["default"].UI_COMPONENTS, data)
                             .then((data) => {
                                 resolve(data);
                             })
@@ -12682,6 +12763,15 @@ var VajroSDK;
                         productImageSlider() {
                             return (0, _methods_cart_product_image_slider_productImageSlider_action__WEBPACK_IMPORTED_MODULE_1__.productImageSlider)(callback.bind(this, 'productImageSlider'));
                         },
+                        productName() {
+                            return (0, _productName_action__WEBPACK_IMPORTED_MODULE_2__.productName)(callback.bind(this, 'productName'));
+                        },
+                        vendorName() {
+                            return (0, _vendorName_action__WEBPACK_IMPORTED_MODULE_3__.vendorName)(callback.bind(this, 'vendorName'));
+                        },
+                        productPrice() {
+                            return (0, _productPrice_action__WEBPACK_IMPORTED_MODULE_4__.productPrice)(callback.bind(this, 'productPrice'));
+                        },
                         exec() {
                             return UiComponents(output);
                         }
@@ -12689,6 +12779,50 @@ var VajroSDK;
                 };
                 const uiComponents = function () {
                     return new UiComponentsBuilder();
+                };
+
+
+                /***/
+}),
+
+/***/ "./src/ui-actions/vendorName.action.ts":
+/*!*********************************************!*\
+  !*** ./src/ui-actions/vendorName.action.ts ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+                "use strict";
+                __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "vendorName": () => (/* binding */ vendorName)
+                    /* harmony export */
+});
+                const vendorName = function (callback) {
+                    let fontSize = null;
+                    let fontStyle = null;
+                    let fontColor = null;
+                    return {
+                        setFontSize(value) {
+                            fontSize = value;
+                            ;
+                            return this;
+                        },
+                        setFontStyle(value) {
+                            fontStyle = value;
+                            return this;
+                        },
+                        setFontColor(value) {
+                            fontColor = value;
+                            return this;
+                        },
+                        done() {
+                            return callback({
+                                fontSize,
+                                fontStyle,
+                                fontColor
+                            });
+                        }
+                    };
                 };
 
 
@@ -12772,6 +12906,56 @@ var VajroSDK;
                 };
                 const getAppInfo = () => {
                     return appInfo;
+                };
+
+
+                /***/
+}),
+
+/***/ "./src/utils/createProductPriceStyle.ts":
+/*!**********************************************!*\
+  !*** ./src/utils/createProductPriceStyle.ts ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+                "use strict";
+                __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "priceStyle": () => (/* binding */ priceStyle)
+                    /* harmony export */
+});
+                const priceStyle = function () {
+                    let fontSize = 12;
+                    let fontColor = null;
+                    let fontStyle = null;
+                    let strikeOut = false;
+                    return {
+                        setFontSize(value) {
+                            fontSize = value;
+                            return this;
+                        },
+                        setFontColor(value) {
+                            fontColor = value;
+                            return this;
+                        },
+                        setFontStyle(value) {
+                            fontStyle = value;
+                            return this;
+                        },
+                        setStrikeOut(value) {
+                            strikeOut = value;
+                            return this;
+                        },
+                        create() {
+                            const priceStyle = {
+                                fontSize,
+                                fontColor,
+                                fontStyle,
+                                strikeOut
+                            };
+                            return priceStyle;
+                        }
+                    };
                 };
 
 
@@ -12871,6 +13055,25 @@ var VajroSDK;
                     log(info);
                 };
                 initLog();
+
+
+                /***/
+}),
+
+/***/ "./src/utils/utils.ts":
+/*!****************************!*\
+  !*** ./src/utils/utils.ts ***!
+  \****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+                "use strict";
+                __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "priceStyle": () => (/* reexport safe */ _createProductPriceStyle__WEBPACK_IMPORTED_MODULE_0__.priceStyle)
+                    /* harmony export */
+});
+/* harmony import */ var _createProductPriceStyle__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./createProductPriceStyle */ "./src/utils/createProductPriceStyle.ts");
+
 
 
                 /***/
@@ -14530,6 +14733,8 @@ var VajroSDK;
 /* harmony export */   "lineItemUpdated": () => (/* reexport safe */ _methods_methods__WEBPACK_IMPORTED_MODULE_0__.lineItemUpdated),
 /* harmony export */   "navigateTo": () => (/* reexport safe */ _methods_methods__WEBPACK_IMPORTED_MODULE_0__.navigateTo),
 /* harmony export */   "onPageLoaded": () => (/* reexport safe */ _common_triggers_commonTriggers__WEBPACK_IMPORTED_MODULE_5__.onPageLoaded),
+/* harmony export */   "productName": () => (/* reexport safe */ _ui_actions_productName_action__WEBPACK_IMPORTED_MODULE_8__.productName),
+/* harmony export */   "productPrice": () => (/* reexport safe */ _ui_actions_productPrice_action__WEBPACK_IMPORTED_MODULE_10__.productPrice),
 /* harmony export */   "removeCouponCode": () => (/* reexport safe */ _methods_methods__WEBPACK_IMPORTED_MODULE_0__.removeCouponCode),
 /* harmony export */   "removeLineItemFromCart": () => (/* reexport safe */ _methods_methods__WEBPACK_IMPORTED_MODULE_0__.removeLineItemFromCart),
 /* harmony export */   "setCodeBlockContent": () => (/* reexport safe */ _methods_methods__WEBPACK_IMPORTED_MODULE_0__.setCodeBlockContent),
@@ -14538,7 +14743,9 @@ var VajroSDK;
 /* harmony export */   "subscribe": () => (/* reexport safe */ _communications_listeners__WEBPACK_IMPORTED_MODULE_4__.subscribe),
 /* harmony export */   "ui": () => (/* reexport safe */ _ui_actions_UIActions__WEBPACK_IMPORTED_MODULE_6__.ui),
 /* harmony export */   "uiComponents": () => (/* reexport safe */ _ui_actions_uiComponents_action__WEBPACK_IMPORTED_MODULE_7__.uiComponents),
-/* harmony export */   "updateLineItemInCart": () => (/* reexport safe */ _methods_methods__WEBPACK_IMPORTED_MODULE_0__.updateLineItemInCart)
+/* harmony export */   "updateLineItemInCart": () => (/* reexport safe */ _methods_methods__WEBPACK_IMPORTED_MODULE_0__.updateLineItemInCart),
+/* harmony export */   "utils": () => (/* reexport module object */ _utils_utils__WEBPACK_IMPORTED_MODULE_13__),
+/* harmony export */   "vendorName": () => (/* reexport safe */ _ui_actions_vendorName_action__WEBPACK_IMPORTED_MODULE_9__.vendorName)
             /* harmony export */
 });
 /* harmony import */ var _methods_methods__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./methods/methods */ "./src/methods/methods.ts");
@@ -14549,8 +14756,12 @@ var VajroSDK;
 /* harmony import */ var _common_triggers_commonTriggers__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./common-triggers/commonTriggers */ "./src/common-triggers/commonTriggers.ts");
 /* harmony import */ var _ui_actions_UIActions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ui-actions/UIActions */ "./src/ui-actions/UIActions.ts");
 /* harmony import */ var _ui_actions_uiComponents_action__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./ui-actions/uiComponents.action */ "./src/ui-actions/uiComponents.action.ts");
-/* harmony import */ var _utils_logger__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./utils/logger */ "./src/utils/logger.ts");
-/* harmony import */ var _utils_appInfo__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./utils/appInfo */ "./src/utils/appInfo.ts");
+/* harmony import */ var _ui_actions_productName_action__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./ui-actions/productName.action */ "./src/ui-actions/productName.action.ts");
+/* harmony import */ var _ui_actions_vendorName_action__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./ui-actions/vendorName.action */ "./src/ui-actions/vendorName.action.ts");
+/* harmony import */ var _ui_actions_productPrice_action__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./ui-actions/productPrice.action */ "./src/ui-actions/productPrice.action.ts");
+/* harmony import */ var _utils_logger__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./utils/logger */ "./src/utils/logger.ts");
+/* harmony import */ var _utils_appInfo__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./utils/appInfo */ "./src/utils/appInfo.ts");
+/* harmony import */ var _utils_utils__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./utils/utils */ "./src/utils/utils.ts");
 
 
 
@@ -14561,7 +14772,12 @@ var VajroSDK;
 
 
 
-        (0, _utils_appInfo__WEBPACK_IMPORTED_MODULE_9__.initAppInfo)();
+
+
+
+
+
+        (0, _utils_appInfo__WEBPACK_IMPORTED_MODULE_12__.initAppInfo)();
 
     })();
 
