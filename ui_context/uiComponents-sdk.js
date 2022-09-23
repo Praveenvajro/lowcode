@@ -12876,7 +12876,6 @@ var VajroSDK;
                         let data = {
                             components: uiObject
                         };
-                        console.log(data);
                         (0, _communications_dispatcher__WEBPACK_IMPORTED_MODULE_8__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_7__["default"].UI_COMPONENTS, data)
                             .then((data) => {
                                 resolve(data);
@@ -12910,7 +12909,7 @@ var VajroSDK;
                             return (0, _productPrice_action__WEBPACK_IMPORTED_MODULE_4__.productPrice)(callback.bind(this, 'productPrice'));
                         },
                         productRating() {
-                            return (0, _productRating_action__WEBPACK_IMPORTED_MODULE_5__.productRating)(callback.bind(this, 'productPrice'));
+                            return (0, _productRating_action__WEBPACK_IMPORTED_MODULE_5__.productRating)(callback.bind(this, 'productRating'));
                         },
                         addToCart() {
                             return (0, _addToCart_action__WEBPACK_IMPORTED_MODULE_6__.addToCart)(callback.bind(this, 'addToCart'));
