@@ -12652,6 +12652,11 @@ var VajroSDK;
                             ;
                             return this;
                         },
+                        setOutOfStockBgColor(value) {
+                            outOfStockBgColor = value;
+                            ;
+                            return this;
+                        },
                         setHideAddToCart(value) {
                             hideAddToCart = value;
                             return this;
