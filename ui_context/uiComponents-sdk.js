@@ -11745,134 +11745,6 @@ var VajroSDK;
                 /***/
 }),
 
-/***/ "./src/methods/cart/product-image-slider/productImageSlider.action.ts":
-/*!****************************************************************************!*\
-  !*** ./src/methods/cart/product-image-slider/productImageSlider.action.ts ***!
-  \****************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-                "use strict";
-                __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "productImageSlider": () => (/* binding */ productImageSlider)
-                    /* harmony export */
-});
-                // const ProductImageSlider = function (
-                //     sliderMedia: SliderMedia[] | null,
-                //     aspectFill: boolean | null,
-                //     wishlist: object | null,
-                //     sticker: object | null,
-                //     sliderIndicator: object | null
-                // ) {
-                //     // return new Promise((resolve, reject) => {
-                //         let data = {
-                //             sliderMedia,
-                //             aspectFill,
-                //             wishlist,
-                //             sticker,
-                //             sliderIndicator
-                //         };
-                //         return data
-                // const validate = productImageSliderSchema(data);
-                // if (validate) {
-                //     dispatch(Actions.PRODUCT_IMAGE_SLIDER, data)
-                //         .then((data) => {
-                //             resolve(data);
-                //         })
-                //         .catch((error) => {
-                //             reject(error);
-                //         });
-                // } else {
-                //     if (productImageSliderSchema.errors) {
-                //         let error = normalizeError(productImageSliderSchema.errors);
-                //         reject(error);
-                //     }
-                // }
-                // });
-                // }
-                // const productImageSliderBuilder = function () {
-                //     let sliderMedia: SliderMedia[] | null = null;
-                //     let aspectFill: boolean | null = null;
-                //     let wishlist: object | null = null;
-                //     let sticker: object | null = null;
-                //     let sliderIndicator: object | null = null;
-                //     return {
-                //         setSliderMedia(value: SliderMedia[]) {
-                //             sliderMedia = value;
-                //             return this;
-                //         },
-                //         setAspectFill(value: boolean) {
-                //             aspectFill = value;
-                //             return this;
-                //         },
-                //         setWishlist(value: object) {
-                //             wishlist = value;
-                //             return this;
-                //         },
-                //         setSticker(value: object) {
-                //             sticker = value;
-                //             return this;
-                //         },
-                //         setSliderIndicator(value: object) {
-                //             sliderIndicator = value;
-                //             return this;
-                //         },
-                //         variantSelection,
-                //         exec() {
-                //             return ProductImageSlider(
-                //                 sliderMedia,
-                //                 aspectFill,
-                //                 wishlist,
-                //                 sticker,
-                //                 sliderIndicator,
-                //             );
-                //         },
-                //     };
-                // };
-                const productImageSlider = function (callback) {
-                    let sliderMedia = null;
-                    let aspectFill = null;
-                    let wishlist = null;
-                    let sticker = null;
-                    let sliderIndicator = null;
-                    return {
-                        setSliderMedia(value) {
-                            sliderMedia = value;
-                            return this;
-                        },
-                        setAspectFill(value) {
-                            aspectFill = value;
-                            return this;
-                        },
-                        setWishlist(value) {
-                            wishlist = value;
-                            return this;
-                        },
-                        setSticker(value) {
-                            sticker = value;
-                            return this;
-                        },
-                        setSliderIndicator(value) {
-                            sliderIndicator = value;
-                            return this;
-                        },
-                        done() {
-                            return callback({
-                                sliderMedia,
-                                aspectFill,
-                                wishlist,
-                                sticker,
-                                sliderIndicator,
-                            });
-                        },
-                    };
-                    // return new (productImageSliderBuilder as any)();
-                };
-
-
-                /***/
-}),
-
 /***/ "./src/methods/cart/remove-coupon-code/removeCouponCode.action.ts":
 /*!************************************************************************!*\
   !*** ./src/methods/cart/remove-coupon-code/removeCouponCode.action.ts ***!
@@ -12701,6 +12573,140 @@ var VajroSDK;
                 /***/
 }),
 
+/***/ "./src/ui-actions/productImageSlider.action.ts":
+/*!*****************************************************!*\
+  !*** ./src/ui-actions/productImageSlider.action.ts ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+                "use strict";
+                __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "productImageSlider": () => (/* binding */ productImageSlider)
+                    /* harmony export */
+});
+                // const ProductImageSlider = function (
+                //     sliderMedia: SliderMedia[] | null,
+                //     aspectFill: boolean | null,
+                //     wishlist: object | null,
+                //     sticker: object | null,
+                //     sliderIndicator: object | null
+                // ) {
+                //     // return new Promise((resolve, reject) => {
+                //         let data = {
+                //             sliderMedia,
+                //             aspectFill,
+                //             wishlist,
+                //             sticker,
+                //             sliderIndicator
+                //         };
+                //         return data
+                // const validate = productImageSliderSchema(data);
+                // if (validate) {
+                //     dispatch(Actions.PRODUCT_IMAGE_SLIDER, data)
+                //         .then((data) => {
+                //             resolve(data);
+                //         })
+                //         .catch((error) => {
+                //             reject(error);
+                //         });
+                // } else {
+                //     if (productImageSliderSchema.errors) {
+                //         let error = normalizeError(productImageSliderSchema.errors);
+                //         reject(error);
+                //     }
+                // }
+                // });
+                // }
+                // const productImageSliderBuilder = function () {
+                //     let sliderMedia: SliderMedia[] | null = null;
+                //     let aspectFill: boolean | null = null;
+                //     let wishlist: object | null = null;
+                //     let sticker: object | null = null;
+                //     let sliderIndicator: object | null = null;
+                //     return {
+                //         setSliderMedia(value: SliderMedia[]) {
+                //             sliderMedia = value;
+                //             return this;
+                //         },
+                //         setAspectFill(value: boolean) {
+                //             aspectFill = value;
+                //             return this;
+                //         },
+                //         setWishlist(value: object) {
+                //             wishlist = value;
+                //             return this;
+                //         },
+                //         setSticker(value: object) {
+                //             sticker = value;
+                //             return this;
+                //         },
+                //         setSliderIndicator(value: object) {
+                //             sliderIndicator = value;
+                //             return this;
+                //         },
+                //         variantSelection,
+                //         exec() {
+                //             return ProductImageSlider(
+                //                 sliderMedia,
+                //                 aspectFill,
+                //                 wishlist,
+                //                 sticker,
+                //                 sliderIndicator,
+                //             );
+                //         },
+                //     };
+                // };
+                const productImageSlider = function (callback) {
+                    let sliderMedia = [];
+                    let aspectFill = null;
+                    let wishlist = null;
+                    let sticker = null;
+                    let sliderIndicator = null;
+                    let placeHolder = null;
+                    return {
+                        setSliderMedia(value) {
+                            sliderMedia.push(value);
+                            return this;
+                        },
+                        setAspectFill(value) {
+                            aspectFill = value;
+                            return this;
+                        },
+                        setPlaceHolder(value) {
+                            placeHolder = value;
+                            return this;
+                        },
+                        setWishlist(value) {
+                            wishlist = value;
+                            return this;
+                        },
+                        setSticker(value) {
+                            sticker = value;
+                            return this;
+                        },
+                        setSliderIndicator(value) {
+                            sliderIndicator = value;
+                            return this;
+                        },
+                        done() {
+                            return callback({
+                                sliderMedia,
+                                aspectFill,
+                                placeHolder,
+                                wishlist,
+                                sticker,
+                                sliderIndicator,
+                            });
+                        },
+                    };
+                    // return new (productImageSliderBuilder as any)();
+                };
+
+
+                /***/
+}),
+
 /***/ "./src/ui-actions/productName.action.ts":
 /*!**********************************************!*\
   !*** ./src/ui-actions/productName.action.ts ***!
@@ -12854,7 +12860,7 @@ var VajroSDK;
                     /* harmony export */
 });
 /* harmony import */ var _methods_cart_variant_selection_variantSelection_action__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../methods/cart/variant-selection/variantSelection.action */ "./src/methods/cart/variant-selection/variantSelection.action.ts");
-/* harmony import */ var _methods_cart_product_image_slider_productImageSlider_action__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../methods/cart/product-image-slider/productImageSlider.action */ "./src/methods/cart/product-image-slider/productImageSlider.action.ts");
+/* harmony import */ var _productImageSlider_action__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./productImageSlider.action */ "./src/ui-actions/productImageSlider.action.ts");
 /* harmony import */ var _productName_action__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./productName.action */ "./src/ui-actions/productName.action.ts");
 /* harmony import */ var _vendorName_action__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./vendorName.action */ "./src/ui-actions/vendorName.action.ts");
 /* harmony import */ var _productPrice_action__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./productPrice.action */ "./src/ui-actions/productPrice.action.ts");
@@ -12863,6 +12869,7 @@ var VajroSDK;
 /* harmony import */ var _constants_actions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../constants/actions */ "./src/constants/actions.ts");
 /* harmony import */ var _communications_dispatcher__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./../communications/dispatcher */ "./src/communications/dispatcher.ts");
 
+                // import { productImageSlider } from "../methods/cart/product-image-slider/productImageSlider.action"
 
 
 
@@ -12897,7 +12904,7 @@ var VajroSDK;
                             return (0, _methods_cart_variant_selection_variantSelection_action__WEBPACK_IMPORTED_MODULE_0__.variantSelection)(callback.bind(this, 'variantSelection'));
                         },
                         productImageSlider() {
-                            return (0, _methods_cart_product_image_slider_productImageSlider_action__WEBPACK_IMPORTED_MODULE_1__.productImageSlider)(callback.bind(this, 'productImageSlider'));
+                            return (0, _productImageSlider_action__WEBPACK_IMPORTED_MODULE_1__.productImageSlider)(callback.bind(this, 'productImageSlider'));
                         },
                         productName() {
                             return (0, _productName_action__WEBPACK_IMPORTED_MODULE_2__.productName)(callback.bind(this, 'productName'));
@@ -13090,6 +13097,100 @@ var VajroSDK;
                                 fontStyle,
                             };
                             return addToCartStyle;
+                        }
+                    };
+                };
+
+
+                /***/
+}),
+
+/***/ "./src/utils/createProductImageSliderStyle.ts":
+/*!****************************************************!*\
+  !*** ./src/utils/createProductImageSliderStyle.ts ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+                "use strict";
+                __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "alignStyle": () => (/* binding */ alignStyle),
+/* harmony export */   "colorStyle": () => (/* binding */ colorStyle),
+/* harmony export */   "sliderMedia": () => (/* binding */ sliderMedia)
+                    /* harmony export */
+});
+                const sliderMedia = function () {
+                    let url = null;
+                    let imageId = null;
+                    let videoUrl = null;
+                    let variantIds;
+                    return {
+                        setUrl(value) {
+                            url = value;
+                            return this;
+                        },
+                        setImageId(value) {
+                            imageId = value;
+                            return this;
+                        },
+                        setVideoUrl(value) {
+                            videoUrl = value;
+                            return this;
+                        },
+                        setVariantIds(value) {
+                            variantIds = value;
+                            return this;
+                        },
+                        create() {
+                            const sliderMedia = {
+                                url,
+                                imageId,
+                                videoUrl,
+                                variantIds
+                            };
+                            return sliderMedia;
+                        }
+                    };
+                };
+                const alignStyle = function () {
+                    let align = null;
+                    let hide = false;
+                    return {
+                        setAlign(value) {
+                            align = value;
+                            return this;
+                        },
+                        setHide(value) {
+                            hide = value;
+                            return this;
+                        },
+                        create() {
+                            const alignStyle = {
+                                align,
+                                hide
+                            };
+                            return alignStyle;
+                        }
+                    };
+                };
+                const colorStyle = function () {
+                    let color = null;
+                    let hide = false;
+                    return {
+                        setColor(value) {
+                            color = value;
+                            return this;
+                        },
+                        setHide(value) {
+                            hide = value;
+                            return this;
+                        },
+                        create() {
+                            const colorStyle = {
+                                color,
+                                hide
+                            };
+                            return colorStyle;
                         }
                     };
                 };
@@ -13300,13 +13401,18 @@ var VajroSDK;
                 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "addToCartStyle": () => (/* reexport safe */ _createAddToCartStyle__WEBPACK_IMPORTED_MODULE_2__.addToCartStyle),
+/* harmony export */   "alignStyle": () => (/* reexport safe */ _createProductImageSliderStyle__WEBPACK_IMPORTED_MODULE_3__.alignStyle),
+/* harmony export */   "colorStyle": () => (/* reexport safe */ _createProductImageSliderStyle__WEBPACK_IMPORTED_MODULE_3__.colorStyle),
 /* harmony export */   "priceStyle": () => (/* reexport safe */ _createProductPriceStyle__WEBPACK_IMPORTED_MODULE_0__.priceStyle),
-/* harmony export */   "ratingStyle": () => (/* reexport safe */ _createProductRatingStyle__WEBPACK_IMPORTED_MODULE_1__.ratingStyle)
+/* harmony export */   "ratingStyle": () => (/* reexport safe */ _createProductRatingStyle__WEBPACK_IMPORTED_MODULE_1__.ratingStyle),
+/* harmony export */   "sliderMedia": () => (/* reexport safe */ _createProductImageSliderStyle__WEBPACK_IMPORTED_MODULE_3__.sliderMedia)
                     /* harmony export */
 });
 /* harmony import */ var _createProductPriceStyle__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./createProductPriceStyle */ "./src/utils/createProductPriceStyle.ts");
 /* harmony import */ var _createProductRatingStyle__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./createProductRatingStyle */ "./src/utils/createProductRatingStyle.ts");
 /* harmony import */ var _createAddToCartStyle__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./createAddToCartStyle */ "./src/utils/createAddToCartStyle.ts");
+/* harmony import */ var _createProductImageSliderStyle__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./createProductImageSliderStyle */ "./src/utils/createProductImageSliderStyle.ts");
+
 
 
 
@@ -14970,6 +15076,7 @@ var VajroSDK;
 /* harmony export */   "lineItemUpdated": () => (/* reexport safe */ _methods_methods__WEBPACK_IMPORTED_MODULE_0__.lineItemUpdated),
 /* harmony export */   "navigateTo": () => (/* reexport safe */ _methods_methods__WEBPACK_IMPORTED_MODULE_0__.navigateTo),
 /* harmony export */   "onPageLoaded": () => (/* reexport safe */ _common_triggers_commonTriggers__WEBPACK_IMPORTED_MODULE_5__.onPageLoaded),
+/* harmony export */   "productImageSlider": () => (/* reexport safe */ _ui_actions_productImageSlider_action__WEBPACK_IMPORTED_MODULE_13__.productImageSlider),
 /* harmony export */   "productName": () => (/* reexport safe */ _ui_actions_productName_action__WEBPACK_IMPORTED_MODULE_8__.productName),
 /* harmony export */   "productPrice": () => (/* reexport safe */ _ui_actions_productPrice_action__WEBPACK_IMPORTED_MODULE_10__.productPrice),
 /* harmony export */   "productRating": () => (/* reexport safe */ _ui_actions_productRating_action__WEBPACK_IMPORTED_MODULE_11__.productRating),
@@ -14982,7 +15089,7 @@ var VajroSDK;
 /* harmony export */   "ui": () => (/* reexport safe */ _ui_actions_UIActions__WEBPACK_IMPORTED_MODULE_6__.ui),
 /* harmony export */   "uiComponents": () => (/* reexport safe */ _ui_actions_uiComponents_action__WEBPACK_IMPORTED_MODULE_7__.uiComponents),
 /* harmony export */   "updateLineItemInCart": () => (/* reexport safe */ _methods_methods__WEBPACK_IMPORTED_MODULE_0__.updateLineItemInCart),
-/* harmony export */   "utils": () => (/* reexport module object */ _utils_utils__WEBPACK_IMPORTED_MODULE_15__),
+/* harmony export */   "utils": () => (/* reexport module object */ _utils_utils__WEBPACK_IMPORTED_MODULE_16__),
 /* harmony export */   "vendorName": () => (/* reexport safe */ _ui_actions_vendorName_action__WEBPACK_IMPORTED_MODULE_9__.vendorName)
             /* harmony export */
 });
@@ -14999,9 +15106,10 @@ var VajroSDK;
 /* harmony import */ var _ui_actions_productPrice_action__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./ui-actions/productPrice.action */ "./src/ui-actions/productPrice.action.ts");
 /* harmony import */ var _ui_actions_productRating_action__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./ui-actions/productRating.action */ "./src/ui-actions/productRating.action.ts");
 /* harmony import */ var _ui_actions_addToCart_action__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./ui-actions/addToCart.action */ "./src/ui-actions/addToCart.action.ts");
-/* harmony import */ var _utils_logger__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./utils/logger */ "./src/utils/logger.ts");
-/* harmony import */ var _utils_appInfo__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./utils/appInfo */ "./src/utils/appInfo.ts");
-/* harmony import */ var _utils_utils__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./utils/utils */ "./src/utils/utils.ts");
+/* harmony import */ var _ui_actions_productImageSlider_action__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./ui-actions/productImageSlider.action */ "./src/ui-actions/productImageSlider.action.ts");
+/* harmony import */ var _utils_logger__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./utils/logger */ "./src/utils/logger.ts");
+/* harmony import */ var _utils_appInfo__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./utils/appInfo */ "./src/utils/appInfo.ts");
+/* harmony import */ var _utils_utils__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./utils/utils */ "./src/utils/utils.ts");
 
 
 
@@ -15019,7 +15127,8 @@ var VajroSDK;
 
 
 
-        (0, _utils_appInfo__WEBPACK_IMPORTED_MODULE_14__.initAppInfo)();
+
+        (0, _utils_appInfo__WEBPACK_IMPORTED_MODULE_15__.initAppInfo)();
 
     })();
 
