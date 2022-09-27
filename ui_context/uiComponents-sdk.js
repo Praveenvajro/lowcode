@@ -12545,12 +12545,12 @@ var VajroSDK;
                             enableOutOfStock = value;
                             return this;
                         },
-                        setRatingCountTextStyle(value) {
+                        setAddToCartTextStyle(value) {
                             addToCartTextStyle = value;
                             ;
                             return this;
                         },
-                        setWriteReviewTextStyle(value) {
+                        setOutOfStockTextStyle(value) {
                             outOfStockTextStyle = value;
                             return this;
                         },
@@ -13138,7 +13138,7 @@ var VajroSDK;
                             return this;
                         },
                         setVariantIds(value) {
-                            variantIds = value;
+                            variantIds = [value];
                             return this;
                         },
                         create() {
