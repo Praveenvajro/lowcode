@@ -13122,7 +13122,7 @@ var VajroSDK;
                 const sliderMedia = function () {
                     let url = null;
                     let imageId = null;
-                    let videoUrl = null;
+                    let video_url = null;
                     let variantIds;
                     return {
                         setUrl(value) {
@@ -13134,7 +13134,7 @@ var VajroSDK;
                             return this;
                         },
                         setVideoUrl(value) {
-                            videoUrl = value;
+                            video_url = value;
                             return this;
                         },
                         setVariantIds(value) {
@@ -13146,7 +13146,7 @@ var VajroSDK;
                             const sliderMedia = {
                                 url,
                                 imageId,
-                                videoUrl,
+                                video_url,
                                 variantIds
                             };
                             return sliderMedia;
