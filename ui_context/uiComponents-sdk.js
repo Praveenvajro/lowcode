@@ -13138,7 +13138,8 @@ var VajroSDK;
                             return this;
                         },
                         setVariantIds(value) {
-                            variantIds = [value];
+                            variantIds = value.split(",");
+                            ;
                             return this;
                         },
                         create() {
