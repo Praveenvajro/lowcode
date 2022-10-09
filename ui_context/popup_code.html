@@ -58,7 +58,26 @@
             }
 
             function handleAddToCart() {
-                alert('yes');
+                let shoulderSize = document.querySelector(
+                    '#exampleInputEmail1'
+                ).value;
+                let chestSize = document.querySelector(
+                    '#exampleInputPassword1'
+                ).value;
+                VajroSDK.addLineItemToCart()
+                    .setProductId('7934800494843')
+                    .setVariantId('43868074770683')
+                    .setQuantity(1)
+                    .setCustomAttributes({ shoulderSize, chestSize })
+                    .setLineItemType('REGULAR')
+                    .exec()
+                    .then(() => {
+                        destroyWebView();
+                    })
+                    .catch(() => {
+                        alert('Error!');
+                        destroyWebView();
+                    });
             }
         </script>
     </body>
