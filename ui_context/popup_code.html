@@ -64,23 +64,14 @@
                 let chestSize = document.querySelector(
                     '#exampleInputPassword1'
                 ).value;
-                alert(shoulderSize);
-                alert(chestSize);
-                VajroSDK.addLineItemToCart()
-                    .setProductId('7934800494843')
-                    .setVariantId('43868074770683')
-                    .setQuantity(1)
-                    .setCustomAttributes({ shoulderSize, chestSize })
-                    .setLineItemType('REGULAR')
-                    .exec()
-                    .then(() => {
-                        alert('success');
-                        destroyWebView();
-                    })
-                    .catch(() => {
-                        alert('Error!');
-                        destroyWebView();
-                    });
+                destroyWebView();
+//                 VajroSDK.addLineItemToCart()
+//                     .setProductId('7934800494843')
+//                     .setVariantId('43868074770683')
+//                     .setQuantity(1)
+//                     .setCustomAttributes({ shoulderSize, chestSize })
+//                     .setLineItemType('REGULAR')
+//                     .exec();
             }
         </script>
     </body>
