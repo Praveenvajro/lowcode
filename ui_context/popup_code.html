@@ -64,7 +64,7 @@
                 let chestSize = document.querySelector(
                     '#exampleInputPassword1'
                 ).value;
-                window.appInterface.postMessage({ shoulderSize, chestSize });
+                window.appInterface.postMessage(JSON.stringify({ shoulderSize, chestSize }));
                 destroyWebView();
 //                 VajroSDK.addLineItemToCart()
 //                     .setProductId('7934800494843')
