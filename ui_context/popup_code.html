@@ -64,7 +64,17 @@
                 let chestSize = document.querySelector(
                     '#exampleInputPassword1'
                 ).value;
-                window.appInterface.postMessage(JSON.stringify({ shoulderSize, chestSize }));
+                if (window.webkit && window.webkit.messageHandlers.appInterface) {
+                    // For iOS
+                    window.webkit.messageHandlers.appInterface.postMessage(
+                        JSON.stringify({ shoulderSize, chestSize })
+                    );
+                } else if (window.appInterface && window.appInterface.postMessage) {
+                    // For Android
+                    window.appInterface.postMessage(
+                        JSON.stringify({ shoulderSize, chestSize })
+                    );
+                }
                 destroyWebView();
 //                 VajroSDK.addLineItemToCart()
 //                     .setProductId('7934800494843')
