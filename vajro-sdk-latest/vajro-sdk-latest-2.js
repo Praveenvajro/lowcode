@@ -4989,7 +4989,7 @@ function startLogsBridge(lifeCycle) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.CodeGen = exports.Name = exports.nil = exports.stringify = exports.str = exports._ = exports.KeywordCxt = void 0;
+exports.MissingRefError = exports.ValidationError = exports.CodeGen = exports.Name = exports.nil = exports.stringify = exports.str = exports._ = exports.KeywordCxt = void 0;
 const core_1 = __webpack_require__(/*! ./core */ "./node_modules/ajv/dist/core.js");
 const draft7_1 = __webpack_require__(/*! ./vocabularies/draft7 */ "./node_modules/ajv/dist/vocabularies/draft7.js");
 const discriminator_1 = __webpack_require__(/*! ./vocabularies/discriminator */ "./node_modules/ajv/dist/vocabularies/discriminator/index.js");
@@ -5030,6 +5030,10 @@ Object.defineProperty(exports, "stringify", ({ enumerable: true, get: function (
 Object.defineProperty(exports, "nil", ({ enumerable: true, get: function () { return codegen_1.nil; } }));
 Object.defineProperty(exports, "Name", ({ enumerable: true, get: function () { return codegen_1.Name; } }));
 Object.defineProperty(exports, "CodeGen", ({ enumerable: true, get: function () { return codegen_1.CodeGen; } }));
+var validation_error_1 = __webpack_require__(/*! ./runtime/validation_error */ "./node_modules/ajv/dist/runtime/validation_error.js");
+Object.defineProperty(exports, "ValidationError", ({ enumerable: true, get: function () { return validation_error_1.default; } }));
+var ref_error_1 = __webpack_require__(/*! ./compile/ref_error */ "./node_modules/ajv/dist/compile/ref_error.js");
+Object.defineProperty(exports, "MissingRefError", ({ enumerable: true, get: function () { return ref_error_1.default; } }));
 //# sourceMappingURL=ajv.js.map
 
 /***/ }),
@@ -11918,14 +11922,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const AddLineItemToCart = function (productId, variantId, quantity, customAttributes, hideCustomAttributes, lineItemType, unitPrice) {
+const AddLineItemToCart = function (productId, variantId, quantity, customAttributes, lineItemType, unitPrice) {
     return new Promise((resolve, reject) => {
-        const data = {
+        let data = {
             productId,
             variantId,
             quantity,
             customAttributes,
-            hideCustomAttributes,
             lineItemType,
             unitPrice,
         };
@@ -11941,7 +11944,7 @@ const AddLineItemToCart = function (productId, variantId, quantity, customAttrib
         }
         else {
             if (_addLineItemToCart_schema__WEBPACK_IMPORTED_MODULE_1__.addLineItemToCartSchema.errors) {
-                const error = (0,_utils_errorNormalizer__WEBPACK_IMPORTED_MODULE_3__.normalizeError)(_addLineItemToCart_schema__WEBPACK_IMPORTED_MODULE_1__.addLineItemToCartSchema.errors);
+                let error = (0,_utils_errorNormalizer__WEBPACK_IMPORTED_MODULE_3__.normalizeError)(_addLineItemToCart_schema__WEBPACK_IMPORTED_MODULE_1__.addLineItemToCartSchema.errors);
                 reject(error);
             }
         }
@@ -11952,7 +11955,6 @@ const AddLineItemToCartBuilder = function () {
     let variantId = null;
     let quantity = 1;
     let customAttributes = {};
-    let hideCustomAttributes = [];
     let lineItemType = 'REGULAR';
     let unitPrice = null;
     return {
@@ -11972,10 +11974,6 @@ const AddLineItemToCartBuilder = function () {
             customAttributes = value;
             return this;
         },
-        setHideCustomAttributes(value) {
-            hideCustomAttributes = value;
-            return this;
-        },
         setLineItemType(value) {
             lineItemType = value;
             return this;
@@ -11986,14 +11984,14 @@ const AddLineItemToCartBuilder = function () {
         },
         exec() {
             if (!productId) {
-                const error = {
+                let error = {
                     code: 1101,
                     message: 'productId is missing',
                     type: 'Internal SDK Error',
                 };
                 return Promise.reject(error);
             }
-            return AddLineItemToCart(productId, variantId, quantity, customAttributes, hideCustomAttributes, lineItemType, unitPrice);
+            return AddLineItemToCart(productId, variantId, quantity, customAttributes, lineItemType, unitPrice);
         },
     };
 };
@@ -12033,7 +12031,6 @@ const schema = {
         variantId: { type: 'string', nullable: true },
         quantity: { type: 'integer', nullable: false },
         customAttributes: { type: 'object', nullable: true },
-        hideCustomAttributes: { type: 'object', nullable: true },
         lineItemType: { type: 'string', nullable: false },
         unitPrice: { type: 'number', nullable: true }
     },
@@ -12102,7 +12099,7 @@ const actionExecutor = function (products) {
         const validate = (0,_addMultipleLineItemsToCart_schema__WEBPACK_IMPORTED_MODULE_3__.schema)(products);
         if (validate) {
             (0,_communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].ADD_MULTIPLE_LINE_ITEMS_TO_CART, {
-                products
+                lineItems: products
             })
                 .then((data) => {
                 resolve(data);
@@ -12292,7 +12289,7 @@ const schema = {
     type: 'object',
     properties: {
         navigationType: { type: 'string', nullable: false, minLength: 1 },
-        handle: { type: 'string', nullable: true },
+        handle: { type: 'string', nullable: false },
     },
     required: ['navigationType'],
     additionalProperties: false,
@@ -12601,7 +12598,11 @@ const schemaObject = {
     required: ['lineItemHandle'],
     additionalProperties: false
 };
-const schema = ajv.compile(schemaObject);
+const schemaDefinition = {
+    type: 'array',
+    items: schemaObject
+};
+const schema = ajv.compile(schemaDefinition);
 
 
 /***/ }),
@@ -12744,7 +12745,7 @@ const schema = {
         contentType: { type: 'string', nullable: false },
         contentData: { type: 'string', nullable: false },
         visibility: { type: 'boolean', nullable: false },
-        id: { type: 'string', nullable: true },
+        id: { type: 'string', nullable: false },
     },
     required: ['codeBlockId', 'contentType', 'contentData'],
     additionalProperties: false,
@@ -12773,14 +12774,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const UpdateLineItemInCart = function (lineItemHandle, quantity, lineItemType, customAttributes, hideCustomAttributes, unitPrice) {
+const UpdateLineItemInCart = function (lineItemHandle, quantity, lineItemType, customAttributes, unitPrice) {
     return new Promise((resolve, reject) => {
         let data = {
             lineItemHandle,
             quantity,
             lineItemType,
             customAttributes,
-            hideCustomAttributes,
             unitPrice,
         };
         const validate = (0,_updateLineItemInCart_schema__WEBPACK_IMPORTED_MODULE_3__.updateLineItemInCartSchema)(data);
@@ -12806,7 +12806,6 @@ const updateLineItemInCartBuilder = function () {
     let quantity;
     let lineItemType = 'REGULAR';
     let customAttributes = {};
-    let hideCustomAttributes = [];
     let unitPrice = null;
     return {
         setLineItemHandle(value) {
@@ -12825,10 +12824,6 @@ const updateLineItemInCartBuilder = function () {
             customAttributes = value;
             return this;
         },
-        setHideCustomAttributes(value) {
-            hideCustomAttributes = value;
-            return this;
-        },
         setUnitPrice(value) {
             unitPrice = value;
             return this;
@@ -12842,7 +12837,7 @@ const updateLineItemInCartBuilder = function () {
                 };
                 return Promise.reject(error);
             }
-            return UpdateLineItemInCart(lineItemHandle, quantity, lineItemType, customAttributes, hideCustomAttributes, unitPrice);
+            return UpdateLineItemInCart(lineItemHandle, quantity, lineItemType, customAttributes, unitPrice);
         },
     };
 };
@@ -13863,58 +13858,37 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "lineItem": () => (/* binding */ lineItem)
 /* harmony export */ });
 const lineItem = function () {
-    let productId;
-    let variantId = null;
-    let quantity = 0;
-    let customAttributes = {};
-    let hideCustomAttributes = [];
-    let lineItemType = 'REGULAR';
-    let unitPrice = null;
-    let lineItemHandle;
+    const lineItem = {};
     return {
         setProductId(value) {
-            productId = value;
+            lineItem.productId = value;
             return this;
         },
         setVariantId(value) {
-            variantId = value;
+            lineItem.variantId = value;
             return this;
         },
         setQuantity(value) {
-            quantity = value;
+            lineItem.quantity = value;
             return this;
         },
         setCustomAttributes(value) {
-            customAttributes = value;
-            return this;
-        },
-        setHideCustomAttributes(value) {
-            hideCustomAttributes = value;
+            lineItem.customAttributes = value;
             return this;
         },
         setLineItemType(value) {
-            lineItemType = value;
+            lineItem.lineItemType = value;
             return this;
         },
         setLineItemHandle(value) {
-            lineItemType = value;
+            lineItem.lineItemHandle = value;
             return this;
         },
         setUnitPrice(value) {
-            unitPrice = value;
+            lineItem.unitPrice = value;
             return this;
         },
         create() {
-            const lineItem = {
-                productId,
-                variantId,
-                quantity,
-                customAttributes,
-                hideCustomAttributes,
-                lineItemType,
-                unitPrice,
-                lineItemHandle
-            };
             return lineItem;
         }
     };
