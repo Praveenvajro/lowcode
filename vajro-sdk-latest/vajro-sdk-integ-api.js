@@ -11402,6 +11402,9 @@ const GetRequest = function (data) {
                         .catch((error) => {
                         reject(error);
                     });
+                }).catch((error) => {
+                    alert(JSON.stringify({ error }));
+                    reject(error);
                 });
             }
             catch (err) {
