@@ -10544,6 +10544,8 @@ __webpack_require__.r(__webpack_exports__);
 
 const axiosAPI = {
     get: function (url, params) {
+        JSON.stringify({ url });
+        JSON.stringify({ params });
         return axios__WEBPACK_IMPORTED_MODULE_0__["default"].get(url, params);
     },
     create: function (url, payload) {
@@ -11422,17 +11424,14 @@ const getRequestBuilder = function () {
     return {
         setIntegrationName(value) {
             integrationName = value;
-            alert(JSON.stringify({ integrationName }));
             return this;
         },
         setRequestUrl(value) {
             url = value;
-            alert(JSON.stringify({ url }));
             return this;
         },
         setRequestParam(key, value) {
             params = Object.assign({}, params, { [key]: value });
-            alert(JSON.stringify({ params }));
             return this;
         },
         exec() {
@@ -11444,8 +11443,6 @@ const getRequestBuilder = function () {
                 };
                 return Promise.reject(error);
             }
-            alert(integrationName);
-            alert(url);
             return GetRequest({
                 integrationName,
                 url,
