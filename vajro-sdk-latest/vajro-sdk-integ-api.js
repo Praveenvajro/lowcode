@@ -10542,6 +10542,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
 
+axios__WEBPACK_IMPORTED_MODULE_0__["default"].defaults.headers.post["Content-Type"] = 'application/json;charset=utf-8';
+axios__WEBPACK_IMPORTED_MODULE_0__["default"].defaults.headers.post["Access-Control-Allow-Origin"] = '*';
 const axiosAPI = {
     get: function (url, params) {
         JSON.stringify({ url });
