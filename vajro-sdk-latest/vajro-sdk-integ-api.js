@@ -11370,13 +11370,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const GetRequest = function (data) {
-    alert(JSON.stringify({ data }));
+const GetRequest = function (requestData) {
+    alert(JSON.stringify({ requestData }));
     return new Promise((resolve, reject) => {
-        const validate = (0,_get_request_schema__WEBPACK_IMPORTED_MODULE_2__.getRequestSchema)(data);
+        const validate = (0,_get_request_schema__WEBPACK_IMPORTED_MODULE_2__.getRequestSchema)(requestData);
         if (validate) {
             try {
-                const { integrationName, url, params = {} } = data;
+                const { integrationName, url, params = {} } = requestData;
                 _axios_api_axios_api__WEBPACK_IMPORTED_MODULE_4__.axiosAPI.get(url, params).then((response) => {
                     alert(JSON.stringify({ response }));
                     const dispatchResponse = {
