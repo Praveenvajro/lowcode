@@ -11377,12 +11377,10 @@ const GetRequest = function (requestData) {
             try {
                 const { integrationName, url, params = {} } = requestData;
                 _axios_api_axios_api__WEBPACK_IMPORTED_MODULE_4__.axiosAPI.get(url, params).then((response) => {
-                    alert(JSON.stringify({ response }));
                     const dispatchResponse = {
                         'integrationName': integrationName,
                         'response': response
                     };
-                    alert(JSON.stringify({ dispatchResponse }));
                     (0,_communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].GET_REQUEST, dispatchResponse)
                         .then((data) => {
                         if (typeof data.value === 'string') {
@@ -11405,12 +11403,10 @@ const GetRequest = function (requestData) {
                         reject(error);
                     });
                 }).catch((error) => {
-                    alert(JSON.stringify({ error }));
                     reject(error);
                 });
             }
             catch (err) {
-                alert(JSON.stringify(err.message));
                 reject(err);
             }
         }
