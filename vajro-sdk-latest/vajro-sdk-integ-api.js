@@ -11451,7 +11451,7 @@ const getRequestBuilder = function () {
             return GetRequest({
                 integrationName,
                 url,
-                params
+                params: { params }
             });
         }
     };
