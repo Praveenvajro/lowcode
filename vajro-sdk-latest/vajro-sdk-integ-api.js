@@ -11386,7 +11386,7 @@ const GetRequest = function (requestData) {
                     alert(JSON.stringify({ dispatchResponse }));
                     (0,_communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].GET_REQUEST, dispatchResponse)
                         .then((data) => {
-                        alert(JSON.stringify({ data }));
+                        alert('Testing');
                         if (typeof data.value === 'string') {
                             try {
                                 resolve(JSON.parse(data.value));
