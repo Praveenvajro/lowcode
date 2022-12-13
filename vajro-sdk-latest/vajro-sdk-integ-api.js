@@ -11378,12 +11378,12 @@ const GetRequest = function (requestData) {
             try {
                 const { integrationName, url, params = {} } = requestData;
                 _axios_api_axios_api__WEBPACK_IMPORTED_MODULE_4__.axiosAPI.get(url, params).then((response) => {
-                    alert(JSON.stringify({ response }));
-                    const dispatchResponse = {
-                        'integrationName': integrationName,
-                        'response': response
-                    };
-                    (0,_communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].GET_REQUEST, dispatchResponse)
+                    alert(JSON.stringify('Testing'));
+                    // const dispatchResponse = {
+                    //     'integrationName': integrationName,
+                    //     'response': response.data
+                    // }
+                    (0,_communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].SHOW_TOAST_MESSAGE, 'Testing for Toast')
                         .then((data) => {
                         if (typeof data.value === 'string') {
                             try {
