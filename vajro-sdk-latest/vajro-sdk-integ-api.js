@@ -11202,6 +11202,7 @@ var __rest = (undefined && undefined.__rest) || function (s, e) {
 
 
 const actionDidComplete = (json) => {
+    alert(JSON.stringify({ json }));
     const { error = null, appContext, actionId } = json, res = __rest(json, ["error", "appContext", "actionId"]);
     let dispatchHandler = (0,_utils_actionHub__WEBPACK_IMPORTED_MODULE_0__.getFromHub)(actionId);
     if (!dispatchHandler)
@@ -11241,9 +11242,6 @@ const dispatch = (action, data) => {
                 (0,_utils_logger__WEBPACK_IMPORTED_MODULE_1__.logAction)(action, data, response, null, duration);
             }
         };
-        alert(JSON.stringify({ action }));
-        alert(JSON.stringify({ actionId }));
-        alert(JSON.stringify({ data }));
         (0,_utils_actionHub__WEBPACK_IMPORTED_MODULE_0__.pushToHub)(actionId, actionDidHandler);
     });
 };
