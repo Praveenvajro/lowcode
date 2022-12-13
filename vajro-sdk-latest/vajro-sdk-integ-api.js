@@ -11503,10 +11503,158 @@ const getRequestSchema = ajv.compile(schema);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getRequest": () => (/* reexport safe */ _get_request_get_request_action__WEBPACK_IMPORTED_MODULE_0__.getRequest)
+/* harmony export */   "getRequest": () => (/* reexport safe */ _get_request_get_request_action__WEBPACK_IMPORTED_MODULE_0__.getRequest),
+/* harmony export */   "postRequest": () => (/* reexport safe */ _post_request_post_request_action__WEBPACK_IMPORTED_MODULE_1__.postRequest)
 /* harmony export */ });
 /* harmony import */ var _get_request_get_request_action__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./get-request/get-request.action */ "./src/integration-actions/get-request/get-request.action.ts");
+/* harmony import */ var _post_request_post_request_action__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./post-request/post-request.action */ "./src/integration-actions/post-request/post-request.action.ts");
 
+
+
+
+/***/ }),
+
+/***/ "./src/integration-actions/post-request/post-request.action.ts":
+/*!*********************************************************************!*\
+  !*** ./src/integration-actions/post-request/post-request.action.ts ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "postRequest": () => (/* binding */ postRequest)
+/* harmony export */ });
+/* harmony import */ var _constants_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../constants/actions */ "./src/constants/actions.ts");
+/* harmony import */ var _communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../communications/dispatcher */ "./src/communications/dispatcher.ts");
+/* harmony import */ var _post_request_schema__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./post-request.schema */ "./src/integration-actions/post-request/post-request.schema.ts");
+/* harmony import */ var _utils_errorNormalizer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/errorNormalizer */ "./src/utils/errorNormalizer.ts");
+/* harmony import */ var _axios_api_axios_api__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../axios-api/axios-api */ "./src/axios-api/axios-api.ts");
+
+
+
+
+
+const PostRequest = function (requestData) {
+    alert(JSON.stringify({ requestData }));
+    return new Promise((resolve, reject) => {
+        const validate = (0,_post_request_schema__WEBPACK_IMPORTED_MODULE_2__.postRequestSchema)(requestData);
+        if (validate) {
+            try {
+                const { integrationName, url, payloadData = {} } = requestData;
+                _axios_api_axios_api__WEBPACK_IMPORTED_MODULE_4__.axiosAPI.create(url, payloadData).then((response) => {
+                    alert(JSON.stringify({ response }));
+                    const dispatchResponse = {
+                        'integrationName': integrationName,
+                        'response': response
+                    };
+                    (0,_communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].GET_REQUEST, dispatchResponse)
+                        .then((data) => {
+                        if (typeof data.value === 'string') {
+                            try {
+                                resolve(JSON.parse(data.value));
+                            }
+                            catch (err) {
+                                reject({
+                                    code: 1102,
+                                    type: 'Internal SDK Error',
+                                    message: 'Post response parse failed'
+                                });
+                            }
+                        }
+                        else {
+                            resolve(data.value);
+                        }
+                    })
+                        .catch((error) => {
+                        reject(error);
+                    });
+                }).catch((error) => {
+                    alert(JSON.stringify({ error }));
+                    reject(error);
+                });
+            }
+            catch (err) {
+                alert(JSON.stringify(err.message));
+                reject(err);
+            }
+        }
+        else {
+            if (_post_request_schema__WEBPACK_IMPORTED_MODULE_2__.postRequestSchema.errors) {
+                let error = (0,_utils_errorNormalizer__WEBPACK_IMPORTED_MODULE_3__.normalizeError)(_post_request_schema__WEBPACK_IMPORTED_MODULE_2__.postRequestSchema.errors);
+                reject(error);
+            }
+        }
+    });
+};
+const postRequestBuilder = function () {
+    let integrationName;
+    let url;
+    let data = {};
+    return {
+        setIntegrationName(value) {
+            integrationName = value;
+            return this;
+        },
+        setRequestUrl(value) {
+            url = value;
+            return this;
+        },
+        setRequestData(key, value) {
+            data = Object.assign({}, data, { [key]: value });
+            return this;
+        },
+        exec() {
+            if (!url) {
+                let error = {
+                    code: 1101,
+                    message: "Parameter's Value Empty",
+                    type: 'Internal SDK Error'
+                };
+                return Promise.reject(error);
+            }
+            return PostRequest({
+                integrationName,
+                url,
+                payloadData: { data }
+            });
+        }
+    };
+};
+const postRequest = function () {
+    return new postRequestBuilder();
+};
+
+
+/***/ }),
+
+/***/ "./src/integration-actions/post-request/post-request.schema.ts":
+/*!*********************************************************************!*\
+  !*** ./src/integration-actions/post-request/post-request.schema.ts ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "postRequestSchema": () => (/* binding */ postRequestSchema),
+/* harmony export */   "schema": () => (/* binding */ schema)
+/* harmony export */ });
+/* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ajv */ "./node_modules/ajv/dist/ajv.js");
+/* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(ajv__WEBPACK_IMPORTED_MODULE_0__);
+
+const ajv = new (ajv__WEBPACK_IMPORTED_MODULE_0___default())();
+const schema = {
+    type: 'object',
+    properties: {
+        integrationName: { type: 'string', nullable: false },
+        url: { type: 'string', nullable: false },
+        payloadData: { type: 'object', nullable: true }
+    },
+    required: ['integrationName', 'url', 'payloadData'],
+    additionalProperties: false
+};
+const postRequestSchema = ajv.compile(schema);
 
 
 /***/ }),
@@ -19488,6 +19636,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "navigateTo": () => (/* reexport safe */ _methods_methods__WEBPACK_IMPORTED_MODULE_0__.navigateTo),
 /* harmony export */   "onPageLoaded": () => (/* reexport safe */ _common_triggers_commonTriggers__WEBPACK_IMPORTED_MODULE_5__.onPageLoaded),
 /* harmony export */   "onWebViewDestroy": () => (/* reexport safe */ _common_triggers_commonTriggers__WEBPACK_IMPORTED_MODULE_5__.onWebViewDestroy),
+/* harmony export */   "postRequest": () => (/* reexport safe */ _integration_actions_methods__WEBPACK_IMPORTED_MODULE_14__.postRequest),
 /* harmony export */   "productImageSlider": () => (/* reexport safe */ _ui_actions_productImageSlider_action__WEBPACK_IMPORTED_MODULE_13__.productImageSlider),
 /* harmony export */   "productName": () => (/* reexport safe */ _ui_actions_productName_action__WEBPACK_IMPORTED_MODULE_8__.productName),
 /* harmony export */   "productOptionSelected": () => (/* reexport safe */ _common_triggers_commonTriggers__WEBPACK_IMPORTED_MODULE_5__.productOptionSelected),
