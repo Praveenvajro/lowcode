@@ -11371,20 +11371,22 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const GetRequest = function (requestData) {
-    alert(JSON.stringify({ requestData }));
     return new Promise((resolve, reject) => {
         const validate = (0,_get_request_schema__WEBPACK_IMPORTED_MODULE_2__.getRequestSchema)(requestData);
         if (validate) {
             try {
                 const { integrationName, url, params = {} } = requestData;
                 _axios_api_axios_api__WEBPACK_IMPORTED_MODULE_4__.axiosAPI.get(url, params).then((response) => {
-                    alert(JSON.stringify('Testing'));
-                    // const dispatchResponse = {
-                    //     'integrationName': integrationName,
-                    //     'response': response.data
-                    // }
-                    (0,_communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].SHOW_TOAST_MESSAGE, 'Testing for Toast')
+                    const { data: responseData } = response || {};
+                    alert(JSON.stringify({ responseData }));
+                    const dispatchResponse = {
+                        'integrationName': integrationName,
+                        'response': responseData
+                    };
+                    alert(JSON.stringify({ dispatchResponse }));
+                    (0,_communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].GET_REQUEST, dispatchResponse)
                         .then((data) => {
+                        alert(JSON.stringify({ data }));
                         if (typeof data.value === 'string') {
                             try {
                                 resolve(JSON.parse(data.value));
