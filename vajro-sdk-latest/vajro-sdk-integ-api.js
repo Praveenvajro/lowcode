@@ -11377,6 +11377,7 @@ const GetRequest = function (requestData) {
             try {
                 const { integrationName, url, params = {} } = requestData;
                 _axios_api_axios_api__WEBPACK_IMPORTED_MODULE_4__.axiosAPI.get(url, params).then((response) => {
+                    alert(JSON.stringify({ response }));
                     const dispatchResponse = {
                         'integrationName': integrationName,
                         'response': response
@@ -11391,7 +11392,7 @@ const GetRequest = function (requestData) {
                                 reject({
                                     code: 1102,
                                     type: 'Internal SDK Error',
-                                    message: 'Getter value parse failed'
+                                    message: 'Post response parse failed'
                                 });
                             }
                         }
@@ -11403,6 +11404,7 @@ const GetRequest = function (requestData) {
                         reject(error);
                     });
                 }).catch((error) => {
+                    alert(JSON.stringify({ error }));
                     reject(error);
                 });
             }
