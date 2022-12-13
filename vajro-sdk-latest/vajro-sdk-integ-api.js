@@ -11241,6 +11241,9 @@ const dispatch = (action, data) => {
                 (0,_utils_logger__WEBPACK_IMPORTED_MODULE_1__.logAction)(action, data, response, null, duration);
             }
         };
+        alert(JSON.stringify({ action }));
+        alert(JSON.stringify({ actionId }));
+        alert(JSON.stringify({ data }));
         (0,_utils_actionHub__WEBPACK_IMPORTED_MODULE_0__.pushToHub)(actionId, actionDidHandler);
     });
 };
@@ -11316,6 +11319,7 @@ var Actions;
     Actions["REMOVE_MULTIPLE_LINE_ITEMS_TO_CART"] = "removeMultipleLineItemsFromCart";
     Actions["DESTROY_WEB_VIEW"] = "destroyWebView";
     Actions["GET_REQUEST"] = "getRequest";
+    Actions["POST_REQUEST"] = "postRequest";
 })(Actions || (Actions = {}));
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Actions);
 
@@ -11377,7 +11381,6 @@ const GetRequest = function (requestData) {
             try {
                 const { integrationName, url, params = {} } = requestData;
                 _axios_api_axios_api__WEBPACK_IMPORTED_MODULE_4__.axiosAPI.get(url, params).then((response) => {
-                    alert(JSON.stringify({ response }));
                     const dispatchResponse = {
                         'integrationName': integrationName,
                         'response': response
@@ -11404,7 +11407,6 @@ const GetRequest = function (requestData) {
                         reject(error);
                     });
                 }).catch((error) => {
-                    alert(JSON.stringify({ error }));
                     reject(error);
                 });
             }
@@ -11546,7 +11548,7 @@ const PostRequest = function (requestData) {
                         'integrationName': integrationName,
                         'response': response
                     };
-                    (0,_communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].GET_REQUEST, dispatchResponse)
+                    (0,_communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].POST_REQUEST, dispatchResponse)
                         .then((data) => {
                         if (typeof data.value === 'string') {
                             try {
