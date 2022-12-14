@@ -11598,6 +11598,7 @@ __webpack_require__.r(__webpack_exports__);
 const GetRequest = function (requestData) {
     return new Promise((resolve, reject) => {
         const validate = (0,_get_request_schema__WEBPACK_IMPORTED_MODULE_0__.getRequestSchema)(requestData);
+        alert(JSON.stringify({ requestData }));
         if (validate) {
             try {
                 const { integrationName, url, params = {} } = requestData;
@@ -11607,7 +11608,7 @@ const GetRequest = function (requestData) {
                         'integrationName': integrationName,
                         'response': responseData
                     };
-                    alert(JSON.stringify({ dispatchResponse }));
+                    alert(JSON.stringify({ response }));
                     resolve(dispatchResponse);
                     // dispatch(Actions.GET_REQUEST, dispatchResponse)
                     //     .then((data: any) => {
@@ -11670,6 +11671,11 @@ const getRequestBuilder = function () {
                 };
                 return Promise.reject(error);
             }
+            alert(JSON.stringify({
+                integrationName,
+                url,
+                params: { params }
+            }));
             return GetRequest({
                 integrationName,
                 url,
