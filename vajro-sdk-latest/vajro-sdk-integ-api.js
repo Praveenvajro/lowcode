@@ -11543,6 +11543,7 @@ var Actions;
     Actions["DESTROY_WEB_VIEW"] = "destroyWebView";
     Actions["ADD_ORDER_CUSTOM_ATTRIBUTES"] = "addOrderCustomAttributes";
     Actions["REMOVE_ORDER_CUSTOM_ATTRIBUTES"] = "removeOrderCustomAttributes";
+    Actions["SEND_API_REQUEST"] = "sendApiRequest";
     Actions["GET_REQUEST"] = "getRequest";
     Actions["POST_REQUEST"] = "postRequest";
 })(Actions || (Actions = {}));
@@ -11593,8 +11594,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../communications/dispatcher */ "./src/communications/dispatcher.ts");
 /* harmony import */ var _get_request_schema__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./get-request.schema */ "./src/integration-actions/get-request/get-request.schema.ts");
 /* harmony import */ var _utils_errorNormalizer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/errorNormalizer */ "./src/utils/errorNormalizer.ts");
-/* harmony import */ var _axios_api_axios_api__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../axios-api/axios-api */ "./src/axios-api/axios-api.ts");
-
 
 
 
@@ -11605,36 +11604,57 @@ const GetRequest = function (requestData) {
         if (validate) {
             try {
                 const { integrationName, url, params = {} } = requestData;
-                _axios_api_axios_api__WEBPACK_IMPORTED_MODULE_4__.axiosAPI.get(url, params).then((response) => {
+                (0,_communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].SEND_API_REQUEST, requestData)
+                    .then((data) => {
+                    if (typeof data.value === 'string') {
+                        try {
+                            resolve(JSON.parse(data.value));
+                        }
+                        catch (err) {
+                            reject({
+                                code: 1102,
+                                type: 'Internal SDK Error',
+                                message: 'Api response parse failed'
+                            });
+                        }
+                    }
+                    else {
+                        resolve(data.value);
+                    }
+                })
+                    .catch((error) => {
+                    reject(error);
+                });
+                /*
+                axiosAPI.get(url, params).then((response: any) => {
                     const { data: responseData = {} } = response || {};
                     const dispatchResponse = {
                         'integrationName': integrationName,
                         'response': responseData
-                    };
-                    (0,_communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].GET_REQUEST, dispatchResponse)
-                        .then((data) => {
-                        if (typeof data.value === 'string') {
-                            try {
-                                resolve(JSON.parse(data.value));
+                    }
+                    dispatch(Actions.GET_REQUEST, dispatchResponse)
+                        .then((data: any) => {
+                            if (typeof data.value === 'string') {
+                                try {
+                                    resolve(JSON.parse(data.value));
+                                } catch (err) {
+                                    reject({
+                                        code: 1102,
+                                        type: 'Internal SDK Error',
+                                        message: 'Get response parse failed'
+                                    });
+                                }
+                            } else {
+                                resolve(data.value);
                             }
-                            catch (err) {
-                                reject({
-                                    code: 1102,
-                                    type: 'Internal SDK Error',
-                                    message: 'Get response parse failed'
-                                });
-                            }
-                        }
-                        else {
-                            resolve(data.value);
-                        }
-                    })
+                        })
                         .catch((error) => {
-                        reject(error);
-                    });
+                            reject(error);
+                        });
                 }).catch((error) => {
                     reject(error);
                 });
+                */
             }
             catch (err) {
                 reject(err);
