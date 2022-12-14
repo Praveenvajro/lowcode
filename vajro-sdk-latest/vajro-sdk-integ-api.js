@@ -11603,10 +11603,9 @@ const GetRequest = function (requestData) {
             try {
                 const { integrationName, url, params = {} } = requestData;
                 _axios_api_axios_api__WEBPACK_IMPORTED_MODULE_2__.axiosAPI.get(url, params).then((response) => {
-                    const { data: responseData = {} } = response || {};
                     const dispatchResponse = {
                         'integrationName': integrationName,
-                        'response': responseData
+                        'response': response
                     };
                     alert(JSON.stringify({ response }));
                     resolve(dispatchResponse);
@@ -11630,10 +11629,12 @@ const GetRequest = function (requestData) {
                     //         reject(error);
                     //     });
                 }).catch((error) => {
+                    alert(JSON.stringify({ error }));
                     reject(error);
                 });
             }
             catch (err) {
+                alert(JSON.stringify({ err }));
                 reject(err);
             }
         }
