@@ -11607,6 +11607,7 @@ const GetRequest = function (requestData) {
                         'integrationName': integrationName,
                         'response': responseData
                     };
+                    alert(JSON.stringify({ dispatchResponse }));
                     resolve(dispatchResponse);
                     // dispatch(Actions.GET_REQUEST, dispatchResponse)
                     //     .then((data: any) => {
