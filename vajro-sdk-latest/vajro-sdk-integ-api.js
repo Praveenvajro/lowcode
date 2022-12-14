@@ -11611,6 +11611,7 @@ const GetRequest = function (requestData) {
                         'integrationName': integrationName,
                         'response': responseData
                     };
+                    return JSON.stringify(dispatchResponse);
                     (0,_communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].GET_REQUEST, dispatchResponse)
                         .then((data) => {
                         if (typeof data.value === 'string') {
