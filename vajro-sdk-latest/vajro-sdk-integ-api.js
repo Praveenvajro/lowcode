@@ -11656,6 +11656,7 @@ const getRequestBuilder = function () {
     let url;
     let params = {};
     let headers = {};
+    let mode = 'no-cors';
     return {
         setIntegrationName(value) {
             integrationName = value;
@@ -11663,6 +11664,10 @@ const getRequestBuilder = function () {
         },
         setRequestUrl(value) {
             url = value;
+            return this;
+        },
+        setRequestMode(value) {
+            mode = value;
             return this;
         },
         setRequestHeader(key, value) {
@@ -11687,6 +11692,7 @@ const getRequestBuilder = function () {
                 url,
                 config: {
                     params,
+                    mode,
                     headers
                 }
             });
