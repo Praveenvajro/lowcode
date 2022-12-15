@@ -11594,6 +11594,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../communications/dispatcher */ "./src/communications/dispatcher.ts");
 /* harmony import */ var _get_request_schema__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./get-request.schema */ "./src/integration-actions/get-request/get-request.schema.ts");
 /* harmony import */ var _utils_errorNormalizer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/errorNormalizer */ "./src/utils/errorNormalizer.ts");
+/* harmony import */ var _axios_api_axios_api__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../axios-api/axios-api */ "./src/axios-api/axios-api.ts");
+
 
 
 
@@ -11604,57 +11606,36 @@ const GetRequest = function (requestData) {
         if (validate) {
             try {
                 const { integrationName, url, params = {} } = requestData;
-                (0,_communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].SEND_API_REQUEST, requestData)
-                    .then((data) => {
-                    if (typeof data.value === 'string') {
-                        try {
-                            resolve(JSON.parse(data.value));
-                        }
-                        catch (err) {
-                            reject({
-                                code: 1102,
-                                type: 'Internal SDK Error',
-                                message: 'Api response parse failed'
-                            });
-                        }
-                    }
-                    else {
-                        resolve(data.value);
-                    }
-                })
-                    .catch((error) => {
-                    reject(error);
-                });
-                /*
-                axiosAPI.get(url, params).then((response: any) => {
+                _axios_api_axios_api__WEBPACK_IMPORTED_MODULE_4__.axiosAPI.get(url, params).then((response) => {
                     const { data: responseData = {} } = response || {};
                     const dispatchResponse = {
                         'integrationName': integrationName,
                         'response': responseData
-                    }
-                    dispatch(Actions.GET_REQUEST, dispatchResponse)
-                        .then((data: any) => {
-                            if (typeof data.value === 'string') {
-                                try {
-                                    resolve(JSON.parse(data.value));
-                                } catch (err) {
-                                    reject({
-                                        code: 1102,
-                                        type: 'Internal SDK Error',
-                                        message: 'Get response parse failed'
-                                    });
-                                }
-                            } else {
-                                resolve(data.value);
+                    };
+                    (0,_communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].GET_REQUEST, dispatchResponse)
+                        .then((data) => {
+                        if (typeof data.value === 'string') {
+                            try {
+                                resolve(JSON.parse(data.value));
                             }
-                        })
+                            catch (err) {
+                                reject({
+                                    code: 1102,
+                                    type: 'Internal SDK Error',
+                                    message: 'Get response parse failed'
+                                });
+                            }
+                        }
+                        else {
+                            resolve(data.value);
+                        }
+                    })
                         .catch((error) => {
-                            reject(error);
-                        });
+                        reject(error);
+                    });
                 }).catch((error) => {
                     reject(error);
                 });
-                */
             }
             catch (err) {
                 reject(err);
@@ -11697,7 +11678,7 @@ const getRequestBuilder = function () {
             return GetRequest({
                 integrationName,
                 url,
-                params
+                params: { params }
             });
         }
     };
@@ -11750,10 +11731,13 @@ const getRequestSchema = ajv.compile(schema);
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "getRequest": () => (/* reexport safe */ _get_request_get_request_action__WEBPACK_IMPORTED_MODULE_0__.getRequest),
-/* harmony export */   "postRequest": () => (/* reexport safe */ _post_request_post_request_action__WEBPACK_IMPORTED_MODULE_1__.postRequest)
+/* harmony export */   "postRequest": () => (/* reexport safe */ _post_request_post_request_action__WEBPACK_IMPORTED_MODULE_1__.postRequest),
+/* harmony export */   "sendApiRequest": () => (/* reexport safe */ _send_api_request_send_api_request_action__WEBPACK_IMPORTED_MODULE_2__.sendApiRequest)
 /* harmony export */ });
 /* harmony import */ var _get_request_get_request_action__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./get-request/get-request.action */ "./src/integration-actions/get-request/get-request.action.ts");
 /* harmony import */ var _post_request_post_request_action__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./post-request/post-request.action */ "./src/integration-actions/post-request/post-request.action.ts");
+/* harmony import */ var _send_api_request_send_api_request_action__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./send-api-request/send-api-request.action */ "./src/integration-actions/send-api-request/send-api-request.action.ts");
+
 
 
 
@@ -11897,6 +11881,136 @@ const schema = {
     additionalProperties: false
 };
 const postRequestSchema = ajv.compile(schema);
+
+
+/***/ }),
+
+/***/ "./src/integration-actions/send-api-request/send-api-request.action.ts":
+/*!*****************************************************************************!*\
+  !*** ./src/integration-actions/send-api-request/send-api-request.action.ts ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "sendApiRequest": () => (/* binding */ sendApiRequest)
+/* harmony export */ });
+/* harmony import */ var _constants_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../constants/actions */ "./src/constants/actions.ts");
+/* harmony import */ var _communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../communications/dispatcher */ "./src/communications/dispatcher.ts");
+/* harmony import */ var _send_api_request_schema__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./send-api-request.schema */ "./src/integration-actions/send-api-request/send-api-request.schema.ts");
+/* harmony import */ var _utils_errorNormalizer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/errorNormalizer */ "./src/utils/errorNormalizer.ts");
+
+
+
+
+const SendApiRequest = function (requestData) {
+    return new Promise((resolve, reject) => {
+        const validate = (0,_send_api_request_schema__WEBPACK_IMPORTED_MODULE_2__.sendApiRequestSchema)(requestData);
+        if (validate) {
+            try {
+                (0,_communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].SEND_API_REQUEST, requestData)
+                    .then((data) => {
+                    if (typeof data.value === 'string') {
+                        try {
+                            resolve(JSON.parse(data.value));
+                        }
+                        catch (err) {
+                            reject({
+                                code: 1102,
+                                type: 'Internal SDK Error',
+                                message: 'Api response parse failed'
+                            });
+                        }
+                    }
+                    else {
+                        resolve(data.value);
+                    }
+                })
+                    .catch((error) => {
+                    reject(error);
+                });
+            }
+            catch (err) {
+                reject(err);
+            }
+        }
+        else {
+            if (_send_api_request_schema__WEBPACK_IMPORTED_MODULE_2__.sendApiRequestSchema.errors) {
+                let error = (0,_utils_errorNormalizer__WEBPACK_IMPORTED_MODULE_3__.normalizeError)(_send_api_request_schema__WEBPACK_IMPORTED_MODULE_2__.sendApiRequestSchema.errors);
+                reject(error);
+            }
+        }
+    });
+};
+const sendApiRequestBuilder = function () {
+    let integrationName;
+    let url;
+    let params = {};
+    return {
+        setIntegrationName(value) {
+            integrationName = value;
+            return this;
+        },
+        setRequestUrl(value) {
+            url = value;
+            return this;
+        },
+        setRequestParam(key, value) {
+            params = Object.assign({}, params, { [key]: value });
+            return this;
+        },
+        exec() {
+            if (!url) {
+                let error = {
+                    code: 1101,
+                    message: "Parameter's Value Empty",
+                    type: 'Internal SDK Error'
+                };
+                return Promise.reject(error);
+            }
+            return SendApiRequest({
+                integrationName,
+                url,
+                params
+            });
+        }
+    };
+};
+const sendApiRequest = function () {
+    return new sendApiRequestBuilder();
+};
+
+
+/***/ }),
+
+/***/ "./src/integration-actions/send-api-request/send-api-request.schema.ts":
+/*!*****************************************************************************!*\
+  !*** ./src/integration-actions/send-api-request/send-api-request.schema.ts ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "schema": () => (/* binding */ schema),
+/* harmony export */   "sendApiRequestSchema": () => (/* binding */ sendApiRequestSchema)
+/* harmony export */ });
+/* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ajv */ "./node_modules/ajv/dist/ajv.js");
+/* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(ajv__WEBPACK_IMPORTED_MODULE_0__);
+
+const ajv = new (ajv__WEBPACK_IMPORTED_MODULE_0___default())();
+const schema = {
+    type: 'object',
+    properties: {
+        integrationName: { type: 'string', nullable: false },
+        url: { type: 'string', nullable: false },
+        params: { type: 'object', nullable: true }
+    },
+    required: ['integrationName', 'url'],
+    additionalProperties: false
+};
+const sendApiRequestSchema = ajv.compile(schema);
 
 
 /***/ }),
@@ -20057,6 +20171,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "removeLineItemFromCart": () => (/* reexport safe */ _methods_methods__WEBPACK_IMPORTED_MODULE_0__.removeLineItemFromCart),
 /* harmony export */   "removeMultipleLineItemsFromCart": () => (/* reexport safe */ _methods_methods__WEBPACK_IMPORTED_MODULE_0__.removeMultipleLineItemsFromCart),
 /* harmony export */   "removeOrderCustomAttributes": () => (/* reexport safe */ _common_actions_commonActions__WEBPACK_IMPORTED_MODULE_1__.removeOrderCustomAttributes),
+/* harmony export */   "sendApiRequest": () => (/* reexport safe */ _integration_actions_methods__WEBPACK_IMPORTED_MODULE_16__.sendApiRequest),
 /* harmony export */   "setCodeBlockContent": () => (/* reexport safe */ _methods_methods__WEBPACK_IMPORTED_MODULE_0__.setCodeBlockContent),
 /* harmony export */   "setVar": () => (/* reexport safe */ _common_actions_commonActions__WEBPACK_IMPORTED_MODULE_1__.setVar),
 /* harmony export */   "showToastMessage": () => (/* reexport safe */ _common_actions_commonActions__WEBPACK_IMPORTED_MODULE_1__.showToastMessage),
