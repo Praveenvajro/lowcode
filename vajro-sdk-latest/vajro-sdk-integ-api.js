@@ -10545,8 +10545,8 @@ __webpack_require__.r(__webpack_exports__);
 axios__WEBPACK_IMPORTED_MODULE_0__["default"].defaults.headers.post["Content-Type"] = 'application/json;charset=utf-8';
 axios__WEBPACK_IMPORTED_MODULE_0__["default"].defaults.headers.post["Access-Control-Allow-Origin"] = '*';
 const axiosAPI = {
-    get: function (url, params) {
-        return axios__WEBPACK_IMPORTED_MODULE_0__["default"].get(url, params);
+    get: function (url, data) {
+        return axios__WEBPACK_IMPORTED_MODULE_0__["default"].get(url, data);
     },
     create: function (url, payload) {
         return axios__WEBPACK_IMPORTED_MODULE_0__["default"].post(url, payload);
@@ -11653,6 +11653,7 @@ const getRequestBuilder = function () {
     let integrationName;
     let url;
     let params = {};
+    let headers = {};
     return {
         setIntegrationName(value) {
             integrationName = value;
@@ -11660,6 +11661,10 @@ const getRequestBuilder = function () {
         },
         setRequestUrl(value) {
             url = value;
+            return this;
+        },
+        setRequestHeader(key, value) {
+            headers = Object.assign({}, headers, { [key]: value });
             return this;
         },
         setRequestParam(key, value) {
@@ -11678,7 +11683,10 @@ const getRequestBuilder = function () {
             return GetRequest({
                 integrationName,
                 url,
-                params: { params }
+                params: {
+                    params,
+                    headers
+                }
             });
         }
     };
