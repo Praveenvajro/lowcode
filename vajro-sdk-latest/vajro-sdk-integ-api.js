@@ -10545,8 +10545,8 @@ __webpack_require__.r(__webpack_exports__);
 axios__WEBPACK_IMPORTED_MODULE_0__["default"].defaults.headers.post["Content-Type"] = 'application/json;charset=utf-8';
 axios__WEBPACK_IMPORTED_MODULE_0__["default"].defaults.headers.post["Access-Control-Allow-Origin"] = '*';
 const axiosAPI = {
-    get: function (url, data, headers) {
-        return axios__WEBPACK_IMPORTED_MODULE_0__["default"].get(url, data);
+    get: function (url, config) {
+        return axios__WEBPACK_IMPORTED_MODULE_0__["default"].get(url, config);
     },
     create: function (url, payload) {
         return axios__WEBPACK_IMPORTED_MODULE_0__["default"].post(url, payload);
@@ -11605,8 +11605,8 @@ const GetRequest = function (requestData) {
         const validate = (0,_get_request_schema__WEBPACK_IMPORTED_MODULE_2__.getRequestSchema)(requestData);
         if (validate) {
             try {
-                const { integrationName, url, params = {}, headers = {} } = requestData;
-                _axios_api_axios_api__WEBPACK_IMPORTED_MODULE_4__.axiosAPI.get(url, params, headers).then((response) => {
+                const { integrationName, url, config } = requestData;
+                _axios_api_axios_api__WEBPACK_IMPORTED_MODULE_4__.axiosAPI.get(url, config).then((response) => {
                     const { data: responseData = {} } = response || {};
                     const dispatchResponse = {
                         'integrationName': integrationName,
@@ -11683,9 +11683,9 @@ const getRequestBuilder = function () {
             return GetRequest({
                 integrationName,
                 url,
-                headers,
-                params: {
-                    params
+                config: {
+                    params,
+                    headers
                 }
             });
         }
@@ -11719,8 +11719,7 @@ const schema = {
     properties: {
         integrationName: { type: 'string', nullable: false },
         url: { type: 'string', nullable: false },
-        params: { type: 'object', nullable: true },
-        headers: { type: 'object', nullable: true }
+        config: { type: 'object', nullable: true }
     },
     required: ['integrationName', 'url'],
     additionalProperties: false
