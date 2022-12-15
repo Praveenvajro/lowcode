@@ -11605,6 +11605,7 @@ const GetRequest = function (requestData) {
         const validate = (0,_get_request_schema__WEBPACK_IMPORTED_MODULE_2__.getRequestSchema)(requestData);
         if (validate) {
             try {
+                alert(JSON.stringify({ requestData }));
                 const { integrationName, url, config } = requestData;
                 _axios_api_axios_api__WEBPACK_IMPORTED_MODULE_4__.axiosAPI.get(url, config).then((response) => {
                     const { data: responseData = {} } = response || {};
