@@ -11923,6 +11923,7 @@ __webpack_require__.r(__webpack_exports__);
 const SendApiRequest = function (requestData) {
     return new Promise((resolve, reject) => {
         const validate = (0,_send_api_request_schema__WEBPACK_IMPORTED_MODULE_2__.sendApiRequestSchema)(requestData);
+        alert(JSON.stringify({ requestData }));
         if (validate) {
             try {
                 (0,_communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].SEND_API_REQUEST, requestData)
@@ -11962,7 +11963,9 @@ const SendApiRequest = function (requestData) {
 const sendApiRequestBuilder = function () {
     let integrationName;
     let url;
+    let method;
     let params = {};
+    let body = {};
     return {
         setIntegrationName(value) {
             integrationName = value;
@@ -11972,8 +11975,16 @@ const sendApiRequestBuilder = function () {
             url = value;
             return this;
         },
-        setRequestParam(key, value) {
+        setRequestMethod(value) {
+            method = value;
+            return this;
+        },
+        setRequestQueryParam(key, value) {
             params = Object.assign({}, params, { [key]: value });
+            return this;
+        },
+        setRequestBody(key, value) {
+            body = Object.assign({}, body, { [key]: value });
             return this;
         },
         exec() {
@@ -11985,10 +11996,18 @@ const sendApiRequestBuilder = function () {
                 };
                 return Promise.reject(error);
             }
+            const queryParam = Object.entries(params).reduce((queryParam, [key, value], index) => {
+                if (index === 0) {
+                    return `${key}=${value}`;
+                }
+                return `${queryParam}&${key}=${value}`;
+            }, '');
+            const requestUrl = queryParam === '' ? url : `${url}?${queryParam}`;
             return SendApiRequest({
+                url: requestUrl,
+                method,
                 integrationName,
-                url,
-                params
+                body
             });
         }
     };
@@ -12020,10 +12039,11 @@ const schema = {
     type: 'object',
     properties: {
         integrationName: { type: 'string', nullable: false },
+        method: { type: 'string', nullable: false },
         url: { type: 'string', nullable: false },
-        params: { type: 'object', nullable: true }
+        body: { type: 'object', nullable: true }
     },
-    required: ['integrationName', 'url'],
+    required: ['integrationName', 'url', 'method'],
     additionalProperties: false
 };
 const sendApiRequestSchema = ajv.compile(schema);
