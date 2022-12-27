@@ -11760,7 +11760,7 @@ const ShowAlertMessage = function (requestData) {
     return new Promise(function (resolve, reject) {
         const validate = (0,_ShowAlertMessage_schema__WEBPACK_IMPORTED_MODULE_3__.showAlertMessageSchema)(requestData);
         if (validate) {
-            (0,_communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].ALERT_DIALOG, requestData)
+            (0,_communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].SHOW_ALERT_MESSAGE, requestData)
                 .then((data) => {
                 if (typeof data.value === 'string') {
                     try {
@@ -11793,8 +11793,8 @@ const ShowAlertMessage = function (requestData) {
 const showAlertMessageBuilder = function () {
     let title;
     let messageList = [];
-    let button1;
-    let button2;
+    let primaryButton;
+    let secondaryButton;
     return {
         setTitle(value) {
             title = value;
@@ -11805,11 +11805,11 @@ const showAlertMessageBuilder = function () {
             return this;
         },
         setPrimaryButton(value) {
-            button1 = value;
+            primaryButton = value;
             return this;
         },
         setSecondaryButton(value) {
-            button2 = value;
+            secondaryButton = value;
             return this;
         },
         exec() {
@@ -11825,8 +11825,8 @@ const showAlertMessageBuilder = function () {
                 title,
                 messageList,
                 buttons: {
-                    button1,
-                    button2
+                    primaryButton,
+                    secondaryButton
                 }
             });
         }
@@ -12270,7 +12270,7 @@ var Actions;
     Actions["REMOVE_ORDER_CUSTOM_ATTRIBUTES"] = "removeOrderCustomAttributes";
     Actions["SEND_API_REQUEST"] = "sendApiRequest";
     Actions["CHECKOUT_BUTTON"] = "checkoutButton";
-    Actions["ALERT_DIALOG"] = "alertDialog";
+    Actions["SHOW_ALERT_MESSAGE"] = "showAlertMessage";
 })(Actions || (Actions = {}));
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Actions);
 
