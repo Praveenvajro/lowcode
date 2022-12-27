@@ -11792,8 +11792,7 @@ const ShowAlertMessage = function (requestData) {
 };
 const showAlertMessageBuilder = function () {
     let title;
-    let message;
-    let messageList;
+    let messageList = [];
     let button1;
     let button2;
     return {
@@ -11802,11 +11801,7 @@ const showAlertMessageBuilder = function () {
             return this;
         },
         setMessage(value) {
-            message = value;
-            return this;
-        },
-        setMessageList(value) {
-            messageList = value;
+            messageList.push(value);
             return this;
         },
         setPrimaryButton(value) {
@@ -11828,7 +11823,6 @@ const showAlertMessageBuilder = function () {
             }
             return ShowAlertMessage({
                 title,
-                message,
                 messageList,
                 buttons: {
                     button1,
@@ -11865,10 +11859,9 @@ const schema = {
     type: 'object',
     properties: {
         title: { type: 'string', nullable: false },
-        message: { type: 'string', nullable: false },
         messageList: {
             type: 'array',
-            nullable: true,
+            nullable: false,
             items: {
                 type: 'string'
             }
@@ -12173,7 +12166,6 @@ const actionDidComplete = (json) => {
 };
 const dispatch = (action, data) => {
     let actionId = (0,nanoid__WEBPACK_IMPORTED_MODULE_2__.nanoid)();
-    alert(JSON.stringify({ action, data }));
     return new Promise((resolve, reject) => {
         let startTime = performance.now();
         if (window.webkit && window.webkit.messageHandlers[action]) {
@@ -12899,7 +12891,6 @@ __webpack_require__.r(__webpack_exports__);
 const CheckoutButton = function (requestData) {
     return new Promise(function (resolve, reject) {
         const validate = (0,_CheckoutButton_schema__WEBPACK_IMPORTED_MODULE_3__.checkoutButtonSchema)(requestData);
-        alert(JSON.stringify({ requestData }));
         if (validate) {
             try {
                 (0,_communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].CHECKOUT_BUTTON, requestData)
@@ -12940,7 +12931,6 @@ const checkoutButtonBuilder = function () {
     let action;
     return {
         setAction(value) {
-            alert(JSON.stringify(value));
             action = value;
             return this;
         },
