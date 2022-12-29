@@ -14380,16 +14380,16 @@ const getCartTotalDetails = function (data, lineItemByProductId) {
     return data.reduce((cartDetails, productDetails) => {
         let { cartTotalAmount = 0, cartTotalCount = 0, cartTotalWeight = 0 } = cartDetails;
         const { variant_id, price, weight } = productDetails;
-        const lineItem = lineItemByProductId[variant_id];
-        if (lineItem && lineItem.lineItemType !== 'READONLY') {
+        const { quantity, lineItemType } = lineItemByProductId[variant_id];
+        if (!!lineItemType && !!quantity && lineItemType !== 'READONLY') {
             if (price) {
-                cartTotalAmount = cartTotalAmount + Number(price);
+                cartTotalAmount = cartTotalAmount + (Number(price) * Number(quantity));
             }
-            if (lineItem.quantity) {
-                cartTotalCount = cartTotalCount + lineItem.quantity;
+            if (!!quantity) {
+                cartTotalCount = cartTotalCount + Number(quantity);
             }
             if (weight) {
-                cartTotalAmount = cartTotalWeight + Number(weight);
+                cartTotalAmount = cartTotalWeight + (Number(weight) * Number(quantity));
             }
             return { cartTotalAmount, cartTotalCount, cartTotalWeight };
         }
@@ -14408,9 +14408,7 @@ const validateGeneralLimits = function (overLimitData, lineItemByProductId) {
     const { minorder, maxorder, mintotalitems, maxtotalitems, multtotalitems, itemmin, itemmax, itemmult, weightmin, weightmax, overridesubtotal } = general;
     const { INTRO_MSG, PROD_MIN_MSG, PROD_MAX_MSG, PROD_MULT_MSG, TOTAL_ITEMS_MIN_MSG, TOTAL_ITEMS_MAX_MSG, TOTAL_ITEMS_MULT_MSG, MIN_SUBTOTAL_MSG, MAX_SUBTOTAL_MSG, MIN_WEIGHT_MSG, MAX_WEIGHT_MSG } = custom_messages;
     const { cartTotalAmount, cartTotalCount, cartTotalWeight } = getCartTotalDetails(data, lineItemByProductId);
-    alert(JSON.stringify({
-        cartTotalAmount, cartTotalCount, cartTotalWeight
-    }));
+    alert(JSON.stringify({ cartTotalAmount, cartTotalCount, cartTotalWeight }));
     if (!!Number(minorder) || !!Number(maxorder)) {
         const message = Number(minorder) > cartTotalAmount ?
             getMessage(MIN_SUBTOTAL_MSG, { '{{CartMinAmount}}': Number(minorder) })
