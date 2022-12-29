@@ -14500,17 +14500,14 @@ const orderLimitsAction = function (appContext) {
         //     .exec().then((response: object) => {
         const { buttonStatus, messageTitle, messageList } = validateGeneralLimits(inputValues, lineItemByProductId);
         if (!!buttonStatus) {
-            alert(JSON.stringify({ buttonStatus, messageTitle, messageList }));
             alertMessageAction.setTitle(messageTitle);
             messageList.forEach((message) => {
                 alertMessageAction.setMessage(message);
             });
             alertMessageAction.setPrimaryButton('Ok');
             alertMessageAction.setSecondaryButton('Cancel');
-            (0,_utils_actions__WEBPACK_IMPORTED_MODULE_1__.handleCheckoutButton)(buttonStatus).then((res) => {
-                alert(JSON.stringify({ res }));
-                alertMessageAction.exec().then((res) => {
-                    alert(JSON.stringify({ res }));
+            (0,_utils_actions__WEBPACK_IMPORTED_MODULE_1__.handleCheckoutButton)(buttonStatus).then(() => {
+                alertMessageAction.exec().then(() => {
                 }, (error) => {
                     throw error;
                 });
