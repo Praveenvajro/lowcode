@@ -14505,6 +14505,8 @@ const orderLimitsAction = function (appContext) {
             messageList.forEach((message) => {
                 alertMessageAction.setMessage(message);
             });
+            alertMessageAction.setPrimaryButton('Ok');
+            alertMessageAction.setSecondaryButton('Cancel');
             (0,_utils_actions__WEBPACK_IMPORTED_MODULE_1__.handleCheckoutButton)(buttonStatus).then((res) => {
                 alert(JSON.stringify({ res }));
                 alertMessageAction.exec().then((res) => {
