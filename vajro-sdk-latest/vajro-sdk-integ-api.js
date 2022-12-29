@@ -14407,48 +14407,48 @@ const validateGeneralLimits = function (overLimitData, lineItemByProductId) {
     const { minorder, maxorder, mintotalitems, maxtotalitems, multtotalitems, itemmin, itemmax, itemmult, weightmin, weightmax, overridesubtotal } = general;
     const { INTRO_MSG, PROD_MIN_MSG, PROD_MAX_MSG, PROD_MULT_MSG, TOTAL_ITEMS_MIN_MSG, TOTAL_ITEMS_MAX_MSG, TOTAL_ITEMS_MULT_MSG, MIN_SUBTOTAL_MSG, MAX_SUBTOTAL_MSG, MIN_WEIGHT_MSG, MAX_WEIGHT_MSG } = custom_messages;
     const { cartTotalAmount, cartTotalCount, cartTotalWeight } = getCartTotalDetails(data, lineItemByProductId);
-    if (minorder > cartTotalAmount || maxorder < cartTotalAmount) {
-        const message = minorder > cartTotalAmount ?
-            getMessage(MIN_SUBTOTAL_MSG, { '{{CartMinAmount}}': minorder })
-            : getMessage(MAX_SUBTOTAL_MSG, { '{{CartMaxAmount}}': maxorder });
+    if (Number(minorder) > cartTotalAmount || Number(maxorder) < cartTotalAmount) {
+        const message = Number(minorder) > cartTotalAmount ?
+            getMessage(MIN_SUBTOTAL_MSG, { '{{CartMinAmount}}': Number(minorder) })
+            : getMessage(MAX_SUBTOTAL_MSG, { '{{CartMaxAmount}}': Number(maxorder) });
         messageList.push(message);
         buttonStatus = 'disable';
     }
-    if (mintotalitems > cartTotalCount || maxtotalitems < cartTotalCount || (multtotalitems && cartTotalCount % multtotalitems !== 0)) {
-        const message = mintotalitems > cartTotalCount ?
-            getMessage(TOTAL_ITEMS_MIN_MSG, { '{{CartMinQuantity}}': mintotalitems })
-            : maxtotalitems < cartTotalCount ?
-                getMessage(TOTAL_ITEMS_MAX_MSG, { '{{CartMaxQuantity}}': maxtotalitems })
-                : getMessage(TOTAL_ITEMS_MULT_MSG, { '{{CartQuantityMultiple}}': multtotalitems });
+    if (Number(mintotalitems) > cartTotalCount || Number(maxtotalitems) < cartTotalCount || (Number(multtotalitems) && cartTotalCount % Number(multtotalitems) !== 0)) {
+        const message = Number(mintotalitems) > cartTotalCount ?
+            getMessage(TOTAL_ITEMS_MIN_MSG, { '{{CartMinQuantity}}': Number(mintotalitems) })
+            : Number(maxtotalitems) < cartTotalCount ?
+                getMessage(TOTAL_ITEMS_MAX_MSG, { '{{CartMaxQuantity}}': Number(maxtotalitems) })
+                : getMessage(TOTAL_ITEMS_MULT_MSG, { '{{CartQuantityMultiple}}': Number(multtotalitems) });
         messageList.push(message);
         buttonStatus = 'disable';
     }
-    if (weightmin > cartTotalWeight || weightmax < cartTotalWeight) {
-        const message = weightmin > cartTotalWeight ?
-            getMessage(MIN_WEIGHT_MSG, { '{{CartMinWeight}}': weightmin })
-            : getMessage(MAX_WEIGHT_MSG, { '{{CartMaxWeight}}': weightmax });
+    if (Number(weightmin) > cartTotalWeight || Number(weightmax) < cartTotalWeight) {
+        const message = Number(weightmin) > cartTotalWeight ?
+            getMessage(MIN_WEIGHT_MSG, { '{{CartMinWeight}}': Number(weightmin) })
+            : getMessage(MAX_WEIGHT_MSG, { '{{CartMaxWeight}}': Number(weightmax) });
         messageList.push(message);
         buttonStatus = 'disable';
     }
-    if (!!itemmin || !!itemmax || !!itemmult) {
+    if (!!Number(itemmin) || !!Number(itemmin) || !!itemmult) {
         data.forEach((productDetails) => {
             const { variant_id, price, weight } = productDetails;
             const lineItem = lineItemByProductId[variant_id];
             const { quantity, productName } = lineItem;
             let message = null;
-            if (!!itemmin && itemmin > quantity) {
+            if (!!Number(itemmin) && Number(itemmin) > quantity) {
                 message = getMessage(PROD_MIN_MSG, {
                     '{{ProductName}}': productName,
                     '{{ProductMinQuantity}}': itemmin
                 });
             }
-            else if (!!itemmax && itemmax < quantity) {
+            else if (!!Number(itemmin) && Number(itemmin) < quantity) {
                 message = getMessage(PROD_MAX_MSG, {
                     '{{ProductName}}': productName,
                     '{{ProductMinQuantity}}': itemmax
                 });
             }
-            else if (!!itemmult && quantity % itemmult !== 0) {
+            else if (!!Number(itemmin) && quantity % Number(itemmin) !== 0) {
                 message = getMessage(PROD_MULT_MSG, {
                     '{{ProductName}}': productName,
                     '{{ProductMinQuantity}}': itemmult
@@ -14460,7 +14460,6 @@ const validateGeneralLimits = function (overLimitData, lineItemByProductId) {
     return { buttonStatus, messageList, messageTitle: INTRO_MSG };
 };
 const orderLimitsAction = function (appContext) {
-    alert(JSON.stringify({ appContext }));
     try {
         let alertMessageAction = (0,_common_actions_commonActions__WEBPACK_IMPORTED_MODULE_0__.showAlertMessage)();
         const { cartLineItems: { lineItems = [] } } = appContext;
