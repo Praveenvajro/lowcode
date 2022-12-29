@@ -14307,10 +14307,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "orderLimitsAction": () => (/* binding */ orderLimitsAction)
 /* harmony export */ });
 /* harmony import */ var _common_actions_commonActions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../common-actions/commonActions */ "./src/common-actions/commonActions.ts");
-/* harmony import */ var _integrations_get_order_limits_getOrderLimits_action__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../integrations/get-order-limits/getOrderLimits.action */ "./src/integrations/get-order-limits/getOrderLimits.action.ts");
-/* harmony import */ var _utils_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/actions */ "./src/scripts/utils/actions.ts");
-/* harmony import */ var _utils_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/common */ "./src/scripts/utils/common.ts");
-
+/* harmony import */ var _utils_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/actions */ "./src/scripts/utils/actions.ts");
+/* harmony import */ var _utils_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/common */ "./src/scripts/utils/common.ts");
 
 
 
@@ -14463,21 +14461,22 @@ const validateGeneralLimits = function (overLimitData, lineItemByProductId) {
 };
 const orderLimitsAction = function (appContext) {
     alert(JSON.stringify({ appContext }));
-    let alertMessageAction = (0,_common_actions_commonActions__WEBPACK_IMPORTED_MODULE_0__.showAlertMessage)();
-    const { cartLineItems: { lineItems = [] } } = appContext;
-    const lineItemByProductId = (0,_utils_common__WEBPACK_IMPORTED_MODULE_3__.getLineItemObj)(lineItems);
-    (0,_integrations_get_order_limits_getOrderLimits_action__WEBPACK_IMPORTED_MODULE_1__.getOrderLimits)()
-        .setOrderLimitsName('minmaxify')
-        .exec().then((response) => {
-        const { data, custom_messages, general } = inputValues || response;
-        const { buttonStatus, messageTitle, messageList } = validateGeneralLimits(inputValues || response, lineItemByProductId);
+    try {
+        let alertMessageAction = (0,_common_actions_commonActions__WEBPACK_IMPORTED_MODULE_0__.showAlertMessage)();
+        const { cartLineItems: { lineItems = [] } } = appContext;
+        const lineItemByProductId = (0,_utils_common__WEBPACK_IMPORTED_MODULE_2__.getLineItemObj)(lineItems);
+        // getOrderLimits()
+        //     .setOrderLimitsName('minmaxify')
+        //     .exec().then((response: object) => {
+        const { data, custom_messages, general } = inputValues;
+        const { buttonStatus, messageTitle, messageList } = validateGeneralLimits(inputValues, lineItemByProductId);
         if (!!buttonStatus) {
             alert(JSON.stringify({ buttonStatus, messageTitle, messageList }));
             alertMessageAction.setTitle(messageTitle);
             messageList.forEach((message) => {
                 alertMessageAction.setMessage(message);
             });
-            (0,_utils_actions__WEBPACK_IMPORTED_MODULE_2__.handleCheckoutButton)(buttonStatus).then((res) => {
+            (0,_utils_actions__WEBPACK_IMPORTED_MODULE_1__.handleCheckoutButton)(buttonStatus).then((res) => {
                 alert(JSON.stringify({ res }));
                 alertMessageAction.exec().then((res) => {
                     alert(JSON.stringify({ res }));
@@ -14489,11 +14488,15 @@ const orderLimitsAction = function (appContext) {
                 throw error;
             });
         }
-    }, (error) => {
-        (0,_common_actions_commonActions__WEBPACK_IMPORTED_MODULE_0__.showToastMessage)()
-            .setMessage(error)
-            .exec();
-    });
+        // }, (error: object) => {
+        //     showToastMessage()
+        //         .setMessage(error)
+        //         .exec()
+        // })
+    }
+    catch (e) {
+        alert(e.message);
+    }
 };
 
 
