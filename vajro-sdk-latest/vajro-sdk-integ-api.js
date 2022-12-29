@@ -12015,7 +12015,6 @@ __webpack_require__.r(__webpack_exports__);
 const ShowAlertMessage = function (requestData) {
     return new Promise(function (resolve, reject) {
         const validate = (0,_ShowAlertMessage_schema__WEBPACK_IMPORTED_MODULE_3__.showAlertMessageSchema)(requestData);
-        alert(JSON.stringify({ actionId: _constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].SHOW_ALERT_MESSAGE, requestData }));
         if (validate) {
             (0,_communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].SHOW_ALERT_MESSAGE, requestData)
                 .then((data) => {
@@ -12078,14 +12077,6 @@ const showAlertMessageBuilder = function () {
                 };
                 return Promise.reject(error);
             }
-            alert(JSON.stringify({
-                title,
-                messageList,
-                buttons: {
-                    primaryButton,
-                    secondaryButton
-                }
-            }));
             return ShowAlertMessage({
                 title,
                 messageList,
@@ -14525,7 +14516,7 @@ const orderLimitsAction = function (appContext) {
         // })
     }
     catch (e) {
-        alert(e.message);
+        throw e;
     }
 };
 
