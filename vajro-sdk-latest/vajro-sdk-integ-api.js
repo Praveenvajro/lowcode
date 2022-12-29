@@ -14407,23 +14407,27 @@ const validateGeneralLimits = function (overLimitData, lineItemByProductId) {
     const { minorder, maxorder, mintotalitems, maxtotalitems, multtotalitems, itemmin, itemmax, itemmult, weightmin, weightmax, overridesubtotal } = general;
     const { INTRO_MSG, PROD_MIN_MSG, PROD_MAX_MSG, PROD_MULT_MSG, TOTAL_ITEMS_MIN_MSG, TOTAL_ITEMS_MAX_MSG, TOTAL_ITEMS_MULT_MSG, MIN_SUBTOTAL_MSG, MAX_SUBTOTAL_MSG, MIN_WEIGHT_MSG, MAX_WEIGHT_MSG } = custom_messages;
     const { cartTotalAmount, cartTotalCount, cartTotalWeight } = getCartTotalDetails(data, lineItemByProductId);
-    if (Number(minorder) > cartTotalAmount || Number(maxorder) < cartTotalAmount) {
+    if (!!Number(minorder) || !!Number(maxorder)) {
         const message = Number(minorder) > cartTotalAmount ?
             getMessage(MIN_SUBTOTAL_MSG, { '{{CartMinAmount}}': Number(minorder) })
             : getMessage(MAX_SUBTOTAL_MSG, { '{{CartMaxAmount}}': Number(maxorder) });
         messageList.push(message);
         buttonStatus = 'disable';
     }
-    if (Number(mintotalitems) > cartTotalCount || Number(maxtotalitems) < cartTotalCount || (Number(multtotalitems) && cartTotalCount % Number(multtotalitems) !== 0)) {
-        const message = Number(mintotalitems) > cartTotalCount ?
-            getMessage(TOTAL_ITEMS_MIN_MSG, { '{{CartMinQuantity}}': Number(mintotalitems) })
-            : Number(maxtotalitems) < cartTotalCount ?
-                getMessage(TOTAL_ITEMS_MAX_MSG, { '{{CartMaxQuantity}}': Number(maxtotalitems) })
-                : getMessage(TOTAL_ITEMS_MULT_MSG, { '{{CartQuantityMultiple}}': Number(multtotalitems) });
-        messageList.push(message);
-        buttonStatus = 'disable';
+    if (!!Number(mintotalitems) || !!Number(maxtotalitems) || !!Number(multtotalitems)) {
+        let message;
+        if (!!Number(mintotalitems) && Number(mintotalitems) > cartTotalCount) {
+            message = getMessage(TOTAL_ITEMS_MIN_MSG, { '{{CartMinQuantity}}': Number(mintotalitems) });
+        }
+        else if (!!Number(maxtotalitems) && Number(maxtotalitems) < cartTotalCount) {
+            message = getMessage(TOTAL_ITEMS_MAX_MSG, { '{{CartMaxQuantity}}': Number(maxtotalitems) });
+        }
+        else if (Number(multtotalitems) && cartTotalCount % Number(multtotalitems) !== 0) {
+            message = getMessage(TOTAL_ITEMS_MULT_MSG, { '{{CartQuantityMultiple}}': Number(multtotalitems) });
+        }
+        message ? ((buttonStatus = 'disable'), (messageList.push(message))) : null;
     }
-    if (Number(weightmin) > cartTotalWeight || Number(weightmax) < cartTotalWeight) {
+    if (!!Number(weightmin) || !!Number(weightmax)) {
         const message = Number(weightmin) > cartTotalWeight ?
             getMessage(MIN_WEIGHT_MSG, { '{{CartMinWeight}}': Number(weightmin) })
             : getMessage(MAX_WEIGHT_MSG, { '{{CartMaxWeight}}': Number(weightmax) });
@@ -14461,6 +14465,7 @@ const validateGeneralLimits = function (overLimitData, lineItemByProductId) {
         const { variant_id, min_inventory_quantity, max_inventory_quantity, multiple } = productDetails;
         const lineItem = lineItemByProductId[variant_id] || {};
         const { quantity, productName } = lineItem;
+        alert(JSON.stringify({ lineItem }));
         if (quantity && (min_inventory_quantity || max_inventory_quantity || multiple)) {
             let message = null;
             if (!!Number(min_inventory_quantity) && Number(min_inventory_quantity) > quantity) {
