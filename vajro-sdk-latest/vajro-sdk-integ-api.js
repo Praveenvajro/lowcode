@@ -12422,6 +12422,7 @@ const actionDidComplete = (json) => {
 };
 const dispatch = (action, data) => {
     let actionId = (0,nanoid__WEBPACK_IMPORTED_MODULE_2__.nanoid)();
+    alert(JSON.stringify({ action, data }));
     return new Promise((resolve, reject) => {
         let startTime = performance.now();
         if (window.webkit && window.webkit.messageHandlers[action]) {
@@ -14407,6 +14408,9 @@ const validateGeneralLimits = function (overLimitData, lineItemByProductId) {
     const { minorder, maxorder, mintotalitems, maxtotalitems, multtotalitems, itemmin, itemmax, itemmult, weightmin, weightmax, overridesubtotal } = general;
     const { INTRO_MSG, PROD_MIN_MSG, PROD_MAX_MSG, PROD_MULT_MSG, TOTAL_ITEMS_MIN_MSG, TOTAL_ITEMS_MAX_MSG, TOTAL_ITEMS_MULT_MSG, MIN_SUBTOTAL_MSG, MAX_SUBTOTAL_MSG, MIN_WEIGHT_MSG, MAX_WEIGHT_MSG } = custom_messages;
     const { cartTotalAmount, cartTotalCount, cartTotalWeight } = getCartTotalDetails(data, lineItemByProductId);
+    alert(JSON.stringify({
+        cartTotalAmount, cartTotalCount, cartTotalWeight
+    }));
     if (!!Number(minorder) || !!Number(maxorder)) {
         const message = Number(minorder) > cartTotalAmount ?
             getMessage(MIN_SUBTOTAL_MSG, { '{{CartMinAmount}}': Number(minorder) })
