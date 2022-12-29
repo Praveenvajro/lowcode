@@ -12078,6 +12078,14 @@ const showAlertMessageBuilder = function () {
                 };
                 return Promise.reject(error);
             }
+            alert(JSON.stringify({
+                title,
+                messageList,
+                buttons: {
+                    primaryButton,
+                    secondaryButton
+                }
+            }));
             return ShowAlertMessage({
                 title,
                 messageList,
@@ -14507,16 +14515,8 @@ const orderLimitsAction = function (appContext) {
             });
             alertMessageAction.setPrimaryButton('Ok');
             alertMessageAction.setSecondaryButton('Cancel');
-            (0,_utils_actions__WEBPACK_IMPORTED_MODULE_1__.handleCheckoutButton)(buttonStatus).then(() => {
-                alert('alertMessageAction testing');
-                alertMessageAction.exec().then(() => {
-                }, (error) => {
-                    throw error;
-                });
-                ;
-            }, (error) => {
-                throw error;
-            });
+            alertMessageAction.exec();
+            (0,_utils_actions__WEBPACK_IMPORTED_MODULE_1__.handleCheckoutButton)(buttonStatus);
         }
         // }, (error: object) => {
         //     showToastMessage()
