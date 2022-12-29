@@ -14371,11 +14371,11 @@ const inputValues = {
     },
     'checkout_disabled': false,
     'general': {
-        'minorder': '',
-        'maxorder': '',
-        'mintotalitems': '',
-        'maxtotalitems': '',
-        'multtotalitems': '',
+        'minorder': '1000',
+        'maxorder': '3000',
+        'mintotalitems': '3',
+        'maxtotalitems': '6',
+        'multtotalitems': '2',
         'itemmin': '',
         'itemmax': '',
         'itemmult': '',
@@ -14458,13 +14458,13 @@ const validateGeneralLimits = function (overLimitData, lineItemByProductId) {
             else if (!!Number(itemmax) && Number(itemmax) < quantity) {
                 message = getMessage(PROD_MAX_MSG, {
                     '{{ProductName}}': product_title,
-                    '{{ProductMinQuantity}}': itemmax
+                    '{{ProductMaxQuantity}}': itemmax
                 });
             }
             else if (!!Number(itemmult) && quantity % Number(itemmult) !== 0) {
                 message = getMessage(PROD_MULT_MSG, {
                     '{{ProductName}}': product_title,
-                    '{{ProductMinQuantity}}': itemmult
+                    '{{ProductQuantityMultiple}}': itemmult
                 });
             }
             message ? ((buttonStatus = 'disable'), (messageList.push(message))) : null;
@@ -14485,13 +14485,13 @@ const validateGeneralLimits = function (overLimitData, lineItemByProductId) {
             else if (!!Number(max_inventory_quantity) && Number(max_inventory_quantity) < quantity) {
                 message = getMessage(PROD_MAX_MSG, {
                     '{{ProductName}}': product_title,
-                    '{{ProductMinQuantity}}': max_inventory_quantity
+                    '{{ProductMaxQuantity}}': max_inventory_quantity
                 });
             }
             else if (!!Number(multiple) && quantity % Number(multiple) !== 0) {
                 message = getMessage(PROD_MULT_MSG, {
                     '{{ProductName}}': product_title,
-                    '{{ProductMinQuantity}}': multiple
+                    '{{ProductQuantityMultiple}}': multiple
                 });
             }
             message ? ((buttonStatus = 'disable'), (messageList.push(message))) : null;
