@@ -12409,6 +12409,7 @@ var __rest = (undefined && undefined.__rest) || function (s, e) {
 
 
 const actionDidComplete = (json) => {
+    alert(JSON.stringify({ json }));
     const { error = null, appContext, actionId } = json, res = __rest(json, ["error", "appContext", "actionId"]);
     let dispatchHandler = (0,_utils_actionHub__WEBPACK_IMPORTED_MODULE_0__.getFromHub)(actionId);
     if (!dispatchHandler)
@@ -12422,7 +12423,6 @@ const actionDidComplete = (json) => {
 };
 const dispatch = (action, data) => {
     let actionId = (0,nanoid__WEBPACK_IMPORTED_MODULE_2__.nanoid)();
-    alert(JSON.stringify({ action, data }));
     return new Promise((resolve, reject) => {
         let startTime = performance.now();
         if (window.webkit && window.webkit.messageHandlers[action]) {
