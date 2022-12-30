@@ -12409,8 +12409,7 @@ var __rest = (undefined && undefined.__rest) || function (s, e) {
 
 
 const actionDidComplete = (json) => {
-    alert(JSON.stringify({ json }));
-    const { error = null, appContext, response = null, actionId } = json, res = __rest(json, ["error", "appContext", "response", "actionId"]);
+    const { error = null, appContext = null, actionId } = json, res = __rest(json, ["error", "appContext", "actionId"]);
     let dispatchHandler = (0,_utils_actionHub__WEBPACK_IMPORTED_MODULE_0__.getFromHub)(actionId);
     if (!dispatchHandler)
         throw {
@@ -12418,8 +12417,7 @@ const actionDidComplete = (json) => {
             type: 'Internal SDK Error',
             message: 'Dispatch Handler not found'
         };
-    alert(JSON.stringify({ response }));
-    response ? dispatchHandler(response, res, error) : dispatchHandler(appContext, response, res, error);
+    dispatchHandler(appContext, res, error);
     (0,_utils_actionHub__WEBPACK_IMPORTED_MODULE_0__.removeFromHub)(actionId);
 };
 const dispatch = (action, data) => {
@@ -12446,6 +12444,7 @@ const dispatch = (action, data) => {
             }
             else {
                 let response = Object.assign({ appContext }, res);
+                alert(JSON.stringify({ response }));
                 resolve(response);
                 (0,_utils_logger__WEBPACK_IMPORTED_MODULE_1__.logAction)(action, data, response, null, duration);
             }
