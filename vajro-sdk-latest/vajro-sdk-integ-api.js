@@ -11752,9 +11752,10 @@ const SendApiRequest = function (requestData) {
             try {
                 (0,_communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].SEND_API_REQUEST, requestData)
                     .then((data) => {
-                    if (typeof data.value === 'string') {
+                    alert(JSON.stringify({ data }));
+                    if (typeof data === 'string') {
                         try {
-                            resolve(JSON.parse(data.value));
+                            resolve(JSON.parse(data));
                         }
                         catch (err) {
                             reject({
@@ -11765,7 +11766,7 @@ const SendApiRequest = function (requestData) {
                         }
                     }
                     else {
-                        resolve(data.value);
+                        resolve(data);
                     }
                 })
                     .catch((error) => {
@@ -12444,7 +12445,6 @@ const dispatch = (action, data) => {
             }
             else {
                 let response = Object.assign({ appContext }, res);
-                alert(JSON.stringify({ response }));
                 resolve(response);
                 (0,_utils_logger__WEBPACK_IMPORTED_MODULE_1__.logAction)(action, data, response, null, duration);
             }
