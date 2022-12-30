@@ -12419,7 +12419,7 @@ const actionDidComplete = (json) => {
             message: 'Dispatch Handler not found'
         };
     alert(JSON.stringify({ response }));
-    dispatchHandler(appContext, response, res, error);
+    response ? dispatchHandler(response, res, error) : dispatchHandler(appContext, response, res, error);
     (0,_utils_actionHub__WEBPACK_IMPORTED_MODULE_0__.removeFromHub)(actionId);
 };
 const dispatch = (action, data) => {
