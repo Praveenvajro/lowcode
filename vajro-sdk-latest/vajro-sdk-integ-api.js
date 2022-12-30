@@ -14312,77 +14312,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const inputValues = {
-    'data': [
-        {
-            'product_id': '7962235568446',
-            'variant_id': '43638358901054',
-            'inventory_quantity': 1,
-            'price': '278.60',
-            'compare_at_price': '278.60',
-            'collection_id': [
-                '425299444030',
-                '425299968318'
-            ],
-            'product_type': 'Men"s Pants',
-            'weight': 0,
-            'product_title': 'Cargo Pant'
-        },
-        {
-            'product_id': '7962183827774',
-            'variant_id': '43638259450174',
-            'min_inventory_quantity': 3,
-            'max_inventory_quantity': 6,
-            'multiple': 3,
-            'combine': 1,
-            'inventory_quantity': 10,
-            'price': '998.00',
-            'compare_at_price': '998.00',
-            'collection_id': [
-                '425299607870',
-                '425299968318'
-            ],
-            'product_type': 'unisex bracelets',
-            'weight': 0,
-            'product_title': 'Bracelet 84 in Silver'
-        }
-    ],
-    'custom_messages': {
-        'INTRO_MSG': 'Cannot place order, conditions not met: \n\n',
-        'PROD_MIN_MSG': '{{ProductName}}: Must have at least {{ProductMinQuantity}} of this item.',
-        'PROD_MAX_MSG': '{{ProductName}}: Must have at most {{ProductMaxQuantity}} of this item.',
-        'PROD_MULT_MSG': '{{ProductName}}: Quantity must be a multiple of {{ProductQuantityMultiple}}.',
-        'TOTAL_ITEMS_MIN_MSG': 'Must have at least {{CartMinQuantity}} items total.',
-        'TOTAL_ITEMS_MAX_MSG': 'Must have at most {{CartMaxQuantity}} items total.',
-        'TOTAL_ITEMS_MULT_MSG': 'Must have a multiple of {{CartQuantityMultiple}} items total.',
-        'MIN_SUBTOTAL_MSG': 'Must have at least {{CartMinAmount}} in total.',
-        'MAX_SUBTOTAL_MSG': 'Must have at most {{CartMaxAmount}} in total.',
-        'MIN_WEIGHT_MSG': 'Current weight: {{CartWeight}} grams is less than the minimum order weight: {{CartMinWeight}} grams.',
-        'MAX_WEIGHT_MSG': 'Current weight: {{CartWeight}} grams is more than the maximum order weight: {{CartMaxWeight}} grams.'
-    },
-    'checkout_disabled': false,
-    'general': {
-        'minorder': '1000',
-        'maxorder': '3000',
-        'mintotalitems': '3',
-        'maxtotalitems': '6',
-        'multtotalitems': '2',
-        'itemmin': '',
-        'itemmax': '',
-        'itemmult': '',
-        'weightmin': '',
-        'weightmax': '',
-        'overridesubtotal': ''
-    }
-};
 const getCartTotalDetails = function (data, lineItemByProductId) {
     return data.reduce((cartDetails, productDetails) => {
         let { cartTotalAmount = 0, cartTotalCount = 0, cartTotalWeight = 0 } = cartDetails;
-        const { variant_id, price, weight } = productDetails;
-        const { quantity, lineItemType } = lineItemByProductId[variant_id];
+        const { variant_id, weight } = productDetails;
+        const { quantity, unitPrice, lineItemType } = lineItemByProductId[variant_id];
         if (!!lineItemType && !!quantity && lineItemType !== 'READONLY') {
-            if (price) {
-                cartTotalAmount = cartTotalAmount + (Number(price) * Number(quantity));
+            if (!!unitPrice) {
+                cartTotalAmount = cartTotalAmount + (Number(unitPrice) * Number(quantity));
             }
             if (!!quantity) {
                 cartTotalCount = cartTotalCount + Number(quantity);
@@ -14407,60 +14344,61 @@ const validateGeneralLimits = function (overLimitData, lineItemByProductId) {
     const { minorder, maxorder, mintotalitems, maxtotalitems, multtotalitems, itemmin, itemmax, itemmult, weightmin, weightmax, overridesubtotal } = general;
     const { INTRO_MSG, PROD_MIN_MSG, PROD_MAX_MSG, PROD_MULT_MSG, TOTAL_ITEMS_MIN_MSG, TOTAL_ITEMS_MAX_MSG, TOTAL_ITEMS_MULT_MSG, MIN_SUBTOTAL_MSG, MAX_SUBTOTAL_MSG, MIN_WEIGHT_MSG, MAX_WEIGHT_MSG } = custom_messages;
     const { cartTotalAmount, cartTotalCount, cartTotalWeight } = getCartTotalDetails(data, lineItemByProductId);
-    alert(JSON.stringify({ cartTotalAmount, cartTotalCount, cartTotalWeight }));
-    if (!!Number(minorder) || !!Number(maxorder)) {
-        const message = Number(minorder) > cartTotalAmount ?
-            getMessage(MIN_SUBTOTAL_MSG, { '{{CartMinAmount}}': Number(minorder) })
-            : getMessage(MAX_SUBTOTAL_MSG, { '{{CartMaxAmount}}': Number(maxorder) });
-        messageList.push(message);
-        buttonStatus = 'disable';
-    }
-    if (!!Number(mintotalitems) || !!Number(maxtotalitems) || !!Number(multtotalitems)) {
-        let message;
-        if (!!Number(mintotalitems) && Number(mintotalitems) > cartTotalCount) {
-            message = getMessage(TOTAL_ITEMS_MIN_MSG, { '{{CartMinQuantity}}': Number(mintotalitems) });
+    if (!!Number(overridesubtotal) && Number(overridesubtotal) < cartTotalAmount) {
+        if (!!Number(minorder) || !!Number(maxorder)) {
+            const message = Number(minorder) > cartTotalAmount ?
+                getMessage(MIN_SUBTOTAL_MSG, { '{{CartMinAmount}}': Number(minorder) })
+                : getMessage(MAX_SUBTOTAL_MSG, { '{{CartMaxAmount}}': Number(maxorder) });
+            messageList.push(message);
+            buttonStatus = 'disable';
         }
-        else if (!!Number(maxtotalitems) && Number(maxtotalitems) < cartTotalCount) {
-            message = getMessage(TOTAL_ITEMS_MAX_MSG, { '{{CartMaxQuantity}}': Number(maxtotalitems) });
-        }
-        else if (Number(multtotalitems) && cartTotalCount % Number(multtotalitems) !== 0) {
-            message = getMessage(TOTAL_ITEMS_MULT_MSG, { '{{CartQuantityMultiple}}': Number(multtotalitems) });
-        }
-        message ? ((buttonStatus = 'disable'), (messageList.push(message))) : null;
-    }
-    if (!!Number(weightmin) || !!Number(weightmax)) {
-        const message = Number(weightmin) > cartTotalWeight ?
-            getMessage(MIN_WEIGHT_MSG, { '{{CartMinWeight}}': Number(weightmin) })
-            : getMessage(MAX_WEIGHT_MSG, { '{{CartMaxWeight}}': Number(weightmax) });
-        messageList.push(message);
-        buttonStatus = 'disable';
-    }
-    if (!!Number(itemmin) || !!Number(itemmin) || !!Number(itemmult)) {
-        data.forEach((productDetails) => {
-            const { variant_id, product_title } = productDetails;
-            const lineItem = lineItemByProductId[variant_id];
-            const { quantity } = lineItem;
-            let message = null;
-            if (!!Number(itemmin) && Number(itemmin) > quantity) {
-                message = getMessage(PROD_MIN_MSG, {
-                    '{{ProductName}}': product_title,
-                    '{{ProductMinQuantity}}': itemmin
-                });
+        if (!!Number(mintotalitems) || !!Number(maxtotalitems) || !!Number(multtotalitems)) {
+            let message;
+            if (!!Number(mintotalitems) && Number(mintotalitems) > cartTotalCount) {
+                message = getMessage(TOTAL_ITEMS_MIN_MSG, { '{{CartMinQuantity}}': Number(mintotalitems) });
             }
-            else if (!!Number(itemmax) && Number(itemmax) < quantity) {
-                message = getMessage(PROD_MAX_MSG, {
-                    '{{ProductName}}': product_title,
-                    '{{ProductMaxQuantity}}': itemmax
-                });
+            else if (!!Number(maxtotalitems) && Number(maxtotalitems) < cartTotalCount) {
+                message = getMessage(TOTAL_ITEMS_MAX_MSG, { '{{CartMaxQuantity}}': Number(maxtotalitems) });
             }
-            else if (!!Number(itemmult) && quantity % Number(itemmult) !== 0) {
-                message = getMessage(PROD_MULT_MSG, {
-                    '{{ProductName}}': product_title,
-                    '{{ProductQuantityMultiple}}': itemmult
-                });
+            else if (Number(multtotalitems) && cartTotalCount % Number(multtotalitems) !== 0) {
+                message = getMessage(TOTAL_ITEMS_MULT_MSG, { '{{CartQuantityMultiple}}': Number(multtotalitems) });
             }
             message ? ((buttonStatus = 'disable'), (messageList.push(message))) : null;
-        });
+        }
+        if (!!Number(weightmin) || !!Number(weightmax)) {
+            const message = Number(weightmin) > cartTotalWeight ?
+                getMessage(MIN_WEIGHT_MSG, { '{{CartMinWeight}}': Number(weightmin) })
+                : getMessage(MAX_WEIGHT_MSG, { '{{CartMaxWeight}}': Number(weightmax) });
+            messageList.push(message);
+            buttonStatus = 'disable';
+        }
+        if (!!Number(itemmin) || !!Number(itemmin) || !!Number(itemmult)) {
+            data.forEach((productDetails) => {
+                const { variant_id, product_title } = productDetails;
+                const lineItem = lineItemByProductId[variant_id];
+                const { quantity } = lineItem;
+                let message = null;
+                if (!!Number(itemmin) && Number(itemmin) > quantity) {
+                    message = getMessage(PROD_MIN_MSG, {
+                        '{{ProductName}}': product_title,
+                        '{{ProductMinQuantity}}': itemmin
+                    });
+                }
+                else if (!!Number(itemmax) && Number(itemmax) < quantity) {
+                    message = getMessage(PROD_MAX_MSG, {
+                        '{{ProductName}}': product_title,
+                        '{{ProductMaxQuantity}}': itemmax
+                    });
+                }
+                else if (!!Number(itemmult) && quantity % Number(itemmult) !== 0) {
+                    message = getMessage(PROD_MULT_MSG, {
+                        '{{ProductName}}': product_title,
+                        '{{ProductQuantityMultiple}}': itemmult
+                    });
+                }
+                message ? ((buttonStatus = 'disable'), (messageList.push(message))) : null;
+            });
+        }
     }
     data.forEach((productDetails) => {
         const { variant_id, product_title, min_inventory_quantity, max_inventory_quantity, multiple } = productDetails;
@@ -14494,27 +14432,51 @@ const validateGeneralLimits = function (overLimitData, lineItemByProductId) {
 const orderLimitsAction = function (appContext) {
     try {
         let alertMessageAction = (0,_common_actions_commonActions__WEBPACK_IMPORTED_MODULE_0__.showAlertMessage)();
-        const { cartLineItems: { lineItems = [] } } = appContext;
+        const { appConfig: { id: appId }, cartLineItems: { lineItems = [] } } = appContext;
         const lineItemByProductId = (0,_utils_common__WEBPACK_IMPORTED_MODULE_2__.getLineItemObj)(lineItems);
-        // getOrderLimits()
-        //     .setOrderLimitsName('minmaxify')
-        //     .exec().then((response: object) => {
-        const { buttonStatus, messageTitle, messageList } = validateGeneralLimits(inputValues, lineItemByProductId);
-        if (!!buttonStatus) {
-            alertMessageAction.setTitle(messageTitle);
-            messageList.forEach((message) => {
-                alertMessageAction.setMessage(message);
-            });
-            alertMessageAction.setPrimaryButton('Ok');
-            alertMessageAction.setSecondaryButton('Cancel');
-            alertMessageAction.exec();
-            (0,_utils_actions__WEBPACK_IMPORTED_MODULE_1__.handleCheckoutButton)(buttonStatus);
-        }
-        // }, (error: object) => {
-        //     showToastMessage()
-        //         .setMessage(error)
-        //         .exec()
-        // })
+        const general = {
+            minorder: "1000",
+            maxorder: "3000",
+            mintotalitems: "3",
+            maxtotalitems: "6",
+            multtotalitems: "2",
+            itemmin: "",
+            itemmax: "",
+            itemmult: "",
+            weightmin: "",
+            weightmax: "",
+            overridesubtotal: "500"
+        };
+        const requestData = {
+            apiName: 'minmaxify',
+            url: 'https://dev-api.vajro.com/checkout/availability',
+            method: 'POST',
+            params: {
+                appId,
+                minmaxify: true
+            },
+            body: {
+                products: (0,_utils_common__WEBPACK_IMPORTED_MODULE_2__.getLineItemIds)(lineItems)
+            }
+        };
+        (0,_utils_actions__WEBPACK_IMPORTED_MODULE_1__.handleAPIRequest)(requestData).then((response) => {
+            response = Object.assign(Object.assign({}, response), { general });
+            const { buttonStatus, messageTitle, messageList } = validateGeneralLimits(response, lineItemByProductId);
+            if (!!buttonStatus) {
+                alertMessageAction.setTitle(messageTitle);
+                messageList.forEach((message) => {
+                    alertMessageAction.setMessage(message);
+                });
+                alertMessageAction.setPrimaryButton('Ok');
+                alertMessageAction.setSecondaryButton('Cancel');
+                alertMessageAction.exec();
+                (0,_utils_actions__WEBPACK_IMPORTED_MODULE_1__.handleCheckoutButton)(buttonStatus);
+            }
+        }, (error) => {
+            (0,_common_actions_commonActions__WEBPACK_IMPORTED_MODULE_0__.showToastMessage)()
+                .setMessage(error)
+                .exec();
+        });
     }
     catch (e) {
         throw e;
@@ -14533,12 +14495,39 @@ const orderLimitsAction = function (appContext) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "handleAPIRequest": () => (/* binding */ handleAPIRequest),
 /* harmony export */   "handleCheckoutButton": () => (/* binding */ handleCheckoutButton)
 /* harmony export */ });
-/* harmony import */ var _methods_methods__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../methods/methods */ "./src/methods/methods.ts");
+/* harmony import */ var _common_actions_commonActions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../common-actions/commonActions */ "./src/common-actions/commonActions.ts");
+/* harmony import */ var _methods_methods__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../methods/methods */ "./src/methods/methods.ts");
 
+
+const handleAPIRequest = function (requestData) {
+    const { apiName, url, method, params, body } = requestData;
+    let requestAPI = (0,_common_actions_commonActions__WEBPACK_IMPORTED_MODULE_0__.sendApiRequest)();
+    if (!!apiName) {
+        requestAPI.setIntegrationName(apiName);
+    }
+    if (!!url) {
+        requestAPI.setRequestUrl(url); //'https://dev-api.vajro.com/checkout/availability')
+    }
+    if (!!method) {
+        requestAPI.setRequestMethod(method);
+    }
+    if (!!params) {
+        Object.entries(params).forEach(([paramKey, paramValue]) => {
+            requestAPI.setRequestQueryParam(paramKey, paramValue);
+        });
+    }
+    if (!!body) {
+        Object.entries(body).forEach(([bodyKey, bodyValue]) => {
+            requestAPI.setRequestBody(bodyKey, bodyValue);
+        });
+    }
+    return requestAPI.exec();
+};
 const handleCheckoutButton = function (status) {
-    return (0,_methods_methods__WEBPACK_IMPORTED_MODULE_0__.checkoutButton)()
+    return (0,_methods_methods__WEBPACK_IMPORTED_MODULE_1__.checkoutButton)()
         .setStatus(status)
         .exec();
 };
@@ -14555,6 +14544,7 @@ const handleCheckoutButton = function (status) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getLineItemIds": () => (/* binding */ getLineItemIds),
 /* harmony export */   "getLineItemObj": () => (/* binding */ getLineItemObj)
 /* harmony export */ });
 const getLineItemObj = function (lineItems) {
@@ -14563,6 +14553,15 @@ const getLineItemObj = function (lineItems) {
         itemObj[variantId] = lineItem;
         return itemObj;
     }, {});
+};
+const getLineItemIds = function (lineItems) {
+    return lineItems.map((lineItemDetails) => {
+        const { variantId, productId } = lineItemDetails;
+        return {
+            product_id: productId,
+            variant_id: variantId
+        };
+    });
 };
 
 
