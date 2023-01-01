@@ -14464,6 +14464,7 @@ const orderLimitsAction = function (appContext) {
                 products: (0,_utils_common__WEBPACK_IMPORTED_MODULE_2__.getLineItemIds)(lineItems)
             }
         };
+        alert(JSON.stringify({ requestData }));
         (0,_utils_actions__WEBPACK_IMPORTED_MODULE_1__.handleAPIRequest)(requestData).then((response) => {
             try {
                 alert(JSON.stringify({ response }));
@@ -14483,6 +14484,7 @@ const orderLimitsAction = function (appContext) {
                 alert(e.message);
             }
         }, (error) => {
+            alert(JSON.stringify({ error }));
             (0,_common_actions_commonActions__WEBPACK_IMPORTED_MODULE_0__.showAlertMessage)()
                 .setMessage(error)
                 .exec();
