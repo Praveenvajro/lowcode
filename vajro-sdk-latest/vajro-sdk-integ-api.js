@@ -14491,6 +14491,7 @@ const orderLimitsAction = function (appContext) {
         });
     }
     catch (e) {
+        alert(e.message);
         throw e;
     }
 };
