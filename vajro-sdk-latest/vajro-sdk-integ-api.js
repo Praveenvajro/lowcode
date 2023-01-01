@@ -14457,7 +14457,7 @@ const orderLimitsAction = function (appContext) {
             url: 'https://dev-api.vajro.com/checkout/availability',
             method: 'POST',
             params: {
-                appid: appId,
+                appId,
                 minmaxify: true
             },
             body: {
