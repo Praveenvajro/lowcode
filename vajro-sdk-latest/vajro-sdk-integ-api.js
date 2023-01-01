@@ -14313,24 +14313,29 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const getCartTotalDetails = function (data, lineItemByProductId) {
-    return data.reduce((cartDetails, productDetails) => {
-        let { cartTotalAmount = 0, cartTotalCount = 0, cartTotalWeight = 0 } = cartDetails;
-        const { variant_id, weight } = productDetails;
-        const { quantity, unitPrice, lineItemType } = lineItemByProductId[variant_id];
-        if (!!lineItemType && !!quantity && lineItemType !== 'READONLY') {
-            if (!!unitPrice) {
-                cartTotalAmount = cartTotalAmount + (Number(unitPrice) * Number(quantity));
+    try {
+        return data.reduce((cartDetails, productDetails) => {
+            let { cartTotalAmount = 0, cartTotalCount = 0, cartTotalWeight = 0 } = cartDetails;
+            const { variant_id, weight } = productDetails;
+            const { quantity, unitPrice, lineItemType } = lineItemByProductId[variant_id];
+            if (!!lineItemType && !!quantity && lineItemType !== 'READONLY') {
+                if (!!unitPrice) {
+                    cartTotalAmount = cartTotalAmount + (Number(unitPrice) * Number(quantity));
+                }
+                if (!!quantity) {
+                    cartTotalCount = cartTotalCount + Number(quantity);
+                }
+                if (weight) {
+                    cartTotalAmount = cartTotalWeight + (Number(weight) * Number(quantity));
+                }
+                return { cartTotalAmount, cartTotalCount, cartTotalWeight };
             }
-            if (!!quantity) {
-                cartTotalCount = cartTotalCount + Number(quantity);
-            }
-            if (weight) {
-                cartTotalAmount = cartTotalWeight + (Number(weight) * Number(quantity));
-            }
-            return { cartTotalAmount, cartTotalCount, cartTotalWeight };
-        }
-        return cartDetails;
-    }, { cartTotalAmount: 0, cartTotalCount: 0, cartTotalWeight: 0 });
+            return cartDetails;
+        }, { cartTotalAmount: 0, cartTotalCount: 0, cartTotalWeight: 0 });
+    }
+    catch (e) {
+        alert(e.message);
+    }
 };
 const getMessage = function (message, stringObj) {
     return Object.entries(stringObj).reduce((newMessage, [key, value]) => {
@@ -14460,20 +14465,25 @@ const orderLimitsAction = function (appContext) {
             }
         };
         (0,_utils_actions__WEBPACK_IMPORTED_MODULE_1__.handleAPIRequest)(requestData).then((response) => {
-            response = Object.assign(Object.assign({}, response), { general });
-            const { buttonStatus, messageTitle, messageList } = validateGeneralLimits(response, lineItemByProductId);
-            if (!!buttonStatus) {
-                alertMessageAction.setTitle(messageTitle);
-                messageList.forEach((message) => {
-                    alertMessageAction.setMessage(message);
-                });
-                alertMessageAction.setPrimaryButton('Ok');
-                alertMessageAction.setSecondaryButton('Cancel');
-                alertMessageAction.exec();
-                (0,_utils_actions__WEBPACK_IMPORTED_MODULE_1__.handleCheckoutButton)(buttonStatus);
+            try {
+                alert(JSON.stringify({ response }));
+                const { buttonStatus, messageTitle, messageList } = validateGeneralLimits(Object.assign(Object.assign({}, response), { general }), lineItemByProductId);
+                if (!!buttonStatus) {
+                    alertMessageAction.setTitle(messageTitle);
+                    messageList.forEach((message) => {
+                        alertMessageAction.setMessage(message);
+                    });
+                    alertMessageAction.setPrimaryButton('Ok');
+                    alertMessageAction.setSecondaryButton('Cancel');
+                    alertMessageAction.exec();
+                    (0,_utils_actions__WEBPACK_IMPORTED_MODULE_1__.handleCheckoutButton)(buttonStatus);
+                }
+            }
+            catch (e) {
+                alert(e.message);
             }
         }, (error) => {
-            (0,_common_actions_commonActions__WEBPACK_IMPORTED_MODULE_0__.showToastMessage)()
+            (0,_common_actions_commonActions__WEBPACK_IMPORTED_MODULE_0__.showAlertMessage)()
                 .setMessage(error)
                 .exec();
         });
