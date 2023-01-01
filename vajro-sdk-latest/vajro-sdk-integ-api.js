@@ -11747,6 +11747,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const SendApiRequest = function (requestData) {
     return new Promise((resolve, reject) => {
+        alert(JSON.stringify({ requestData }));
         const validate = (0,_sendApiRequest_schema__WEBPACK_IMPORTED_MODULE_2__.sendApiRequestSchema)(requestData);
         if (validate) {
             try {
@@ -14345,7 +14346,7 @@ const getMessage = function (message, stringObj) {
 const validateGeneralLimits = function (overLimitData, lineItemByProductId) {
     let buttonStatus = null;
     let messageList = [];
-    const { data, custom_messages, general } = overLimitData;
+    const { data = [], custom_messages = {}, general = {} } = overLimitData;
     const { minorder, maxorder, mintotalitems, maxtotalitems, multtotalitems, itemmin, itemmax, itemmult, weightmin, weightmax, overridesubtotal } = general;
     const { INTRO_MSG, PROD_MIN_MSG, PROD_MAX_MSG, PROD_MULT_MSG, TOTAL_ITEMS_MIN_MSG, TOTAL_ITEMS_MAX_MSG, TOTAL_ITEMS_MULT_MSG, MIN_SUBTOTAL_MSG, MAX_SUBTOTAL_MSG, MIN_WEIGHT_MSG, MAX_WEIGHT_MSG } = custom_messages;
     const { cartTotalAmount, cartTotalCount, cartTotalWeight } = getCartTotalDetails(data, lineItemByProductId);
@@ -14457,7 +14458,7 @@ const orderLimitsAction = function (appContext) {
             url: 'https://dev-api.vajro.com/checkout/availability',
             method: 'POST',
             params: {
-                appId,
+                appid: appId,
                 minmaxify: true
             },
             body: {
