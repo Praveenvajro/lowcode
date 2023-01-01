@@ -11747,7 +11747,6 @@ __webpack_require__.r(__webpack_exports__);
 
 const SendApiRequest = function (requestData) {
     return new Promise((resolve, reject) => {
-        alert(JSON.stringify({ requestData }));
         const validate = (0,_sendApiRequest_schema__WEBPACK_IMPORTED_MODULE_2__.sendApiRequestSchema)(requestData);
         if (validate) {
             try {
@@ -14335,7 +14334,9 @@ const getCartTotalDetails = function (data, lineItemByProductId) {
         }, { cartTotalAmount: 0, cartTotalCount: 0, cartTotalWeight: 0 });
     }
     catch (e) {
-        alert(e.message);
+        (0,_common_actions_commonActions__WEBPACK_IMPORTED_MODULE_0__.showAlertMessage)()
+            .setMessage(e.message)
+            .exec();
     }
 };
 const getMessage = function (message, stringObj) {
@@ -14352,11 +14353,14 @@ const validateGeneralLimits = function (overLimitData, lineItemByProductId) {
     const { cartTotalAmount, cartTotalCount, cartTotalWeight } = getCartTotalDetails(data, lineItemByProductId);
     if (!!Number(overridesubtotal) && Number(overridesubtotal) < cartTotalAmount) {
         if (!!Number(minorder) || !!Number(maxorder)) {
-            const message = Number(minorder) > cartTotalAmount ?
-                getMessage(MIN_SUBTOTAL_MSG, { '{{CartMinAmount}}': Number(minorder) })
-                : getMessage(MAX_SUBTOTAL_MSG, { '{{CartMaxAmount}}': Number(maxorder) });
-            messageList.push(message);
-            buttonStatus = 'disable';
+            let message;
+            if (Number(minorder) > cartTotalAmount) {
+                message = getMessage(MIN_SUBTOTAL_MSG, { '{{CartMinAmount}}': Number(minorder) });
+            }
+            else if (Number(maxorder) < cartTotalAmount) {
+                message = getMessage(MAX_SUBTOTAL_MSG, { '{{CartMaxAmount}}': Number(maxorder) });
+            }
+            message ? ((buttonStatus = 'disable'), (messageList.push(message))) : null;
         }
         if (!!Number(mintotalitems) || !!Number(maxtotalitems) || !!Number(multtotalitems)) {
             let message;
@@ -14372,18 +14376,21 @@ const validateGeneralLimits = function (overLimitData, lineItemByProductId) {
             message ? ((buttonStatus = 'disable'), (messageList.push(message))) : null;
         }
         if (!!Number(weightmin) || !!Number(weightmax)) {
-            const message = Number(weightmin) > cartTotalWeight ?
-                getMessage(MIN_WEIGHT_MSG, { '{{CartMinWeight}}': Number(weightmin) })
-                : getMessage(MAX_WEIGHT_MSG, { '{{CartMaxWeight}}': Number(weightmax) });
-            messageList.push(message);
-            buttonStatus = 'disable';
+            let message;
+            if (Number(weightmin) > cartTotalWeight) {
+                message = getMessage(MIN_WEIGHT_MSG, { '{{CartMinWeight}}': Number(weightmin) });
+            }
+            else if (Number(maxorder) < cartTotalWeight) {
+                message = getMessage(MAX_WEIGHT_MSG, { '{{CartMaxWeight}}': Number(weightmax) });
+            }
+            message ? ((buttonStatus = 'disable'), (messageList.push(message))) : null;
         }
         if (!!Number(itemmin) || !!Number(itemmin) || !!Number(itemmult)) {
             data.forEach((productDetails) => {
                 const { variant_id, product_title } = productDetails;
                 const lineItem = lineItemByProductId[variant_id];
                 const { quantity } = lineItem;
-                let message = null;
+                let message;
                 if (!!Number(itemmin) && Number(itemmin) > quantity) {
                     message = getMessage(PROD_MIN_MSG, {
                         '{{ProductName}}': product_title,
@@ -14465,10 +14472,8 @@ const orderLimitsAction = function (appContext) {
                 products: (0,_utils_common__WEBPACK_IMPORTED_MODULE_2__.getLineItemIds)(lineItems)
             }
         };
-        alert(JSON.stringify({ requestData }));
         (0,_utils_actions__WEBPACK_IMPORTED_MODULE_1__.handleAPIRequest)(requestData).then((response) => {
             try {
-                alert(JSON.stringify({ response }));
                 const { buttonStatus, messageTitle, messageList } = validateGeneralLimits(Object.assign(Object.assign({}, response), { general }), lineItemByProductId);
                 if (!!buttonStatus) {
                     alertMessageAction.setTitle(messageTitle);
@@ -14480,20 +14485,25 @@ const orderLimitsAction = function (appContext) {
                     alertMessageAction.exec();
                     (0,_utils_actions__WEBPACK_IMPORTED_MODULE_1__.handleCheckoutButton)(buttonStatus);
                 }
+                else {
+                    (0,_utils_actions__WEBPACK_IMPORTED_MODULE_1__.handleCheckoutButton)('enable');
+                }
             }
             catch (e) {
-                alert(e.message);
+                (0,_common_actions_commonActions__WEBPACK_IMPORTED_MODULE_0__.showAlertMessage)()
+                    .setMessage(e.message)
+                    .exec();
             }
         }, (error) => {
-            alert(JSON.stringify({ error }));
             (0,_common_actions_commonActions__WEBPACK_IMPORTED_MODULE_0__.showAlertMessage)()
                 .setMessage(error)
                 .exec();
         });
     }
     catch (e) {
-        alert(e.message);
-        throw e;
+        (0,_common_actions_commonActions__WEBPACK_IMPORTED_MODULE_0__.showAlertMessage)()
+            .setMessage(e.message)
+            .exec();
     }
 };
 
