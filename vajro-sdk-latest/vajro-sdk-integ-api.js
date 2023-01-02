@@ -14462,7 +14462,7 @@ const orderLimitsAction = function (appContext) {
         };
         const requestData = {
             apiName: 'minmaxify',
-            url: 'https://dev-api.vajro.com/checkout/availability',
+            url: 'https://c714-117-201-17-216.in.ngrok.io/checkout/availability',
             method: 'POST',
             params: {
                 appid: appId,
@@ -14474,7 +14474,8 @@ const orderLimitsAction = function (appContext) {
         };
         (0,_utils_actions__WEBPACK_IMPORTED_MODULE_1__.handleAPIRequest)(requestData).then((response) => {
             try {
-                const { buttonStatus, messageTitle, messageList } = validateGeneralLimits(Object.assign(Object.assign({}, response), { general }), lineItemByProductId);
+                alert(JSON.stringify({ response }));
+                const { buttonStatus, messageTitle, messageList } = validateGeneralLimits(Object.assign({}, response), lineItemByProductId);
                 if (!!buttonStatus) {
                     alertMessageAction.setTitle(messageTitle);
                     messageList.forEach((message) => {
