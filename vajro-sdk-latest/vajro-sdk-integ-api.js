@@ -14309,19 +14309,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _common_actions_commonActions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../common-actions/commonActions */ "./src/common-actions/commonActions.ts");
 /* harmony import */ var _utils_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/actions */ "./src/scripts/utils/actions.ts");
 /* harmony import */ var _utils_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/common */ "./src/scripts/utils/common.ts");
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 
 
 
-let orderLimitsDetails = {};
 const getCartTotalDetails = function (data, lineItemByProductId) {
     try {
         return data.reduce((cartDetails, productDetails) => {
@@ -14453,51 +14443,38 @@ const validateGeneralLimits = function (overLimitData, lineItemByProductId) {
     return { buttonStatus, messageList, messageTitle: INTRO_MSG };
 };
 const orderLimitsAction = function (appContext) {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            let alertMessageAction = (0,_common_actions_commonActions__WEBPACK_IMPORTED_MODULE_0__.showAlertMessage)();
-            const { appConfig: { id: appId }, cartLineItems: { lineItems = [] } } = appContext;
-            const lineItemByProductId = (0,_utils_common__WEBPACK_IMPORTED_MODULE_2__.getLineItemObj)(lineItems);
-            const general = {
-                minorder: "1000",
-                maxorder: "3000",
-                mintotalitems: "3",
-                maxtotalitems: "6",
-                multtotalitems: "2",
-                itemmin: "",
-                itemmax: "",
-                itemmult: "",
-                weightmin: "",
-                weightmax: "",
-                overridesubtotal: "500"
-            };
-            const requestData = {
-                apiName: 'minmaxify',
-                url: 'https://dev-api.vajro.com/checkout/availability',
-                method: 'POST',
-                params: {
-                    appid: appId,
-                    minmaxify: true
-                },
-                body: {
-                    products: (0,_utils_common__WEBPACK_IMPORTED_MODULE_2__.getLineItemIds)(lineItems)
-                }
-            };
-            function getOrderDetails(data) {
-                return __awaiter(this, void 0, void 0, function* () {
-                    return (0,_utils_actions__WEBPACK_IMPORTED_MODULE_1__.handleAPIRequest)(data).then((response) => {
-                        return response;
-                    }, (error) => {
-                        (0,_common_actions_commonActions__WEBPACK_IMPORTED_MODULE_0__.showAlertMessage)()
-                            .setMessage(error)
-                            .exec();
-                        return {};
-                    });
-                });
+    try {
+        let alertMessageAction = (0,_common_actions_commonActions__WEBPACK_IMPORTED_MODULE_0__.showAlertMessage)();
+        const { appConfig: { id: appId }, cartLineItems: { lineItems = [] } } = appContext;
+        const lineItemByProductId = (0,_utils_common__WEBPACK_IMPORTED_MODULE_2__.getLineItemObj)(lineItems);
+        const general = {
+            minorder: "1000",
+            maxorder: "3000",
+            mintotalitems: "3",
+            maxtotalitems: "6",
+            multtotalitems: "2",
+            itemmin: "",
+            itemmax: "",
+            itemmult: "",
+            weightmin: "",
+            weightmax: "",
+            overridesubtotal: "500"
+        };
+        const requestData = {
+            apiName: 'minmaxify',
+            url: 'https://dev-api.vajro.com/checkout/availability',
+            method: 'POST',
+            params: {
+                appid: appId,
+                minmaxify: true
+            },
+            body: {
+                products: (0,_utils_common__WEBPACK_IMPORTED_MODULE_2__.getLineItemIds)(lineItems)
             }
-            orderLimitsDetails === null ? (orderLimitsDetails = yield getOrderDetails(requestData)) : null;
+        };
+        (0,_utils_actions__WEBPACK_IMPORTED_MODULE_1__.handleAPIRequest)(requestData).then((response) => {
             try {
-                const { buttonStatus, messageTitle, messageList } = validateGeneralLimits(Object.assign(Object.assign({}, orderLimitsDetails), { general }), lineItemByProductId);
+                const { buttonStatus, messageTitle, messageList } = validateGeneralLimits(Object.assign(Object.assign({}, response), { general }), lineItemByProductId);
                 if (!!buttonStatus) {
                     alertMessageAction.setTitle(messageTitle);
                     messageList.forEach((message) => {
@@ -14517,13 +14494,17 @@ const orderLimitsAction = function (appContext) {
                     .setMessage(e.message)
                     .exec();
             }
-        }
-        catch (e) {
+        }, (error) => {
             (0,_common_actions_commonActions__WEBPACK_IMPORTED_MODULE_0__.showAlertMessage)()
-                .setMessage(e.message)
+                .setMessage(error)
                 .exec();
-        }
-    });
+        });
+    }
+    catch (e) {
+        (0,_common_actions_commonActions__WEBPACK_IMPORTED_MODULE_0__.showAlertMessage)()
+            .setMessage(e.message)
+            .exec();
+    }
 };
 
 
