@@ -14462,7 +14462,7 @@ const orderLimitsAction = function (appContext) {
         };
         const requestData = {
             apiName: 'minmaxify',
-            url: 'https://c714-117-201-17-216.in.ngrok.io/checkout/availability',
+            url: 'https://dev-api.vajro.com/checkout/availability/checkout/availability',
             method: 'POST',
             params: {
                 appid: appId,
