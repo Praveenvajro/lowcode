@@ -14462,7 +14462,7 @@ const orderLimitsAction = function (appContext) {
         };
         const requestData = {
             apiName: 'minmaxify',
-            url: 'https://dev-api.vajro.com/checkout/availability/checkout/availability',
+            url: 'https://dev-api.vajro.com/checkout/availability',
             method: 'POST',
             params: {
                 appid: appId,
@@ -14534,7 +14534,7 @@ const handleAPIRequest = function (requestData) {
         requestAPI.setIntegrationName(apiName);
     }
     if (!!url) {
-        requestAPI.setRequestUrl(url); //'https://dev-api.vajro.com/checkout/availability')
+        requestAPI.setRequestUrl(url);
     }
     if (!!method) {
         requestAPI.setRequestMethod(method);
