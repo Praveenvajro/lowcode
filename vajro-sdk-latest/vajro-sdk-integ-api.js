@@ -11862,12 +11862,11 @@ const ajv = new (ajv__WEBPACK_IMPORTED_MODULE_0___default())();
 const schema = {
     type: 'object',
     properties: {
-        integrationName: { type: 'string', nullable: false },
         method: { type: 'string', nullable: false },
         url: { type: 'string', nullable: false },
         body: { type: 'object', nullable: true }
     },
-    required: ['integrationName', 'url', 'method'],
+    required: ['url', 'method'],
     additionalProperties: false
 };
 const sendApiRequestSchema = ajv.compile(schema);
