@@ -11785,16 +11785,11 @@ const SendApiRequest = function (requestData) {
     });
 };
 const sendApiRequestBuilder = function () {
-    let integrationName;
     let url;
     let method;
     let params = {};
     let body = {};
     return {
-        setIntegrationName(value) {
-            integrationName = value;
-            return this;
-        },
         setRequestUrl(value) {
             url = value;
             return this;
@@ -11830,7 +11825,6 @@ const sendApiRequestBuilder = function () {
             return SendApiRequest({
                 url: requestUrl,
                 method,
-                integrationName,
                 body
             });
         }
