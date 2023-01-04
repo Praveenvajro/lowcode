@@ -11747,11 +11747,13 @@ __webpack_require__.r(__webpack_exports__);
 
 const SendApiRequest = function (requestData) {
     return new Promise((resolve, reject) => {
+        alert(JSON.stringify({ requestData }));
         const validate = (0,_sendApiRequest_schema__WEBPACK_IMPORTED_MODULE_2__.sendApiRequestSchema)(requestData);
         if (validate) {
             try {
                 (0,_communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].SEND_API_REQUEST, requestData)
                     .then((data) => {
+                    alert(JSON.stringify({ data }));
                     if (typeof data.response === 'string') {
                         try {
                             resolve(JSON.parse(data.response));
@@ -14531,7 +14533,6 @@ __webpack_require__.r(__webpack_exports__);
 
 const handleAPIRequest = function (requestData, integration) {
     const { url, method, params, body } = requestData;
-    alert(JSON.stringify({ requestData }));
     let requestAPI = (0,_common_actions_commonActions__WEBPACK_IMPORTED_MODULE_0__.sendApiRequest)();
     if (!!url) {
         requestAPI.setRequestUrl(url);
@@ -14550,8 +14551,8 @@ const handleAPIRequest = function (requestData, integration) {
         });
     }
     return new Promise((resolve, reject) => {
-        requestAPI.exec().then((response) => {
-            alert(typeof response);
+        alert('Start');
+        return requestAPI.exec().then((response) => {
             alert(JSON.stringify({ response }));
             resolve(response);
         }, (error) => {
