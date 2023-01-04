@@ -14504,9 +14504,10 @@ const orderLimitsAction = function (appContext) {
                     .exec();
             }
         }, (error) => {
-            (0,_common_actions_commonActions__WEBPACK_IMPORTED_MODULE_0__.showAlertMessage)()
-                .setMessage(error)
-                .exec();
+            alert(JSON.stringify({ error }));
+            // showAlertMessage()
+            //     .setMessage(error)
+            //     .exec()
         });
     }
     catch (e) {
@@ -14537,6 +14538,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const handleAPIRequest = function (requestData, integration) {
     const { url, method, params, body } = requestData;
+    alert(JSON.stringify({ requestData }));
     let requestAPI = (0,_common_actions_commonActions__WEBPACK_IMPORTED_MODULE_0__.sendApiRequest)();
     if (!!url) {
         requestAPI.setRequestUrl(url);
@@ -14556,7 +14558,7 @@ const handleAPIRequest = function (requestData, integration) {
     }
     return new Promise((resolve, reject) => {
         requestAPI.exec().then((response) => {
-            alert(typeof (response));
+            alert(typeof response);
             alert(JSON.stringify({ response }));
             resolve(response);
         }, (error) => {
