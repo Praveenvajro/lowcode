@@ -14378,10 +14378,16 @@ const validateGeneralLimits = function (overLimitData, lineItemByProductId) {
         if (!!Number(weightmin) || !!Number(weightmax)) {
             let message;
             if (Number(weightmin) > cartTotalWeight) {
-                message = getMessage(MIN_WEIGHT_MSG, { '{{CartMinWeight}}': Number(weightmin) });
+                message = getMessage(MIN_WEIGHT_MSG, {
+                    '{{CartWeight}}': cartTotalWeight,
+                    '{{CartMinWeight}}': Number(weightmin)
+                });
             }
             else if (Number(maxorder) < cartTotalWeight) {
-                message = getMessage(MAX_WEIGHT_MSG, { '{{CartMaxWeight}}': Number(weightmax) });
+                message = getMessage(MAX_WEIGHT_MSG, {
+                    '{{CartWeight}}': cartTotalWeight,
+                    '{{CartMaxWeight}}': Number(weightmax)
+                });
             }
             message ? ((buttonStatus = 'disable'), (messageList.push(message))) : null;
         }
@@ -14445,7 +14451,7 @@ const validateGeneralLimits = function (overLimitData, lineItemByProductId) {
 const orderLimitsAction = function (appContext) {
     try {
         let alertMessageAction = (0,_common_actions_commonActions__WEBPACK_IMPORTED_MODULE_0__.showAlertMessage)();
-        const { appConfig: { id: appId }, cartLineItems: { lineItems = [] } } = appContext;
+        const { appConfig: { id: appId, domain }, cartLineItems: { lineItems = [] } } = appContext;
         const lineItemByProductId = (0,_utils_common__WEBPACK_IMPORTED_MODULE_2__.getLineItemObj)(lineItems);
         const general = {
             minorder: "1000",
@@ -14460,35 +14466,37 @@ const orderLimitsAction = function (appContext) {
             weightmax: "",
             overridesubtotal: "500"
         };
+        // const requestData1 = {
+        //     url: 'https://dev-api.vajro.com/checkout/availability',
+        //     method: 'POST',
+        //     params: {
+        //         appid: appId,
+        //         minmaxify: true
+        //     },
+        //     body: {
+        //         products: getLineItemIds(lineItems)
+        //     }
+        // }
         const requestData = {
-            apiName: 'minmaxify',
-            url: 'https://dev-api.vajro.com/checkout/availability',
-            method: 'POST',
-            params: {
-                appid: appId,
-                minmaxify: true
-            },
-            body: {
-                products: (0,_utils_common__WEBPACK_IMPORTED_MODULE_2__.getLineItemIds)(lineItems)
-            }
+            url: `https://shopifyorderlimits.s3.amazonaws.com/limits/${domain}`,
+            method: 'GET'
         };
-        (0,_utils_actions__WEBPACK_IMPORTED_MODULE_1__.handleAPIRequest)(requestData).then((response) => {
+        (0,_utils_actions__WEBPACK_IMPORTED_MODULE_1__.handleAPIRequest)(requestData, 'minmaxify').then((response) => {
             try {
                 alert(JSON.stringify({ response }));
-                const { buttonStatus, messageTitle, messageList } = validateGeneralLimits(Object.assign({}, response), lineItemByProductId);
-                if (!!buttonStatus) {
-                    alertMessageAction.setTitle(messageTitle);
-                    messageList.forEach((message) => {
-                        alertMessageAction.setMessage(message);
-                    });
-                    alertMessageAction.setPrimaryButton('Ok');
-                    alertMessageAction.setSecondaryButton('Cancel');
-                    alertMessageAction.exec();
-                    (0,_utils_actions__WEBPACK_IMPORTED_MODULE_1__.handleCheckoutButton)(buttonStatus);
-                }
-                else {
-                    (0,_utils_actions__WEBPACK_IMPORTED_MODULE_1__.handleCheckoutButton)('enable');
-                }
+                // const { buttonStatus, messageTitle, messageList } = validateGeneralLimits({ ...response }, lineItemByProductId)
+                // if (!!buttonStatus) {
+                //     alertMessageAction.setTitle(messageTitle)
+                //     messageList.forEach((message: string) => {
+                //         alertMessageAction.setMessage(message);
+                //     });
+                //     alertMessageAction.setPrimaryButton('Ok');
+                //     alertMessageAction.setSecondaryButton('Cancel');
+                //     alertMessageAction.exec();
+                //     handleCheckoutButton(buttonStatus);
+                // } else {
+                //     handleCheckoutButton('enable');
+                // }
             }
             catch (e) {
                 (0,_common_actions_commonActions__WEBPACK_IMPORTED_MODULE_0__.showAlertMessage)()
@@ -14527,12 +14535,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _methods_methods__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../methods/methods */ "./src/methods/methods.ts");
 
 
-const handleAPIRequest = function (requestData) {
-    const { apiName, url, method, params, body } = requestData;
+const handleAPIRequest = function (requestData, integration) {
+    const { url, method, params, body } = requestData;
     let requestAPI = (0,_common_actions_commonActions__WEBPACK_IMPORTED_MODULE_0__.sendApiRequest)();
-    if (!!apiName) {
-        requestAPI.setIntegrationName(apiName);
-    }
     if (!!url) {
         requestAPI.setRequestUrl(url);
     }
@@ -14549,7 +14554,15 @@ const handleAPIRequest = function (requestData) {
             requestAPI.setRequestBody(bodyKey, bodyValue);
         });
     }
-    return requestAPI.exec();
+    return new Promise((resolve, reject) => {
+        requestAPI.exec().then((response) => {
+            alert(typeof (response));
+            alert(JSON.stringify({ response }));
+            resolve(response);
+        }, (error) => {
+            reject(error);
+        });
+    });
 };
 const handleCheckoutButton = function (status) {
     return (0,_methods_methods__WEBPACK_IMPORTED_MODULE_1__.checkoutButton)()
