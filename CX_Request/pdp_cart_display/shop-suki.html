@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title></title>
+		<script>
+            try {
+                window.appInfo = JSON.parse(`{{APP_INFO}}`)
+            } catch (err) {
+                throw err
+            }
+		</script>
+		<script src="https://xtend-sdk.s3.us-east-2.amazonaws.com/vajro-sdk.js"></script>
+	</head>
+	<body>
+		<script>
+			const showToastMessage = (message) =>
+				VajroSDK.showToastMessage().setMessage(message).exec()
+
+			let cartSessionId
+
+			const fetchCartSessionId = (storeName) => {
+				const url = "https://backend-staging.shopsuki.ph/cart_session"
+
+				const method = "POST"
+
+				const body = JSON.stringify({ store_name: storeName })
+
+				const headers = { "Content-Type": "application/json" }
+
+				return new Promise((resolve, reject) => {
+					fetch(url, { method, body, headers })
+						.then((res) => (res.ok ? res.json() : Promise.reject(res)))
+						.then((body) => resolve(body))
+						.catch((err) => reject(err))
+				})
+			}
+
+			const updateLineItem = (lineItemHandle, cartSessionId) => {
+				VajroSDK.updateLineItemInCart()
+					.setLineItemHandle(lineItemHandle)
+					.setCustomAttributes({ _backend_cart_session_id: cartSessionId })
+					.exec()
+			}
+
+			const addCartSessionIdToLineItem = async (appContext, updateType) => {
+				try {
+					const {
+						appConfig,
+						cartLineItems: { lineItems }
+					} = appContext;
+
+					if (!lineItems.length) return
+
+					const [firstLineItem] = lineItems
+
+					const { lineItemHandle, customAttributes } = firstLineItem
+
+					if (cartSessionId) return updateLineItem(lineItemHandle, cartSessionId)
+
+					const { id: appId } = appConfig
+
+					const appIdStoreNameMapping = {
+						21618: "General Santos",
+						23402: "Zamboanga"
+					}
+
+					const storeName = appIdStoreNameMapping[appId]
+
+					const { cart_session_id } = await fetchCartSessionId(storeName)
+
+					cartSessionId = cart_session_id
+
+					return updateLineItem(lineItemHandle, cartSessionId)
+				} catch (error) {
+					console.error(error)
+				}
+			}
+
+			VajroSDK.subscribe(VajroSDK.Triggers.LINE_ITEM_UPDATED, addCartSessionIdToLineItem)
+			VajroSDK.subscribe(VajroSDK.Triggers.ON_PAGE_LOADED, addCartSessionIdToLineItem)
+		</script>
+	</body>
+</html>

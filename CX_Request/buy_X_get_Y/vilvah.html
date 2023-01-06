@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title></title>
+        <script>
+			try {
+				window.appInfo = JSON.parse(`{{APP_INFO}}`)
+			} catch (err) {
+				throw err
+			}
+        </script>
+        <script src="https://xtend-sdk.s3.us-east-2.amazonaws.com/vajro-sdk.js"></script>
+    </head>
+    <body>
+		<script>
+			const OFFER_CONFIG = [
+				{
+					threshold: 1199, //checking cart total
+					get_products_id: [
+					    {
+					        productId: "7106428076095",
+					        variantId: "39940989091903"
+					    }
+					], //enter the free product_id
+					quantity: 1 //define the no. of quantity for free product
+				}
+			]
+
+			// add the product_ids that needs to be excluded
+			const excludedProductIds = [];
+
+			const getOfferDetails = (cartTotalAfterExclude) => {
+				return OFFER_CONFIG.reduce((selectedOfferDetails, currenrOfferDetails) => {
+					const { threshold: currentThreshold = 0 } = currenrOfferDetails
+
+					if (cartTotalAfterExclude >= currentThreshold) {
+						const { threshold: selectedThreshold = 0 } = selectedOfferDetails
+
+						if (currentThreshold >= selectedThreshold) {
+							return currenrOfferDetails
+						}
+					}
+					return selectedOfferDetails
+				}, {})
+			}
+
+			const getProductIdsToRemove = (selectedOfferDetails) => {
+				return OFFER_CONFIG.reduce((productIdsList, currenrOfferDetails) => {
+					const { threshold = 0 } = selectedOfferDetails;
+					const { threshold: currentThreshold = 0, get_products_id = [] } = currenrOfferDetails;
+
+					if (threshold === currentThreshold) return productIdsList
+					return [...productIdsList, ...get_products_id]
+				}, [])
+			}
+
+			const eventHandler = (appContext) => {
+                const {
+                    cartLineItems: { lineItems }
+                } = appContext;
+				const lineItemByProductId = lineItems.reduce((acc, lineItem) => {
+					const { productId } = lineItem;
+					acc[productId] = lineItem;
+					return acc;
+				}, {});
+
+				const cartTotalAfterExclude = lineItems.reduce((total, lineItem) => {
+					const { totalPrice, productId } = lineItem;
+					return excludedProductIds.includes(productId) ? total : total + totalPrice;
+				}, 0)
+				
+				const offerDetails = getOfferDetails(cartTotalAfterExclude);
+				const removeProductIds = getProductIdsToRemove(offerDetails);
+				
+				const { get_products_id = [], quantity = null } = offerDetails;
+				
+				removeProductIds.forEach(({productId, variantId}) => {
+					const lineItem = lineItemByProductId[productId];
+					if (lineItem && lineItem.lineItemType === "READONLY") {
+						VajroSDK.removeLineItemFromCart()
+							.setLineItemHandle(lineItem.lineItemHandle)
+							.setQuantity(0)
+							.exec()
+					}
+				})
+				
+				let addMultipleLineItemsToCart = VajroSDK.addMultipleLineItemsToCart();
+
+				get_products_id.forEach(({productId, variantId = ""}) => {
+					let product = VajroSDK.utils
+						.lineItem()
+						.setProductId(productId)
+						.setQuantity(quantity)
+						.setVariantId(variantId)
+						.setLineItemType("READONLY")
+						.setUnitPrice(0)
+						.create();
+					addMultipleLineItemsToCart.setProduct(product);
+				});
+				addMultipleLineItemsToCart.exec();
+			}
+
+			VajroSDK.subscribe(VajroSDK.Triggers.ON_PAGE_LOADED, eventHandler)
+			VajroSDK.subscribe(VajroSDK.Triggers.LINE_ITEM_UPDATED, eventHandler)
+		</script>
+    </body>
+</html>

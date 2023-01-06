@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title></title>
+		<script>
+            try {
+                window.appInfo = JSON.parse(`{{APP_INFO}}`)
+            } catch (err) {
+                throw err
+            }
+		</script>
+		<script src="https://xtend-sdk.s3.us-east-2.amazonaws.com/vajro-sdk.js"></script>
+	</head>
+	<body>
+		<div style="display: none" id="content">Shop All Buy 2 Get 1 Free ></div>
+		<script>
+			/* Start your script here! */
+
+			const content = document.getElementById("content")
+
+			const onPdpPageLoad = (appCtx, productDetails) => {
+				const { tags } = productDetails
+
+				const isB2g1 = tags.includes("B2G1")
+
+				if (!isB2g1) return
+
+				content.style = ""
+			}
+
+			VajroSDK.subscribe(VajroSDK.Triggers.ON_PAGE_LOADED, onPdpPageLoad)
+		</script>
+	</body>
+</html>
