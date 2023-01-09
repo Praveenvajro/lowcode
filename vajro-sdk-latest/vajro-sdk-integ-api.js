@@ -11747,13 +11747,14 @@ __webpack_require__.r(__webpack_exports__);
 
 const SendApiRequest = function (requestData) {
     return new Promise((resolve, reject) => {
-        alert(JSON.stringify({ requestData }));
+        // alert(JSON.stringify({requestData}));
         const validate = (0,_sendApiRequest_schema__WEBPACK_IMPORTED_MODULE_2__.sendApiRequestSchema)(requestData);
         if (validate) {
             try {
                 (0,_communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].SEND_API_REQUEST, requestData)
                     .then((data) => {
-                    alert(JSON.stringify({ data }));
+                    alert('response');
+                    //   alert(JSON.stringify({data}));
                     if (typeof data.response === 'string') {
                         try {
                             resolve(JSON.parse(data.response));
@@ -11762,7 +11763,7 @@ const SendApiRequest = function (requestData) {
                             reject({
                                 code: 1102,
                                 type: 'Internal SDK Error',
-                                message: 'Api response parse failed'
+                                message: 'Api response parse failed',
                             });
                         }
                     }
@@ -11780,7 +11781,7 @@ const SendApiRequest = function (requestData) {
         }
         else {
             if (_sendApiRequest_schema__WEBPACK_IMPORTED_MODULE_2__.sendApiRequestSchema.errors) {
-                let error = (0,_utils_errorNormalizer__WEBPACK_IMPORTED_MODULE_3__.normalizeError)(_sendApiRequest_schema__WEBPACK_IMPORTED_MODULE_2__.sendApiRequestSchema.errors);
+                const error = (0,_utils_errorNormalizer__WEBPACK_IMPORTED_MODULE_3__.normalizeError)(_sendApiRequest_schema__WEBPACK_IMPORTED_MODULE_2__.sendApiRequestSchema.errors);
                 reject(error);
             }
         }
@@ -11810,14 +11811,15 @@ const sendApiRequestBuilder = function () {
         },
         exec() {
             if (!url) {
-                let error = {
+                const error = {
                     code: 1101,
-                    message: "Parameter's Value Empty",
-                    type: 'Internal SDK Error'
+                    message: 'Parameter\'s Value Empty',
+                    type: 'Internal SDK Error',
                 };
                 return Promise.reject(error);
             }
-            const queryParam = Object.entries(params).reduce((queryParam, [key, value], index) => {
+            const queryParam = Object.entries(params)
+                .reduce((queryParam, [key, value], index) => {
                 if (index === 0) {
                     return `${key}=${value}`;
                 }
@@ -11827,9 +11829,9 @@ const sendApiRequestBuilder = function () {
             return SendApiRequest({
                 url: requestUrl,
                 method,
-                body
+                body,
             });
-        }
+        },
     };
 };
 const sendApiRequest = function () {
@@ -14315,7 +14317,8 @@ const getCartTotalDetails = function (data, lineItemByProductId) {
             const { quantity, unitPrice, lineItemType } = lineItemByProductId[variant_id];
             if (!!lineItemType && !!quantity && lineItemType !== 'READONLY') {
                 if (!!unitPrice) {
-                    cartTotalAmount = cartTotalAmount + (Number(unitPrice) * Number(quantity));
+                    cartTotalAmount =
+                        cartTotalAmount + (Number(unitPrice) * Number(quantity));
                 }
                 if (!!quantity) {
                     cartTotalCount = cartTotalCount + Number(quantity);
@@ -14341,7 +14344,7 @@ const getMessage = function (message, stringObj) {
 };
 const validateGeneralLimits = function (overLimitData, lineItemByProductId) {
     let buttonStatus = null;
-    let messageList = [];
+    const messageList = [];
     const { data = [], custom_messages = {}, general = {} } = overLimitData;
     const { minorder, maxorder, mintotalitems, maxtotalitems, multtotalitems, itemmin, itemmax, itemmult, weightmin, weightmax, overridesubtotal } = general;
     const { INTRO_MSG, PROD_MIN_MSG, PROD_MAX_MSG, PROD_MULT_MSG, TOTAL_ITEMS_MIN_MSG, TOTAL_ITEMS_MAX_MSG, TOTAL_ITEMS_MULT_MSG, MIN_SUBTOTAL_MSG, MAX_SUBTOTAL_MSG, MIN_WEIGHT_MSG, MAX_WEIGHT_MSG } = custom_messages;
@@ -14375,13 +14378,13 @@ const validateGeneralLimits = function (overLimitData, lineItemByProductId) {
             if (Number(weightmin) > cartTotalWeight) {
                 message = getMessage(MIN_WEIGHT_MSG, {
                     '{{CartWeight}}': cartTotalWeight,
-                    '{{CartMinWeight}}': Number(weightmin)
+                    '{{CartMinWeight}}': Number(weightmin),
                 });
             }
             else if (Number(maxorder) < cartTotalWeight) {
                 message = getMessage(MAX_WEIGHT_MSG, {
                     '{{CartWeight}}': cartTotalWeight,
-                    '{{CartMaxWeight}}': Number(weightmax)
+                    '{{CartMaxWeight}}': Number(weightmax),
                 });
             }
             message ? ((buttonStatus = 'disable'), (messageList.push(message))) : null;
@@ -14395,19 +14398,19 @@ const validateGeneralLimits = function (overLimitData, lineItemByProductId) {
                 if (!!Number(itemmin) && Number(itemmin) > quantity) {
                     message = getMessage(PROD_MIN_MSG, {
                         '{{ProductName}}': product_title,
-                        '{{ProductMinQuantity}}': itemmin
+                        '{{ProductMinQuantity}}': itemmin,
                     });
                 }
                 else if (!!Number(itemmax) && Number(itemmax) < quantity) {
                     message = getMessage(PROD_MAX_MSG, {
                         '{{ProductName}}': product_title,
-                        '{{ProductMaxQuantity}}': itemmax
+                        '{{ProductMaxQuantity}}': itemmax,
                     });
                 }
                 else if (!!Number(itemmult) && quantity % Number(itemmult) !== 0) {
                     message = getMessage(PROD_MULT_MSG, {
                         '{{ProductName}}': product_title,
-                        '{{ProductQuantityMultiple}}': itemmult
+                        '{{ProductQuantityMultiple}}': itemmult,
                     });
                 }
                 message ? ((buttonStatus = 'disable'), (messageList.push(message))) : null;
@@ -14423,43 +14426,44 @@ const validateGeneralLimits = function (overLimitData, lineItemByProductId) {
             if (!!Number(min_inventory_quantity) && Number(min_inventory_quantity) > quantity) {
                 message = getMessage(PROD_MIN_MSG, {
                     '{{ProductName}}': product_title,
-                    '{{ProductMinQuantity}}': min_inventory_quantity
+                    '{{ProductMinQuantity}}': min_inventory_quantity,
                 });
             }
             else if (!!Number(max_inventory_quantity) && Number(max_inventory_quantity) < quantity) {
                 message = getMessage(PROD_MAX_MSG, {
                     '{{ProductName}}': product_title,
-                    '{{ProductMaxQuantity}}': max_inventory_quantity
+                    '{{ProductMaxQuantity}}': max_inventory_quantity,
                 });
             }
             else if (!!Number(multiple) && quantity % Number(multiple) !== 0) {
                 message = getMessage(PROD_MULT_MSG, {
                     '{{ProductName}}': product_title,
-                    '{{ProductQuantityMultiple}}': multiple
+                    '{{ProductQuantityMultiple}}': multiple,
                 });
             }
-            message ? ((buttonStatus = 'disable'), (messageList.push(message))) : null;
+            message ? ((buttonStatus = 'disable'),
+                (messageList.push(message))) : null;
         }
     });
     return { buttonStatus, messageList, messageTitle: INTRO_MSG };
 };
 const orderLimitsAction = function (appContext) {
     try {
-        let alertMessageAction = (0,_common_actions_commonActions__WEBPACK_IMPORTED_MODULE_0__.showAlertMessage)();
-        const { appConfig: { id: appId, domain }, cartLineItems: { lineItems = [] } } = appContext;
+        const alertMessageAction = (0,_common_actions_commonActions__WEBPACK_IMPORTED_MODULE_0__.showAlertMessage)();
+        const { appConfig: { id: appId, domain }, cartLineItems: { lineItems = [] }, } = appContext;
         const lineItemByProductId = (0,_utils_common__WEBPACK_IMPORTED_MODULE_2__.getLineItemObj)(lineItems);
         const general = {
-            minorder: "1000",
-            maxorder: "3000",
-            mintotalitems: "3",
-            maxtotalitems: "6",
-            multtotalitems: "2",
-            itemmin: "",
-            itemmax: "",
-            itemmult: "",
-            weightmin: "",
-            weightmax: "",
-            overridesubtotal: "500"
+            minorder: '1000',
+            maxorder: '3000',
+            mintotalitems: '3',
+            maxtotalitems: '6',
+            multtotalitems: '2',
+            itemmin: '',
+            itemmax: '',
+            itemmult: '',
+            weightmin: '',
+            weightmax: '',
+            overridesubtotal: '500',
         };
         // const requestData1 = {
         //     url: 'https://dev-api.vajro.com/checkout/availability',
@@ -14474,24 +14478,25 @@ const orderLimitsAction = function (appContext) {
         // }
         const requestData = {
             url: `https://shopifyorderlimits.s3.amazonaws.com/limits/${domain}`,
-            method: 'GET'
+            method: 'GET',
         };
-        (0,_utils_actions__WEBPACK_IMPORTED_MODULE_1__.handleAPIRequest)(requestData, 'minmaxify').then((response) => {
+        (0,_utils_actions__WEBPACK_IMPORTED_MODULE_1__.handleAPIRequest)(requestData).then((response) => {
             try {
                 alert(JSON.stringify({ response }));
-                // const { buttonStatus, messageTitle, messageList } = validateGeneralLimits({ ...response }, lineItemByProductId)
-                // if (!!buttonStatus) {
-                //     alertMessageAction.setTitle(messageTitle)
-                //     messageList.forEach((message: string) => {
-                //         alertMessageAction.setMessage(message);
-                //     });
-                //     alertMessageAction.setPrimaryButton('Ok');
-                //     alertMessageAction.setSecondaryButton('Cancel');
-                //     alertMessageAction.exec();
-                //     handleCheckoutButton(buttonStatus);
-                // } else {
-                //     handleCheckoutButton('enable');
-                // }
+                const { buttonStatus, messageTitle, messageList } = validateGeneralLimits(Object.assign({}, response), lineItemByProductId);
+                if (!!buttonStatus) {
+                    alertMessageAction.setTitle(messageTitle);
+                    messageList.forEach((message) => {
+                        alertMessageAction.setMessage(message);
+                    });
+                    alertMessageAction.setPrimaryButton('Ok');
+                    alertMessageAction.setSecondaryButton('Cancel');
+                    alertMessageAction.exec();
+                    (0,_utils_actions__WEBPACK_IMPORTED_MODULE_1__.handleCheckoutButton)(buttonStatus);
+                }
+                else {
+                    (0,_utils_actions__WEBPACK_IMPORTED_MODULE_1__.handleCheckoutButton)('enable');
+                }
             }
             catch (e) {
                 (0,_common_actions_commonActions__WEBPACK_IMPORTED_MODULE_0__.showAlertMessage)()
@@ -14531,9 +14536,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _methods_methods__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../methods/methods */ "./src/methods/methods.ts");
 
 
-const handleAPIRequest = function (requestData, integration) {
+const handleAPIRequest = function (requestData) {
     const { url, method, params, body } = requestData;
-    let requestAPI = (0,_common_actions_commonActions__WEBPACK_IMPORTED_MODULE_0__.sendApiRequest)();
+    const requestAPI = (0,_common_actions_commonActions__WEBPACK_IMPORTED_MODULE_0__.sendApiRequest)();
     if (!!url) {
         requestAPI.setRequestUrl(url);
     }
@@ -14541,7 +14546,8 @@ const handleAPIRequest = function (requestData, integration) {
         requestAPI.setRequestMethod(method);
     }
     if (!!params) {
-        Object.entries(params).forEach(([paramKey, paramValue]) => {
+        Object.entries(params)
+            .forEach(([paramKey, paramValue]) => {
             requestAPI.setRequestQueryParam(paramKey, paramValue);
         });
     }
@@ -14551,9 +14557,7 @@ const handleAPIRequest = function (requestData, integration) {
         });
     }
     return new Promise((resolve, reject) => {
-        alert('Start');
         return requestAPI.exec().then((response) => {
-            alert(JSON.stringify({ response }));
             resolve(response);
         }, (error) => {
             reject(error);
