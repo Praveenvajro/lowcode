@@ -131,7 +131,17 @@
                             productName: "Soya Nut Hot and Spicy",
 					        productId: "6614083469441",
 					        variantId: "39553944223873"
-					    }
+					    },
+					    {
+                            productName: "Multi Millet Ajwain Cookies",
+					        productId: "6614083469441",
+					        variantId: "39560241414273"
+					    },
+					    {
+                            productName: "Millet Snacks Pudina",
+					        productId: "6614083469441",
+					        variantId: "39560241447041"
+					    },
 					], //enter the freebie product_details
 					productQuantity: 1, //define the no. of quantity for freebie
                     freebieCount: 1 //define the no. of freebie for offer
@@ -158,7 +168,17 @@
                             productName: "Soya Nut Hot and Spicy",
 					        productId: "6614083469441",
 					        variantId: "39553944223873"
-					    }
+					    },
+					    {
+                            productName: "Multi Millet Ajwain Cookies",
+					        productId: "6614083469441",
+					        variantId: "39560241414273"
+					    },
+					    {
+                            productName: "Millet Snacks Pudina",
+					        productId: "6614083469441",
+					        variantId: "39560241447041"
+					    },
 					], //enter the freebie product_details
 					productQuantity: 1, //define the no. of quantity for freebie
                     freebieCount: 2 //define the no. of freebie for offer
@@ -197,16 +217,12 @@
 
 			const getProductDetailsToRemove = (selectedOffer, selectedProductObj) => {
 				return OFFER_CONFIG.reduce((productIdsList, currenrOffer) => {
-                    const { threshold = null } = selectedOffer;
-					const { threshold: currentThreshold = 0, chooseProductsDetails = [] } = currenrOffer;
-					if(threshold === currentThreshold) {
-                        const removeProductIds = chooseProductsDetails.filter((productDetails) => {
-                            const { variantId } = productDetails;
-                            return !selectedProductObj[variantId];
-                        });
-                        return [...productIdsList, ...removeProductIds];
-                    }
-					return [...productIdsList, ...chooseProductsDetails]
+					const { chooseProductsDetails = [] } = currenrOffer;
+                    const removeProductIds = chooseProductsDetails.filter((productDetails) => {
+                        const { variantId } = productDetails;
+                        return !selectedProductObj[variantId];
+                    });
+                    return [...productIdsList, ...removeProductIds];
 				}, []);
 			}
 
@@ -217,22 +233,22 @@
                 
                 function getLineItemObj (lineItems) {
     				return lineItems.reduce((acc, lineItem) => {
-    					const { productId } = lineItem;
-    					acc[productId] = lineItem;
+    					const { variantId } = lineItem;
+    					acc[variantId] = lineItem;
     					return acc;
     				}, {});
                 }
                 
                 let rootElement = document.querySelector('#root');
                 
-                let lineItemByProductId = getLineItemObj(lineItems);
+                let lineItemByVariantId = getLineItemObj(lineItems);
 
                 const getSelectedFreebies = () => {
     				const { chooseProductsDetails, freebieCount } = selectedOfferDetails;
                     return chooseProductsDetails.filter((productDetails, ind) => {
                         const { productId, variantId } = productDetails;
-                        const lineItem = lineItemByProductId[productId];
-                        return lineItem && lineItem.lineItemType === "READONLY" && lineItem.variantId === variantId;
+                        const lineItem = lineItemByVariantId[variantId];
+                        return lineItem && lineItem.lineItemType === "READONLY" && lineItem.productId === productId;
                     });
                 }
 
@@ -257,28 +273,24 @@
                     addMultipleLineItemsToCart.exec().then((response)=> {
                         let { cartLineItems: newCartLineItems } = response.appContext && response.appContext || {};
                         lineItems = newCartLineItems?.lineItems || lineItems;
-                        lineItemByProductId = getLineItemObj(lineItems);
-                    }, error => {
-                        VajroSDK.showToastMessage().setMessage('Try after someother time').exec()
-                    });
+                        lineItemByVariantId = getLineItemObj(lineItems);
+                    }, error => {});
                 };
     
                 const handleRemoveProductIds = (removeProductDetails) => {
                     try {
                         removeProductDetails.forEach((productDetails = {}) => {
-                            const { productId, variantId } = productDetails;
-                            const { lineItemType, variantId:lineItemVariantId, lineItemHandle } = lineItemByProductId[productId] || {};
-                            if (lineItemHandle && lineItemType === "READONLY" && lineItemVariantId === variantId) {
+                            const { productName, productId, variantId } = productDetails;
+                            const { lineItemType, productId:lineItemProductId, lineItemHandle } = lineItemByVariantId[variantId] || {};
+                            if (lineItemHandle && lineItemType === "READONLY" && lineItemProductId === productId) {
                                 VajroSDK.removeLineItemFromCart()
                                     .setLineItemHandle(lineItemHandle)
                                     .setQuantity(0)
                                     .exec().then((response) => {
                                         let { cartLineItems: newCartLineItems } = response.appContext && response.appContext || {};
                                         lineItems = newCartLineItems?.lineItems || lineItems;
-                                        lineItemByProductId = getLineItemObj(lineItems);
-                                    }, error => {
-                                        VajroSDK.showToastMessage().setMessage('Try after someother time').exec()
-                                    })
+                                        lineItemByVariantId = getLineItemObj(lineItems);
+                                    }, error => {})
                             }
                         });
                     } catch(e) {
@@ -378,7 +390,7 @@
                 if(Object.keys(offerDetails).length > 0 && (selectedOfferDetails.threshold !== offerDetails.threshold)) {
                     selectedOfferDetails = {...offerDetails};
 					const { chooseProductsDetails, freebieCount, productQuantity } = selectedOfferDetails;
-					const selectedFreebies = getSelectedFreebies();
+				    const selectedFreebies = getSelectedFreebies();
                     const selectedProductIds = triggerType === 'onload' && selectedFreebies.length === freebieCount ? selectedFreebies : chooseProductsDetails.slice(0, freebieCount);
                     selectedProductObjbyVarients = selectedProductIds.reduce((obj, productDetails) => {
                         const { variantId } = productDetails;
