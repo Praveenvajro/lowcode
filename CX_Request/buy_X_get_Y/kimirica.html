@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title></title>
+        <script>
+			try {
+				window.appInfo = JSON.parse(`{{APP_INFO}}`)
+			} catch (err) {
+				throw err
+			}
+        </script>
+        <script src="https://xtend-sdk.s3.us-east-2.amazonaws.com/vajro-sdk.js"></script>
+    </head>
+    <body>
+        <script>
+            function getLineItemObj(lineItems) {
+                return lineItems.reduce((acc, lineItem) => {
+    					const { variantId } = lineItem;
+    					acc[variantId] = lineItem;
+    					return acc;
+    			}, {});
+            }
+
+            function handleRemoveProducts(removeProductIds, lineItemsObj) {
+                removeProductIds.forEach(({productId, variantId}) => {
+					const lineItem = lineItemsObj[variantId];
+					if (lineItem && lineItem.lineItemType === "READONLY") {
+						VajroSDK.removeLineItemFromCart()
+							.setLineItemHandle(lineItem.lineItemHandle)
+							.setQuantity(0)
+							.exec()
+					}
+				});
+            }
+
+            function handleAddProducts(getProductDetails = [], freebieQuantity = null) {
+                let addMultipleLineItemsToCart = VajroSDK.addMultipleLineItemsToCart();
+				getProductDetails.forEach((producDetails) => {
+                    const { productId, variantId, quantity } = producDetails;
+                    const productQuantity = freebieQuantity || quantity;
+					let product = VajroSDK.utils
+						.lineItem()
+						.setProductId(productId)
+						.setQuantity(productQuantity)
+						.setVariantId(variantId)
+						.setLineItemType("READONLY")
+						.setUnitPrice(0)
+						.create();
+					addMultipleLineItemsToCart.setProduct(product);
+				});
+				addMultipleLineItemsToCart.exec();
+            }
+        </script>
+		<script>
+			const thresholdConfig = [
+				{
+					threshold: 1699, //checking cart total
+					getProductIds: [
+					    {
+					        productId: "7965149954272",
+					        variantId: "43761813061856"
+					    }
+					], //enter the free product_id
+					quantity: 1 //define the no. of quantity for free product
+				}
+			]
+
+			// add the product_ids that needs to be excluded
+			const excludedProductIds = [];
+
+			const eventHandler = (appContext) => {
+                const { cartLineItems: { lineItems } } = appContext;
+				const lineItemsObj = getLineItemObj(lineItems);
+
+                const excludedProductObj = excludedProductIds.reduce((obj, producDetails) => {
+                    const { productId, variantId } = producDetails;
+                    return { ...obj, [variantId]: producDetails };
+                }, {});
+
+				const cartTotalAfterExclude = lineItems.reduce((total, lineItem) => {
+					const { totalPrice, productId, variantId } = lineItem;
+					return !!excludedProductObj[variantId] ? total : total + totalPrice;
+				}, 0)
+				
+				const selectedOfferDetails = thresholdConfig.reduce((offerDetails, currenrOfferDetails) => {
+					const { threshold: currentThreshold = 0 } = currenrOfferDetails
+
+					if (cartTotalAfterExclude >= currentThreshold) {
+						const { threshold: selectedThreshold = 0 } = offerDetails
+
+						if (currentThreshold >= selectedThreshold) {
+							return currenrOfferDetails
+						}
+					}
+					return offerDetails;
+				}, {});
+
+				const removeProductIds = thresholdConfig.reduce((productIdsList, currenrOfferDetails) => {
+					const { threshold = 0 } = selectedOfferDetails;
+					const { threshold: currentThreshold = 0, getProductIds = [] } = currenrOfferDetails;
+
+					if (threshold === currentThreshold) return productIdsList;
+					return [...productIdsList, ...getProductIds];
+				}, []);
+				
+				const { getProductIds = [], quantity = null } = selectedOfferDetails;
+				
+				handleRemoveProducts(removeProductIds, lineItemsObj);
+				handleAddProducts(getProductIds, quantity);
+			}
+
+			VajroSDK.subscribe(VajroSDK.Triggers.ON_PAGE_LOADED, eventHandler)
+			VajroSDK.subscribe(VajroSDK.Triggers.LINE_ITEM_UPDATED, eventHandler)
+		</script>
+		<script>
+			const productConfig = [
+				{
+                    buyProductDetails : [
+                        {
+                            productId: "7728356851936",
+                            variantId: "43024423452896"
+                        },
+                        {
+                            productId: "7728385818848",
+                            variantId: "43024476963040"
+                        },
+                        {
+                            productId: "7480837898464",
+                            variantId: "42154114482400"
+                        },
+                        {
+                            productId: "7480888230112",
+                            variantId: "42154336682208"
+                        },
+                        {
+                            productId: "7796624523488",
+                            variantId: "43256490328288"
+                        },
+                        {
+                            productId: "7671999365344",
+                            variantId: "42826957848800"
+                        },
+                        {
+                            productId: "7786608689376",
+                            variantId: "43217434116320"
+                        },
+                        {
+                            productId: "7672029184224",
+                            variantId: "42827069685984"
+                        },
+                        {
+                            productId: "7843737043168",
+                            variantId: "43402826744032"
+                        },
+                        {
+                            productId: "7487332384992",
+                            variantId: "42171028439264"
+                        },
+                        {
+                            productId: "7945162916064",
+                            variantId: "43702984671456"
+                        },
+                        {
+                            productId: "7636712784096",
+                            variantId: "42709220557024"
+                        },
+                        {
+                            productId: "7651225010400",
+                            variantId: "42764443517152"
+                        },
+                        {
+                            productId: "7838899929312",
+                            variantId: "43359325651168"
+                        }
+                    ],
+                    getProductDetails: [
+                        {
+                            productId: "7965378117856",
+                            variantId: "43762354815200"
+                        }
+                    ],
+                    freebieQuantity: 1
+				},
+                {
+                    buyProductDetails : [
+                        {
+                            productId: "7956973289696",
+                            variantId: "43740975235296"
+                        }
+                    ],
+                    getProductDetails: [
+                        {
+                            productId: "7974205423840",
+                            variantId: "43790162526432"
+                        },
+                        {
+                            productId: "7974205358304",
+                            variantId: "43790161641696"
+                        
+                        }
+                    ],
+                    freebieQuantity: 1
+				}
+			
+			];
+
+			const productHandler = (appContext) => {
+                const { cartLineItems: { lineItems } } = appContext;
+				const lineItemsObj = getLineItemObj(lineItems);
+
+                const freebieProductDetails = productConfig.reduce((freebieDetails, currentDetails) => {
+                    const { buyProductDetails, getProductDetails, freebieQuantity } = currentDetails;
+                    buyProductDetails.forEach((productDetails) => {
+                        const { productId, variantId } = productDetails;
+                        const { lineItemHandle, lineItemType } = lineItemsObj[variantId] || {};
+                        if(lineItemHandle && lineItemType !== 'READONLY') {
+                            freebieDetails = getProductDetails.reduce((freebieObj, getProductDetail) => {
+                                const { productId: getProductId, variantId: getVariantId } = getProductDetail;
+                                if(!!freebieObj[getVariantId]) {
+                                    return freebieObj;
+                                }
+                                return {
+                                    ...freebieObj,
+                                    [getVariantId]: {
+                                        productId: getProductId,
+                                        variantId: getVariantId,
+                                        quantity :freebieQuantity
+                                    }
+                                }
+                            }, freebieDetails);
+                        }
+                    });
+					return freebieDetails;
+				}, {});
+
+				const removeProductIds = productConfig.reduce((productIdsList, currentDetails) => {
+                    const { buyProductDetails, getProductDetails, freebieQuantity } = currentDetails;
+                    const getProductIds = getProductDetails.filter((productDetail) => {
+                        const { productId, variantId } = productDetail;
+                        return !freebieProductDetails[variantId];
+                    });
+                    return [...productIdsList, ...getProductIds]
+				}, []);
+				
+				handleRemoveProducts(removeProductIds, lineItemsObj);
+				handleAddProducts(Object.values(freebieProductDetails));
+			}
+
+			VajroSDK.subscribe(VajroSDK.Triggers.ON_PAGE_LOADED, productHandler)
+			VajroSDK.subscribe(VajroSDK.Triggers.LINE_ITEM_UPDATED, productHandler)
+		</script>
+    </body>
+</html>
