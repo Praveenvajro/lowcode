@@ -12243,7 +12243,6 @@ const AddCouponCode = function (coupon, description, showCouponValidationResult)
             description,
             showCouponValidationResult,
         };
-        alert(JSON.stringify(data));
         const validate = (0,_addCouponCode_schema__WEBPACK_IMPORTED_MODULE_1__.addCouponCodeSchema)(data);
         if (validate) {
             (0,_communications_dispatcher__WEBPACK_IMPORTED_MODULE_2__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].ADD_COUPON_CODE, data)
@@ -12280,11 +12279,6 @@ const AddCouponCodeBuilder = function () {
             return this;
         },
         exec() {
-            alert(JSON.stringify({
-                coupon,
-                showCouponValidationResult,
-                description,
-            }));
             if (!coupon) {
                 const error = {
                     code: 1101,
