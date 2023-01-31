@@ -12280,18 +12280,15 @@ const AddCouponCodeBuilder = function () {
             return this;
         },
         exec() {
+            alert(JSON.stringify({
+                coupon,
+                showCouponValidationResult,
+                description,
+            }));
             if (!coupon) {
                 const error = {
                     code: 1101,
                     message: 'Coupon Code is missing',
-                    type: 'Internal SDK Error',
-                };
-                return Promise.reject(error);
-            }
-            if (!showCouponValidationResult) {
-                const error = {
-                    code: 1101,
-                    message: 'Coupon Validation is missing',
                     type: 'Internal SDK Error',
                 };
                 return Promise.reject(error);
