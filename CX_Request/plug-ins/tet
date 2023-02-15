@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script>
+            try {
+                window.appInfo = JSON.parse(`{{APP_INFO}}`);
+            } catch (err) {
+                throw err;
+            }
+        </script>
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+            }
+            .add-more-container {
+                height: 100%;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                text-align: center;
+            }
+            .add-more-button{
+                width: 100%;
+                background-color: #000 !important;
+                font-size: 16px;
+                /*font-weight: bold;*/
+            }
+            .extra-height-ios{
+                height: 50px !important;
+                margin-top: 10px;
+                border-radius: 10px !important;
+            }
+        </style>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous"
+        />
+    </head>
+    <body style="height: 42px;">
+        <div class="add-more-container">
+            <button type="button" id="addMoreButton" class="btn btn-dark add-more-button" onclick="onClickOrderMore()">
+                STILL HUNGRY? ORDER MORE!
+            </button>
+            
+        </div>
+        <script src="https://xtend-sdk.s3.us-east-2.amazonaws.com/vajro-sdk.js"></script>
+        <script>
+            function onClickOrderMore() {
+                VajroSDK.navigateTo().setNavigationType('HOME').exec();
+            }
+            if (window.appInfo && window.appInfo.mobilePlatform === 'iOS'){
+                document.querySelector('#addMoreButton').classList.add('extra-height-ios');
+                document.body.style.height = '50px';
+            }
+        </script>
+    </body>
+</html>

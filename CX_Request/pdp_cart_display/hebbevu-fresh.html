@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title></title>
+        <style>
+            body {
+                min-height: auto;
+            }
+            .form {
+                display: flex;
+                width: auto;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
+            }
+            .input {
+                flex:1;
+                max-width: 280px;
+                min-height: 20px;
+                padding:0.6em;
+                border: none;
+                border-radius: 2px;
+                background: #dedede;
+            }
+            
+            .input:focus {
+                outline: none;
+            }
+            
+            .apyBtn, .rmvBtn {
+                padding:0.6em 0.8em;
+                border-radius: 2px;
+                width: 70px;
+                min-height: 36px;
+                font-weight: 700;
+                background-color: #4d4b4d;
+                text-align: center;
+                color: #fff;
+                border:none;
+            }
+            
+            .readonly {
+                pointer-events: none;
+                opacity: 0.5;
+            }
+            </style>
+        <script>
+            try {
+                window.appInfo = JSON.parse(`{{APP_INFO}}`);
+            } catch (err) {
+                throw err;
+            }
+        </script>
+        <script src="https://xtend-sdk.s3.us-east-2.amazonaws.com/vajro-sdk.js"></script>
+    </head>
+    <body>
+        <script>
+            function eventHandler(appContext) {
+                const { appColors: { primary, badge_text } } = appContext;
+                const couponCodes = appContext?.couponCodes || [];
+                
+                function handleCouponCodes(couponCodes) {
+                    if(couponCodes.length === 0) {
+                        renderDiscountForm(null);
+                    } else if(couponCodes.length === 1) {
+                        const { couponCode: coupon } = couponCodes[0];
+                        renderDiscountForm(coupon);
+                    } else {
+                        couponCodes.forEach((couponDetails) => {
+                            const { couponCode: coupon } = couponDetails;
+                            removeCouponCode(coupon);
+                        })
+                    }
+                }
+
+                function createElement(tag, className, text) {
+                    const ele = document.createElement(tag);
+                    if (text) {
+                        tag === 'input' ? (ele.value = text) : (ele.innerText = text);
+                    }
+                    if (className) {
+                        ele.className = className;
+                    }
+                    return ele;
+                };
+
+                function renderDiscountForm(discountcode) {
+                    let rootElement = document.querySelector('.root');
+                    
+                    //remove child element start
+                    try {
+                        while (rootElement.hasChildNodes()) {
+                            rootElement.removeChild(rootElement.firstChild);
+                        }
+                    } catch(err) {
+                        throw err;
+                    }
+                    //remove child element end
+                    
+                    let formElement = createElement('div', 'form');
+                    let inputelem = null;
+                    let buttonElem = null;
+                    
+                    if(!!discountcode) {
+                        inputelem = createElement('input', 'input readonly', discountcode);
+                        buttonElem = createElement('button', 'rmvBtn', 'REMOVE');
+                        buttonElem.onclick = removeCouponCode.bind(this, discountcode);
+                        buttonElem.setAttribute("style", `color: ${badge_text}`);
+                    } else {
+                        inputelem = createElement('input', 'input', discountcode);
+                        inputelem.placeholder = "Coupon code or Gift card"
+                        buttonElem = createElement('button', 'apyBtn', 'APPLY');
+                        buttonElem.onclick = applyCouponCode.bind(this, null);
+                        buttonElem.setAttribute("style", `background-color: ${primary}; color: ${badge_text}`);
+                    }
+                    formElement.appendChild(inputelem);
+                    formElement.appendChild(buttonElem);
+                    rootElement.append(formElement);
+                }
+                
+                function applyCouponCode() {
+                    const inputElem = document.querySelector(".input");
+                    const discountCode = inputElem.value;
+                    if(discountCode.length >= 1) {
+                        VajroSDK.addCouponCode()
+                            .setCouponCode(discountCode)
+                            .setCouponDescription('Apply Discount Code')
+                            .exec().then(response => {
+                                if(response?.appContext) {
+                                    const couponCodes = response.appContext?.couponCodes || [];
+                                    handleCouponCodes(couponCodes);
+                                }
+                            }, error => {
+                                VajroSDK.showToastMessage()
+                                .setMessage('Somthing went wrong')
+                                .exec()
+                            })
+                    }
+                }
+                
+                function removeCouponCode(discountCode) {
+                    if(discountCode.length > 1) {
+                        VajroSDK.removeCouponCode()
+                            .setCouponCode(discountCode)
+                            .exec().then(response => {
+                                if(response?.appContext) {
+                                    const couponCodes = response.appContext?.couponCodes || [];
+                                    handleCouponCodes(couponCodes);
+                                }
+                            }, error => {
+                                VajroSDK.showToastMessage()
+                                .setMessage('Somthing went wrong')
+                                .exec()
+                            })
+                    }
+                }
+
+                handleCouponCodes(couponCodes);
+            }
+            
+			VajroSDK.subscribe(VajroSDK.Triggers.ON_PAGE_LOADED, eventHandler);
+        </script>
+        <div class="root"></div>
+    </body>
+</html>
