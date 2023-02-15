@@ -86,13 +86,13 @@
 				}, 0)
 				
 				const selectedOfferDetails = thresholdConfig.reduce((offerDetails, currenrOfferDetails) => {
-					const { threshold: currentThreshold = 0 } = currenrOfferDetails
+					const { threshold: currentThreshold = 0 } = currenrOfferDetails;
 
 					if (cartTotalAfterExclude >= currentThreshold) {
-						const { threshold: selectedThreshold = 0 } = offerDetails
+						const { threshold: selectedThreshold = 0 } = offerDetails;
 
 						if (currentThreshold >= selectedThreshold) {
-							return currenrOfferDetails
+							return currenrOfferDetails;
 						}
 					}
 					return offerDetails;

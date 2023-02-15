@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title></title>
+        <script>
+			try {
+				window.appInfo = JSON.parse(`{{APP_INFO}}`)
+			} catch (err) {
+				throw err
+			}
+        </script>
+        <script src="https://xtend-sdk.s3.us-east-2.amazonaws.com/vajro-sdk.js"></script>
+    </head>
+    <body>
+		<script>
+			const productConfig = [
+                {
+                    //Ajwa Dates 250gm
+                    buyProductDetails : [
+                        {
+                            productId: "6441176629417",
+                            variantId: "39330456830121"
+                        }
+                    ],
+                    getProductDetails: [
+                        {
+                            productId: "6441176629417",
+                            variantId: "42675836125353"
+                        }
+                    ]                    
+				},
+                {
+                    //Ajwa 450gm
+                    buyProductDetails : [
+                        {
+                            productId: "6441176629417",
+                            variantId: "39330478915753"
+                        }
+                    ],
+                    getProductDetails: [
+                        {
+                            productId: "6441176629417",
+                            variantId: "42675836158121"
+                        }
+                    ]
+				},
+                {
+                    //Almonds 400gm
+                    buyProductDetails : [
+                        {
+                            productId: "6441177317545",
+                            variantId: "39330542977193"
+                        }
+                    ],
+                    getProductDetails: [
+                        {
+                            productId: "6441098510505",
+                            variantId: "39330865119401"
+                        }
+                    ]
+                },
+                {
+                    //Black raisins 250gm
+                    buyProductDetails : [
+                        {
+                            productId: "7552794001577",
+                            variantId: "42434724626601"
+                        }
+                    ],
+                    getProductDetails: [
+                        {
+                            productId: "7552794001577",
+                            variantId: "42675836289193"
+                        }
+                    ]
+                },
+                {
+                    //Black raisins 500gm
+                    buyProductDetails : [
+                        {
+                            productId: "7552794001577",
+                            variantId: "42434724593833"
+                        }
+                    ],
+                    getProductDetails: [
+                        {
+                            productId: "7552794001577",
+                            variantId: "42675836256425"
+                        }
+                    ]
+                },
+                {
+                    //Golden raisins 250gm
+                    buyProductDetails : [
+                        {
+                            productId: "7084884525225",
+                            variantId: "40849279975593"
+                        }
+                    ],
+                    getProductDetails: [
+                        {
+                            productId: "7084884525225",
+                            variantId: "42826368090281"
+                        }
+                    ]
+                },
+                {
+                    //Golden raisins 500gm
+                    buyProductDetails : [
+                        {
+                            productId: "7084884525225",
+                            variantId: "40849279942825"
+                        }
+                    ],
+                    getProductDetails: [
+                        {
+                            productId: "7084884525225",
+                            variantId: "42826368123049"
+                        }
+                    ]
+                },
+                {
+                    //Health support Collection
+                    buyProductDetails : [
+                        {
+                            productId: "7655994622121",
+                            variantId: "42749911957673"
+                        },
+                        {
+                            productId: "7657800958121",
+                            variantId: "42757473763497"
+                        },
+                        {
+                            productId: "7657800695977",
+                            variantId: "42757471764649"
+                        },
+                        {
+                            productId: "7657803940009",
+                            variantId: "42757482086569"
+                        },
+                        {
+                            productId: "7657802203305",
+                            variantId: "42757476188329"
+                        },
+                        {
+                            productId: "7657804529833",
+                            variantId: "42757483167913"
+                        },
+                        {
+                            productId: "7657801220265",
+                            variantId: "42757474648233"
+                        },
+                        {
+                            productId: "7688405745833",
+                            variantId: "42854988578985"
+                        },
+                        {
+                            productId: "7657803677865",
+                            variantId: "42757481463977"
+                        }
+                    ],
+                    getProductDetails: [
+                        {
+                            productId: "7655994622121",
+                            variantId: "42910839144617"
+                        }
+                    ]
+                }
+			];
+
+            function getLineItemObj(lineItems) {
+                return lineItems.reduce((acc, lineItem) => {
+    					const { variantId } = lineItem;
+    					acc[variantId] = lineItem;
+    					return acc;
+    			}, {});
+            }
+
+            function handleRemoveProducts(removeProductIds, lineItemsObj) {
+                removeProductIds.forEach(({productId, variantId}) => {
+					const lineItem = lineItemsObj[variantId];
+					if (lineItem && lineItem.lineItemType === "READONLY") {
+						VajroSDK.removeLineItemFromCart()
+							.setLineItemHandle(lineItem.lineItemHandle)
+							.setQuantity(0)
+							.exec()
+					}
+				});
+            }
+
+            function handleAddProducts(getProductDetails = []) {
+                let addMultipleLineItemsToCart = VajroSDK.addMultipleLineItemsToCart();
+				getProductDetails.forEach((producDetails) => {
+                    const { productId, variantId, quantity } = producDetails;
+					let product = VajroSDK.utils
+						.lineItem()
+						.setProductId(productId)
+						.setQuantity(quantity)
+						.setVariantId(variantId)
+						.setLineItemType("READONLY")
+						.setUnitPrice(0)
+						.create();
+					addMultipleLineItemsToCart.setProduct(product);
+				});
+				addMultipleLineItemsToCart.exec();
+            }
+
+			const productHandler = (appContext) => {
+                const { cartLineItems: { lineItems } } = appContext;
+				const lineItemsObj = getLineItemObj(lineItems);
+
+                const freebieProductDetails = productConfig.reduce((freebieDetails, currentDetails) => {
+                    const { buyProductDetails, getProductDetails } = currentDetails;
+                    buyProductDetails.forEach((productDetails) => {
+                        const { productId, variantId } = productDetails;
+                        const { lineItemHandle, lineItemType, quantity } = lineItemsObj[variantId] || {};
+                        if(lineItemHandle && lineItemType !== 'READONLY') {
+                            freebieDetails = getProductDetails.reduce((freebieObj, getProductDetail) => {
+                                const { productId: getProductId, variantId: getVariantId } = getProductDetail;
+                                if(!!freebieObj[getVariantId]) {
+                                    const {quantity : currentQuantity} = freebieObj[getVariantId];
+                                    const totalQuantity = Number(currentQuantity) + Number(quantity);
+                                    return {
+                                        ...freebieObj,
+                                        [getVariantId]: {
+                                            productId: getProductId,
+                                            variantId: getVariantId,
+                                            quantity : totalQuantity
+                                        }
+                                    }
+                                }
+                                return {
+                                    ...freebieObj,
+                                    [getVariantId]: {
+                                        productId: getProductId,
+                                        variantId: getVariantId,
+                                        quantity
+                                    }
+                                }
+                            }, freebieDetails);
+                        }
+                    });
+					return freebieDetails;
+				}, {});
+
+				const removeProductIds = productConfig.reduce((productIdsList, currentDetails) => {
+                    const { buyProductDetails, getProductDetails } = currentDetails;
+                    const getProductIds = getProductDetails.filter((productDetail) => {
+                        const { productId, variantId } = productDetail;
+                        return !freebieProductDetails[variantId];
+                    });
+                    return [...productIdsList, ...getProductIds]
+				}, []);
+				
+				handleRemoveProducts(   , lineItemsObj);
+				handleAddProducts(Object.values(freebieProductDetails));
+			}
+
+			VajroSDK.subscribe(VajroSDK.Triggers.ON_PAGE_LOADED, productHandler)
+			VajroSDK.subscribe(VajroSDK.Triggers.LINE_ITEM_UPDATED, productHandler)
+		</script>
+    </body>
+</html>

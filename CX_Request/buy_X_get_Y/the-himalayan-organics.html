@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title></title>
+        <script>
+			try {
+				window.appInfo = JSON.parse(`{{APP_INFO}}`)
+			} catch (err) {
+				throw err
+			}
+        </script>
+        <script src="https://xtend-sdk.s3.us-east-2.amazonaws.com/vajro-sdk.js"></script>
+    </head>
+    <body>
+		<script>
+			const thresholdConfig = [
+				{
+					threshold: 0, //checking cart total
+                    couponCode: 'THO5' //enter coupon code
+				},
+                {
+					threshold: 999, //checking cart total
+                    couponCode: 'THO10' //enter coupon code
+				},
+                {
+					threshold: 1499, //checking cart total
+                    couponCode: 'THO15' //enter coupon code
+				}
+			];
+
+			// add the product_ids that needs to be excluded
+			const excludedProductIds = [];
+
+            function getLineItemObj(lineItems) {
+                return lineItems.reduce((acc, lineItem) => {
+    					const { variantId } = lineItem;
+    					acc[variantId] = lineItem;
+    					return acc;
+    			}, {});
+            }
+
+            function handleRemoveCouponCodes(removeCouponCodes) {
+                removeCouponCodes.forEach((couponCode) => {
+                    VajroSDK.removeCouponCode()
+                        .setCouponCode(couponCode)
+                        .exec();
+                });
+            }
+
+            function handleAddCouponCode(couponCode) {
+                VajroSDK.addCouponCode()
+                    .setCouponCode(couponCode)
+                    .setCouponDescription('Apply coupon code')
+                    .exec().then(res => {
+                        VajroSDK.showToastMessage()
+                        .setMessage('Coupon code applied')
+                        .exec()
+                    }, error => {
+                        VajroSDK.showToastMessage()
+                        .setMessage('Somthing went wrong')
+                        .exec()
+                    })
+            }
+
+			const eventHandler = (appContext) => {
+                const { cartLineItems: { lineItems } } = appContext;
+				const lineItemsObj = getLineItemObj(lineItems);
+
+                const excludedProductObj = excludedProductIds.reduce((obj, producDetails) => {
+                    const { productId, variantId } = producDetails;
+                    return { ...obj, [variantId]: producDetails };
+                }, {});
+
+				const cartTotalAfterExclude = lineItems.reduce((total, lineItem) => {
+					const { totalPrice, productId, variantId } = lineItem;
+					return !!excludedProductObj[variantId] ? total : total + totalPrice;
+				}, 0)
+				
+				const selectedOfferDetails = thresholdConfig.reduce((offerDetails, currenrOfferDetails) => {
+					const { threshold: currentThreshold = 0 } = currenrOfferDetails;
+					if (cartTotalAfterExclude >= currentThreshold) {
+						const { threshold: selectedThreshold = 0 } = offerDetails;
+
+						if (currentThreshold >= selectedThreshold) {
+							return currenrOfferDetails;
+						}
+					}
+					return offerDetails;
+				}, {});
+
+				const removeCouponCodes = thresholdConfig.reduce((couponCodeList, currenrOfferDetails) => {
+					const { threshold = 0 } = selectedOfferDetails;
+					const { threshold: currentThreshold = 0, couponCode = [] } = currenrOfferDetails;
+
+					if (threshold === currentThreshold) return couponCodeList;
+					return [...couponCodeList, couponCode];
+				}, []);
+				
+				const { couponCode } = selectedOfferDetails;
+				
+				handleRemoveCouponCodes(removeCouponCodes);
+				handleAddCouponCode(couponCode);
+			}
+
+			VajroSDK.subscribe(VajroSDK.Triggers.ON_PAGE_LOADED, eventHandler)
+			VajroSDK.subscribe(VajroSDK.Triggers.LINE_ITEM_UPDATED, eventHandler)
+		</script>
+    </body>
+</html>
