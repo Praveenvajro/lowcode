@@ -625,7 +625,7 @@ var flow = function (appContext, configSchema) {
     var defalutFlowOffer = [];
     var filteredArray = getOfferCategory.filter(function (output) {
         console.log({ output: output });
-        var schema = output.schema, totalCartValue = output.totalCartValue, offerApplied = output.offerApplied, getRemovedProductList = output.getRemovedProductList;
+        var _a = output.schema, schema = _a === void 0 ? {} : _a, _b = output.totalCartValue, totalCartValue = _b === void 0 ? 0 : _b, _c = output.offerApplied, offerApplied = _c === void 0 ? false : _c, _d = output.getRemovedProductList, getRemovedProductList = _d === void 0 ? [] : _d;
         var offerCategory = schema.offerCategory;
         if (!offerApplied)
             defalutFlowOffer.push({
