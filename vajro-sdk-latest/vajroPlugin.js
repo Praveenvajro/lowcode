@@ -619,6 +619,7 @@ var flow = function (appContext, configSchema) {
     var getOfferCategory = configSchema.map(function (schema) {
         var getConfigSchema = (0,_utils_flow_common_utils__WEBPACK_IMPORTED_MODULE_1__.schemaReBuilder)(schema);
         var getBuildInputData = (0,_utils_flow_common_utils__WEBPACK_IMPORTED_MODULE_1__.buildInputData)(getConfigSchema, lineItems);
+        console.log({ getConfigSchema: getConfigSchema, getBuildInputData: getBuildInputData }, (0,_controller_flow_category_controller__WEBPACK_IMPORTED_MODULE_0__.findOfferCategory)(getBuildInputData));
         return (0,_controller_flow_category_controller__WEBPACK_IMPORTED_MODULE_0__.findOfferCategory)(getBuildInputData);
     });
     var defalutFlowOffer = [];
