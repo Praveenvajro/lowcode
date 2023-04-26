@@ -17,6 +17,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var findOfferCategory = function (data) {
     var offerCategory = data.offerCategory;
+    console.log({ offerCategory: offerCategory });
     switch (offerCategory) {
         case "percentageDiscount":
         case "flatDiscount":
