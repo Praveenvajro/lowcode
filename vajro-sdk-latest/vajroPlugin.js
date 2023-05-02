@@ -13,6 +13,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "getCombinedOfferConfig": () => (/* binding */ getCombinedOfferConfig)
 /* harmony export */ });
+var __assign = (undefined && undefined.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __spreadArray = (undefined && undefined.__spreadArray) || function (to, from, pack) {
     if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
         if (ar || !(i in from)) {
@@ -28,9 +39,9 @@ var getCombinedOfferConfig = function (configDetails) {
         console.log({ combinedOfferConfig: combinedOfferConfig, nonCombinedOfferConfig: nonCombinedOfferConfig });
         var combinedOffer = configDetail.combinedOffer;
         if (combinedOffer) {
-            return __spreadArray(__spreadArray([], combinedOfferConfig, true), [configDetail], false);
+            return __assign(__assign({}, combinedDetails), { combinedOfferConfig: __spreadArray(__spreadArray([], combinedOfferConfig, true), [configDetail], false) });
         }
-        return __spreadArray(__spreadArray([], nonCombinedOfferConfig, true), [configDetail], false);
+        return __assign(__assign({}, combinedDetails), { nonCombinedOfferConfig: __spreadArray(__spreadArray([], nonCombinedOfferConfig, true), [configDetail], false) });
     }, { combinedOfferConfig: [], nonCombinedOfferConfig: [] });
 };
 
