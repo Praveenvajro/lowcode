@@ -25,6 +25,7 @@ var __spreadArray = (undefined && undefined.__spreadArray) || function (to, from
 var getCombinedOfferConfig = function (configDetails) {
     return configDetails.reduce(function (combinedDetails, configDetail) {
         var combinedOfferConfig = combinedDetails.combinedOfferConfig, nonCombinedOfferConfig = combinedDetails.nonCombinedOfferConfig;
+        console.log({ combinedOfferConfig: combinedOfferConfig, nonCombinedOfferConfig: nonCombinedOfferConfig });
         var combinedOffer = configDetail.combinedOffer;
         if (combinedOffer) {
             return __spreadArray(__spreadArray([], combinedOfferConfig, true), [configDetail], false);
