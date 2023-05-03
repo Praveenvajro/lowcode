@@ -11,7 +11,8 @@ var vajroPlugin;
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getCombinedOfferConfig": () => (/* binding */ getCombinedOfferConfig)
+/* harmony export */   "getCombinedOfferConfig": () => (/* binding */ getCombinedOfferConfig),
+/* harmony export */   "getOfferBasedConfig": () => (/* binding */ getOfferBasedConfig)
 /* harmony export */ });
 var __assign = (undefined && undefined.__assign) || function () {
     __assign = Object.assign || function(t) {
@@ -43,6 +44,16 @@ var getCombinedOfferConfig = function (configDetails) {
         }
         return __assign(__assign({}, combinedDetails), { nonCombinedOfferConfig: __spreadArray(__spreadArray([], nonCombinedOfferConfig, true), [configDetail], false) });
     }, { combinedOfferConfig: [], nonCombinedOfferConfig: [] });
+};
+var getOfferBasedConfig = function (configDetails) {
+    return configDetails.reduce(function (offerConfigDetails, configDetail) {
+        var _a, _b;
+        var offerCategory = configDetail.offerCategory;
+        if (offerConfigDetails[offerCategory]) {
+            return __assign(__assign({}, offerConfigDetails), (_a = {}, _a[offerCategory] = __spreadArray(__spreadArray([], offerConfigDetails[offerCategory], true), [configDetail], false), _a));
+        }
+        return __assign(__assign({}, offerConfigDetails), (_b = {}, _b[offerCategory] = [configDetail], _b));
+    }, {});
 };
 
 
@@ -121,7 +132,8 @@ var flow = function (appContext, configSchema) {
     var lineItems = cartLineItems.lineItems;
     console.log({ lineItems: lineItems, configSchema: configSchema });
     var _a = (0,_utils_common__WEBPACK_IMPORTED_MODULE_0__.getCombinedOfferConfig)(configSchema), combinedOfferConfig = _a.combinedOfferConfig, nonCombinedOfferConfig = _a.nonCombinedOfferConfig;
-    console.log({ combinedOfferConfig: combinedOfferConfig, nonCombinedOfferConfig: nonCombinedOfferConfig });
+    var offerBasedConfigForCombinedOffer = (0,_utils_common__WEBPACK_IMPORTED_MODULE_0__.getOfferBasedConfig)(combinedOfferConfig);
+    console.log({ combinedOfferConfig: combinedOfferConfig, nonCombinedOfferConfig: nonCombinedOfferConfig, offerBasedConfigForCombinedOffer: offerBasedConfigForCombinedOffer });
     return "test";
 };
 
