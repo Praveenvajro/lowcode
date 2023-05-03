@@ -35,14 +35,14 @@ var __spreadArray = (undefined && undefined.__spreadArray) || function (to, from
     return to.concat(ar || Array.prototype.slice.call(from));
 };
 var getCombinedOfferConfig = function (configDetails) {
-    return configDetails.reduce(function (combinedDetails, configDetail) {
+    return configDetails.reduce(function (combinedDetails, configDetail, index) {
         var combinedOfferConfig = combinedDetails.combinedOfferConfig, nonCombinedOfferConfig = combinedDetails.nonCombinedOfferConfig;
         console.log({ combinedOfferConfig: combinedOfferConfig, nonCombinedOfferConfig: nonCombinedOfferConfig });
         var combinedOffer = configDetail.combinedOffer;
         if (combinedOffer) {
-            return __assign(__assign({}, combinedDetails), { combinedOfferConfig: __spreadArray(__spreadArray([], combinedOfferConfig, true), [configDetail], false) });
+            return __assign(__assign({}, combinedDetails), { combinedOfferConfig: __spreadArray(__spreadArray([], combinedOfferConfig, true), [__assign(__assign({}, configDetail), { index: index })], false) });
         }
-        return __assign(__assign({}, combinedDetails), { nonCombinedOfferConfig: __spreadArray(__spreadArray([], nonCombinedOfferConfig, true), [configDetail], false) });
+        return __assign(__assign({}, combinedDetails), { nonCombinedOfferConfig: __spreadArray(__spreadArray([], nonCombinedOfferConfig, true), [__assign(__assign({}, configDetail), { index: index })], false) });
     }, { combinedOfferConfig: [], nonCombinedOfferConfig: [] });
 };
 var getOfferBasedConfig = function (configDetails) {
