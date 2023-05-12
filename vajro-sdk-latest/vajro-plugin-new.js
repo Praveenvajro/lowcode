@@ -78,7 +78,7 @@ var getAutomaticOfferProducts = function (configOffers, lineItems, offerAppliedP
                     offerAppliedProducts = __assign(__assign({}, offerAppliedProducts), (_b = {}, _b[variantId] = {
                         variantId: variantId,
                         productId: productId,
-                        productPrice: productPrice,
+                        productPrice: Number(productPrice),
                         lineItemHandle: lineItemHandle,
                         customAttributes: __assign(__assign({}, customAttributes), { productQuantity: quantity - freeQuantity, actualUnitPrice: Number(productPrice), freeQuantity: freebieQuantity_1 })
                     }, _b));
@@ -134,6 +134,7 @@ var getBuyXChooseYOfferProducts = function (configOffers, lineItems, offerApplie
                 offerAppliedProducts = __assign(__assign({}, offerAppliedProducts), (_b = {}, _b[variantId] = {
                     variantId: variantId,
                     productId: productId,
+                    productPrice: Number(productPrice),
                     lineItemHandle: lineItemHandle,
                     customAttributes: __assign(__assign({}, customAttributes), { productQuantity: quantity - freeQuantity, actualUnitPrice: Number(productPrice), discountQuantity: freebieQuantity })
                 }, _b));
@@ -199,7 +200,7 @@ var getFlatOfferProducts = function (configOffers, lineItems, offerAppliedProduc
             var actualQuantity = productQuantity - freeQuantity;
             var unitPriceDiscount = isSplitNeed ? (actualUnitPrice * (((fixedAmount / cartTotal) * 100) / 100)) : fixedAmount;
             var _k = customAttributes.discountQuantity, discountQuantity = _k === void 0 ? 0 : _k;
-            appliedProductDetails = __assign(__assign({}, appliedProductDetails), (_a = {}, _a[variantId] = __assign(__assign({}, variantOfferDetails), { variantId: variantId, productId: productId, productPrice: productPrice, lineItemHandle: lineItemHandle, customAttributes: __assign(__assign({}, customAttributes), { actualUnitPrice: Number(productPrice), productQuantity: actualQuantity, discountPrice: unitPriceDiscount >= actualUnitPrice ? actualUnitPrice : unitPriceDiscount, discountQuantity: unitPriceDiscount >= actualUnitPrice ? actualQuantity : discountQuantity, flatDiscountDetails: {
+            appliedProductDetails = __assign(__assign({}, appliedProductDetails), (_a = {}, _a[variantId] = __assign(__assign({}, variantOfferDetails), { variantId: variantId, productId: productId, productPrice: Number(productPrice), lineItemHandle: lineItemHandle, customAttributes: __assign(__assign({}, customAttributes), { actualUnitPrice: Number(productPrice), productQuantity: actualQuantity, discountPrice: unitPriceDiscount >= actualUnitPrice ? actualUnitPrice : unitPriceDiscount, discountQuantity: unitPriceDiscount >= actualUnitPrice ? actualQuantity : discountQuantity, flatDiscountDetails: {
                         lineItems: offerLineItems,
                         splitFlatAmount: isSplitNeed,
                         discountValue: fixedAmount
@@ -324,7 +325,7 @@ var getPercentageOfferProducts = function (configOffers, lineItems, offerApplied
             var unitPriceDiscount = actualUnitPrice * (discountValue / 100);
             var _k = customAttributes.discountPrice, discountPrice = _k === void 0 ? 0 : _k, _l = customAttributes.discountQuantity, discountQuantity = _l === void 0 ? 0 : _l;
             if (unitPriceDiscount > discountPrice) {
-                offerAppliedProducts = __assign(__assign({}, offerAppliedProducts), (_a = {}, _a[variantId] = __assign(__assign({}, variantOfferDetails), { variantId: variantId, productId: productId, productPrice: productPrice, lineItemHandle: lineItemHandle, customAttributes: __assign(__assign({}, customAttributes), { actualUnitPrice: Number(productPrice), discountPrice: unitPriceDiscount, productQuantity: actualQuantity, discountQuantity: unitPriceDiscount === actualUnitPrice ? actualQuantity : discountQuantity }) }), _a));
+                offerAppliedProducts = __assign(__assign({}, offerAppliedProducts), (_a = {}, _a[variantId] = __assign(__assign({}, variantOfferDetails), { variantId: variantId, productId: productId, productPrice: Number(productPrice), lineItemHandle: lineItemHandle, customAttributes: __assign(__assign({}, customAttributes), { actualUnitPrice: Number(productPrice), discountPrice: unitPriceDiscount, productQuantity: actualQuantity, discountQuantity: unitPriceDiscount === actualUnitPrice ? actualQuantity : discountQuantity }) }), _a));
             }
         });
     });
@@ -569,16 +570,15 @@ var flow = function (appContext, configSchema) {
     var flowObj = {};
     var cartLineItems = appContext.cartLineItems;
     var _a = cartLineItems.lineItems, lineItems = _a === void 0 ? [] : _a;
-    var _b = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getValidInValidConfigDetails)(configSchema, lineItems), validConfigList = _b.validConfigList, inValidConfigList = _b.inValidConfigList;
-    var _c = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getCombinedOfferConfig)(validConfigList), _d = _c.combinedOfferConfig, combinedOfferConfig = _d === void 0 ? [] : _d, _e = _c.nonCombinedOfferConfig, nonCombinedOfferConfig = _e === void 0 ? [] : _e;
+    var validConfigList = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getValidInValidConfigDetails)(configSchema, lineItems).validConfigList;
+    var _b = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getCombinedOfferConfig)(validConfigList), _c = _b.combinedOfferConfig, combinedOfferConfig = _c === void 0 ? [] : _c, _d = _b.nonCombinedOfferConfig, nonCombinedOfferConfig = _d === void 0 ? [] : _d;
     var removedProductDetails = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getOfferAppiedLineItems)(lineItems);
     var allOfferDetails = {};
     if ((combinedOfferConfig === null || combinedOfferConfig === void 0 ? void 0 : combinedOfferConfig.length) > 0) {
         allOfferDetails.combinedOffer = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getOfferBasedConfig)(combinedOfferConfig);
     }
-    nonCombinedOfferConfig.forEach(function (configDetails) {
-        var index = configDetails.index;
-        var newOfferId = crypto.randomUUID();
+    nonCombinedOfferConfig.forEach(function (configDetails, ind) {
+        var newOfferId = crypto.randomUUID() || "offer".concat(ind);
         allOfferDetails[newOfferId] = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getOfferBasedConfig)([configDetails]);
     });
     Object.entries(allOfferDetails).forEach(function (_a) {
@@ -607,7 +607,7 @@ var flow = function (appContext, configSchema) {
         });
         flowObj[offerId] = offerAppliedProducts;
     });
-    var _f = Object.entries(flowObj).reduce(function (offerDetail, _a) {
+    var _e = Object.entries(flowObj).reduce(function (offerDetail, _a) {
         var offerId = _a[0], appliedOfferDetails = _a[1];
         var discountPrice = offerDetail.discountPrice;
         var offerDiscountPrice = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getOfferDiscountPrice)(Object.values(appliedOfferDetails));
@@ -621,7 +621,7 @@ var flow = function (appContext, configSchema) {
     }, {
         discountPrice: 0,
         offerAppliedDetails: {}
-    }), discountPrice = _f.discountPrice, offerAppliedDetails = _f.offerAppliedDetails;
+    }), discountPrice = _e.discountPrice, offerAppliedDetails = _e.offerAppliedDetails;
     var offerRemovedDetails = Object.keys(removedProductDetails).reduce(function (details, productVariantId) {
         var _a;
         if (offerAppliedDetails[productVariantId])
