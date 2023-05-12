@@ -326,7 +326,8 @@ var getPercentageOfferProducts = function (configOffers, lineItems, offerApplied
             var _j = customAttributes.discountPrice, discountPrice = _j === void 0 ? 0 : _j, _k = customAttributes.discountQuantity, discountQuantity = _k === void 0 ? 0 : _k;
             alert(JSON.stringify({
                 actualUnitPrice: actualUnitPrice,
-                unitPrice: unitPrice
+                unitPrice: unitPrice,
+                customAttributes: customAttributes
             }));
             if (unitPriceDiscount > discountPrice) {
                 offerAppliedProducts = __assign(__assign({}, offerAppliedProducts), (_a = {}, _a[variantId] = __assign(__assign({}, variantOfferDetails), { variantId: variantId, productId: productId, productPrice: Number(actualUnitPrice), lineItemHandle: lineItemHandle, customAttributes: __assign(__assign({}, customAttributes), { actualUnitPrice: Number(actualUnitPrice), discountPrice: unitPriceDiscount, productQuantity: actualQuantity, discountQuantity: unitPriceDiscount === actualUnitPrice ? actualQuantity : discountQuantity }) }), _a));
