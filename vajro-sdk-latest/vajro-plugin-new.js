@@ -320,12 +320,16 @@ var getPercentageOfferProducts = function (configOffers, lineItems, offerApplied
             var _a;
             var variantId = lineItem.variantId, productId = lineItem.productId, lineItemHandle = lineItem.lineItemHandle, unitPrice = lineItem.unitPrice, _b = lineItem.quantity, quantity = _b === void 0 ? 0 : _b, _c = lineItem.freeQuantity, freeQuantity = _c === void 0 ? 0 : _c, _d = lineItem.customAttributes, _e = _d === void 0 ? {} : _d, _f = _e.actualUnitPrice, actualUnitPrice = _f === void 0 ? unitPrice : _f;
             var variantOfferDetails = offerAppliedProducts[variantId] || {};
-            var _g = variantOfferDetails.productPrice, productPrice = _g === void 0 ? actualUnitPrice : _g, _h = variantOfferDetails.quantity, productQuantity = _h === void 0 ? quantity : _h, _j = variantOfferDetails.customAttributes, customAttributes = _j === void 0 ? {} : _j;
+            var _g = variantOfferDetails.quantity, productQuantity = _g === void 0 ? quantity : _g, _h = variantOfferDetails.customAttributes, customAttributes = _h === void 0 ? {} : _h;
             var actualQuantity = productQuantity - freeQuantity;
             var unitPriceDiscount = actualUnitPrice * (discountValue / 100);
-            var _k = customAttributes.discountPrice, discountPrice = _k === void 0 ? 0 : _k, _l = customAttributes.discountQuantity, discountQuantity = _l === void 0 ? 0 : _l;
+            var _j = customAttributes.discountPrice, discountPrice = _j === void 0 ? 0 : _j, _k = customAttributes.discountQuantity, discountQuantity = _k === void 0 ? 0 : _k;
+            alert(JSON.stringify({
+                actualUnitPrice: actualUnitPrice,
+                unitPrice: unitPrice
+            }));
             if (unitPriceDiscount > discountPrice) {
-                offerAppliedProducts = __assign(__assign({}, offerAppliedProducts), (_a = {}, _a[variantId] = __assign(__assign({}, variantOfferDetails), { variantId: variantId, productId: productId, productPrice: Number(productPrice), lineItemHandle: lineItemHandle, customAttributes: __assign(__assign({}, customAttributes), { actualUnitPrice: Number(productPrice), discountPrice: unitPriceDiscount, productQuantity: actualQuantity, discountQuantity: unitPriceDiscount === actualUnitPrice ? actualQuantity : discountQuantity }) }), _a));
+                offerAppliedProducts = __assign(__assign({}, offerAppliedProducts), (_a = {}, _a[variantId] = __assign(__assign({}, variantOfferDetails), { variantId: variantId, productId: productId, productPrice: Number(actualUnitPrice), lineItemHandle: lineItemHandle, customAttributes: __assign(__assign({}, customAttributes), { actualUnitPrice: Number(actualUnitPrice), discountPrice: unitPriceDiscount, productQuantity: actualQuantity, discountQuantity: unitPriceDiscount === actualUnitPrice ? actualQuantity : discountQuantity }) }), _a));
             }
         });
     });
@@ -567,7 +571,6 @@ var __assign = (undefined && undefined.__assign) || function () {
 
 
 var flow = function (appContext, configSchema) {
-    alert('test');
     var flowObj = {};
     var cartLineItems = appContext.cartLineItems;
     var _a = cartLineItems.lineItems, lineItems = _a === void 0 ? [] : _a;
