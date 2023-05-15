@@ -628,11 +628,12 @@ var flow = function (appContext, configSchema) {
             return details;
         return __assign(__assign({}, details), (_a = {}, _a[productVariantId] = removedProductDetails[productVariantId], _a));
     }, {});
-    return JSON.stringify({
+    var finalResult = {
         discountPrice: discountPrice,
         offerAppliedDetails: offerAppliedDetails,
         offerRemovedDetails: offerRemovedDetails
-    });
+    };
+    return finalResult;
 };
 
 })();
