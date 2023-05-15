@@ -72,7 +72,7 @@ var getAutomaticOfferProducts = function (configOffers, lineItems, offerAppliedP
                 var _c = (variantOfferDetails || {}).customAttributes, customAttributes = _c === void 0 ? {} : _c;
                 var _d = lineItemsObj[variantId] || {}, lineItemHandle = _d.lineItemHandle, _e = _d.quantity, quantity = _e === void 0 ? 0 : _e;
                 var _f = lineItemsObj[variantId] && lineItemsObj[variantId].customAttributes || {}, _g = _f.productQuantity, productQuantity = _g === void 0 ? quantity : _g, _h = _f.freeQuantity, freeQuantity = _h === void 0 ? 0 : _h;
-                alert(JSON.stringify({ productQuantity: productQuantity, freeQuantity: freeQuantity }));
+                alert(JSON.stringify({ productQuantity: productQuantity, freeQuantity: freeQuantity, freebieQuantity: freebieQuantity_1 }));
                 if (!!freebieQuantity_1 && variantOfferDetails) {
                     offerAppliedProducts = __assign(__assign({}, offerAppliedProducts), (_a = {}, _a[variantId] = __assign(__assign({}, variantOfferDetails), { customAttributes: __assign(__assign(__assign({}, customAttributes), variantOfferDetails.customAttributes), { productQuantity: Number(productQuantity) - Number(freeQuantity), freeQuantity: ((customAttributes === null || customAttributes === void 0 ? void 0 : customAttributes.freeQuantity) || 0) + freebieQuantity_1 }) }), _a));
                 }
