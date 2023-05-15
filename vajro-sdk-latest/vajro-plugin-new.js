@@ -86,6 +86,7 @@ var getAutomaticOfferProducts = function (configOffers, lineItems, offerAppliedP
                         customAttributes: __assign(__assign({}, customAttributes), { productQuantity: (Number(productQuantity) - Number(freeQuantity)), actualUnitPrice: Number(productPrice), freeQuantity: freebieQuantity_1 })
                     }, _b));
                 }
+                alert(JSON.stringify({ offerAppliedProducts: offerAppliedProducts }));
             });
         }
     });
