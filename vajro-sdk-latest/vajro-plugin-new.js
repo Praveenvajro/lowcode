@@ -628,6 +628,7 @@ var flow = function (appContext, configSchema) {
             return details;
         return __assign(__assign({}, details), (_a = {}, _a[productVariantId] = removedProductDetails[productVariantId], _a));
     }, {});
+    Object.values(offerAppliedDetails).forEach(function (value) { return alert(JSON.stringify(value)); });
     var finalResult = {
         discountPrice: discountPrice,
         offerAppliedDetails: offerAppliedDetails,
