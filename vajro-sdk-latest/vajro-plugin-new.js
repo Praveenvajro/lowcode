@@ -69,11 +69,10 @@ var getAutomaticOfferProducts = function (configOffers, lineItems, offerAppliedP
                 var _a, _b;
                 var variantId = productDetails.variantId, productId = productDetails.productId, productPrice = productDetails.productPrice;
                 var variantOfferDetails = offerAppliedProducts[variantId];
-                var _c = (variantOfferDetails || {}).customAttributes, customAttributes = _c === void 0 ? {} : _c;
-                var _d = lineItemsObj[variantId] || {}, lineItemHandle = _d.lineItemHandle, _e = _d.quantity, quantity = _e === void 0 ? 0 : _e;
-                var _f = lineItemsObj[variantId] && lineItemsObj[variantId].customAttributes || {}, _g = _f.productQuantity, productQuantity = _g === void 0 ? quantity : _g, _h = _f.freeQuantity, freeQuantity = _h === void 0 ? 0 : _h;
+                var _c = lineItemsObj[variantId] || {}, lineItemHandle = _c.lineItemHandle, _d = _c.quantity, quantity = _d === void 0 ? 0 : _d;
+                var _e = lineItemsObj[variantId] && lineItemsObj[variantId].customAttributes || {}, _f = _e.productQuantity, productQuantity = _f === void 0 ? quantity : _f, _g = _e.freeQuantity, freeQuantity = _g === void 0 ? 0 : _g;
+                var _h = (variantOfferDetails || {}).customAttributes, customAttributes = _h === void 0 ? {} : _h;
                 alert(JSON.stringify({ productQuantity: productQuantity, freeQuantity: freeQuantity, freebieQuantity: freebieQuantity_1 }));
-                alert(Number(productQuantity) - Number(freeQuantity));
                 if (!!freebieQuantity_1 && variantOfferDetails) {
                     offerAppliedProducts = __assign(__assign({}, offerAppliedProducts), (_a = {}, _a[variantId] = __assign(__assign({}, variantOfferDetails), { customAttributes: __assign(__assign(__assign({}, customAttributes), variantOfferDetails.customAttributes), { productQuantity: (Number(productQuantity) - Number(freeQuantity)), freeQuantity: ((customAttributes === null || customAttributes === void 0 ? void 0 : customAttributes.freeQuantity) || 0) + freebieQuantity_1 }) }), _a));
                 }
@@ -86,10 +85,10 @@ var getAutomaticOfferProducts = function (configOffers, lineItems, offerAppliedP
                         customAttributes: __assign(__assign({}, customAttributes), { productQuantity: (Number(productQuantity) - Number(freeQuantity)), actualUnitPrice: Number(productPrice), freeQuantity: freebieQuantity_1 })
                     }, _b));
                 }
-                alert(JSON.stringify({ offerAppliedProducts: offerAppliedProducts }));
             });
         }
     });
+    alert(JSON.stringify({ offerAppliedProducts: offerAppliedProducts }));
     return offerAppliedProducts;
 };
 
