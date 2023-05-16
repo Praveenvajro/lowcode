@@ -594,6 +594,7 @@ var flow = function (appContext, configSchema) {
             var offerCategory = _a[0], offerConfigDetails = _a[1];
             if (offerConfigDetails.length === 0)
                 return;
+            alert(JSON.stringify({ offerCategory: offerCategory, offerAppliedProducts: offerAppliedProducts }));
             switch (offerCategory) {
                 case "automaticOffers":
                     offerAppliedProducts = (0,_controller_automaticOffer__WEBPACK_IMPORTED_MODULE_0__.getAutomaticOfferProducts)(offerConfigDetails, lineItems, offerAppliedProducts);
