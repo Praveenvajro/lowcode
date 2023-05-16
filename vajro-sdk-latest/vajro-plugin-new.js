@@ -69,6 +69,7 @@ var getAutomaticOfferProducts = function (configOffers, lineItems, offerAppliedP
                 var _a, _b;
                 var variantId = productDetails.variantId, productId = productDetails.productId, productPrice = productDetails.productPrice;
                 var variantOfferDetails = offerAppliedProducts[variantId];
+                alert(JSON.stringify(lineItemsObj[variantId]));
                 var _c = lineItemsObj[variantId] || {}, lineItemHandle = _c.lineItemHandle, _d = _c.quantity, quantity = _d === void 0 ? 0 : _d;
                 var _e = lineItemsObj[variantId] && lineItemsObj[variantId].customAttributes || {}, _f = _e.productQuantity, productQuantity = _f === void 0 ? quantity : _f, _g = _e.freeQuantity, freeQuantity = _g === void 0 ? 0 : _g;
                 var _h = (variantOfferDetails || {}).customAttributes, customAttributes = _h === void 0 ? {} : _h;
