@@ -2,7 +2,7 @@ const configSchema = [
     {
         "buyOfferType": "overAll",
         "cartType": "count",
-        "cartValue": "100",
+        "cartValue": "1",
         "combinedOffer": true,
         "discountType": "percentage",
         "discountValue": "1",
@@ -179,7 +179,7 @@ const configSchema = [
             }
         ],
         "cartType": "count",
-        "cartValue": "100",
+        "cartValue": "1",
         "combinedOffer": true,
         "discountType": "percentage",
         "discountValue": "30",
