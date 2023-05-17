@@ -194,13 +194,13 @@ var getFlatOfferProducts = function (configOffers, lineItems, offerAppliedProduc
         var cartTotal = (0,_utils_common__WEBPACK_IMPORTED_MODULE_0__.getCartTotal)(newOfferLineItems);
         offerLineItems.forEach(function (lineItem) {
             var _a;
-            var variantId = lineItem.variantId, productId = lineItem.productId, lineItemHandle = lineItem.lineItemHandle, unitPrice = lineItem.unitPrice, _b = lineItem.quantity, quantity = _b === void 0 ? 0 : _b, _c = lineItem.freeQuantity, freeQuantity = _c === void 0 ? 0 : _c, _d = lineItem.customAttributes, _e = _d === void 0 ? {} : _d, _f = _e.actualUnitPrice, actualUnitPrice = _f === void 0 ? unitPrice : _f;
+            var variantId = lineItem.variantId, productId = lineItem.productId, lineItemHandle = lineItem.lineItemHandle, unitPrice = lineItem.unitPrice, _b = lineItem.quantity, quantity = _b === void 0 ? 0 : _b, _c = lineItem.freeQuantity, freeQuantity = _c === void 0 ? 0 : _c, _d = lineItem.customAttributes, _e = _d === void 0 ? {} : _d, _f = _e._actualUnitPrice, _actualUnitPrice = _f === void 0 ? unitPrice : _f;
             var variantOfferDetails = appliedProductDetails[variantId] || {};
             var _g = variantOfferDetails.quantity, productQuantity = _g === void 0 ? quantity : _g, _h = variantOfferDetails.customAttributes, customAttributes = _h === void 0 ? {} : _h;
             var actualQuantity = productQuantity - freeQuantity;
-            var unitPriceDiscount = isSplitNeed ? (actualUnitPrice * (((fixedAmount / cartTotal) * 100) / 100)) : fixedAmount;
+            var unitPriceDiscount = isSplitNeed ? (_actualUnitPrice * (((fixedAmount / cartTotal) * 100) / 100)) : fixedAmount;
             var _j = customAttributes._discountQuantity, _discountQuantity = _j === void 0 ? 0 : _j;
-            appliedProductDetails = __assign(__assign({}, appliedProductDetails), (_a = {}, _a[variantId] = __assign(__assign({}, variantOfferDetails), { variantId: variantId, productId: productId, lineItemHandle: lineItemHandle, customAttributes: __assign(__assign({}, customAttributes), { _actualUnitPrice: Number(actualUnitPrice), _productQuantity: actualQuantity, _discountPrice: unitPriceDiscount >= actualUnitPrice ? actualUnitPrice : unitPriceDiscount, _discountQuantity: unitPriceDiscount >= actualUnitPrice ? actualQuantity : _discountQuantity, _flatDiscountDetails: {
+            appliedProductDetails = __assign(__assign({}, appliedProductDetails), (_a = {}, _a[variantId] = __assign(__assign({}, variantOfferDetails), { variantId: variantId, productId: productId, lineItemHandle: lineItemHandle, customAttributes: __assign(__assign({}, customAttributes), { _actualUnitPrice: Number(_actualUnitPrice), _productQuantity: actualQuantity, _discountPrice: unitPriceDiscount >= _actualUnitPrice ? _actualUnitPrice : unitPriceDiscount, _discountQuantity: unitPriceDiscount >= _actualUnitPrice ? actualQuantity : _discountQuantity, _flatDiscountDetails: {
                         lineItems: offerLineItems,
                         splitFlatAmount: isSplitNeed,
                         discountValue: fixedAmount
@@ -318,15 +318,14 @@ var getPercentageOfferProducts = function (configOffers, lineItems, offerApplied
         }
         offerLineItems.forEach(function (lineItem) {
             var _a;
-            var variantId = lineItem.variantId, productId = lineItem.productId, lineItemHandle = lineItem.lineItemHandle, unitPrice = lineItem.unitPrice, _b = lineItem.quantity, quantity = _b === void 0 ? 0 : _b, _c = lineItem.freeQuantity, freeQuantity = _c === void 0 ? 0 : _c;
-            var _d = lineItem.customAttributes, _e = _d === void 0 ? {} : _d, _f = _e.actualUnitPrice, actualUnitPrice = _f === void 0 ? unitPrice : _f;
+            var variantId = lineItem.variantId, productId = lineItem.productId, lineItemHandle = lineItem.lineItemHandle, unitPrice = lineItem.unitPrice, _b = lineItem.quantity, quantity = _b === void 0 ? 0 : _b, _c = lineItem.freeQuantity, freeQuantity = _c === void 0 ? 0 : _c, _d = lineItem.customAttributes, _e = _d === void 0 ? {} : _d, _f = _e._actualUnitPrice, _actualUnitPrice = _f === void 0 ? unitPrice : _f;
             var variantOfferDetails = offerAppliedProducts[variantId] || {};
             var _g = variantOfferDetails.quantity, productQuantity = _g === void 0 ? quantity : _g, _h = variantOfferDetails.customAttributes, customAttributes = _h === void 0 ? {} : _h;
             var actualQuantity = productQuantity - freeQuantity;
-            var unitPriceDiscount = actualUnitPrice * (discountValue / 100);
+            var unitPriceDiscount = _actualUnitPrice * (discountValue / 100);
             var _j = customAttributes._discountPrice, _discountPrice = _j === void 0 ? 0 : _j, _k = customAttributes._discountQuantity, _discountQuantity = _k === void 0 ? 0 : _k;
             if (unitPriceDiscount > _discountPrice) {
-                offerAppliedProducts = __assign(__assign({}, offerAppliedProducts), (_a = {}, _a[variantId] = __assign(__assign({}, variantOfferDetails), { variantId: variantId, productId: productId, lineItemHandle: lineItemHandle, customAttributes: __assign(__assign({}, customAttributes), { _actualUnitPrice: Number(actualUnitPrice), _discountPrice: unitPriceDiscount, _productQuantity: actualQuantity, _discountQuantity: unitPriceDiscount === actualUnitPrice ? actualQuantity : _discountQuantity }) }), _a));
+                offerAppliedProducts = __assign(__assign({}, offerAppliedProducts), (_a = {}, _a[variantId] = __assign(__assign({}, variantOfferDetails), { variantId: variantId, productId: productId, lineItemHandle: lineItemHandle, customAttributes: __assign(__assign({}, customAttributes), { _actualUnitPrice: Number(_actualUnitPrice), _discountPrice: unitPriceDiscount, _productQuantity: actualQuantity, _discountQuantity: unitPriceDiscount === _actualUnitPrice ? actualQuantity : _discountQuantity }) }), _a));
             }
         });
     });
