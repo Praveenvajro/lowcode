@@ -67,7 +67,7 @@ const configSchema = [
             }
         ],
         "offerCategory": "automaticOffers",
-        "reccuringFreeProduct": false
+        "reccuringFreeProduct": true
     },
     {
         "buyOfferType": "products",
