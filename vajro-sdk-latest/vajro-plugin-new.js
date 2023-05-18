@@ -582,7 +582,8 @@ var flow = function (appContext, configSchema) {
             var newOfferId = (crypto === null || crypto === void 0 ? void 0 : crypto.randomUUID) && (crypto === null || crypto === void 0 ? void 0 : crypto.randomUUID()) || "offer".concat(ind);
             allOfferDetails_1[newOfferId] = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getOfferBasedConfig)([configDetails]);
         });
-        alert(JSON.stringify({ allOfferDetails: allOfferDetails_1 }));
+        alert(JSON.stringify({ validConfigList: validConfigList }));
+        alert(JSON.stringify({ combinedOfferConfig: combinedOfferConfig }));
         Object.entries(allOfferDetails_1).forEach(function (_a) {
             var offerId = _a[0], offerDetails = _a[1];
             var offerAppliedProducts = {};
