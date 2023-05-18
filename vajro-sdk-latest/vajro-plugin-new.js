@@ -567,76 +567,82 @@ var __assign = (undefined && undefined.__assign) || function () {
 
 
 var flow = function (appContext, configSchema) {
-    var flowObj = {};
-    var cartLineItems = appContext.cartLineItems;
-    var _a = cartLineItems.lineItems, lineItems = _a === void 0 ? [] : _a;
-    var validConfigList = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getValidInValidConfigDetails)(configSchema, lineItems).validConfigList;
-    var _b = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getCombinedOfferConfig)(validConfigList), _c = _b.combinedOfferConfig, combinedOfferConfig = _c === void 0 ? [] : _c, _d = _b.nonCombinedOfferConfig, nonCombinedOfferConfig = _d === void 0 ? [] : _d;
-    var removedProductDetails = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getOfferAppiedLineItems)(lineItems);
-    var allOfferDetails = {};
-    if ((combinedOfferConfig === null || combinedOfferConfig === void 0 ? void 0 : combinedOfferConfig.length) > 0) {
-        allOfferDetails.combinedOffer = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getOfferBasedConfig)(combinedOfferConfig);
-    }
-    nonCombinedOfferConfig.forEach(function (configDetails, ind) {
-        var newOfferId = (crypto === null || crypto === void 0 ? void 0 : crypto.randomUUID) && (crypto === null || crypto === void 0 ? void 0 : crypto.randomUUID()) || "offer".concat(ind);
-        allOfferDetails[newOfferId] = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getOfferBasedConfig)([configDetails]);
-    });
-    Object.entries(allOfferDetails).forEach(function (_a) {
-        var offerId = _a[0], offerDetails = _a[1];
-        var offerAppliedProducts = {};
-        Object.entries(offerDetails).forEach(function (_a) {
-            var offerCategory = _a[0], offerConfigDetails = _a[1];
-            if (offerConfigDetails.length === 0)
-                return;
-            alert(offerCategory);
-            alert(JSON.stringify({ offerAppliedProducts: offerAppliedProducts }));
-            switch (offerCategory) {
-                case "automaticOffers":
-                    offerAppliedProducts = (0,_controller_automaticOffer__WEBPACK_IMPORTED_MODULE_0__.getAutomaticOfferProducts)(offerConfigDetails, lineItems, offerAppliedProducts);
-                    break;
-                case "buyXGetY":
-                    offerAppliedProducts = (0,_controller_buyXChooseY__WEBPACK_IMPORTED_MODULE_1__.getBuyXChooseYOfferProducts)(offerConfigDetails, lineItems, offerAppliedProducts);
-                    break;
-                case "percentageDiscount":
-                    offerAppliedProducts = (0,_controller_percentageDiscount__WEBPACK_IMPORTED_MODULE_3__.getPercentageOfferProducts)(offerConfigDetails, lineItems, offerAppliedProducts);
-                    break;
-                case "flatDiscount":
-                    offerAppliedProducts = (0,_controller_flatDiscount__WEBPACK_IMPORTED_MODULE_2__.getFlatOfferProducts)(offerConfigDetails, lineItems, offerAppliedProducts);
-                    break;
-                default:
-                    break;
-            }
-        });
-        flowObj[offerId] = offerAppliedProducts;
-    });
-    var _e = Object.entries(flowObj).reduce(function (offerDetail, _a) {
-        var offerId = _a[0], appliedOfferDetails = _a[1];
-        var discountPrice = offerDetail.discountPrice;
-        var offerDiscountPrice = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getOfferDiscountPrice)(Object.values(appliedOfferDetails));
-        if (offerDiscountPrice > discountPrice) {
-            return {
-                discountPrice: offerDiscountPrice,
-                offerAppliedDetails: appliedOfferDetails
-            };
+    try {
+        var flowObj_1 = {};
+        var cartLineItems = appContext.cartLineItems;
+        var _a = cartLineItems.lineItems, lineItems_1 = _a === void 0 ? [] : _a;
+        var validConfigList = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getValidInValidConfigDetails)(configSchema, lineItems_1).validConfigList;
+        var _b = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getCombinedOfferConfig)(validConfigList), _c = _b.combinedOfferConfig, combinedOfferConfig = _c === void 0 ? [] : _c, _d = _b.nonCombinedOfferConfig, nonCombinedOfferConfig = _d === void 0 ? [] : _d;
+        var removedProductDetails_1 = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getOfferAppiedLineItems)(lineItems_1);
+        var allOfferDetails_1 = {};
+        if ((combinedOfferConfig === null || combinedOfferConfig === void 0 ? void 0 : combinedOfferConfig.length) > 0) {
+            allOfferDetails_1.combinedOffer = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getOfferBasedConfig)(combinedOfferConfig);
         }
-        return offerDetail;
-    }, {
-        discountPrice: 0,
-        offerAppliedDetails: {}
-    }), discountPrice = _e.discountPrice, offerAppliedDetails = _e.offerAppliedDetails;
-    var offerRemovedDetails = Object.keys(removedProductDetails).reduce(function (details, productVariantId) {
-        var _a;
-        if (offerAppliedDetails[productVariantId])
-            return details;
-        return __assign(__assign({}, details), (_a = {}, _a[productVariantId] = removedProductDetails[productVariantId], _a));
-    }, {});
-    Object.values(offerAppliedDetails).forEach(function (val) { return alert(JSON.stringify(val)); });
-    var finalResult = {
-        discountPrice: discountPrice,
-        offerAppliedDetails: offerAppliedDetails,
-        offerRemovedDetails: offerRemovedDetails
-    };
-    return finalResult;
+        nonCombinedOfferConfig.forEach(function (configDetails, ind) {
+            var newOfferId = (crypto === null || crypto === void 0 ? void 0 : crypto.randomUUID) && (crypto === null || crypto === void 0 ? void 0 : crypto.randomUUID()) || "offer".concat(ind);
+            allOfferDetails_1[newOfferId] = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getOfferBasedConfig)([configDetails]);
+        });
+        alert(JSON.stringify({ allOfferDetails: allOfferDetails_1 }));
+        Object.entries(allOfferDetails_1).forEach(function (_a) {
+            var offerId = _a[0], offerDetails = _a[1];
+            var offerAppliedProducts = {};
+            Object.entries(offerDetails).forEach(function (_a) {
+                var offerCategory = _a[0], offerConfigDetails = _a[1];
+                if (offerConfigDetails.length === 0)
+                    return;
+                alert(offerCategory);
+                alert(JSON.stringify({ offerAppliedProducts: offerAppliedProducts }));
+                switch (offerCategory) {
+                    case "automaticOffers":
+                        offerAppliedProducts = (0,_controller_automaticOffer__WEBPACK_IMPORTED_MODULE_0__.getAutomaticOfferProducts)(offerConfigDetails, lineItems_1, offerAppliedProducts);
+                        break;
+                    case "buyXGetY":
+                        offerAppliedProducts = (0,_controller_buyXChooseY__WEBPACK_IMPORTED_MODULE_1__.getBuyXChooseYOfferProducts)(offerConfigDetails, lineItems_1, offerAppliedProducts);
+                        break;
+                    case "percentageDiscount":
+                        offerAppliedProducts = (0,_controller_percentageDiscount__WEBPACK_IMPORTED_MODULE_3__.getPercentageOfferProducts)(offerConfigDetails, lineItems_1, offerAppliedProducts);
+                        break;
+                    case "flatDiscount":
+                        offerAppliedProducts = (0,_controller_flatDiscount__WEBPACK_IMPORTED_MODULE_2__.getFlatOfferProducts)(offerConfigDetails, lineItems_1, offerAppliedProducts);
+                        break;
+                    default:
+                        break;
+                }
+            });
+            flowObj_1[offerId] = offerAppliedProducts;
+        });
+        var _e = Object.entries(flowObj_1).reduce(function (offerDetail, _a) {
+            var offerId = _a[0], appliedOfferDetails = _a[1];
+            var discountPrice = offerDetail.discountPrice;
+            var offerDiscountPrice = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getOfferDiscountPrice)(Object.values(appliedOfferDetails));
+            if (offerDiscountPrice > discountPrice) {
+                return {
+                    discountPrice: offerDiscountPrice,
+                    offerAppliedDetails: appliedOfferDetails
+                };
+            }
+            return offerDetail;
+        }, {
+            discountPrice: 0,
+            offerAppliedDetails: {}
+        }), discountPrice = _e.discountPrice, offerAppliedDetails_1 = _e.offerAppliedDetails;
+        var offerRemovedDetails = Object.keys(removedProductDetails_1).reduce(function (details, productVariantId) {
+            var _a;
+            if (offerAppliedDetails_1[productVariantId])
+                return details;
+            return __assign(__assign({}, details), (_a = {}, _a[productVariantId] = removedProductDetails_1[productVariantId], _a));
+        }, {});
+        Object.values(offerAppliedDetails_1).forEach(function (val) { return alert(JSON.stringify(val)); });
+        var finalResult = {
+            discountPrice: discountPrice,
+            offerAppliedDetails: offerAppliedDetails_1,
+            offerRemovedDetails: offerRemovedDetails
+        };
+        return finalResult;
+    }
+    catch (e) {
+        alert(e.message);
+    }
 };
 
 })();
