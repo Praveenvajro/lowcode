@@ -469,6 +469,8 @@ var getOfferAppiedLineItems = function (lineItems) {
     return lineItems.reduce(function (productDetailsObj, lineItem) {
         var _a;
         var variantId = lineItem.variantId, _b = lineItem.customAttributes, customAttributes = _b === void 0 ? {} : _b;
+        alert(JSON.stringify({ customAttributes: customAttributes }));
+        alert(Object.values(customAttributes).indexOf('_actualUnitPrice'));
         if (Object.values(customAttributes).indexOf('_actualUnitPrice') !== -1) {
             return __assign(__assign({}, productDetailsObj), (_a = {}, _a[variantId] = lineItem, _a));
         }
