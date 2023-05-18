@@ -186,10 +186,10 @@ var getFlatOfferProducts = function (configOffers, lineItems, offerAppliedProduc
         if (offerLineItems.length === 0)
             offerLineItems;
         var newOfferLineItems = offerLineItems.map(function (lineItem) {
-            var variantId = lineItem.variantId, _a = lineItem.freeQuantity, freeQuantity = _a === void 0 ? 0 : _a;
-            var _b = (appliedProductDetails[variantId] || {}).customAttributes, customAttributes = _b === void 0 ? {} : _b;
-            var _c = customAttributes.discountQuantity, discountQuantity = _c === void 0 ? 0 : _c;
-            return __assign(__assign({}, lineItem), { freeQuantity: freeQuantity + discountQuantity });
+            var variantId = lineItem.variantId, _a = lineItem.customAttributes, _b = _a === void 0 ? {} : _a, _c = _b._freeQuantity, _freeQuantity = _c === void 0 ? 0 : _c;
+            var _d = (appliedProductDetails[variantId] || {}).customAttributes, customAttributes = _d === void 0 ? {} : _d;
+            var _e = customAttributes._discountQuantity, _discountQuantity = _e === void 0 ? 0 : _e;
+            return __assign(__assign({}, lineItem), { freeQuantity: _freeQuantity + _discountQuantity });
         });
         var cartTotal = (0,_utils_common__WEBPACK_IMPORTED_MODULE_0__.getCartTotal)(newOfferLineItems);
         offerLineItems.forEach(function (lineItem) {
@@ -213,7 +213,8 @@ var getFlatOfferProducts = function (configOffers, lineItems, offerAppliedProduc
         if (getOfferType === "products") {
             getProducts.forEach(function (productDetails) {
                 var variantId = productDetails.variantId;
-                if (lineItemsObj[variantId]) {
+                var _a = lineItemsObj[variantId] || {}, _b = _a.quantity, quantity = _b === void 0 ? 0 : _b, _c = _a.customAttributes, _d = _c === void 0 ? {} : _c, _e = _d._freeQuantity, _freeQuantity = _e === void 0 ? 0 : _e;
+                if ((Number(quantity) - Number(_freeQuantity)) > 0) {
                     offerLineItems = __spreadArray(__spreadArray([], offerLineItems, true), [lineItemsObj[variantId]], false);
                 }
             });
@@ -222,7 +223,8 @@ var getFlatOfferProducts = function (configOffers, lineItems, offerAppliedProduc
             getCollections.forEach(function (collectionDetails) {
                 var collectionId = collectionDetails.collectionId;
                 var collectionLineItems = lineItems.filter(function (lineItem) {
-                    return collectionId === lineItem.collectionId;
+                    var _a = lineItem.quantity, quantity = _a === void 0 ? 0 : _a, _b = lineItem.customAttributes, _c = _b === void 0 ? {} : _b, _d = _c._freeQuantity, _freeQuantity = _d === void 0 ? 0 : _d;
+                    return (collectionId === lineItem.collectionId) && ((Number(quantity) - Number(_freeQuantity)) > 0);
                 });
                 if (collectionLineItems.length > 0) {
                     offerLineItems = __spreadArray(__spreadArray([], offerLineItems, true), collectionLineItems, true);
@@ -230,24 +232,27 @@ var getFlatOfferProducts = function (configOffers, lineItems, offerAppliedProduc
             });
         }
         else {
-            offerLineItems = __spreadArray([], lineItems, true);
+            offerLineItems = lineItems.filter(function (lineItem) {
+                var _a = lineItem.quantity, quantity = _a === void 0 ? 0 : _a, _b = lineItem.customAttributes, _c = _b === void 0 ? {} : _b, _d = _c._freeQuantity, _freeQuantity = _d === void 0 ? 0 : _d;
+                return (Number(quantity) - Number(_freeQuantity)) > 0;
+            });
         }
         var cartTotal = (0,_utils_common__WEBPACK_IMPORTED_MODULE_0__.getCartTotal)(offerLineItems);
         var crntAppliedProductDetails = __assign({}, appliedProductDetails);
         offerLineItems = offerLineItems.filter(function (lineItem) {
-            var variantId = lineItem.variantId, unitPrice = lineItem.unitPrice, _a = lineItem.customAttributes, _b = _a === void 0 ? {} : _a, _c = _b.actualUnitPrice, actualUnitPrice = _c === void 0 ? unitPrice : _c;
+            var variantId = lineItem.variantId, unitPrice = lineItem.unitPrice, _a = lineItem.customAttributes, _b = _a === void 0 ? {} : _a, _c = _b._actualUnitPrice, _actualUnitPrice = _c === void 0 ? unitPrice : _c;
             var variantOfferDetails = crntAppliedProductDetails[variantId] || {};
             var _d = variantOfferDetails.customAttributes, customAttributes = _d === void 0 ? {} : _d;
-            var unitPriceDiscount = splitFlatAmount ? (actualUnitPrice * (discountValue / cartTotal)) : discountValue;
-            var _e = customAttributes.discountPrice, discountPrice = _e === void 0 ? 0 : _e, _f = customAttributes.flatDiscountDetails, flatDiscountDetails = _f === void 0 ? {} : _f;
-            var _g = flatDiscountDetails.lineItems, appliedLineItems = _g === void 0 ? [] : _g, _h = flatDiscountDetails.splitFlatAmount, issplitFlatAmountApplied = _h === void 0 ? false : _h, _j = flatDiscountDetails.discountValue, appliedDiscountValue = _j === void 0 ? 0 : _j;
-            if (unitPriceDiscount > discountPrice) {
+            var unitPriceDiscount = splitFlatAmount ? (_actualUnitPrice * (discountValue / cartTotal)) : discountValue;
+            var _e = customAttributes._discountPrice, _discountPrice = _e === void 0 ? 0 : _e, _f = customAttributes._flatDiscountDetails, _flatDiscountDetails = _f === void 0 ? {} : _f;
+            var _g = _flatDiscountDetails.lineItems, appliedLineItems = _g === void 0 ? [] : _g, _h = _flatDiscountDetails.splitFlatAmount, issplitFlatAmountApplied = _h === void 0 ? false : _h, _j = _flatDiscountDetails.discountValue, appliedDiscountValue = _j === void 0 ? 0 : _j;
+            if (unitPriceDiscount > _discountPrice) {
                 var filteredLineItems = appliedLineItems.filter(function (appliedLineItem) { return appliedLineItem.variantId !== variantId; });
                 if (issplitFlatAmountApplied && filteredLineItems.length > 0) {
                     getOfferedProductDetails(filteredLineItems, appliedDiscountValue, issplitFlatAmountApplied);
                 }
             }
-            return unitPriceDiscount > discountPrice;
+            return unitPriceDiscount > _discountPrice;
         });
         getOfferedProductDetails(offerLineItems, discountValue, splitFlatAmount);
     });
@@ -469,8 +474,6 @@ var getOfferAppiedLineItems = function (lineItems) {
     return lineItems.reduce(function (productDetailsObj, lineItem) {
         var _a;
         var variantId = lineItem.variantId, _b = lineItem.customAttributes, customAttributes = _b === void 0 ? {} : _b;
-        alert(JSON.stringify(customAttributes));
-        alert(Object.keys(customAttributes).indexOf('_actualUnitPrice'));
         if (Object.keys(customAttributes).indexOf('_actualUnitPrice') !== -1) {
             return __assign(__assign({}, productDetailsObj), (_a = {}, _a[variantId] = lineItem, _a));
         }
@@ -630,9 +633,6 @@ var flow = function (appContext, configSchema) {
             return details;
         return __assign(__assign({}, details), (_a = {}, _a[productVariantId] = removedProductDetails[productVariantId], _a));
     }, {});
-    alert(JSON.stringify({ discountPrice: discountPrice }));
-    alert(JSON.stringify({ offerAppliedDetails: offerAppliedDetails }));
-    alert(JSON.stringify({ offerRemovedDetails: offerRemovedDetails }));
     var finalResult = {
         discountPrice: discountPrice,
         offerAppliedDetails: offerAppliedDetails,
