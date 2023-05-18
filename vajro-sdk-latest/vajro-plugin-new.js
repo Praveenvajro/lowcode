@@ -567,7 +567,6 @@ var __assign = (undefined && undefined.__assign) || function () {
 
 
 var flow = function (appContext, configSchema) {
-    alert(1);
     var flowObj = {};
     var cartLineItems = appContext.cartLineItems;
     var _a = cartLineItems.lineItems, lineItems = _a === void 0 ? [] : _a;
@@ -589,6 +588,8 @@ var flow = function (appContext, configSchema) {
             var offerCategory = _a[0], offerConfigDetails = _a[1];
             if (offerConfigDetails.length === 0)
                 return;
+            alert(offerCategory);
+            alert(JSON.stringify({ offerAppliedProducts: offerAppliedProducts }));
             switch (offerCategory) {
                 case "automaticOffers":
                     offerAppliedProducts = (0,_controller_automaticOffer__WEBPACK_IMPORTED_MODULE_0__.getAutomaticOfferProducts)(offerConfigDetails, lineItems, offerAppliedProducts);
