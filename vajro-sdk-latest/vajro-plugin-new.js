@@ -571,7 +571,9 @@ var __assign = (undefined && undefined.__assign) || function () {
 
 
 
+alert('Calling');
 var flow = function (appContext, configSchema) {
+    alert(1);
     var flowObj = {};
     var cartLineItems = appContext.cartLineItems;
     var _a = cartLineItems.lineItems, lineItems = _a === void 0 ? [] : _a;
