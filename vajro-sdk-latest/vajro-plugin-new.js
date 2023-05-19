@@ -572,7 +572,6 @@ var __assign = (undefined && undefined.__assign) || function () {
 
 
 var flow = function (appContext, configSchema) {
-    alert(1);
     var flowObj = {};
     var cartLineItems = appContext.cartLineItems;
     var _a = cartLineItems.lineItems, lineItems = _a === void 0 ? [] : _a;
@@ -634,9 +633,6 @@ var flow = function (appContext, configSchema) {
             return details;
         return __assign(__assign({}, details), (_a = {}, _a[productVariantId] = removedProductDetails[productVariantId], _a));
     }, {});
-    alert(JSON.stringify({ discountPrice: discountPrice }));
-    alert(JSON.stringify({ offerAppliedDetails: offerAppliedDetails }));
-    alert(JSON.stringify({ offerRemovedDetails: offerRemovedDetails }));
     var finalResult = {
         discountPrice: discountPrice,
         offerAppliedDetails: offerAppliedDetails,
