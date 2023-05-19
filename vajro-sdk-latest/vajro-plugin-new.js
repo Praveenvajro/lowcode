@@ -185,18 +185,13 @@ var getFlatOfferProducts = function (configOffers, lineItems, offerAppliedProduc
     function getOfferedProductDetails(offerLineItems, fixedAmount, isSplitNeed) {
         if (offerLineItems.length === 0)
             offerLineItems;
-        // const newOfferLineItems = offerLineItems.map((lineItem : any) => {
-        //     const { variantId, customAttributes : { _freeQuantity = 0 } = {} } = lineItem;
-        //     const { customAttributes = {} } = appliedProductDetails[variantId] || {};
-        //     const { _discountQuantity = 0 } = customAttributes;
-        //     return { ...lineItem, freeQuantity: _freeQuantity + _discountQuantity }
-        // });
-        var cartTotal = lineItems.reduce(function (total, lineItem) {
-            var variantId = lineItem.variantId, _a = lineItem.unitPrice, unitPrice = _a === void 0 ? 0 : _a, _b = lineItem.quantity, quantity = _b === void 0 ? 0 : _b, _c = lineItem.customAttributes, _d = _c === void 0 ? {} : _c, _e = _d._actualUnitPrice, _actualUnitPrice = _e === void 0 ? unitPrice : _e;
-            var _f = (appliedProductDetails[variantId] || {}).customAttributes, customAttributes = _f === void 0 ? {} : _f;
-            var _g = customAttributes._discountQuantity, _discountQuantity = _g === void 0 ? 0 : _g, _h = customAttributes._freeQuantity, _freeQuantity = _h === void 0 ? 0 : _h, _j = customAttributes._productQuantity, _productQuantity = _j === void 0 ? quantity : _j;
-            return total + (_actualUnitPrice * (_productQuantity - (_freeQuantity + _discountQuantity)));
-        }, 0);
+        var newOfferLineItems = offerLineItems.map(function (lineItem) {
+            var variantId = lineItem.variantId, _a = lineItem.customAttributes, _b = _a === void 0 ? {} : _a, _c = _b._freeQuantity, _freeQuantity = _c === void 0 ? 0 : _c;
+            var _d = (appliedProductDetails[variantId] || {}).customAttributes, customAttributes = _d === void 0 ? {} : _d;
+            var _e = customAttributes._discountQuantity, _discountQuantity = _e === void 0 ? 0 : _e;
+            return __assign(__assign({}, lineItem), { freeQuantity: _freeQuantity + _discountQuantity });
+        });
+        var cartTotal = (0,_utils_common__WEBPACK_IMPORTED_MODULE_0__.getCartTotal)(newOfferLineItems);
         offerLineItems.forEach(function (lineItem) {
             var _a;
             var variantId = lineItem.variantId, productId = lineItem.productId, lineItemHandle = lineItem.lineItemHandle, unitPrice = lineItem.unitPrice, _b = lineItem.quantity, quantity = _b === void 0 ? 0 : _b, _c = lineItem.customAttributes, _d = _c === void 0 ? {} : _c, _e = _d._actualUnitPrice, _actualUnitPrice = _e === void 0 ? unitPrice : _e, _f = _d._freeQuantity, _freeQuantity = _f === void 0 ? 0 : _f;
@@ -242,12 +237,7 @@ var getFlatOfferProducts = function (configOffers, lineItems, offerAppliedProduc
                 return (Number(quantity) - Number(_freeQuantity)) > 0;
             });
         }
-        var cartTotal = offerLineItems.reduce(function (total, lineItem) {
-            var variantId = lineItem.variantId, _a = lineItem.unitPrice, unitPrice = _a === void 0 ? 0 : _a, _b = lineItem.quantity, quantity = _b === void 0 ? 0 : _b, _c = lineItem.customAttributes, _d = _c === void 0 ? {} : _c, _e = _d._actualUnitPrice, _actualUnitPrice = _e === void 0 ? unitPrice : _e;
-            var _f = (appliedProductDetails[variantId] || {}).customAttributes, customAttributes = _f === void 0 ? {} : _f;
-            var _g = customAttributes._discountQuantity, _discountQuantity = _g === void 0 ? 0 : _g, _h = customAttributes._freeQuantity, _freeQuantity = _h === void 0 ? 0 : _h, _j = customAttributes._productQuantity, _productQuantity = _j === void 0 ? quantity : _j;
-            return total + (_actualUnitPrice * (_productQuantity - (_freeQuantity + _discountQuantity)));
-        }, 0);
+        var cartTotal = (0,_utils_common__WEBPACK_IMPORTED_MODULE_0__.getCartTotal)(offerLineItems);
         var crntAppliedProductDetails = __assign({}, appliedProductDetails);
         offerLineItems = offerLineItems.filter(function (lineItem) {
             var variantId = lineItem.variantId, unitPrice = lineItem.unitPrice, _a = lineItem.customAttributes, _b = _a === void 0 ? {} : _a, _c = _b._actualUnitPrice, _actualUnitPrice = _c === void 0 ? unitPrice : _c;
