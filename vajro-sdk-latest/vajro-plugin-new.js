@@ -185,13 +185,13 @@ var getFlatOfferProducts = function (configOffers, lineItems, offerAppliedProduc
     function getOfferedProductDetails(offerLineItems, fixedAmount, isSplitNeed) {
         if (offerLineItems.length === 0)
             offerLineItems;
-        var newOfferLineItems = offerLineItems.map(function (lineItem) {
-            var variantId = lineItem.variantId, _a = lineItem.customAttributes, _b = _a === void 0 ? {} : _a, _c = _b._freeQuantity, _freeQuantity = _c === void 0 ? 0 : _c;
-            var _d = (appliedProductDetails[variantId] || {}).customAttributes, customAttributes = _d === void 0 ? {} : _d;
-            var _e = customAttributes._discountQuantity, _discountQuantity = _e === void 0 ? 0 : _e;
-            return __assign(__assign({}, lineItem), { freeQuantity: _freeQuantity + _discountQuantity });
-        });
-        var cartTotal = (0,_utils_common__WEBPACK_IMPORTED_MODULE_0__.getCartTotal)(newOfferLineItems);
+        // const newOfferLineItems = offerLineItems.map((lineItem : any) => {
+        //     const { variantId, customAttributes : { _freeQuantity = 0 } = {} } = lineItem;
+        //     const { customAttributes = {} } = appliedProductDetails[variantId] || {};
+        //     const { _discountQuantity = 0 } = customAttributes;
+        //     return { ...lineItem, freeQuantity: _freeQuantity + _discountQuantity }
+        // });
+        var cartTotal = (0,_utils_common__WEBPACK_IMPORTED_MODULE_0__.getCartTotal)(offerLineItems);
         offerLineItems.forEach(function (lineItem) {
             var _a;
             var variantId = lineItem.variantId, productId = lineItem.productId, lineItemHandle = lineItem.lineItemHandle, unitPrice = lineItem.unitPrice, _b = lineItem.quantity, quantity = _b === void 0 ? 0 : _b, _c = lineItem.customAttributes, _d = _c === void 0 ? {} : _c, _e = _d._actualUnitPrice, _actualUnitPrice = _e === void 0 ? unitPrice : _e, _f = _d._freeQuantity, _freeQuantity = _f === void 0 ? 0 : _f;
@@ -453,8 +453,8 @@ var getLineItemsObj = function (lineItems) {
 };
 var getCartTotal = function (lineItems) {
     return lineItems.reduce(function (total, lineItem) {
-        var _a = lineItem.unitPrice, unitPrice = _a === void 0 ? 0 : _a, _b = lineItem.quantity, quantity = _b === void 0 ? 0 : _b, _c = lineItem.customAttributes, _d = _c === void 0 ? {} : _c, _e = _d._actualUnitPrice, _actualUnitPrice = _e === void 0 ? unitPrice : _e, _f = _d._freeQuantity, _freeQuantity = _f === void 0 ? 0 : _f;
-        return total + (_actualUnitPrice * (quantity - _freeQuantity));
+        var _a = lineItem.unitPrice, unitPrice = _a === void 0 ? 0 : _a, _b = lineItem.quantity, quantity = _b === void 0 ? 0 : _b, _c = lineItem.customAttributes, _d = _c === void 0 ? {} : _c, _e = _d._actualUnitPrice, _actualUnitPrice = _e === void 0 ? unitPrice : _e, _f = _d._discountQuantity, _discountQuantity = _f === void 0 ? 0 : _f, _g = _d._freeQuantity, _freeQuantity = _g === void 0 ? 0 : _g;
+        return total + (_actualUnitPrice * (quantity - (Number(_freeQuantity) + Number(_discountQuantity))));
     }, 0);
 };
 var getCartCount = function (lineItems) {
