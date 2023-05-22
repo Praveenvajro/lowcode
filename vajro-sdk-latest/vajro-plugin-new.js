@@ -610,6 +610,10 @@ var flow = function (appContext, configSchema) {
                     break;
             }
         });
+        Object.values(offerAppliedProducts).forEach(function (productDetails) {
+            var variantId = productDetails.variantId, customAttributes = productDetails.customAttributes;
+            offerAppliedProducts[variantId] = __assign(__assign({}, productDetails), { customAttributes: __assign({ _vajro_flow: customAttributes }, customAttributes) });
+        });
         flowObj[offerId] = offerAppliedProducts;
     });
     var _e = Object.entries(flowObj).reduce(function (offerDetail, _a) {
