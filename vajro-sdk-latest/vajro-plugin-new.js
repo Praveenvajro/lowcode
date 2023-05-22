@@ -37,6 +37,7 @@ var __spreadArray = (undefined && undefined.__spreadArray) || function (to, from
 
 var getAutomaticOfferProducts = function (configOffers, lineItems, offerAppliedProducts) {
     var lineItemsObj = (0,_utils_common__WEBPACK_IMPORTED_MODULE_0__.getLineItemsObj)(lineItems);
+    var freeProductsTargetId = (crypto === null || crypto === void 0 ? void 0 : crypto.randomUUID) && (crypto === null || crypto === void 0 ? void 0 : crypto.randomUUID()) || "freeOfferTarget";
     configOffers.forEach(function (config) {
         var cartType = config.cartType, cartValue = config.cartValue, buyOfferType = config.buyOfferType, buyProducts = config.buyProducts, buyCollections = config.buyCollections, discountValue = config.getProductCount, reccuringFreeProduct = config.reccuringFreeProduct, getProducts = config.getProducts;
         var offerLineItems = [];
@@ -81,7 +82,7 @@ var getAutomaticOfferProducts = function (configOffers, lineItems, offerAppliedP
                         variantId: variantId,
                         productId: productId,
                         lineItemHandle: lineItemHandle,
-                        customAttributes: __assign(__assign({}, customAttributes), { _productQuantity: finalProductQuantity, _actualUnitPrice: Number(productPrice), _freeQuantity: freebieQuantity_1 })
+                        customAttributes: __assign(__assign({}, customAttributes), { _productQuantity: finalProductQuantity, _actualUnitPrice: Number(productPrice), _freeQuantity: freebieQuantity_1, _productTargetId: freeProductsTargetId })
                     }, _b));
                 }
             });
@@ -118,7 +119,8 @@ var __assign = (undefined && undefined.__assign) || function () {
 
 var getBuyXChooseYOfferProducts = function (configOffers, lineItems, offerAppliedProducts) {
     var lineItemsObj = (0,_utils_common__WEBPACK_IMPORTED_MODULE_0__.getLineItemsObj)(lineItems);
-    configOffers.forEach(function (config) {
+    var freeProductsTargetId = (crypto === null || crypto === void 0 ? void 0 : crypto.randomUUID) && (crypto === null || crypto === void 0 ? void 0 : crypto.randomUUID()) || "freeOfferTarget";
+    configOffers.forEach(function (config, index) {
         var discountValue = config.getProductCount, getProducts = config.getProducts;
         getProducts.forEach(function (productDetails) {
             var _a, _b;
@@ -129,14 +131,14 @@ var getBuyXChooseYOfferProducts = function (configOffers, lineItems, offerApplie
             var variantOfferDetails = offerAppliedProducts[variantId];
             var _g = (variantOfferDetails || {}).customAttributes, customAttributes = _g === void 0 ? {} : _g;
             if (!!freebieQuantity && variantOfferDetails) {
-                offerAppliedProducts = __assign(__assign({}, offerAppliedProducts), (_a = {}, _a[variantId] = __assign(__assign({}, variantOfferDetails), { customAttributes: __assign(__assign(__assign({}, customAttributes), variantOfferDetails.customAttributes), { _discountQuantity: freebieQuantity + (((_c = variantOfferDetails.customAttributes) === null || _c === void 0 ? void 0 : _c._discountQuantity) || 0) }) }), _a));
+                offerAppliedProducts = __assign(__assign({}, offerAppliedProducts), (_a = {}, _a[variantId] = __assign(__assign({}, variantOfferDetails), { customAttributes: __assign(__assign(__assign({}, customAttributes), variantOfferDetails.customAttributes), { _discountQuantity: freebieQuantity + (((_c = variantOfferDetails.customAttributes) === null || _c === void 0 ? void 0 : _c._discountQuantity) || 0), _productTargetId: freeProductsTargetId }) }), _a));
             }
             else if (!!freebieQuantity) {
                 offerAppliedProducts = __assign(__assign({}, offerAppliedProducts), (_b = {}, _b[variantId] = {
                     variantId: variantId,
                     productId: productId,
                     lineItemHandle: lineItemHandle,
-                    customAttributes: __assign(__assign({}, customAttributes), { _productQuantity: quantity - freeQuantity, _actualUnitPrice: Number(productPrice), _discountQuantity: freebieQuantity })
+                    customAttributes: __assign(__assign({}, customAttributes), { _productQuantity: quantity - freeQuantity, _actualUnitPrice: Number(productPrice), _discountQuantity: freebieQuantity, _productTargetId: freeProductsTargetId })
                 }, _b));
             }
         });
@@ -182,7 +184,7 @@ var __spreadArray = (undefined && undefined.__spreadArray) || function (to, from
 var getFlatOfferProducts = function (configOffers, lineItems, offerAppliedProducts) {
     var lineItemsObj = (0,_utils_common__WEBPACK_IMPORTED_MODULE_0__.getLineItemsObj)(lineItems);
     var appliedProductDetails = __assign({}, offerAppliedProducts);
-    function getOfferedProductDetails(offerLineItems, fixedAmount, isSplitNeed) {
+    function getOfferedProductDetails(offerLineItems, fixedAmount, isSplitNeed, targetId) {
         if (offerLineItems.length === 0)
             offerLineItems;
         // const newOfferLineItems = offerLineItems.map((lineItem : any) => {
@@ -192,22 +194,24 @@ var getFlatOfferProducts = function (configOffers, lineItems, offerAppliedProduc
         //     return { ...lineItem, freeQuantity: _freeQuantity + _discountQuantity }
         // });
         var cartTotal = (0,_utils_common__WEBPACK_IMPORTED_MODULE_0__.getCartTotal)(offerLineItems);
+        var offerPercentage = (fixedAmount / cartTotal) * 100;
         offerLineItems.forEach(function (lineItem) {
             var _a;
             var variantId = lineItem.variantId, productId = lineItem.productId, lineItemHandle = lineItem.lineItemHandle, unitPrice = lineItem.unitPrice, _b = lineItem.quantity, quantity = _b === void 0 ? 0 : _b, _c = lineItem.customAttributes, _d = _c === void 0 ? {} : _c, _e = _d._actualUnitPrice, _actualUnitPrice = _e === void 0 ? unitPrice : _e, _f = _d._freeQuantity, _freeQuantity = _f === void 0 ? 0 : _f;
             var variantOfferDetails = appliedProductDetails[variantId] || {};
             var _g = variantOfferDetails.customAttributes, customAttributes = _g === void 0 ? {} : _g;
             var finalProductQuantity = quantity ? Number(quantity) - Number(_freeQuantity) : 0;
-            var unitPriceDiscount = isSplitNeed ? (_actualUnitPrice * (((fixedAmount / cartTotal) * 100) / 100)) : fixedAmount;
+            var unitPriceDiscount = isSplitNeed ? (_actualUnitPrice * (offerPercentage / 100)) : fixedAmount;
             var _h = customAttributes._discountQuantity, _discountQuantity = _h === void 0 ? 0 : _h;
-            appliedProductDetails = __assign(__assign({}, appliedProductDetails), (_a = {}, _a[variantId] = __assign(__assign({}, variantOfferDetails), { variantId: variantId, productId: productId, lineItemHandle: lineItemHandle, customAttributes: __assign(__assign({}, customAttributes), { _actualUnitPrice: Number(_actualUnitPrice), _productQuantity: finalProductQuantity, _discountPrice: unitPriceDiscount >= _actualUnitPrice ? _actualUnitPrice : unitPriceDiscount, _discountQuantity: unitPriceDiscount >= _actualUnitPrice ? finalProductQuantity : _discountQuantity, _flatDiscountDetails: {
+            appliedProductDetails = __assign(__assign({}, appliedProductDetails), (_a = {}, _a[variantId] = __assign(__assign({}, variantOfferDetails), { variantId: variantId, productId: productId, lineItemHandle: lineItemHandle, customAttributes: __assign(__assign({}, customAttributes), { _actualUnitPrice: Number(_actualUnitPrice), _productQuantity: finalProductQuantity, _discountPrice: unitPriceDiscount >= _actualUnitPrice ? _actualUnitPrice : unitPriceDiscount, _discountQuantity: unitPriceDiscount >= _actualUnitPrice ? finalProductQuantity : _discountQuantity, _offerPercenatage: offerPercentage >= 100 ? 100 : offerPercentage, _percentageTargetId: targetId, _flatDiscountDetails: {
                         lineItems: offerLineItems,
                         splitFlatAmount: isSplitNeed,
                         discountValue: fixedAmount
                     } }) }), _a));
         });
     }
-    configOffers.forEach(function (config) {
+    configOffers.forEach(function (config, index) {
+        var percentageOfferTargetId = (crypto === null || crypto === void 0 ? void 0 : crypto.randomUUID) && (crypto === null || crypto === void 0 ? void 0 : crypto.randomUUID()) || "percentageOffer".concat(index);
         var discountValue = config.discountValue, getOfferType = config.getOfferType, getProducts = config.getProducts, getCollections = config.getCollections, splitFlatAmount = config.splitFlatAmount;
         var offerLineItems = [];
         if (getOfferType === "products") {
@@ -244,17 +248,17 @@ var getFlatOfferProducts = function (configOffers, lineItems, offerAppliedProduc
             var variantOfferDetails = crntAppliedProductDetails[variantId] || {};
             var _d = variantOfferDetails.customAttributes, customAttributes = _d === void 0 ? {} : _d;
             var unitPriceDiscount = splitFlatAmount ? (_actualUnitPrice * (discountValue / cartTotal)) : discountValue;
-            var _e = customAttributes._discountPrice, _discountPrice = _e === void 0 ? 0 : _e, _f = customAttributes._flatDiscountDetails, _flatDiscountDetails = _f === void 0 ? {} : _f;
+            var _e = customAttributes._discountPrice, _discountPrice = _e === void 0 ? 0 : _e, _f = customAttributes._flatDiscountDetails, _flatDiscountDetails = _f === void 0 ? {} : _f, _percentageTargetId = customAttributes._percentageTargetId;
             var _g = _flatDiscountDetails.lineItems, appliedLineItems = _g === void 0 ? [] : _g, _h = _flatDiscountDetails.splitFlatAmount, issplitFlatAmountApplied = _h === void 0 ? false : _h, _j = _flatDiscountDetails.discountValue, appliedDiscountValue = _j === void 0 ? 0 : _j;
             if (unitPriceDiscount > _discountPrice) {
                 var filteredLineItems = appliedLineItems.filter(function (appliedLineItem) { return appliedLineItem.variantId !== variantId; });
                 if (issplitFlatAmountApplied && filteredLineItems.length > 0) {
-                    getOfferedProductDetails(filteredLineItems, appliedDiscountValue, issplitFlatAmountApplied);
+                    getOfferedProductDetails(filteredLineItems, appliedDiscountValue, issplitFlatAmountApplied, _percentageTargetId);
                 }
             }
             return unitPriceDiscount > _discountPrice;
         });
-        getOfferedProductDetails(offerLineItems, discountValue, splitFlatAmount);
+        getOfferedProductDetails(offerLineItems, discountValue, splitFlatAmount, percentageOfferTargetId);
     });
     return appliedProductDetails;
 };
@@ -296,7 +300,8 @@ var __spreadArray = (undefined && undefined.__spreadArray) || function (to, from
 
 var getPercentageOfferProducts = function (configOffers, lineItems, offerAppliedProducts) {
     var lineItemsObj = (0,_utils_common__WEBPACK_IMPORTED_MODULE_0__.getLineItemsObj)(lineItems);
-    configOffers.forEach(function (config) {
+    configOffers.forEach(function (config, index) {
+        var percentageOfferTargetId = (crypto === null || crypto === void 0 ? void 0 : crypto.randomUUID) && (crypto === null || crypto === void 0 ? void 0 : crypto.randomUUID()) || "percentageOffer".concat(index);
         var discountValue = config.discountValue, getOfferType = config.getOfferType, getProducts = config.getProducts, getCollections = config.getCollections;
         var offerLineItems = [];
         if (getOfferType === "products") {
@@ -330,7 +335,7 @@ var getPercentageOfferProducts = function (configOffers, lineItems, offerApplied
             var unitPriceDiscount = _actualUnitPrice * (discountValue / 100);
             var _h = customAttributes._discountPrice, _discountPrice = _h === void 0 ? 0 : _h, _j = customAttributes._discountQuantity, _discountQuantity = _j === void 0 ? 0 : _j;
             if (unitPriceDiscount > _discountPrice && finalProductQuantity > 0) {
-                offerAppliedProducts = __assign(__assign({}, offerAppliedProducts), (_a = {}, _a[variantId] = __assign(__assign({}, variantOfferDetails), { variantId: variantId, productId: productId, lineItemHandle: lineItemHandle, customAttributes: __assign(__assign({}, customAttributes), { _actualUnitPrice: Number(_actualUnitPrice), _discountPrice: unitPriceDiscount, _productQuantity: finalProductQuantity, _discountQuantity: unitPriceDiscount === _actualUnitPrice ? finalProductQuantity : _discountQuantity }) }), _a));
+                offerAppliedProducts = __assign(__assign({}, offerAppliedProducts), (_a = {}, _a[variantId] = __assign(__assign({}, variantOfferDetails), { variantId: variantId, productId: productId, lineItemHandle: lineItemHandle, customAttributes: __assign(__assign({}, customAttributes), { _actualUnitPrice: Number(_actualUnitPrice), _discountPrice: unitPriceDiscount, _productQuantity: finalProductQuantity, _discountQuantity: unitPriceDiscount === _actualUnitPrice ? finalProductQuantity : _discountQuantity, _offerPercenatage: discountValue >= 100 ? 100 : discountValue, _percentageTargetId: percentageOfferTargetId }) }), _a));
             }
         });
     });
