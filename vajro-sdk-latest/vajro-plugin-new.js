@@ -615,9 +615,7 @@ var flow = function (appContext, configSchema) {
                     break;
             }
         });
-        alert(JSON.stringify({ offerAppliedProducts: offerAppliedProducts }));
         Object.values(offerAppliedProducts).forEach(function (productDetails) {
-            alert(JSON.stringify({ productDetails: productDetails }));
             var variantId = productDetails.variantId, customAttributes = productDetails.customAttributes;
             offerAppliedProducts[variantId] = __assign(__assign({}, productDetails), { customAttributes: __assign({ _vajro_flow: customAttributes }, customAttributes) });
         });
@@ -627,6 +625,7 @@ var flow = function (appContext, configSchema) {
         var offerId = _a[0], appliedOfferDetails = _a[1];
         var discountPrice = offerDetail.discountPrice;
         var offerDiscountPrice = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getOfferDiscountPrice)(Object.values(appliedOfferDetails));
+        alert(JSON.stringify({ appliedOfferDetails: appliedOfferDetails, offerDiscountPrice: offerDiscountPrice }));
         if (offerDiscountPrice > discountPrice) {
             return {
                 discountPrice: offerDiscountPrice,
