@@ -248,12 +248,12 @@ var getFlatOfferProducts = function (configOffers, lineItems, offerAppliedProduc
             var variantOfferDetails = crntAppliedProductDetails[variantId] || {};
             var _d = variantOfferDetails.customAttributes, customAttributes = _d === void 0 ? {} : _d;
             var unitPriceDiscount = splitFlatAmount ? (_actualUnitPrice * (discountValue / cartTotal)) : discountValue;
-            var _e = customAttributes._discountPrice, _discountPrice = _e === void 0 ? 0 : _e, _f = customAttributes._flatDiscountDetails, _flatDiscountDetails = _f === void 0 ? {} : _f, _percentageTargetId = customAttributes._percentageTargetId;
+            var _e = customAttributes._discountPrice, _discountPrice = _e === void 0 ? 0 : _e, _f = customAttributes._flatDiscountDetails, _flatDiscountDetails = _f === void 0 ? {} : _f, _amountTargetId = customAttributes._amountTargetId;
             var _g = _flatDiscountDetails.lineItems, appliedLineItems = _g === void 0 ? [] : _g, _h = _flatDiscountDetails.splitFlatAmount, issplitFlatAmountApplied = _h === void 0 ? false : _h, _j = _flatDiscountDetails.discountValue, appliedDiscountValue = _j === void 0 ? 0 : _j;
             if (unitPriceDiscount > _discountPrice) {
                 var filteredLineItems = appliedLineItems.filter(function (appliedLineItem) { return appliedLineItem.variantId !== variantId; });
                 if (issplitFlatAmountApplied && filteredLineItems.length > 0) {
-                    getOfferedProductDetails(filteredLineItems, appliedDiscountValue, issplitFlatAmountApplied, _percentageTargetId);
+                    getOfferedProductDetails(filteredLineItems, appliedDiscountValue, issplitFlatAmountApplied, _amountTargetId);
                 }
             }
             return unitPriceDiscount > _discountPrice;
@@ -581,8 +581,6 @@ var flow = function (appContext, configSchema) {
     var cartLineItems = appContext.cartLineItems;
     var _a = cartLineItems.lineItems, lineItems = _a === void 0 ? [] : _a;
     var validConfigList = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getValidInValidConfigDetails)(configSchema, lineItems).validConfigList;
-    alert(validConfigList.length);
-    alert(JSON.stringify({ validConfigList: validConfigList }));
     var _b = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getCombinedOfferConfig)(validConfigList), _c = _b.combinedOfferConfig, combinedOfferConfig = _c === void 0 ? [] : _c, _d = _b.nonCombinedOfferConfig, nonCombinedOfferConfig = _d === void 0 ? [] : _d;
     var removedProductDetails = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getOfferAppiedLineItems)(lineItems);
     var allOfferDetails = {};
@@ -600,6 +598,7 @@ var flow = function (appContext, configSchema) {
             var offerCategory = _a[0], offerConfigDetails = _a[1];
             if (offerConfigDetails.length === 0)
                 return;
+            console.log(offerCategory);
             switch (offerCategory) {
                 case "automaticOffers":
                     offerAppliedProducts = (0,_controller_automaticOffer__WEBPACK_IMPORTED_MODULE_0__.getAutomaticOfferProducts)(offerConfigDetails, lineItems, offerAppliedProducts);
@@ -621,6 +620,7 @@ var flow = function (appContext, configSchema) {
             var variantId = productDetails.variantId, customAttributes = productDetails.customAttributes;
             offerAppliedProducts[variantId] = __assign(__assign({}, productDetails), { customAttributes: __assign({ _vajro_flow: customAttributes }, customAttributes) });
         });
+        console.log({ offerAppliedProducts: offerAppliedProducts });
         flowObj[offerId] = offerAppliedProducts;
     });
     var _e = Object.entries(flowObj).reduce(function (offerDetail, _a) {
@@ -649,6 +649,7 @@ var flow = function (appContext, configSchema) {
         offerAppliedDetails: offerAppliedDetails,
         offerRemovedDetails: offerRemovedDetails
     };
+    alert(JSON.stringify({ finalResult: finalResult }));
     return finalResult;
 };
 
