@@ -203,7 +203,7 @@ var getFlatOfferProducts = function (configOffers, lineItems, offerAppliedProduc
             var finalProductQuantity = quantity ? Number(quantity) - Number(_freeQuantity) : 0;
             var unitPriceDiscount = isSplitNeed ? (_actualUnitPrice * (offerPercentage / 100)) : fixedAmount;
             var _h = customAttributes._discountQuantity, _discountQuantity = _h === void 0 ? 0 : _h;
-            appliedProductDetails = __assign(__assign({}, appliedProductDetails), (_a = {}, _a[variantId] = __assign(__assign({}, variantOfferDetails), { variantId: variantId, productId: productId, lineItemHandle: lineItemHandle, customAttributes: __assign(__assign({}, customAttributes), { _actualUnitPrice: Number(_actualUnitPrice), _productQuantity: finalProductQuantity, _discountPrice: unitPriceDiscount >= _actualUnitPrice ? _actualUnitPrice : unitPriceDiscount, _discountQuantity: unitPriceDiscount >= _actualUnitPrice ? finalProductQuantity : _discountQuantity, _offerPercenatage: offerPercentage >= 100 ? 100 : offerPercentage, _percentageTargetId: targetId, _flatDiscountDetails: {
+            appliedProductDetails = __assign(__assign({}, appliedProductDetails), (_a = {}, _a[variantId] = __assign(__assign({}, variantOfferDetails), { variantId: variantId, productId: productId, lineItemHandle: lineItemHandle, customAttributes: __assign(__assign({}, customAttributes), { _actualUnitPrice: Number(_actualUnitPrice), _productQuantity: finalProductQuantity, _discountPrice: unitPriceDiscount >= _actualUnitPrice ? _actualUnitPrice : unitPriceDiscount, _discountQuantity: unitPriceDiscount >= _actualUnitPrice ? finalProductQuantity : _discountQuantity, _offerPercenatage: offerPercentage >= 100 ? 100 : offerPercentage, _amountTargetId: targetId, _flatDiscountDetails: {
                         lineItems: offerLineItems,
                         splitFlatAmount: isSplitNeed,
                         discountValue: fixedAmount
@@ -211,7 +211,7 @@ var getFlatOfferProducts = function (configOffers, lineItems, offerAppliedProduc
         });
     }
     configOffers.forEach(function (config, index) {
-        var percentageOfferTargetId = (crypto === null || crypto === void 0 ? void 0 : crypto.randomUUID) && (crypto === null || crypto === void 0 ? void 0 : crypto.randomUUID()) || "percentageOffer".concat(index);
+        var amountOfferTargetId = (crypto === null || crypto === void 0 ? void 0 : crypto.randomUUID) && (crypto === null || crypto === void 0 ? void 0 : crypto.randomUUID()) || "amountOffer".concat(index);
         var discountValue = config.discountValue, getOfferType = config.getOfferType, getProducts = config.getProducts, getCollections = config.getCollections, splitFlatAmount = config.splitFlatAmount;
         var offerLineItems = [];
         if (getOfferType === "products") {
@@ -258,7 +258,7 @@ var getFlatOfferProducts = function (configOffers, lineItems, offerAppliedProduc
             }
             return unitPriceDiscount > _discountPrice;
         });
-        getOfferedProductDetails(offerLineItems, discountValue, splitFlatAmount, percentageOfferTargetId);
+        getOfferedProductDetails(offerLineItems, discountValue, splitFlatAmount, amountOfferTargetId);
     });
     return appliedProductDetails;
 };
