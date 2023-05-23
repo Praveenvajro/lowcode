@@ -472,7 +472,7 @@ var getOfferDiscountPrice = function (offerAppliedProducts) {
     return offerAppliedProducts.reduce(function (totalDiscountPrice, productDetails) {
         var _a = productDetails.customAttributes, customAttributes = _a === void 0 ? {} : _a;
         var _b = customAttributes._actualUnitPrice, _actualUnitPrice = _b === void 0 ? 0 : _b, _c = customAttributes._discountPrice, _discountPrice = _c === void 0 ? 0 : _c, _d = customAttributes._discountQuantity, _discountQuantity = _d === void 0 ? 0 : _d, _e = customAttributes._freeQuantity, _freeQuantity = _e === void 0 ? 0 : _e;
-        return totalDiscountPrice += ((_actualUnitPrice * (_discountQuantity + _freeQuantity)) + _discountPrice);
+        return totalDiscountPrice += ((Number(_actualUnitPrice) * (Number(_discountQuantity) + Number(_freeQuantity))) + Number(_discountPrice));
     }, 0);
 };
 var getOfferAppiedLineItems = function (lineItems) {
