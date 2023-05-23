@@ -609,7 +609,7 @@ var flow = function (appContext, configSchema) {
             var offerCategory = _a[0], offerConfigDetails = _a[1];
             if (offerConfigDetails.length === 0)
                 return;
-            alert(JSON.stringify({ offerCategory: offerCategory, offerAppliedProducts: offerAppliedProducts }));
+            // alert(JSON.stringify({offerCategory, offerAppliedProducts}));
             switch (offerCategory) {
                 case "automaticOffers":
                     offerAppliedProducts = (0,_controller_automaticOffer__WEBPACK_IMPORTED_MODULE_0__.getAutomaticOfferProducts)(offerConfigDetails, lineItems, offerAppliedProducts);
@@ -622,6 +622,7 @@ var flow = function (appContext, configSchema) {
                     break;
                 case "flatDiscount":
                     offerAppliedProducts = (0,_controller_flatDiscount__WEBPACK_IMPORTED_MODULE_2__.getFlatOfferProducts)(offerConfigDetails, lineItems, offerAppliedProducts);
+                    alert(JSON.stringify({ offerAppliedProducts: offerAppliedProducts }));
                     break;
                 default:
                     break;
