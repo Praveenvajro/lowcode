@@ -598,7 +598,6 @@ var flow = function (appContext, configSchema) {
             var offerCategory = _a[0], offerConfigDetails = _a[1];
             if (offerConfigDetails.length === 0)
                 return;
-            console.log(offerCategory);
             switch (offerCategory) {
                 case "automaticOffers":
                     offerAppliedProducts = (0,_controller_automaticOffer__WEBPACK_IMPORTED_MODULE_0__.getAutomaticOfferProducts)(offerConfigDetails, lineItems, offerAppliedProducts);
@@ -620,7 +619,7 @@ var flow = function (appContext, configSchema) {
             var variantId = productDetails.variantId, customAttributes = productDetails.customAttributes;
             offerAppliedProducts[variantId] = __assign(__assign({}, productDetails), { customAttributes: __assign({ _vajro_flow: customAttributes }, customAttributes) });
         });
-        console.log({ offerAppliedProducts: offerAppliedProducts });
+        alert(JSON.stringify({ offerId: offerId, offerAppliedProducts: offerAppliedProducts }));
         flowObj[offerId] = offerAppliedProducts;
     });
     var _e = Object.entries(flowObj).reduce(function (offerDetail, _a) {
