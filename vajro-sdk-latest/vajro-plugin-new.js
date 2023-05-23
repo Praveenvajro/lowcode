@@ -672,7 +672,7 @@ var flow = function (appContext, configSchema) {
         offerAppliedDetails: {},
         displayTextArray: []
     }), discountPrice = _e.discountPrice, offerAppliedDetails = _e.offerAppliedDetails, displayTextArray = _e.displayTextArray;
-    var displayTextHtml = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.constructDisplayTextHtml)(displayTextArray);
+    // const displayTextHtml = constructDisplayTextHtml(displayTextArray);
     var offerRemovedDetails = Object.keys(removedProductDetails).reduce(function (details, productVariantId) {
         var _a;
         if (offerAppliedDetails[productVariantId])
@@ -682,10 +682,8 @@ var flow = function (appContext, configSchema) {
     var finalResult = {
         discountPrice: discountPrice,
         offerAppliedDetails: offerAppliedDetails,
-        offerRemovedDetails: offerRemovedDetails,
-        displayTextHtml: ''
+        offerRemovedDetails: offerRemovedDetails
     };
-    alert(JSON.stringify({ finalResult: finalResult }));
     return finalResult;
 };
 
