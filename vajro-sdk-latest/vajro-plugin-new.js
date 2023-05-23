@@ -645,7 +645,8 @@ var flow = function (appContext, configSchema) {
     var finalResult = {
         discountPrice: discountPrice,
         offerAppliedDetails: offerAppliedDetails,
-        offerRemovedDetails: offerRemovedDetails
+        offerRemovedDetails: offerRemovedDetails,
+        displayTextHtml: "<!DOCTYPE html>\n\t\t<html lang=\"en\">\n\t\t\t<head>\n\t\t\t\t<meta charset=\"UTF-8\" />\n\t\t\t\t<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />\n\t\t\t\t<meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0\" />\n\t\t\t</head>\n\t\t\t<body style=\"min-width: auto; min-height: auto\">\n\t\t\t\ttextContent\n\t\t\t</body>\n\t\t</html>"
     };
     return finalResult;
 };
