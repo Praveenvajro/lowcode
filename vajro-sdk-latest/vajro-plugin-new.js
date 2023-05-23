@@ -682,8 +682,10 @@ var flow = function (appContext, configSchema) {
     var finalResult = {
         discountPrice: discountPrice,
         offerAppliedDetails: offerAppliedDetails,
-        offerRemovedDetails: offerRemovedDetails
+        offerRemovedDetails: offerRemovedDetails,
+        displayTextHtml: displayTextHtml
     };
+    alert(JSON.stringify({ finalResult: finalResult }));
     return finalResult;
 };
 
