@@ -496,7 +496,7 @@ var constructDisplayTextHtml = function (displayTextArray) {
     if (displayTextArray.length === 0)
         return '';
     var textContent = displayTextArray.map(function (text) {
-        return "<p style=text-align: center;font-size: 14px\"><b>".concat(text, "</b></p>");
+        return "<p style=\"text-align: center;font-size: 14px\"><b>".concat(text, "</b></p>");
     }).join('');
     return "<!DOCTYPE html>\n\t<html lang=\"en\">\n\t\t<head>\n\t\t\t<meta charset=\"UTF-8\" />\n\t\t\t<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />\n\t\t\t<meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0\" />\n\t\t</head>\n\t\t<body style=\"min-width: auto; min-height: auto\">\n            ".concat(textContent, "\n\t\t</body>\n\t</html>");
 };
@@ -685,7 +685,6 @@ var flow = function (appContext, configSchema) {
         offerRemovedDetails: offerRemovedDetails,
         displayTextHtml: displayTextHtml
     };
-    alert(JSON.stringify({ finalResult: finalResult }));
     return finalResult;
 };
 
