@@ -649,45 +649,46 @@ var flow = function (appContext, configSchema) {
             });
             offerAppliedProducts[variantId] = __assign(__assign({}, productDetails), { customAttributes: __assign({ _vajro_flow: customAttributes }, customAttributes) });
         });
-        flowObj[offerId] = offerAppliedProducts;
-        // flowObj[offerId] = {
-        // 	offerAppliedProducts,
-        // 	displayTextArray
-        // };
+        // flowObj[offerId] = offerAppliedProducts;
+        flowObj[offerId] = {
+            offerAppliedProducts: offerAppliedProducts,
+            displayTextArray: displayTextArray
+        };
     });
-    var _e = Object.entries(flowObj).reduce(function (offerDetail, _a) {
-        var offerId = _a[0], appliedOfferDetails = _a[1];
-        var discountPrice = offerDetail.discountPrice;
-        var offerDiscountPrice = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getOfferDiscountPrice)(Object.values(appliedOfferDetails));
-        if (offerDiscountPrice > discountPrice) {
-            return {
-                discountPrice: offerDiscountPrice,
-                offerAppliedDetails: appliedOfferDetails
-            };
-        }
-        return offerDetail;
-    }, {
-        discountPrice: 0,
-        offerAppliedDetails: {}
-    }), discountPrice = _e.discountPrice, offerAppliedDetails = _e.offerAppliedDetails;
-    // const { discountPrice, offerAppliedDetails, displayTextArray }: { discountPrice: any, offerAppliedDetails: any, displayTextArray : any } =  Object.entries(flowObj).reduce((offerDetail: any, [offerId, appliedOfferDetails] : [offerId: any, appliedOfferDetails: any]) => {
+    // const { discountPrice, offerAppliedDetails }: { discountPrice: any, offerAppliedDetails: any } =  Object.entries(flowObj).reduce((offerDetail: any, [offerId, appliedOfferDetails] : [offerId: any, appliedOfferDetails: any]) => {
     // 	const { discountPrice } = offerDetail;
-    // 	const { offerAppliedProducts, displayTextArray } = appliedOfferDetails
-    // 	const offerDiscountPrice = getOfferDiscountPrice(Object.values(offerAppliedProducts));
+    // 	const offerDiscountPrice = getOfferDiscountPrice(Object.values(appliedOfferDetails));
     // 	if(offerDiscountPrice > discountPrice) {
     // 		return {
     // 			discountPrice: offerDiscountPrice,
-    // 			offerAppliedDetails: appliedOfferDetails,
-    // 			displayTextArray
+    // 			offerAppliedDetails: appliedOfferDetails
     // 		}
     // 	}
     // 	return offerDetail
     // }, {
     // 	discountPrice: 0,
-    // 	offerAppliedDetails: {},
-    // 	displayTextArray: []
+    // 	offerAppliedDetails: {}
     // });
-    // const displayTextHtml = constructDisplayTextHtml(displayTextArray);
+    var _e = Object.entries(flowObj).reduce(function (offerDetail, _a) {
+        var offerId = _a[0], appliedOfferDetails = _a[1];
+        var discountPrice = offerDetail.discountPrice;
+        alert(JSON.stringify({ appliedOfferDetails: appliedOfferDetails }));
+        var offerAppliedProducts = appliedOfferDetails.offerAppliedProducts, displayTextArray = appliedOfferDetails.displayTextArray;
+        var offerDiscountPrice = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getOfferDiscountPrice)(Object.values(offerAppliedProducts));
+        if (offerDiscountPrice > discountPrice) {
+            return {
+                discountPrice: offerDiscountPrice,
+                offerAppliedDetails: appliedOfferDetails,
+                displayTextArray: displayTextArray
+            };
+        }
+        return offerDetail;
+    }, {
+        discountPrice: 0,
+        offerAppliedDetails: {},
+        displayTextArray: []
+    }), discountPrice = _e.discountPrice, offerAppliedDetails = _e.offerAppliedDetails, displayTextArray = _e.displayTextArray;
+    var displayTextHtml = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.constructDisplayTextHtml)(displayTextArray);
     var offerRemovedDetails = Object.keys(removedProductDetails).reduce(function (details, productVariantId) {
         var _a;
         if (offerAppliedDetails[productVariantId])
@@ -697,7 +698,8 @@ var flow = function (appContext, configSchema) {
     var finalResult = {
         discountPrice: discountPrice,
         offerAppliedDetails: offerAppliedDetails,
-        offerRemovedDetails: offerRemovedDetails
+        offerRemovedDetails: offerRemovedDetails,
+        displayTextHtml: displayTextHtml
     };
     return finalResult;
 };
