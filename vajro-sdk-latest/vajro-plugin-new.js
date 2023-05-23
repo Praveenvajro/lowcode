@@ -682,8 +682,7 @@ var flow = function (appContext, configSchema) {
     var finalResult = {
         discountPrice: discountPrice,
         offerAppliedDetails: offerAppliedDetails,
-        offerRemovedDetails: offerRemovedDetails,
-        displayTextHtml: displayTextHtml
+        offerRemovedDetails: offerRemovedDetails
     };
     return finalResult;
 };
