@@ -649,46 +649,46 @@ var flow = function (appContext, configSchema) {
             });
             offerAppliedProducts[variantId] = __assign(__assign({}, productDetails), { customAttributes: __assign({ _vajro_flow: customAttributes }, customAttributes) });
         });
-        // flowObj[offerId] = offerAppliedProducts;
-        flowObj[offerId] = {
-            offerAppliedProducts: offerAppliedProducts,
-            displayTextArray: displayTextArray
-        };
+        flowObj[offerId] = offerAppliedProducts;
+        // flowObj[offerId] = {
+        // 	offerAppliedProducts,
+        // 	displayTextArray
+        // };
     });
-    // const { discountPrice, offerAppliedDetails }: { discountPrice: any, offerAppliedDetails: any } =  Object.entries(flowObj).reduce((offerDetail: any, [offerId, appliedOfferDetails] : [offerId: any, appliedOfferDetails: any]) => {
-    // 	const { discountPrice } = offerDetail;
-    // 	const offerDiscountPrice = getOfferDiscountPrice(Object.values(appliedOfferDetails));
-    // 	if(offerDiscountPrice > discountPrice) {
-    // 		return {
-    // 			discountPrice: offerDiscountPrice,
-    // 			offerAppliedDetails: appliedOfferDetails
-    // 		}
-    // 	}
-    // 	return offerDetail
-    // }, {
-    // 	discountPrice: 0,
-    // 	offerAppliedDetails: {}
-    // });
     var _e = Object.entries(flowObj).reduce(function (offerDetail, _a) {
         var offerId = _a[0], appliedOfferDetails = _a[1];
         var discountPrice = offerDetail.discountPrice;
-        var offerAppliedProducts = appliedOfferDetails.offerAppliedProducts, displayTextArray = appliedOfferDetails.displayTextArray;
-        alert(JSON.stringify({ offerAppliedProducts: offerAppliedProducts }));
-        var offerDiscountPrice = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getOfferDiscountPrice)(Object.values(offerAppliedProducts));
+        var offerDiscountPrice = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getOfferDiscountPrice)(Object.values(appliedOfferDetails));
         if (offerDiscountPrice > discountPrice) {
             return {
                 discountPrice: offerDiscountPrice,
-                offerAppliedDetails: appliedOfferDetails,
-                displayTextArray: displayTextArray
+                offerAppliedDetails: appliedOfferDetails
             };
         }
         return offerDetail;
     }, {
         discountPrice: 0,
-        offerAppliedDetails: {},
-        displayTextArray: []
-    }), discountPrice = _e.discountPrice, offerAppliedDetails = _e.offerAppliedDetails, displayTextArray = _e.displayTextArray;
-    var displayTextHtml = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.constructDisplayTextHtml)(displayTextArray);
+        offerAppliedDetails: {}
+    }), discountPrice = _e.discountPrice, offerAppliedDetails = _e.offerAppliedDetails;
+    // const { discountPrice, offerAppliedDetails, displayTextArray }: { discountPrice: any, offerAppliedDetails: any, displayTextArray : any } =  Object.entries(flowObj).reduce((offerDetail: any, [offerId, appliedOfferDetails] : [offerId: any, appliedOfferDetails: any]) => {
+    // 	const { discountPrice } = offerDetail;
+    // 	const { offerAppliedProducts, displayTextArray } = appliedOfferDetails;
+    // 	alert(JSON.stringify({offerAppliedProducts}));
+    // 	const offerDiscountPrice = getOfferDiscountPrice(Object.values(offerAppliedProducts));
+    // 	if(offerDiscountPrice > discountPrice) {
+    // 		return {
+    // 			discountPrice: offerDiscountPrice,
+    // 			offerAppliedDetails: appliedOfferDetails,
+    // 			displayTextArray
+    // 		}
+    // 	}
+    // 	return offerDetail
+    // }, {
+    // 	discountPrice: 0,
+    // 	offerAppliedDetails: {},
+    // 	displayTextArray: []
+    // });
+    var displayTextHtml = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.constructDisplayTextHtml)(["Test1", "Test2"]);
     var offerRemovedDetails = Object.keys(removedProductDetails).reduce(function (details, productVariantId) {
         var _a;
         if (offerAppliedDetails[productVariantId])
