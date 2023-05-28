@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <script src="./configSchema.js">
+        </script>
+        <script>
+            const { priceDiscounts, freeDiscounts } = input.cart.lines
+                .filter(line => line.attribute && line.merchandise.__typename == "ProductVariant")
+                .reduce((targetDiscounts, line) => {
+                    const { priceDiscounts, freeDiscounts } = targetDiscounts;
+                    const { attribute, merchandise, quantity } = line;
+                    const variant = merchandise;
+                    const customAttribute = JSON.parse(attribute.value || "{}");
+                    const { _discountQuantity = 0, _freeQuantity = 0, _offerPercenatage, _percentageTargetId, _productTargetId, _amountTargetId, _flatDiscountDetails } = customAttribute || {};
+        
+                    if(_amountTargetId) {
+                        const { splitFlatAmount, discountValue } = _flatDiscountDetails;
+                        const { targets = [], value = { fixedAmount: { amount: discountValue, appliesToEachItem: !splitFlatAmount } } } = priceDiscounts[_amountTargetId] || {};
+                        priceDiscounts[_amountTargetId] = {
+                            targets: [
+                                ...targets,
+                                {
+                                    productVariant: {
+                                        id: variant.id,
+                                        quantity: quantity - (Number(_freeQuantity) + Number(_discountQuantity))
+                                    }
+                                }
+                            ],
+                            value
+                        }
+                    } else if(_percentageTargetId) {
+                        const { targets = [], value = { percentage: { value: Number(_offerPercenatage) } } } = priceDiscounts[_percentageTargetId] || {};
+                        priceDiscounts[_percentageTargetId] = {
+                            targets: [
+                                ...targets,
+                                {
+                                    productVariant: {
+                                        id: variant.id,
+                                        quantity: quantity - (Number(_freeQuantity) + Number(_discountQuantity))
+                                    }
+                                }
+                            ],
+                            value
+                        }
+                    }
+        
+                    if(_productTargetId) {
+                        const { targets = [], value = { percentage: { value: 100.00 } } } = freeDiscounts[_productTargetId] || {};
+                        freeDiscounts[_productTargetId] = {
+                            targets: [
+                                ...targets,
+                                {
+                                    productVariant: {
+                                        id: variant.id,
+                                        quantity: Number(_freeQuantity) + Number(_discountQuantity)
+                                    }
+                                }
+                            ],
+                            value
+                        }
+                    }
+        
+                    return {
+                        priceDiscounts,
+                        freeDiscounts
+                    }
+                }, {
+                    priceDiscounts: {},
+                    freeDiscounts: {}
+                });
+        
+            const discounts = [...Object.values(priceDiscounts), ...Object.values(freeDiscounts)];
+            console.log(discounts);
+        </script>
+    </body>
+</html>

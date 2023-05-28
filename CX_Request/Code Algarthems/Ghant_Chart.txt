@@ -1,0 +1,65 @@
+Saravana Karthikeyan - (27/02/2023 - 10/03/2023)
+
+27/02/2022 (Mon)
+* Customer Request - Label Hay Clothing - PDP Description
+
+28/02/2022 (Tue)
+* Customer Request - Label Hay Clothing - PDP Description - Testing
+* Xtend Tweak and Flow Component Development
+
+01/03/2022 (Wed)
+* Xtend Tweak and Flow Component Development
+
+02/03/2022 (Thu)
+* Xtend Tweak and Flow Component Development
+* Xtend Tweak Home Page Development
+
+03/03/2022 (Tue)
+* Xtend Tweak Home Page Development
+* Implement Mobile Preview Filter Development
+
+06/03/2022 (Fri)
+* Implement Mobile Preview Filter Development
+* Xtend Tweak Criteria Filter Development
+
+07/03/2022 (Mon)
+* Xtend Tweak Criteria Filter Development
+* Implement Popup 
+
+08/03/2022 (Wed)
+* Xtend Tweak Validation Handling
+
+09/03/2022 (Thu)
+* Xtend Tweak Validation Handling
+
+
+VasiKaran
+
+27/02/2022 (Mon)
+* Customer Request - Label Hay Clothing - PDP Description
+
+28/02/2022 (Tue)
+* Customer Request - Label Hay Clothing - PDP Description - Testing
+* Xtend Tweak and Flow Component Development
+
+01/03/2022 (Wed)
+* Xtend Tweak and Flow Component Development
+
+02/03/2022 (Thu)
+* Xtend Tweak and Flow Component Development
+* Xtend Tweak Home Page Development
+
+03/03/2022 (Fri)
+* Xtend Tweak Criteria Filter Development
+
+06/03/2022 (Mon)
+* Xtend Tweak Criteria Filter Development
+
+07/03/2022 (Tue)
+
+08/03/2022 (Wed)
+* Xtend Tweak Validation Handling
+
+09/03/2022 (Thu)
+* Xtend Tweak Validation Handling
+

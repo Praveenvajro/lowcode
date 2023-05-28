@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      window.appInfo = {{APP_INFO}}
+    </script>
+    <script src="https://praveenvajro.github.io/lowcode/vajro-sdk-latest/vajro-plugin-new.js"></script>
+    <script src="https://praveenvajro.github.io/lowcode/vajro-sdk-latest/vajro-sdk-new.js"></script>
+  </head>
+  <body>
+    <script>
+        const configSchema = {{schema}}
+        const eventHandler = (appContext) => {
+            try {
+                let addMultipleLineItemsToCart = VajroSDK.addMultipleLineItemsToCart();
+                let updateMultipleLineItemsToCart = VajroSDK.updateMultipleLineItemsToCart();
+              
+                const { discountPrice = 0, offerAppliedDetails = {}, offerRemovedDetails = {}, displayTextHtml = '' } = vajroPlugin.flow(appContext, configSchema);
+                const { cartLineItems = {} } = appContext || {}
+                const { lineItems = [] } = cartLineItems;
+                const lineItemsObj =  lineItems.reduce((acc, lineItem) => {
+                    const { variantId } = lineItem
+                    acc[variantId] = lineItem
+                    return acc
+                }, {});
+                Object.values(offerRemovedDetails).forEach((lineItemDetails) => {
+                    const { customAttributes, lineItemHandle, variantId } = lineItemDetails;
+                    const { _actualUnitPrice, _freeQuantity = 0 } = customAttributes || {};
+                    const { quantity = 0 } = lineItemsObj[variantId] || {};
+                    if (lineItemHandle) {
+                        let product = VajroSDK.updateLineItemInCart()
+                                        .setLineItemHandle(lineItemHandle)
+                                        .setUnitPrice(Number(_actualUnitPrice))
+                                        .setQuantity(quantity - _freeQuantity)
+                                        .setFreeQuantity(0)
+                                        .setCustomAttributes({})
+                                        .setDiscountType('')
+                                        .setDiscountValue('')
+                                        .setDisplayText('')
+                                        .exec();
+                        updateMultipleLineItemsToCart.setProduct(product);
+                    }
+                });
+        
+                Object.values(offerAppliedDetails).forEach((lineItemDetails) => {
+                    const { lineItemHandle, customAttributes, productId, variantId } = lineItemDetails;
+                    const { _actualUnitPrice = 0, _discountPrice = 0, _productQuantity = 0, _discountQuantity = 0, _freeQuantity = 0 } = customAttributes || {};
+                    const totalProductQuantity = _productQuantity + _freeQuantity;
+                    const totalFreeQuantity = _discountQuantity + _freeQuantity;
+                    const productUnitPrice = totalProductQuantity === totalFreeQuantity ? 0 : _actualUnitPrice - _discountPrice;
+                    if (lineItemHandle) {
+                        let product = VajroSDK.updateLineItemInCart()
+                                        .setLineItemHandle(lineItemHandle)
+                                        .setUnitPrice(productUnitPrice)
+                                        .setQuantity(totalProductQuantity)
+                                        .setFreeQuantity(totalFreeQuantity)
+                                        .setCustomAttributes(customAttributes)
+                                        .setDiscountType('')
+                                        .setDiscountValue('')
+                                        .setDisplayText(displayTextHtml)
+                                        .exec();
+                                        
+                        updateMultipleLineItemsToCart.setProduct(product);
+                    } else {
+                        let product = VajroSDK.utils.lineItem()
+                                        .setProductId(productId)
+                                        .setVariantId(variantId)
+                                        .setLineItemType("REGULAR")
+                                        .setUnitPrice(productUnitPrice)
+                                        .setQuantity(totalProductQuantity)
+                                        .setFreeQuantity(totalFreeQuantity)
+                                        .setCustomAttributes(customAttributes)
+                                        .setDiscountType('')
+                                        .setDiscountValue('')
+                                        .setDisplayText(displayTextHtml)
+                                        .create();
+                        addMultipleLineItemsToCart.setProduct(product)
+                    }
+                });
+        
+                addMultipleLineItemsToCart.exec();
+                updateMultipleLineItemsToCart.exec();
+            } catch (e) {
+                VajroSDK.showToastMessage().setMessage("Please try again").exec();
+            }
+        }
+        
+        VajroSDK.subscribe(VajroSDK.Triggers.ON_PAGE_LOADED, eventHandler)
+        VajroSDK.subscribe(VajroSDK.Triggers.LINE_ITEM_UPDATED, eventHandler)
+    </script>
+  </body>
+</html>

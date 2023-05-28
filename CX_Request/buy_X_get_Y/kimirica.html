@@ -60,8 +60,8 @@
 					threshold: 1699, //checking cart total
 					getProductIds: [
 					    {
-					        productId: "7965149954272",
-					        variantId: "43761813061856"
+					        productId: "7996454568160",
+					        variantId: "43868229664992"
 					    }
 					], //enter the free product_id
 					quantity: 1 //define the no. of quantity for free product
@@ -86,13 +86,13 @@
 				}, 0)
 				
 				const selectedOfferDetails = thresholdConfig.reduce((offerDetails, currenrOfferDetails) => {
-					const { threshold: currentThreshold = 0 } = currenrOfferDetails;
+					const { threshold: currentThreshold = 0 } = currenrOfferDetails
 
 					if (cartTotalAfterExclude >= currentThreshold) {
-						const { threshold: selectedThreshold = 0 } = offerDetails;
+						const { threshold: selectedThreshold = 0 } = offerDetails
 
 						if (currentThreshold >= selectedThreshold) {
-							return currenrOfferDetails;
+							return currenrOfferDetails
 						}
 					}
 					return offerDetails;
@@ -204,7 +204,6 @@
                     ],
                     freebieQuantity: 1
 				}
-			
 			];
 
 			const productHandler = (appContext) => {

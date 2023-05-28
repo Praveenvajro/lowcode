@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+        <html lang="en">
+            <head>
+                <meta charset="UTF-8" />
+                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <title></title>
+                <script>
+                    window.appInfo = {{APP_INFO}}
+                </script>
+                <script src="https://narrowananth.github.io/plugin/v1.0/vajroPlugin.js"></script>
+                <script src="https://praveenvajro.github.io/lowcode/vajro-sdk-latest/vajro-sdk-new.js"></script>
+            </head>
+            <body>
+        <script>
+            const configSchema = {{schema}}
+​
+			const eventHandler = (appContext) => {
+				let addMultipleLineItemsToCart = VajroSDK.addMultipleLineItemsToCart()
+​
+				let updateMultipleLineItemsToCart = VajroSDK.updateMultipleLineItemsToCart()
+​
+				const getPluginValue = vajroPlugin.flow(appContext, configSchema)
+​
+				const parsedPluginData = JSON.parse(getPluginValue)
+​
+				const { getRemovedProductList, output, displayText, schema } = parsedPluginData
+​
+				const { offerCategory, discountType, discountValue } = schema
+​
+				const customDiscountValue = discountType === "free" ? 100 : discountValue
+​
+				const customDiscountType =
+					discountType === "free" ? "percentage" : discountType
+​
+				const orderCustomAttributes = {
+					_vajro_flow: {
+						discountType: customDiscountType,
+						value: customDiscountValue.toString(),
+						message: offerCategory
+					}
+				}
+​
+				if (getRemovedProductList.length > 0 && output.length === 0)
+					VajroSDK.removeOrderCustomAttributes()
+						.setOrderCustomAttributes(orderCustomAttributes)
+						.exec()
+​
+				if (output.length > 0)
+					VajroSDK.addOrderCustomAttributes()
+						.setOrderCustomAttributes(orderCustomAttributes)
+						.exec()
+​
+				getRemovedProductList.forEach((data) => {
+					const { quantity, unitPrice = 0, freeQuantity = 0 } = data
+​
+					const { lineItemHandle, discountType = "", discountValue = "" } = data
+​
+					let product = VajroSDK.updateLineItemInCart()
+						.setLineItemHandle(lineItemHandle)
+						.setLineItemType("REGULAR")
+						.setUnitPrice(unitPrice)
+						.setQuantity(quantity)
+						.setDiscountType(discountType)
+						.setDiscountValue(discountValue)
+						.setFreeQuantity(freeQuantity)
+						.setCustomAttributes({})
+						.setDisplayText(displayText)
+						.exec()
+​
+					updateMultipleLineItemsToCart.setProduct(product)
+				})
+​
+				output.forEach((data) => {
+					const { productId, variantId, unitPrice, quantity } = data
+​
+					const { discountType, discountValue, freeQuantity = 0 } = data
+​
+					const { customLineItemType, lineItemHandle, isGetProductIdInLineitem } = data
+​
+					const functionProductQuantity =
+						freeQuantity !== 0 ? freeQuantity : quantity
+​
+					const lineCustomAttributes = {
+						_vajro_flow: {
+							quantity: functionProductQuantity
+						}
+					}
+​
+					if (offerCategory === "automaticOffers" && !isGetProductIdInLineitem) {
+						let product = VajroSDK.utils
+							.lineItem()
+							.setProductId(productId)
+							.setQuantity(quantity)
+							.setVariantId(variantId)
+							.setLineItemType(customLineItemType)
+							.setUnitPrice(unitPrice)
+							.setFreeQuantity(freeQuantity)
+							.setDiscountType(discountType)
+							.setDiscountValue(discountValue)
+							.setCustomAttributes(lineCustomAttributes)
+							.setDisplayText(displayText)
+							.create()
+​
+						addMultipleLineItemsToCart.setProduct(product)
+					} else {
+						let product = VajroSDK.updateLineItemInCart()
+							.setLineItemHandle(lineItemHandle)
+							.setLineItemType(customLineItemType)
+							.setUnitPrice(unitPrice)
+							.setQuantity(quantity)
+							.setFreeQuantity(freeQuantity)
+							.setDiscountType(discountType)
+							.setDiscountValue(discountValue)
+							.setCustomAttributes(lineCustomAttributes)
+							.setDisplayText(displayText)
+							.exec()
+​
+						updateMultipleLineItemsToCart.setProduct(product)
+					}
+				})
+​
+				if(Object.keys(addMultipleLineItemsToCart).length > 0)
+					addMultipleLineItemsToCart.exec()
+​
+				if(Object.keys(updateMultipleLineItemsToCart).length > 0)
+					updateMultipleLineItemsToCart.exec()
+			}
+​
+			VajroSDK.subscribe(VajroSDK.Triggers.ON_PAGE_LOADED, eventHandler)
+​
+			VajroSDK.subscribe(VajroSDK.Triggers.LINE_ITEM_UPDATED, eventHandler)
+​
+			</script>
+		</body>
+	</html>
