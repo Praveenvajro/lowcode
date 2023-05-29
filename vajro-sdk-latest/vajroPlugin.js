@@ -422,6 +422,7 @@ var getValidInValidConfigDetails = function (configOffers, lineItems) {
             offerLineItems = lineItems;
         }
         var finalCartValue = cartType === 'amount' ? getCartTotal(offerLineItems) : getCartCount(offerLineItems);
+        alert(JSON.stringify({ finalCartValue: finalCartValue, cartValue: cartValue }));
         if (finalCartValue >= cartValue) {
             validConfigList = __spreadArray(__spreadArray([], validConfigList, true), [config], false);
         }
