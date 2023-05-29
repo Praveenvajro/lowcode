@@ -1,2 +1,699 @@
-var vajroPlugin;(()=>{"use strict";var t={d:(r,e)=>{for(var n in e)t.o(e,n)&&!t.o(r,n)&&Object.defineProperty(r,n,{enumerable:!0,get:e[n]})},o:(t,r)=>Object.prototype.hasOwnProperty.call(t,r),r:t=>{"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})}},r={};t.r(r),t.d(r,{flow:()=>g});var e=function(){return e=Object.assign||function(t){for(var r,e=1,n=arguments.length;e<n;e++)for(var i in r=arguments[e])Object.prototype.hasOwnProperty.call(r,i)&&(t[i]=r[i]);return t},e.apply(this,arguments)},n=function(t,r,e){if(e||2===arguments.length)for(var n,i=0,o=r.length;i<o;i++)!n&&i in r||(n||(n=Array.prototype.slice.call(r,0,i)),n[i]=r[i]);return t.concat(n||Array.prototype.slice.call(r))},i=function(t){return t.reduce((function(t,r){var i,o,c=r.offerCategory;return t[c]?e(e({},t),((i={})[c]=n(n([],t[c],!0),[r],!1),i)):e(e({},t),((o={})[c]=[r],o))}),{automaticOffers:[],buyXGetY:[],percentageDiscount:[],flatDiscount:[]})},o=function(t){return t.reduce((function(t,r){return t[r.variantId]=r,t}),{})},c=function(t){return t.reduce((function(t,r){var e=r.unitPrice,n=void 0===e?0:e,i=r.quantity,o=void 0===i?0:i,c=r.customAttributes,a=void 0===c?{}:c,u=a._actualUnitPrice,d=void 0===u?n:u,l=a._discountQuantity,f=void 0===l?0:l,s=a._freeQuantity;return t+d*(o-(Number(void 0===s?0:s)+Number(f)))}),0)},a=function(t){return t.reduce((function(t,r){var e=r.quantity,n=void 0===e?0:e,i=r.freeQuantity;return t+(n-(void 0===i?0:i))}),0)},u=function(){return u=Object.assign||function(t){for(var r,e=1,n=arguments.length;e<n;e++)for(var i in r=arguments[e])Object.prototype.hasOwnProperty.call(r,i)&&(t[i]=r[i]);return t},u.apply(this,arguments)},d=function(t,r,e){if(e||2===arguments.length)for(var n,i=0,o=r.length;i<o;i++)!n&&i in r||(n||(n=Array.prototype.slice.call(r,0,i)),n[i]=r[i]);return t.concat(n||Array.prototype.slice.call(r))},l=function(){return l=Object.assign||function(t){for(var r,e=1,n=arguments.length;e<n;e++)for(var i in r=arguments[e])Object.prototype.hasOwnProperty.call(r,i)&&(t[i]=r[i]);return t},l.apply(this,arguments)},f=function(t,r,e){if(e||2===arguments.length)for(var n,i=0,o=r.length;i<o;i++)!n&&i in r||(n||(n=Array.prototype.slice.call(r,0,i)),n[i]=r[i]);return t.concat(n||Array.prototype.slice.call(r))},s=function(){return s=Object.assign||function(t){for(var r,e=1,n=arguments.length;e<n;e++)for(var i in r=arguments[e])Object.prototype.hasOwnProperty.call(r,i)&&(t[i]=r[i]);return t},s.apply(this,arguments)},v=function(t,r,e){if(e||2===arguments.length)for(var n,i=0,o=r.length;i<o;i++)!n&&i in r||(n||(n=Array.prototype.slice.call(r,0,i)),n[i]=r[i]);return t.concat(n||Array.prototype.slice.call(r))},p=function(){return p=Object.assign||function(t){for(var r,e=1,n=arguments.length;e<n;e++)for(var i in r=arguments[e])Object.prototype.hasOwnProperty.call(r,i)&&(t[i]=r[i]);return t},p.apply(this,arguments)},y=function(t,r,e){if(e||2===arguments.length)for(var n,i=0,o=r.length;i<o;i++)!n&&i in r||(n||(n=Array.prototype.slice.call(r,0,i)),n[i]=r[i]);return t.concat(n||Array.prototype.slice.call(r))},m=function(){return m=Object.assign||function(t){for(var r,e=1,n=arguments.length;e<n;e++)for(var i in r=arguments[e])Object.prototype.hasOwnProperty.call(r,i)&&(t[i]=r[i]);return t},m.apply(this,arguments)},b=function(t,r,e){if(e||2===arguments.length)for(var n,i=0,o=r.length;i<o;i++)!n&&i in r||(n||(n=Array.prototype.slice.call(r,0,i)),n[i]=r[i]);return t.concat(n||Array.prototype.slice.call(r))},g=function(t,r){var g={},h=t.cartLineItems.lineItems,I=void 0===h?[]:h,P=function(t,r){var e=[],i=[];return t.forEach((function(t){var u=o(r),d=t.cartType,l=t.cartValue,f=t.buyOfferType,s=t.buyProducts,v=t.buyCollections,p=(t.getOfferType,t.discountType,t.getProductCount,t.reccuringFreeProduct,t.getProducts,[]);"products"===f?s.forEach((function(t){var r=t.variantId;u[r]&&(p=n(n([],p,!0),[u[r]],!1))})):"collections"===f?v.forEach((function(t){var e=t.collectionId,i=r.filter((function(t){return e===t.collectionId}));i.length>0&&(p=n(n([],p,!0),i,!0))})):p=r,("amount"===d?c(p):a(p))>=l?e=n(n([],e,!0),[t],!1):i=n(n([],i,!0),[t],!1)})),{validConfigList:e,inValidConfigList:i}}(r,I).validConfigList,A=P.reduce((function(t,r,i){var o=t.combinedOfferConfig,c=t.nonCombinedOfferConfig,a=r.combinedOffer;return e(e({},t),a?{combinedOfferConfig:n(n([],o,!0),[e(e({},r),{index:i})],!1)}:{nonCombinedOfferConfig:n(n([],c,!0),[e(e({},r),{index:i})],!1)})}),{combinedOfferConfig:[],nonCombinedOfferConfig:[]}),O=A.combinedOfferConfig,_=void 0===O?[]:O,T=A.nonCombinedOfferConfig,U=void 0===T?[]:T,D=function(t){return t.reduce((function(t,r){var n,i=r.variantId,o=r.customAttributes,c=void 0===o?{}:o;return-1!==Object.keys(c).indexOf("_actualUnitPrice")?e(e({},t),((n={})[i]=r,n)):t}),{})}(I),j={};(null==_?void 0:_.length)>0&&(j.combinedOffer=i(_)),U.forEach((function(t,r){var e=(null===crypto||void 0===crypto?void 0:crypto.randomUUID)&&(null===crypto||void 0===crypto?void 0:crypto.randomUUID())||"offer".concat(r);j[e]=i([t])})),Object.entries(j).forEach((function(t){var r=t[0],e=t[1],n={};Object.entries(e).forEach((function(t){var r=t[0],e=t[1];if(0!==e.length)switch(r){case"automaticOffers":n=function(t,r,e){var n=o(r),i=(null===crypto||void 0===crypto?void 0:crypto.randomUUID)&&(null===crypto||void 0===crypto?void 0:crypto.randomUUID())||"freeOfferTarget";return t.forEach((function(t){var o=t.cartType,l=t.cartValue,f=t.buyOfferType,s=t.buyProducts,v=t.buyCollections,p=t.getProductCount,y=t.reccuringFreeProduct,m=t.getProducts,b=t.displayText,g=[];"products"===f?s.forEach((function(t){var r=t.variantId;n[r]&&(g=d(d([],g,!0),[n[r]],!1))})):"collections"===f?v.forEach((function(t){var e=t.collectionId,n=r.filter((function(t){return e===t.collectionId}));n.length>0&&(g=d(d([],g,!0),n,!0))})):g=r;var h="amount"===o?c(g):a(g);if(h>=l){var I=y?Math.floor(h/l)*p:p;m.forEach((function(t){var r,o,c=t.variantId,a=t.productId,l=t.productPrice,f=e[c],s=n[c]||{},v=s.lineItemHandle,p=s.quantity,y=void 0===p?0:p,m=(n[c]&&n[c].customAttributes||{})._freeQuantity,g=void 0===m?0:m,h=y?Number(y)-Number(g):0,P=f||{},A=P.customAttributes,O=void 0===A?{}:A,_=P.displayTextDetails,T=void 0===_?[]:_;I&&f?e=u(u({},e),((r={})[c]=u(u({},f),{displayTextDetails:T.includes(b)?T:d(d([],T,!0),[b],!1),customAttributes:u(u(u({},O),f.customAttributes),{_productQuantity:h,_freeQuantity:((null==O?void 0:O.freeQuantity)||0)+I})}),r)):I&&(e=u(u({},e),((o={})[c]={variantId:c,productId:a,displayTextDetails:[b],lineItemHandle:v,customAttributes:u(u({},O),{_productQuantity:h,_actualUnitPrice:Number(l),_freeQuantity:I,_productTargetId:i})},o)))}))}})),e}(e,I,n);break;case"buyXGetY":n=function(t,r,e){var n=o(r),i=(null===crypto||void 0===crypto?void 0:crypto.randomUUID)&&(null===crypto||void 0===crypto?void 0:crypto.randomUUID())||"freeOfferTarget";return t.forEach((function(t,r){var o=t.getProductCount,c=t.getProducts,a=t.displayText;c.forEach((function(t){var r,c,u,d=t.variantId,s=t.productId,v=t.productPrice,p=n[d]||{},y=p.quantity,m=void 0===y?0:y,b=p.freeQuantity,g=void 0===b?0:b,h=p.lineItemHandle,I=m-g>o?o:m-g,P=e[d],A=P||{},O=A.customAttributes,_=void 0===O?{}:O,T=A.displayTextDetails,U=void 0===T?[]:T;I&&P?e=l(l({},e),((r={})[d]=l(l({},P),{displayTextDetails:U.includes(a)?U:f(f([],U,!0),[a],!1),customAttributes:l(l(l({},_),P.customAttributes),{_discountQuantity:I+((null===(u=P.customAttributes)||void 0===u?void 0:u._discountQuantity)||0),_productTargetId:i})}),r)):I&&(e=l(l({},e),((c={})[d]={variantId:d,productId:s,lineItemHandle:h,displayTextDetails:[a],customAttributes:l(l({},_),{_productQuantity:m-g,_actualUnitPrice:Number(v),_discountQuantity:I,_productTargetId:i})},c)))}))})),e}(e,I,n);break;case"percentageDiscount":n=function(t,r,e){var n=o(r);return t.forEach((function(t,i){var o=(null===crypto||void 0===crypto?void 0:crypto.randomUUID)&&(null===crypto||void 0===crypto?void 0:crypto.randomUUID())||"percentageOffer".concat(i),c=t.discountValue,a=t.getOfferType,u=t.getProducts,d=t.getCollections,l=t.displayText,f=[];"products"===a?u.forEach((function(t){var r=t.variantId;n[r]&&(f=y(y([],f,!0),[n[r]],!1))})):"collections"===a?d.forEach((function(t){var e=t.collectionId,n=r.filter((function(t){return e===t.collectionId}));n.length>0&&(f=y(y([],f,!0),n,!0))})):f=y([],r,!0),f.forEach((function(t){var r,n=t.variantId,i=t.productId,a=t.lineItemHandle,u=t.unitPrice,d=t.quantity,f=void 0===d?0:d,s=t.customAttributes,v=void 0===s?{}:s,y=v._actualUnitPrice,m=void 0===y?u:y,b=v._freeQuantity,g=void 0===b?0:b,h=e[n]||{},I=h.customAttributes,P=void 0===I?{}:I,A=f?Number(f)-Number(g):0,O=m*(c/100),_=P._discountPrice,T=void 0===_?0:_,U=P._discountQuantity,D=void 0===U?0:U;O>T&&A>0&&(e=p(p({},e),((r={})[n]=p(p({},h),{variantId:n,productId:i,lineItemHandle:a,displayText:l,customAttributes:p(p({},P),{_actualUnitPrice:Number(m),_discountPrice:O,_productQuantity:A,_discountQuantity:O===m?A:D,_offerPercenatage:c>=100?100:c,_percentageTargetId:o})}),r)))}))})),e}(e,I,n);break;case"flatDiscount":n=function(t,r,e){var n=o(r),i=s({},e);function a(t,r,e,n,o){if(0!==t.length){var a=c(t),u=e/a*100;t.forEach((function(c){var a,d=c.variantId,l=c.productId,f=c.lineItemHandle,v=c.unitPrice,p=c.quantity,y=void 0===p?0:p,m=c.customAttributes,b=void 0===m?{}:m,g=b._actualUnitPrice,h=void 0===g?v:g,I=b._freeQuantity,P=void 0===I?0:I,A=i[d]||{},O=A.customAttributes,_=void 0===O?{}:O,T=y?Number(y)-Number(P):0,U=n?h*(u/100):e,D=_._discountQuantity,j=void 0===D?0:D;i=s(s({},i),((a={})[d]=s(s({},A),{variantId:d,productId:l,lineItemHandle:f,displayText:r,customAttributes:s(s({},_),{_actualUnitPrice:Number(h),_productQuantity:T,_discountPrice:U>=h?h:U,_discountQuantity:U>=h?T:j,_offerPercenatage:u>=100?100:u,_amountTargetId:o,_flatDiscountDetails:{lineItems:t,splitFlatAmount:n,discountValue:e,displayText:r}})}),a))}))}}return t.forEach((function(t,e){var o=(null===crypto||void 0===crypto?void 0:crypto.randomUUID)&&(null===crypto||void 0===crypto?void 0:crypto.randomUUID())||"amountOffer".concat(e),u=t.discountValue,d=t.getOfferType,l=t.getProducts,f=t.getCollections,p=t.splitFlatAmount,y=t.displayText,m=[];"products"===d?l.forEach((function(t){var r=t.variantId,e=n[r]||{},i=e.quantity,o=void 0===i?0:i,c=e.customAttributes,a=(void 0===c?{}:c)._freeQuantity,u=void 0===a?0:a;Number(o)-Number(u)>0&&(m=v(v([],m,!0),[n[r]],!1))})):"collections"===d?f.forEach((function(t){var e=t.collectionId,n=r.filter((function(t){var r=t.quantity,n=void 0===r?0:r,i=t.customAttributes,o=(void 0===i?{}:i)._freeQuantity,c=void 0===o?0:o;return e===t.collectionId&&Number(n)-Number(c)>0}));n.length>0&&(m=v(v([],m,!0),n,!0))})):m=r.filter((function(t){var r=t.quantity,e=void 0===r?0:r,n=t.customAttributes,i=(void 0===n?{}:n)._freeQuantity,o=void 0===i?0:i;return Number(e)-Number(o)>0}));var b=c(m),g=s({},i);m=m.filter((function(t){var r=t.variantId,e=t.unitPrice,n=t.customAttributes,i=(void 0===n?{}:n)._actualUnitPrice,o=void 0===i?e:i,c=(g[r]||{}).customAttributes,d=void 0===c?{}:c,l=p?o*(u/b):u,f=d._discountPrice,s=void 0===f?0:f,v=d._flatDiscountDetails,y=void 0===v?{}:v,m=d._amountTargetId,h=d.displayText,I=y.lineItems,P=void 0===I?[]:I,A=y.splitFlatAmount,O=void 0!==A&&A,_=y.discountValue,T=void 0===_?0:_;if(l>s){var U=P.filter((function(t){return t.variantId!==r}));O&&U.length>0&&a(U,h,T,O,m)}return l>s})),a(m,y,u,p,o)})),i}(e,I,n)}}));var i=[];Object.values(n).forEach((function(t){var r=t.variantId,e=t.displayTextDetails,o=void 0===e?[]:e,c=t.displayText,a=void 0===c?"":c,u=t.customAttributes;b(b([],o,!0),[a],!1).forEach((function(t){!i.includes(t)&&t&&(i=b(b([],i,!0),[t],!1))})),n[r]=m(m({},t),{customAttributes:m({_vajro_flow:u},u)})})),g[r]={offerAppliedProducts:n,displayTextArray:i}}));var x=Object.entries(g).reduce((function(t,r){r[0];var e=r[1],n=t.discountPrice,i=e.offerAppliedProducts,o=e.displayTextArray,c=function(t){return t.reduce((function(t,r){var e=r.customAttributes,n=void 0===e?{}:e,i=n._actualUnitPrice,o=void 0===i?0:i,c=n._discountPrice,a=void 0===c?0:c,u=n._discountQuantity,d=void 0===u?0:u,l=n._freeQuantity,f=void 0===l?0:l;return t+(Number(o)*(Number(d)+Number(f))+Number(a))}),0)}(Object.values(i));return c>n?{discountPrice:c,offerAppliedDetails:i,displayTextArray:o}:t}),{discountPrice:0,offerAppliedDetails:{},displayTextArray:[]}),Q=x.discountPrice,C=x.offerAppliedDetails,E=function(t){if(0===t.length)return"";var r=t.map((function(t){return'<p style="text-align: center;font-size: 14px"><b>'.concat(t,"</b></p>")})).join("");return'<!DOCTYPE html>\n\t<html lang="en">\n\t\t<head>\n\t\t\t<meta charset="UTF-8" />\n\t\t\t<meta http-equiv="X-UA-Compatible" content="IE=edge" />\n\t\t\t<meta name="viewport" content="width=device-width,initial-scale=1.0" />\n\t\t</head>\n\t\t<body style="min-width: auto; min-height: auto">\n            '.concat(r,"\n\t\t</body>\n\t</html>")}(x.displayTextArray),N=Object.keys(D).reduce((function(t,r){var e;return C[r]?t:m(m({},t),((e={})[r]=D[r],e))}),{});return{discountPrice:Q,offerAppliedDetails:C,offerRemovedDetails:N,displayTextHtml:E}};vajroPlugin=r})();
+var vajroPlugin;
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./src/controller/automaticOffer.ts":
+/*!******************************************!*\
+  !*** ./src/controller/automaticOffer.ts ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getAutomaticOfferProducts": () => (/* binding */ getAutomaticOfferProducts)
+/* harmony export */ });
+/* harmony import */ var _utils_common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/common */ "./src/utils/common.ts");
+var __assign = (undefined && undefined.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+var __spreadArray = (undefined && undefined.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
+
+var getAutomaticOfferProducts = function (configOffers, lineItems, offerAppliedProducts) {
+    var lineItemsObj = (0,_utils_common__WEBPACK_IMPORTED_MODULE_0__.getLineItemsObj)(lineItems);
+    var freeProductsTargetId = (crypto === null || crypto === void 0 ? void 0 : crypto.randomUUID) && (crypto === null || crypto === void 0 ? void 0 : crypto.randomUUID()) || "freeOfferTarget";
+    configOffers.forEach(function (config) {
+        var cartType = config.cartType, cartValue = config.cartValue, buyOfferType = config.buyOfferType, buyProducts = config.buyProducts, buyCollections = config.buyCollections, discountValue = config.getProductCount, reccuringFreeProduct = config.reccuringFreeProduct, getProducts = config.getProducts, displayText = config.displayText;
+        var offerLineItems = [];
+        if (buyOfferType === 'products') {
+            buyProducts.forEach(function (productDetails) {
+                var variantId = productDetails.variantId;
+                if (lineItemsObj[variantId]) {
+                    offerLineItems = __spreadArray(__spreadArray([], offerLineItems, true), [lineItemsObj[variantId]], false);
+                }
+            });
+        }
+        else if (buyOfferType === 'collections') {
+            buyCollections.forEach(function (collectionDetails) {
+                var collectionId = collectionDetails.collectionId;
+                var collectionLineItems = lineItems.filter(function (lineItem) {
+                    alert(JSON.stringify({ collectionId: collectionId }));
+                    alert(lineItem.collectionId);
+                    return collectionId === lineItem.collectionId;
+                });
+                if (collectionLineItems.length > 0) {
+                    offerLineItems = __spreadArray(__spreadArray([], offerLineItems, true), collectionLineItems, true);
+                }
+            });
+        }
+        else {
+            offerLineItems = lineItems;
+        }
+        var finalCartValue = cartType === 'amount' ? (0,_utils_common__WEBPACK_IMPORTED_MODULE_0__.getCartTotal)(offerLineItems) : (0,_utils_common__WEBPACK_IMPORTED_MODULE_0__.getCartCount)(offerLineItems);
+        alert(JSON.stringify({ finalCartValue: finalCartValue, cartValue: cartValue }));
+        if (finalCartValue >= cartValue) {
+            var freebieQuantity_1 = reccuringFreeProduct ? Math.floor(finalCartValue / cartValue) * discountValue : discountValue;
+            getProducts.forEach(function (productDetails) {
+                var _a, _b;
+                var variantId = productDetails.variantId, productId = productDetails.productId, productPrice = productDetails.productPrice;
+                var variantOfferDetails = offerAppliedProducts[variantId];
+                var _c = lineItemsObj[variantId] || {}, lineItemHandle = _c.lineItemHandle, _d = _c.quantity, quantity = _d === void 0 ? 0 : _d;
+                var _e = (lineItemsObj[variantId] && lineItemsObj[variantId].customAttributes || {})._freeQuantity, _freeQuantity = _e === void 0 ? 0 : _e;
+                var finalProductQuantity = quantity ? Number(quantity) - Number(_freeQuantity) : 0;
+                var _f = variantOfferDetails || {}, _g = _f.customAttributes, customAttributes = _g === void 0 ? {} : _g, _h = _f.displayTextDetails, displayTextDetails = _h === void 0 ? [] : _h;
+                if (!!freebieQuantity_1 && variantOfferDetails) {
+                    offerAppliedProducts = __assign(__assign({}, offerAppliedProducts), (_a = {}, _a[variantId] = __assign(__assign({}, variantOfferDetails), { displayTextDetails: displayTextDetails.includes(displayText) ? displayTextDetails : __spreadArray(__spreadArray([], displayTextDetails, true), [displayText], false), customAttributes: __assign(__assign(__assign({}, customAttributes), variantOfferDetails.customAttributes), { _productQuantity: finalProductQuantity, _freeQuantity: ((customAttributes === null || customAttributes === void 0 ? void 0 : customAttributes.freeQuantity) || 0) + freebieQuantity_1 }) }), _a));
+                }
+                else if (!!freebieQuantity_1) {
+                    offerAppliedProducts = __assign(__assign({}, offerAppliedProducts), (_b = {}, _b[variantId] = {
+                        variantId: variantId,
+                        productId: productId,
+                        displayTextDetails: [displayText],
+                        lineItemHandle: lineItemHandle,
+                        customAttributes: __assign(__assign({}, customAttributes), { _productQuantity: finalProductQuantity, _actualUnitPrice: Number(productPrice), _freeQuantity: freebieQuantity_1, _productTargetId: freeProductsTargetId })
+                    }, _b));
+                }
+            });
+        }
+    });
+    return offerAppliedProducts;
+};
+
+
+/***/ }),
+
+/***/ "./src/controller/buyXChooseY.ts":
+/*!***************************************!*\
+  !*** ./src/controller/buyXChooseY.ts ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getBuyXChooseYOfferProducts": () => (/* binding */ getBuyXChooseYOfferProducts)
+/* harmony export */ });
+/* harmony import */ var _utils_common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/common */ "./src/utils/common.ts");
+var __assign = (undefined && undefined.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+var __spreadArray = (undefined && undefined.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
+
+var getBuyXChooseYOfferProducts = function (configOffers, lineItems, offerAppliedProducts) {
+    var lineItemsObj = (0,_utils_common__WEBPACK_IMPORTED_MODULE_0__.getLineItemsObj)(lineItems);
+    var freeProductsTargetId = (crypto === null || crypto === void 0 ? void 0 : crypto.randomUUID) && (crypto === null || crypto === void 0 ? void 0 : crypto.randomUUID()) || "freeOfferTarget";
+    configOffers.forEach(function (config, index) {
+        var discountValue = config.getProductCount, getProducts = config.getProducts, displayText = config.displayText;
+        getProducts.forEach(function (productDetails) {
+            var _a, _b;
+            var _c;
+            var variantId = productDetails.variantId, productId = productDetails.productId, productPrice = productDetails.productPrice;
+            var _d = lineItemsObj[variantId] || {}, _e = _d.quantity, quantity = _e === void 0 ? 0 : _e, _f = _d.freeQuantity, freeQuantity = _f === void 0 ? 0 : _f, lineItemHandle = _d.lineItemHandle;
+            var freebieQuantity = (quantity - freeQuantity) > discountValue ? discountValue : quantity - freeQuantity;
+            var variantOfferDetails = offerAppliedProducts[variantId];
+            var _g = variantOfferDetails || {}, _h = _g.customAttributes, customAttributes = _h === void 0 ? {} : _h, _j = _g.displayTextDetails, displayTextDetails = _j === void 0 ? [] : _j;
+            if (!!freebieQuantity && variantOfferDetails) {
+                offerAppliedProducts = __assign(__assign({}, offerAppliedProducts), (_a = {}, _a[variantId] = __assign(__assign({}, variantOfferDetails), { displayTextDetails: displayTextDetails.includes(displayText) ? displayTextDetails : __spreadArray(__spreadArray([], displayTextDetails, true), [displayText], false), customAttributes: __assign(__assign(__assign({}, customAttributes), variantOfferDetails.customAttributes), { _discountQuantity: freebieQuantity + (((_c = variantOfferDetails.customAttributes) === null || _c === void 0 ? void 0 : _c._discountQuantity) || 0), _productTargetId: freeProductsTargetId }) }), _a));
+            }
+            else if (!!freebieQuantity) {
+                offerAppliedProducts = __assign(__assign({}, offerAppliedProducts), (_b = {}, _b[variantId] = {
+                    variantId: variantId,
+                    productId: productId,
+                    lineItemHandle: lineItemHandle,
+                    displayTextDetails: [displayText],
+                    customAttributes: __assign(__assign({}, customAttributes), { _productQuantity: quantity - freeQuantity, _actualUnitPrice: Number(productPrice), _discountQuantity: freebieQuantity, _productTargetId: freeProductsTargetId })
+                }, _b));
+            }
+        });
+    });
+    return offerAppliedProducts;
+};
+
+
+/***/ }),
+
+/***/ "./src/controller/flatDiscount.ts":
+/*!****************************************!*\
+  !*** ./src/controller/flatDiscount.ts ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getFlatOfferProducts": () => (/* binding */ getFlatOfferProducts)
+/* harmony export */ });
+/* harmony import */ var _utils_common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/common */ "./src/utils/common.ts");
+var __assign = (undefined && undefined.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+var __spreadArray = (undefined && undefined.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
+
+var getFlatOfferProducts = function (configOffers, lineItems, offerAppliedProducts) {
+    var lineItemsObj = (0,_utils_common__WEBPACK_IMPORTED_MODULE_0__.getLineItemsObj)(lineItems);
+    var appliedProductDetails = __assign({}, offerAppliedProducts);
+    function getOfferedProductDetails(offerLineItems, displayText, fixedAmount, isSplitNeed, targetId) {
+        if (offerLineItems.length === 0)
+            return;
+        var cartTotal = (0,_utils_common__WEBPACK_IMPORTED_MODULE_0__.getCartTotal)(offerLineItems);
+        var offerPercentage = (fixedAmount / cartTotal) * 100;
+        offerLineItems.forEach(function (lineItem) {
+            var _a;
+            var variantId = lineItem.variantId, productId = lineItem.productId, lineItemHandle = lineItem.lineItemHandle, unitPrice = lineItem.unitPrice, _b = lineItem.quantity, quantity = _b === void 0 ? 0 : _b, _c = lineItem.customAttributes, _d = _c === void 0 ? {} : _c, _e = _d._actualUnitPrice, _actualUnitPrice = _e === void 0 ? unitPrice : _e, _f = _d._freeQuantity, _freeQuantity = _f === void 0 ? 0 : _f;
+            var variantOfferDetails = appliedProductDetails[variantId] || {};
+            var _g = variantOfferDetails.customAttributes, customAttributes = _g === void 0 ? {} : _g;
+            var finalProductQuantity = quantity ? Number(quantity) - Number(_freeQuantity) : 0;
+            var unitPriceDiscount = isSplitNeed ? (_actualUnitPrice * (offerPercentage / 100)) : fixedAmount;
+            var _h = customAttributes._discountQuantity, _discountQuantity = _h === void 0 ? 0 : _h;
+            appliedProductDetails = __assign(__assign({}, appliedProductDetails), (_a = {}, _a[variantId] = __assign(__assign({}, variantOfferDetails), { variantId: variantId, productId: productId, lineItemHandle: lineItemHandle, displayText: displayText, customAttributes: __assign(__assign({}, customAttributes), { _actualUnitPrice: Number(_actualUnitPrice), _productQuantity: finalProductQuantity, _discountPrice: unitPriceDiscount >= _actualUnitPrice ? _actualUnitPrice : unitPriceDiscount, _discountQuantity: unitPriceDiscount >= _actualUnitPrice ? finalProductQuantity : _discountQuantity, _offerPercenatage: offerPercentage >= 100 ? 100 : offerPercentage, _amountTargetId: targetId, _flatDiscountDetails: {
+                        lineItems: offerLineItems,
+                        splitFlatAmount: isSplitNeed,
+                        discountValue: fixedAmount,
+                        displayText: displayText
+                    } }) }), _a));
+        });
+    }
+    configOffers.forEach(function (config, index) {
+        var amountOfferTargetId = (crypto === null || crypto === void 0 ? void 0 : crypto.randomUUID) && (crypto === null || crypto === void 0 ? void 0 : crypto.randomUUID()) || "amountOffer".concat(index);
+        var discountValue = config.discountValue, getOfferType = config.getOfferType, getProducts = config.getProducts, getCollections = config.getCollections, splitFlatAmount = config.splitFlatAmount, displayText = config.displayText;
+        var offerLineItems = [];
+        if (getOfferType === "products") {
+            getProducts.forEach(function (productDetails) {
+                var variantId = productDetails.variantId;
+                var _a = lineItemsObj[variantId] || {}, _b = _a.quantity, quantity = _b === void 0 ? 0 : _b, _c = _a.customAttributes, _d = _c === void 0 ? {} : _c, _e = _d._freeQuantity, _freeQuantity = _e === void 0 ? 0 : _e;
+                if ((Number(quantity) - Number(_freeQuantity)) > 0) {
+                    offerLineItems = __spreadArray(__spreadArray([], offerLineItems, true), [lineItemsObj[variantId]], false);
+                }
+            });
+        }
+        else if (getOfferType === "collections") {
+            getCollections.forEach(function (collectionDetails) {
+                var collectionId = collectionDetails.collectionId;
+                var collectionLineItems = lineItems.filter(function (lineItem) {
+                    var _a = lineItem.quantity, quantity = _a === void 0 ? 0 : _a, _b = lineItem.customAttributes, _c = _b === void 0 ? {} : _b, _d = _c._freeQuantity, _freeQuantity = _d === void 0 ? 0 : _d;
+                    return (collectionId === lineItem.collectionId) && ((Number(quantity) - Number(_freeQuantity)) > 0);
+                });
+                if (collectionLineItems.length > 0) {
+                    offerLineItems = __spreadArray(__spreadArray([], offerLineItems, true), collectionLineItems, true);
+                }
+            });
+        }
+        else {
+            offerLineItems = lineItems.filter(function (lineItem) {
+                var _a = lineItem.quantity, quantity = _a === void 0 ? 0 : _a, _b = lineItem.customAttributes, _c = _b === void 0 ? {} : _b, _d = _c._freeQuantity, _freeQuantity = _d === void 0 ? 0 : _d;
+                return (Number(quantity) - Number(_freeQuantity)) > 0;
+            });
+        }
+        var cartTotal = (0,_utils_common__WEBPACK_IMPORTED_MODULE_0__.getCartTotal)(offerLineItems);
+        var crntAppliedProductDetails = __assign({}, appliedProductDetails);
+        offerLineItems = offerLineItems.filter(function (lineItem) {
+            var variantId = lineItem.variantId, unitPrice = lineItem.unitPrice, _a = lineItem.customAttributes, _b = _a === void 0 ? {} : _a, _c = _b._actualUnitPrice, _actualUnitPrice = _c === void 0 ? unitPrice : _c;
+            var variantOfferDetails = crntAppliedProductDetails[variantId] || {};
+            var _d = variantOfferDetails.customAttributes, customAttributes = _d === void 0 ? {} : _d;
+            var unitPriceDiscount = splitFlatAmount ? (_actualUnitPrice * (discountValue / cartTotal)) : discountValue;
+            var _e = customAttributes._discountPrice, _discountPrice = _e === void 0 ? 0 : _e, _f = customAttributes._flatDiscountDetails, _flatDiscountDetails = _f === void 0 ? {} : _f, _amountTargetId = customAttributes._amountTargetId, offerDisplayText = customAttributes.displayText;
+            var _g = _flatDiscountDetails.lineItems, appliedLineItems = _g === void 0 ? [] : _g, _h = _flatDiscountDetails.splitFlatAmount, issplitFlatAmountApplied = _h === void 0 ? false : _h, _j = _flatDiscountDetails.discountValue, appliedDiscountValue = _j === void 0 ? 0 : _j;
+            if (unitPriceDiscount > _discountPrice) {
+                var filteredLineItems = appliedLineItems.filter(function (appliedLineItem) { return appliedLineItem.variantId !== variantId; });
+                if (issplitFlatAmountApplied && filteredLineItems.length > 0) {
+                    getOfferedProductDetails(filteredLineItems, offerDisplayText, appliedDiscountValue, issplitFlatAmountApplied, _amountTargetId);
+                }
+            }
+            return unitPriceDiscount > _discountPrice;
+        });
+        getOfferedProductDetails(offerLineItems, displayText, discountValue, splitFlatAmount, amountOfferTargetId);
+    });
+    return appliedProductDetails;
+};
+
+
+/***/ }),
+
+/***/ "./src/controller/percentageDiscount.ts":
+/*!**********************************************!*\
+  !*** ./src/controller/percentageDiscount.ts ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getPercentageOfferProducts": () => (/* binding */ getPercentageOfferProducts)
+/* harmony export */ });
+/* harmony import */ var _utils_common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/common */ "./src/utils/common.ts");
+var __assign = (undefined && undefined.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+var __spreadArray = (undefined && undefined.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
+
+var getPercentageOfferProducts = function (configOffers, lineItems, offerAppliedProducts) {
+    var lineItemsObj = (0,_utils_common__WEBPACK_IMPORTED_MODULE_0__.getLineItemsObj)(lineItems);
+    configOffers.forEach(function (config, index) {
+        var percentageOfferTargetId = (crypto === null || crypto === void 0 ? void 0 : crypto.randomUUID) && (crypto === null || crypto === void 0 ? void 0 : crypto.randomUUID()) || "percentageOffer".concat(index);
+        var discountValue = config.discountValue, getOfferType = config.getOfferType, getProducts = config.getProducts, getCollections = config.getCollections, displayText = config.displayText;
+        var offerLineItems = [];
+        if (getOfferType === "products") {
+            getProducts.forEach(function (productDetails) {
+                var variantId = productDetails.variantId;
+                if (lineItemsObj[variantId]) {
+                    offerLineItems = __spreadArray(__spreadArray([], offerLineItems, true), [lineItemsObj[variantId]], false);
+                }
+            });
+        }
+        else if (getOfferType === "collections") {
+            getCollections.forEach(function (collectionDetails) {
+                var collectionId = collectionDetails.collectionId;
+                var collectionLineItems = lineItems.filter(function (lineItem) {
+                    return collectionId === lineItem.collectionId;
+                });
+                if (collectionLineItems.length > 0) {
+                    offerLineItems = __spreadArray(__spreadArray([], offerLineItems, true), collectionLineItems, true);
+                }
+            });
+        }
+        else {
+            offerLineItems = __spreadArray([], lineItems, true);
+        }
+        offerLineItems.forEach(function (lineItem) {
+            var _a;
+            var variantId = lineItem.variantId, productId = lineItem.productId, lineItemHandle = lineItem.lineItemHandle, unitPrice = lineItem.unitPrice, _b = lineItem.quantity, quantity = _b === void 0 ? 0 : _b, _c = lineItem.customAttributes, _d = _c === void 0 ? {} : _c, _e = _d._actualUnitPrice, _actualUnitPrice = _e === void 0 ? unitPrice : _e, _f = _d._freeQuantity, _freeQuantity = _f === void 0 ? 0 : _f;
+            var variantOfferDetails = offerAppliedProducts[variantId] || {};
+            var _g = variantOfferDetails.customAttributes, customAttributes = _g === void 0 ? {} : _g;
+            var finalProductQuantity = quantity ? Number(quantity) - Number(_freeQuantity) : 0;
+            var unitPriceDiscount = _actualUnitPrice * (discountValue / 100);
+            var _h = customAttributes._discountPrice, _discountPrice = _h === void 0 ? 0 : _h, _j = customAttributes._discountQuantity, _discountQuantity = _j === void 0 ? 0 : _j;
+            if (unitPriceDiscount > _discountPrice && finalProductQuantity > 0) {
+                offerAppliedProducts = __assign(__assign({}, offerAppliedProducts), (_a = {}, _a[variantId] = __assign(__assign({}, variantOfferDetails), { variantId: variantId, productId: productId, lineItemHandle: lineItemHandle, displayText: displayText, customAttributes: __assign(__assign({}, customAttributes), { _actualUnitPrice: Number(_actualUnitPrice), _discountPrice: unitPriceDiscount, _productQuantity: finalProductQuantity, _discountQuantity: unitPriceDiscount === _actualUnitPrice ? finalProductQuantity : _discountQuantity, _offerPercenatage: discountValue >= 100 ? 100 : discountValue, _percentageTargetId: percentageOfferTargetId }) }), _a));
+            }
+        });
+    });
+    return offerAppliedProducts;
+};
+
+
+/***/ }),
+
+/***/ "./src/utils/common.ts":
+/*!*****************************!*\
+  !*** ./src/utils/common.ts ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "constructDisplayTextHtml": () => (/* binding */ constructDisplayTextHtml),
+/* harmony export */   "getCartCount": () => (/* binding */ getCartCount),
+/* harmony export */   "getCartTotal": () => (/* binding */ getCartTotal),
+/* harmony export */   "getCombinedOfferConfig": () => (/* binding */ getCombinedOfferConfig),
+/* harmony export */   "getLineItemsObj": () => (/* binding */ getLineItemsObj),
+/* harmony export */   "getOfferAppiedLineItems": () => (/* binding */ getOfferAppiedLineItems),
+/* harmony export */   "getOfferBasedConfig": () => (/* binding */ getOfferBasedConfig),
+/* harmony export */   "getOfferDiscountPrice": () => (/* binding */ getOfferDiscountPrice),
+/* harmony export */   "getValidInValidConfigDetails": () => (/* binding */ getValidInValidConfigDetails)
+/* harmony export */ });
+var __assign = (undefined && undefined.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+var __spreadArray = (undefined && undefined.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
+var getValidInValidConfigDetails = function (configOffers, lineItems) {
+    var validConfigList = [];
+    var inValidConfigList = [];
+    configOffers.forEach(function (config) {
+        var lineItemsObj = getLineItemsObj(lineItems);
+        var cartType = config.cartType, cartValue = config.cartValue, buyOfferType = config.buyOfferType, buyProducts = config.buyProducts, buyCollections = config.buyCollections, getOfferType = config.getOfferType, discountType = config.discountType, discountValue = config.getProductCount, reccuringFreeProduct = config.reccuringFreeProduct, getProducts = config.getProducts;
+        var offerLineItems = [];
+        if (buyOfferType === 'products') {
+            buyProducts.forEach(function (productDetails) {
+                var variantId = productDetails.variantId;
+                if (lineItemsObj[variantId]) {
+                    offerLineItems = __spreadArray(__spreadArray([], offerLineItems, true), [lineItemsObj[variantId]], false);
+                }
+            });
+        }
+        else if (buyOfferType === 'collections') {
+            buyCollections.forEach(function (collectionDetails) {
+                var collectionId = collectionDetails.collectionId;
+                var collectionLineItems = lineItems.filter(function (lineItem) {
+                    return collectionId === lineItem.collectionId;
+                });
+                if (collectionLineItems.length > 0) {
+                    offerLineItems = __spreadArray(__spreadArray([], offerLineItems, true), collectionLineItems, true);
+                }
+            });
+        }
+        else {
+            offerLineItems = lineItems;
+        }
+        var finalCartValue = cartType === 'amount' ? getCartTotal(offerLineItems) : getCartCount(offerLineItems);
+        if (finalCartValue >= cartValue) {
+            validConfigList = __spreadArray(__spreadArray([], validConfigList, true), [config], false);
+        }
+        else {
+            inValidConfigList = __spreadArray(__spreadArray([], inValidConfigList, true), [config], false);
+        }
+    });
+    return {
+        validConfigList: validConfigList,
+        inValidConfigList: inValidConfigList
+    };
+};
+var getCombinedOfferConfig = function (configDetails) {
+    return configDetails.reduce(function (combinedDetails, configDetail, index) {
+        var combinedOfferConfig = combinedDetails.combinedOfferConfig, nonCombinedOfferConfig = combinedDetails.nonCombinedOfferConfig;
+        var combinedOffer = configDetail.combinedOffer;
+        if (combinedOffer) {
+            return __assign(__assign({}, combinedDetails), { combinedOfferConfig: __spreadArray(__spreadArray([], combinedOfferConfig, true), [__assign(__assign({}, configDetail), { index: index })], false) });
+        }
+        return __assign(__assign({}, combinedDetails), { nonCombinedOfferConfig: __spreadArray(__spreadArray([], nonCombinedOfferConfig, true), [__assign(__assign({}, configDetail), { index: index })], false) });
+    }, { combinedOfferConfig: [], nonCombinedOfferConfig: [] });
+};
+var getOfferBasedConfig = function (configDetails) {
+    return configDetails.reduce(function (offerConfigDetails, configDetail) {
+        var _a, _b;
+        var offerCategory = configDetail.offerCategory;
+        if (offerConfigDetails[offerCategory]) {
+            return __assign(__assign({}, offerConfigDetails), (_a = {}, _a[offerCategory] = __spreadArray(__spreadArray([], offerConfigDetails[offerCategory], true), [configDetail], false), _a));
+        }
+        return __assign(__assign({}, offerConfigDetails), (_b = {}, _b[offerCategory] = [configDetail], _b));
+    }, {
+        automaticOffers: [],
+        buyXGetY: [],
+        percentageDiscount: [],
+        flatDiscount: []
+    });
+};
+var getLineItemsObj = function (lineItems) {
+    return lineItems.reduce(function (acc, lineItem) {
+        var variantId = lineItem.variantId;
+        acc[variantId] = lineItem;
+        return acc;
+    }, {});
+};
+var getCartTotal = function (lineItems) {
+    return lineItems.reduce(function (total, lineItem) {
+        var _a = lineItem.unitPrice, unitPrice = _a === void 0 ? 0 : _a, _b = lineItem.quantity, quantity = _b === void 0 ? 0 : _b, _c = lineItem.customAttributes, _d = _c === void 0 ? {} : _c, _e = _d._actualUnitPrice, _actualUnitPrice = _e === void 0 ? unitPrice : _e, _f = _d._discountQuantity, _discountQuantity = _f === void 0 ? 0 : _f, _g = _d._freeQuantity, _freeQuantity = _g === void 0 ? 0 : _g;
+        return total + (_actualUnitPrice * (quantity - (Number(_freeQuantity) + Number(_discountQuantity))));
+    }, 0);
+};
+var getCartCount = function (lineItems) {
+    return lineItems.reduce(function (total, lineItem) {
+        var _a = lineItem.quantity, quantity = _a === void 0 ? 0 : _a, _b = lineItem.freeQuantity, freeQuantity = _b === void 0 ? 0 : _b;
+        return total + (quantity - freeQuantity);
+    }, 0);
+};
+var getOfferDiscountPrice = function (offerAppliedProducts) {
+    return offerAppliedProducts.reduce(function (totalDiscountPrice, productDetails) {
+        var _a = productDetails.customAttributes, customAttributes = _a === void 0 ? {} : _a;
+        var _b = customAttributes._actualUnitPrice, _actualUnitPrice = _b === void 0 ? 0 : _b, _c = customAttributes._discountPrice, _discountPrice = _c === void 0 ? 0 : _c, _d = customAttributes._discountQuantity, _discountQuantity = _d === void 0 ? 0 : _d, _e = customAttributes._freeQuantity, _freeQuantity = _e === void 0 ? 0 : _e;
+        return totalDiscountPrice += ((Number(_actualUnitPrice) * (Number(_discountQuantity) + Number(_freeQuantity))) + Number(_discountPrice));
+    }, 0);
+};
+var getOfferAppiedLineItems = function (lineItems) {
+    return lineItems.reduce(function (productDetailsObj, lineItem) {
+        var _a;
+        var variantId = lineItem.variantId, _b = lineItem.customAttributes, customAttributes = _b === void 0 ? {} : _b;
+        if (Object.keys(customAttributes).indexOf('_actualUnitPrice') !== -1) {
+            return __assign(__assign({}, productDetailsObj), (_a = {}, _a[variantId] = lineItem, _a));
+        }
+        return productDetailsObj;
+    }, {});
+};
+var constructDisplayTextHtml = function (displayTextArray) {
+    if (displayTextArray.length === 0)
+        return '';
+    var textContent = displayTextArray.map(function (text) {
+        return "<p style=\"text-align: center;font-size: 14px\"><b>".concat(text, "</b></p>");
+    }).join('');
+    return "<!DOCTYPE html>\n\t<html lang=\"en\">\n\t\t<head>\n\t\t\t<meta charset=\"UTF-8\" />\n\t\t\t<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />\n\t\t\t<meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0\" />\n\t\t</head>\n\t\t<body style=\"min-width: auto; min-height: auto\">\n            ".concat(textContent, "\n\t\t</body>\n\t</html>");
+};
+
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+(() => {
+/*!**********************!*\
+  !*** ./src/index.ts ***!
+  \**********************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "flow": () => (/* binding */ flow)
+/* harmony export */ });
+/* harmony import */ var _controller_automaticOffer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./controller/automaticOffer */ "./src/controller/automaticOffer.ts");
+/* harmony import */ var _controller_buyXChooseY__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./controller/buyXChooseY */ "./src/controller/buyXChooseY.ts");
+/* harmony import */ var _controller_flatDiscount__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./controller/flatDiscount */ "./src/controller/flatDiscount.ts");
+/* harmony import */ var _controller_percentageDiscount__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./controller/percentageDiscount */ "./src/controller/percentageDiscount.ts");
+/* harmony import */ var _utils_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./utils/common */ "./src/utils/common.ts");
+var __assign = (undefined && undefined.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+var __spreadArray = (undefined && undefined.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
+
+
+
+
+
+var flow = function (appContext, configSchema) {
+    var flowObj = {};
+    var cartLineItems = appContext.cartLineItems;
+    var _a = cartLineItems.lineItems, lineItems = _a === void 0 ? [] : _a;
+    var validConfigList = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getValidInValidConfigDetails)(configSchema, lineItems).validConfigList;
+    var _b = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getCombinedOfferConfig)(validConfigList), _c = _b.combinedOfferConfig, combinedOfferConfig = _c === void 0 ? [] : _c, _d = _b.nonCombinedOfferConfig, nonCombinedOfferConfig = _d === void 0 ? [] : _d;
+    var removedProductDetails = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getOfferAppiedLineItems)(lineItems);
+    var allOfferDetails = {};
+    if ((combinedOfferConfig === null || combinedOfferConfig === void 0 ? void 0 : combinedOfferConfig.length) > 0) {
+        allOfferDetails.combinedOffer = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getOfferBasedConfig)(combinedOfferConfig);
+    }
+    nonCombinedOfferConfig.forEach(function (configDetails, ind) {
+        var newOfferId = (crypto === null || crypto === void 0 ? void 0 : crypto.randomUUID) && (crypto === null || crypto === void 0 ? void 0 : crypto.randomUUID()) || "offer".concat(ind);
+        allOfferDetails[newOfferId] = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getOfferBasedConfig)([configDetails]);
+    });
+    Object.entries(allOfferDetails).forEach(function (_a) {
+        var offerId = _a[0], offerDetails = _a[1];
+        var offerAppliedProducts = {};
+        Object.entries(offerDetails).forEach(function (_a) {
+            var offerCategory = _a[0], offerConfigDetails = _a[1];
+            if (offerConfigDetails.length === 0)
+                return;
+            switch (offerCategory) {
+                case "automaticOffers":
+                    offerAppliedProducts = (0,_controller_automaticOffer__WEBPACK_IMPORTED_MODULE_0__.getAutomaticOfferProducts)(offerConfigDetails, lineItems, offerAppliedProducts);
+                    break;
+                case "buyXGetY":
+                    offerAppliedProducts = (0,_controller_buyXChooseY__WEBPACK_IMPORTED_MODULE_1__.getBuyXChooseYOfferProducts)(offerConfigDetails, lineItems, offerAppliedProducts);
+                    break;
+                case "percentageDiscount":
+                    offerAppliedProducts = (0,_controller_percentageDiscount__WEBPACK_IMPORTED_MODULE_3__.getPercentageOfferProducts)(offerConfigDetails, lineItems, offerAppliedProducts);
+                    break;
+                case "flatDiscount":
+                    offerAppliedProducts = (0,_controller_flatDiscount__WEBPACK_IMPORTED_MODULE_2__.getFlatOfferProducts)(offerConfigDetails, lineItems, offerAppliedProducts);
+                    break;
+                default:
+                    break;
+            }
+        });
+        var displayTextArray = [];
+        Object.values(offerAppliedProducts).forEach(function (productDetails) {
+            var variantId = productDetails.variantId, _a = productDetails.displayTextDetails, displayTextDetails = _a === void 0 ? [] : _a, _b = productDetails.displayText, displayText = _b === void 0 ? '' : _b, customAttributes = productDetails.customAttributes;
+            __spreadArray(__spreadArray([], displayTextDetails, true), [displayText], false).forEach(function (textContent) {
+                if (!displayTextArray.includes(textContent) && textContent) {
+                    displayTextArray = __spreadArray(__spreadArray([], displayTextArray, true), [textContent], false);
+                }
+            });
+            offerAppliedProducts[variantId] = __assign(__assign({}, productDetails), { customAttributes: __assign({ _vajro_flow: customAttributes }, customAttributes) });
+        });
+        flowObj[offerId] = {
+            offerAppliedProducts: offerAppliedProducts,
+            displayTextArray: displayTextArray
+        };
+    });
+    var _e = Object.entries(flowObj).reduce(function (offerDetail, _a) {
+        var offerId = _a[0], appliedOfferDetails = _a[1];
+        var discountPrice = offerDetail.discountPrice;
+        var offerAppliedProducts = appliedOfferDetails.offerAppliedProducts, displayTextArray = appliedOfferDetails.displayTextArray;
+        var offerDiscountPrice = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getOfferDiscountPrice)(Object.values(offerAppliedProducts));
+        if (offerDiscountPrice > discountPrice) {
+            return {
+                discountPrice: offerDiscountPrice,
+                offerAppliedDetails: offerAppliedProducts,
+                displayTextArray: displayTextArray
+            };
+        }
+        return offerDetail;
+    }, {
+        discountPrice: 0,
+        offerAppliedDetails: {},
+        displayTextArray: []
+    }), discountPrice = _e.discountPrice, offerAppliedDetails = _e.offerAppliedDetails, displayTextArray = _e.displayTextArray;
+    var displayTextHtml = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.constructDisplayTextHtml)(displayTextArray);
+    var offerRemovedDetails = Object.keys(removedProductDetails).reduce(function (details, productVariantId) {
+        var _a;
+        if (offerAppliedDetails[productVariantId])
+            return details;
+        return __assign(__assign({}, details), (_a = {}, _a[productVariantId] = removedProductDetails[productVariantId], _a));
+    }, {});
+    var finalResult = {
+        discountPrice: discountPrice,
+        offerAppliedDetails: offerAppliedDetails,
+        offerRemovedDetails: offerRemovedDetails,
+        displayTextHtml: displayTextHtml
+    };
+    return finalResult;
+};
+
+})();
+
+vajroPlugin = __webpack_exports__;
+/******/ })()
+;
 //# sourceMappingURL=vajroPlugin.js.map
