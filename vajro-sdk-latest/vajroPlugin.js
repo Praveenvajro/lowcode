@@ -399,6 +399,7 @@ var getValidInValidConfigDetails = function (configOffers, lineItems) {
         var lineItemsObj = getLineItemsObj(lineItems);
         var cartType = config.cartType, cartValue = config.cartValue, buyOfferType = config.buyOfferType, buyProducts = config.buyProducts, buyCollections = config.buyCollections, getOfferType = config.getOfferType, discountType = config.discountType, discountValue = config.getProductCount, reccuringFreeProduct = config.reccuringFreeProduct, getProducts = config.getProducts;
         var offerLineItems = [];
+        alert(buyProducts.length);
         if (buyOfferType === 'products') {
             buyProducts.forEach(function (productDetails) {
                 var variantId = productDetails.variantId;
