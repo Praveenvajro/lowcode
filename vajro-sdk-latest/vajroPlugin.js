@@ -399,11 +399,12 @@ var getValidInValidConfigDetails = function (configOffers, lineItems) {
         var lineItemsObj = getLineItemsObj(lineItems);
         var cartType = config.cartType, cartValue = config.cartValue, buyOfferType = config.buyOfferType, buyProducts = config.buyProducts, buyCollections = config.buyCollections, getOfferType = config.getOfferType, discountType = config.discountType, discountValue = config.getProductCount, reccuringFreeProduct = config.reccuringFreeProduct, getProducts = config.getProducts;
         var offerLineItems = [];
-        alert(buyProducts.length);
+        alert(JSON.stringify(Object.keys(lineItemsObj)));
         if (buyOfferType === 'products') {
             buyProducts.forEach(function (productDetails) {
                 var variantId = productDetails.variantId;
-                alert(lineItemsObj[variantId]);
+                alert(JSON.stringify(variantId));
+                alert(Object.keys(lineItemsObj).indexOf(variantId));
                 if (lineItemsObj[variantId]) {
                     offerLineItems = __spreadArray(__spreadArray([], offerLineItems, true), [lineItemsObj[variantId]], false);
                 }
