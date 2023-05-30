@@ -403,6 +403,7 @@ var getValidInValidConfigDetails = function (configOffers, lineItems) {
         if (buyOfferType === 'products') {
             buyProducts.forEach(function (productDetails) {
                 var variantId = productDetails.variantId;
+                console.log(lineItemsObj[variantId]);
                 if (lineItemsObj[variantId]) {
                     offerLineItems = __spreadArray(__spreadArray([], offerLineItems, true), [lineItemsObj[variantId]], false);
                 }
