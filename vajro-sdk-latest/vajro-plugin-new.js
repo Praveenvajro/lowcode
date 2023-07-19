@@ -36,74 +36,63 @@ var __spreadArray = (undefined && undefined.__spreadArray) || function (to, from
 };
 
 var getAutomaticOfferProducts = function (configOffers, lineItems, offerAppliedProducts) {
-    try {
-        var lineItemsObj_1 = (0,_utils_common__WEBPACK_IMPORTED_MODULE_0__.getLineItemsObj)(lineItems);
-        var freeProductsTargetId_1 = (crypto === null || crypto === void 0 ? void 0 : crypto.randomUUID) && (crypto === null || crypto === void 0 ? void 0 : crypto.randomUUID()) || "freeOfferTarget";
-        configOffers.forEach(function (config) {
-            var cartType = config.cartType, cartValue = config.cartValue, buyOfferType = config.buyOfferType, buyProducts = config.buyProducts, buyCollections = config.buyCollections, discountValue = config.getProductCount, reccuringFreeProduct = config.reccuringFreeProduct, getProducts = config.getProducts, displayText = config.displayText;
-            var offerLineItems = [];
-            if (buyOfferType === 'products') {
-                buyProducts.forEach(function (productDetails) {
-                    var variantId = productDetails.variantId;
-                    if (lineItemsObj_1[variantId]) {
-                        offerLineItems = __spreadArray(__spreadArray([], offerLineItems, true), [lineItemsObj_1[variantId]], false);
-                    }
+    var lineItemsObj = (0,_utils_common__WEBPACK_IMPORTED_MODULE_0__.getLineItemsObj)(lineItems);
+    var freeProductsTargetId = (crypto === null || crypto === void 0 ? void 0 : crypto.randomUUID) && (crypto === null || crypto === void 0 ? void 0 : crypto.randomUUID()) || "freeOfferTarget";
+    configOffers.forEach(function (config) {
+        var cartType = config.cartType, cartValue = config.cartValue, buyOfferType = config.buyOfferType, buyProducts = config.buyProducts, buyCollections = config.buyCollections, discountValue = config.getProductCount, reccuringFreeProduct = config.reccuringFreeProduct, getProducts = config.getProducts, displayText = config.displayText;
+        var offerLineItems = [];
+        if (buyOfferType === 'products') {
+            buyProducts.forEach(function (productDetails) {
+                var variantId = productDetails.variantId;
+                if (lineItemsObj[variantId]) {
+                    offerLineItems = __spreadArray(__spreadArray([], offerLineItems, true), [lineItemsObj[variantId]], false);
+                }
+            });
+        }
+        else if (buyOfferType === 'collections') {
+            buyCollections.forEach(function (collectionDetails) {
+                var collectionId = collectionDetails.collectionId;
+                var collectionLineItems = lineItems.filter(function (lineItem) {
+                    return collectionId === lineItem.collectionId;
                 });
-            }
-            else if (buyOfferType === 'collections') {
-                buyCollections.forEach(function (collectionDetails) {
-                    var collectionId = collectionDetails.collectionId;
-                    var collectionLineItems = lineItems.filter(function (lineItem) {
-                        return collectionId === lineItem.collectionId;
-                    });
-                    if (collectionLineItems.length > 0) {
-                        offerLineItems = __spreadArray(__spreadArray([], offerLineItems, true), collectionLineItems, true);
-                    }
-                });
-            }
-            else {
-                offerLineItems = lineItems;
-            }
-            var finalCartValue = cartType === 'amount' ? (0,_utils_common__WEBPACK_IMPORTED_MODULE_0__.getCartTotal)(offerLineItems) : (0,_utils_common__WEBPACK_IMPORTED_MODULE_0__.getCartCount)(offerLineItems);
-            alert(JSON.stringify({ finalCartValue: finalCartValue, offerLineItems: offerLineItems, cartType: cartType }));
-            if (finalCartValue >= cartValue) {
-                var freebieQuantity_1 = reccuringFreeProduct ? Math.floor(finalCartValue / cartValue) * discountValue : discountValue;
-                getProducts.forEach(function (productDetails) {
-                    var _a, _b;
-                    var variantId = productDetails.variantId, productId = productDetails.productId, productPrice = productDetails.productPrice;
-                    var variantOfferDetails = offerAppliedProducts[variantId];
-                    var _c = lineItemsObj_1[variantId] || {}, lineItemHandle = _c.lineItemHandle, _d = _c.quantity, quantity = _d === void 0 ? 0 : _d, _e = _c.customAttributes, lineItemCustomAttributes = _e === void 0 ? {} : _e;
-                    var _f = lineItemCustomAttributes._vajro_flow, _vajro_flow = _f === void 0 ? {} : _f;
-                    alert(JSON.stringify({ _vajro_flow: _vajro_flow, quantity: quantity }));
-                    var _g = _vajro_flow._freeQuantity, _freeQuantity = _g === void 0 ? 0 : _g;
-                    var finalProductQuantity = quantity ? Number(quantity) - Number(_freeQuantity) : 0;
-                    alert(JSON.stringify({ _vajro_flow: _vajro_flow, finalProductQuantity: finalProductQuantity }));
-                    var _h = variantOfferDetails || {}, _j = _h.customAttributes, _k = _j === void 0 ? {} : _j, _l = _k._vajro_flow, offerAppliedCustomAttributes = _l === void 0 ? {} : _l, _m = _h.displayTextDetails, displayTextDetails = _m === void 0 ? [] : _m;
-                    alert(JSON.stringify({ offerAppliedCustomAttributes: offerAppliedCustomAttributes, quantity: quantity }));
-                    if (!!freebieQuantity_1 && variantOfferDetails) {
-                        offerAppliedProducts = __assign(__assign({}, offerAppliedProducts), (_a = {}, _a[variantId] = __assign(__assign({}, variantOfferDetails), { displayTextDetails: displayTextDetails.includes(displayText) ? displayTextDetails : __spreadArray(__spreadArray([], displayTextDetails, true), [displayText], false), customAttributes: {
-                                _vajro_flow: __assign(__assign(__assign({}, _vajro_flow), offerAppliedCustomAttributes), { _productQuantity: finalProductQuantity, _freeQuantity: ((offerAppliedCustomAttributes === null || offerAppliedCustomAttributes === void 0 ? void 0 : offerAppliedCustomAttributes.freeQuantity) || 0) + freebieQuantity_1 })
-                            } }), _a));
-                    }
-                    else if (!!freebieQuantity_1) {
-                        alert(JSON.stringify({ _vajro_flow: _vajro_flow, variantId: variantId }));
-                        offerAppliedProducts = __assign(__assign({}, offerAppliedProducts), (_b = {}, _b[variantId] = {
-                            variantId: variantId,
-                            productId: productId,
-                            displayTextDetails: [displayText],
-                            lineItemHandle: lineItemHandle,
-                            customAttributes: __assign(__assign(__assign({}, _vajro_flow), offerAppliedCustomAttributes), { _productQuantity: finalProductQuantity, _actualUnitPrice: Number(productPrice), _freeQuantity: freebieQuantity_1, _productTargetId: freeProductsTargetId_1 })
-                        }, _b));
-                    }
-                });
-            }
-        });
-        alert(JSON.stringify({ offerAppliedProducts: offerAppliedProducts }));
-        return offerAppliedProducts;
-    }
-    catch (e) {
-        alert(e.message);
-    }
+                if (collectionLineItems.length > 0) {
+                    offerLineItems = __spreadArray(__spreadArray([], offerLineItems, true), collectionLineItems, true);
+                }
+            });
+        }
+        else {
+            offerLineItems = lineItems;
+        }
+        var finalCartValue = cartType === 'amount' ? (0,_utils_common__WEBPACK_IMPORTED_MODULE_0__.getCartTotal)(offerLineItems) : (0,_utils_common__WEBPACK_IMPORTED_MODULE_0__.getCartCount)(offerLineItems);
+        if (finalCartValue >= cartValue) {
+            var freebieQuantity_1 = reccuringFreeProduct ? Math.floor(finalCartValue / cartValue) * discountValue : discountValue;
+            getProducts.forEach(function (productDetails) {
+                var _a, _b;
+                var variantId = productDetails.variantId, productId = productDetails.productId, productPrice = productDetails.productPrice;
+                var variantOfferDetails = offerAppliedProducts[variantId];
+                var _c = lineItemsObj[variantId] || {}, lineItemHandle = _c.lineItemHandle, _d = _c.quantity, quantity = _d === void 0 ? 0 : _d, _e = _c.customAttributes, lineItemCustomAttributes = _e === void 0 ? {} : _e;
+                var _f = lineItemCustomAttributes._vajro_flow, _vajro_flow = _f === void 0 ? {} : _f;
+                var _g = _vajro_flow._freeQuantity, _freeQuantity = _g === void 0 ? 0 : _g;
+                var finalProductQuantity = quantity ? Number(quantity) - Number(_freeQuantity) : 0;
+                var _h = variantOfferDetails || {}, _j = _h.customAttributes, _k = _j === void 0 ? {} : _j, _l = _k._vajro_flow, offerAppliedCustomAttributes = _l === void 0 ? {} : _l, _m = _h.displayTextDetails, displayTextDetails = _m === void 0 ? [] : _m;
+                if (!!freebieQuantity_1 && variantOfferDetails) {
+                    offerAppliedProducts = __assign(__assign({}, offerAppliedProducts), (_a = {}, _a[variantId] = __assign(__assign({}, variantOfferDetails), { displayTextDetails: displayTextDetails.includes(displayText) ? displayTextDetails : __spreadArray(__spreadArray([], displayTextDetails, true), [displayText], false), customAttributes: {
+                            _vajro_flow: __assign(__assign(__assign({}, _vajro_flow), offerAppliedCustomAttributes), { _productQuantity: finalProductQuantity, _freeQuantity: ((offerAppliedCustomAttributes === null || offerAppliedCustomAttributes === void 0 ? void 0 : offerAppliedCustomAttributes.freeQuantity) || 0) + freebieQuantity_1 })
+                        } }), _a));
+                }
+                else if (!!freebieQuantity_1) {
+                    offerAppliedProducts = __assign(__assign({}, offerAppliedProducts), (_b = {}, _b[variantId] = {
+                        variantId: variantId,
+                        productId: productId,
+                        displayTextDetails: [displayText],
+                        lineItemHandle: lineItemHandle,
+                        customAttributes: __assign(__assign(__assign({}, _vajro_flow), offerAppliedCustomAttributes), { _productQuantity: finalProductQuantity, _actualUnitPrice: Number(productPrice), _freeQuantity: freebieQuantity_1, _productTargetId: freeProductsTargetId })
+                    }, _b));
+                }
+            });
+        }
+    });
+    return offerAppliedProducts;
 };
 
 
@@ -683,11 +672,13 @@ var flow = function (appContext, configSchema) {
             });
             offerAppliedProducts[variantId] = __assign(__assign({}, productDetails), { customAttributes: customAttributes });
         });
+        alert(JSON.stringify({ offerAppliedProducts: offerAppliedProducts, displayTextArray: displayTextArray }));
         flowObj[offerId] = {
             offerAppliedProducts: offerAppliedProducts,
             displayTextArray: displayTextArray
         };
     });
+    alert(JSON.stringify({ flowObj: flowObj }));
     var _e = Object.entries(flowObj).reduce(function (offerDetail, _a) {
         var offerId = _a[0], appliedOfferDetails = _a[1];
         var discountPrice = offerDetail.discountPrice;
