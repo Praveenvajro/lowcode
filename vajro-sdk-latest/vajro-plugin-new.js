@@ -684,6 +684,7 @@ var flow = function (appContext, configSchema) {
         var discountPrice = offerDetail.discountPrice;
         var offerAppliedProducts = appliedOfferDetails.offerAppliedProducts, displayTextArray = appliedOfferDetails.displayTextArray;
         var offerDiscountPrice = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getOfferDiscountPrice)(Object.values(offerAppliedProducts));
+        alert(JSON.stringify({ offerDiscountPrice: offerDiscountPrice, discountPrice: discountPrice }));
         if (offerDiscountPrice > discountPrice) {
             return {
                 discountPrice: offerDiscountPrice,
