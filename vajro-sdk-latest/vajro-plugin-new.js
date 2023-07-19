@@ -86,7 +86,9 @@ var getAutomaticOfferProducts = function (configOffers, lineItems, offerAppliedP
                         productId: productId,
                         displayTextDetails: [displayText],
                         lineItemHandle: lineItemHandle,
-                        customAttributes: __assign(__assign(__assign({}, _vajro_flow), offerAppliedCustomAttributes), { _productQuantity: finalProductQuantity, _actualUnitPrice: Number(productPrice), _freeQuantity: freebieQuantity_1, _productTargetId: freeProductsTargetId })
+                        customAttributes: {
+                            _vajro_flow: __assign(__assign(__assign({}, _vajro_flow), offerAppliedCustomAttributes), { _productQuantity: finalProductQuantity, _actualUnitPrice: Number(productPrice), _freeQuantity: freebieQuantity_1, _productTargetId: freeProductsTargetId })
+                        }
                     }, _b));
                 }
             });
