@@ -702,6 +702,7 @@ var flow = function (appContext, configSchema) {
         offerRemovedDetails: offerRemovedDetails,
         displayTextHtml: displayTextHtml
     };
+    alert(JSON.stringify({ finalResult: finalResult }));
     return finalResult;
 };
 
