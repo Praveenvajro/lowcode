@@ -73,8 +73,10 @@ var getAutomaticOfferProducts = function (configOffers, lineItems, offerAppliedP
                     var variantId = productDetails.variantId, productId = productDetails.productId, productPrice = productDetails.productPrice;
                     var variantOfferDetails = offerAppliedProducts[variantId];
                     var _c = lineItemsObj_1[variantId] || {}, lineItemHandle = _c.lineItemHandle, _d = _c.quantity, quantity = _d === void 0 ? 0 : _d, _e = _c.customAttributes._vajro_flow, _vajro_flow = _e === void 0 ? {} : _e;
+                    alert(JSON.stringify({ _vajro_flow: _vajro_flow, quantity: quantity }));
                     var _f = _vajro_flow._freeQuantity, _freeQuantity = _f === void 0 ? 0 : _f;
                     var finalProductQuantity = quantity ? Number(quantity) - Number(_freeQuantity) : 0;
+                    alert(JSON.stringify({ _vajro_flow: _vajro_flow, finalProductQuantity: finalProductQuantity }));
                     var _g = variantOfferDetails || {}, _h = _g.customAttributes, _j = _h === void 0 ? {} : _h, _k = _j._vajro_flow, offerAppliedCustomAttributes = _k === void 0 ? {} : _k, _l = _g.displayTextDetails, displayTextDetails = _l === void 0 ? [] : _l;
                     if (!!freebieQuantity_1 && variantOfferDetails) {
                         offerAppliedProducts = __assign(__assign({}, offerAppliedProducts), (_a = {}, _a[variantId] = __assign(__assign({}, variantOfferDetails), { displayTextDetails: displayTextDetails.includes(displayText) ? displayTextDetails : __spreadArray(__spreadArray([], displayTextDetails, true), [displayText], false), customAttributes: {
@@ -82,6 +84,7 @@ var getAutomaticOfferProducts = function (configOffers, lineItems, offerAppliedP
                             } }), _a));
                     }
                     else if (!!freebieQuantity_1) {
+                        alert(JSON.stringify({ _vajro_flow: _vajro_flow, variantId: variantId }));
                         offerAppliedProducts = __assign(__assign({}, offerAppliedProducts), (_b = {}, _b[variantId] = {
                             variantId: variantId,
                             productId: productId,
