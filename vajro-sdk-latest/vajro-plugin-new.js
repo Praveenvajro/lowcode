@@ -11,7 +11,7 @@ var vajroPlugin;
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getAutomaticOfferProducts": () => (/* binding */ getAutomaticOfferProducts)
+/* harmony export */   getAutomaticOfferProducts: () => (/* binding */ getAutomaticOfferProducts)
 /* harmony export */ });
 /* harmony import */ var _utils_common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/common */ "./src/utils/common.ts");
 var __assign = (undefined && undefined.__assign) || function () {
@@ -105,7 +105,7 @@ var getAutomaticOfferProducts = function (configOffers, lineItems, offerAppliedP
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getBuyXChooseYOfferProducts": () => (/* binding */ getBuyXChooseYOfferProducts)
+/* harmony export */   getBuyXChooseYOfferProducts: () => (/* binding */ getBuyXChooseYOfferProducts)
 /* harmony export */ });
 /* harmony import */ var _utils_common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/common */ "./src/utils/common.ts");
 var __assign = (undefined && undefined.__assign) || function () {
@@ -173,7 +173,7 @@ var getBuyXChooseYOfferProducts = function (configOffers, lineItems, offerApplie
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getFlatOfferProducts": () => (/* binding */ getFlatOfferProducts)
+/* harmony export */   getFlatOfferProducts: () => (/* binding */ getFlatOfferProducts)
 /* harmony export */ });
 /* harmony import */ var _utils_common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/common */ "./src/utils/common.ts");
 var __assign = (undefined && undefined.__assign) || function () {
@@ -292,7 +292,7 @@ var getFlatOfferProducts = function (configOffers, lineItems, offerAppliedProduc
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getPercentageOfferProducts": () => (/* binding */ getPercentageOfferProducts)
+/* harmony export */   getPercentageOfferProducts: () => (/* binding */ getPercentageOfferProducts)
 /* harmony export */ });
 /* harmony import */ var _utils_common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/common */ "./src/utils/common.ts");
 var __assign = (undefined && undefined.__assign) || function () {
@@ -374,15 +374,15 @@ var getPercentageOfferProducts = function (configOffers, lineItems, offerApplied
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "constructDisplayTextHtml": () => (/* binding */ constructDisplayTextHtml),
-/* harmony export */   "getCartCount": () => (/* binding */ getCartCount),
-/* harmony export */   "getCartTotal": () => (/* binding */ getCartTotal),
-/* harmony export */   "getCombinedOfferConfig": () => (/* binding */ getCombinedOfferConfig),
-/* harmony export */   "getLineItemsObj": () => (/* binding */ getLineItemsObj),
-/* harmony export */   "getOfferAppiedLineItems": () => (/* binding */ getOfferAppiedLineItems),
-/* harmony export */   "getOfferBasedConfig": () => (/* binding */ getOfferBasedConfig),
-/* harmony export */   "getOfferDiscountPrice": () => (/* binding */ getOfferDiscountPrice),
-/* harmony export */   "getValidInValidConfigDetails": () => (/* binding */ getValidInValidConfigDetails)
+/* harmony export */   constructDisplayTextHtml: () => (/* binding */ constructDisplayTextHtml),
+/* harmony export */   getCartCount: () => (/* binding */ getCartCount),
+/* harmony export */   getCartTotal: () => (/* binding */ getCartTotal),
+/* harmony export */   getCombinedOfferConfig: () => (/* binding */ getCombinedOfferConfig),
+/* harmony export */   getLineItemsObj: () => (/* binding */ getLineItemsObj),
+/* harmony export */   getOfferAppiedLineItems: () => (/* binding */ getOfferAppiedLineItems),
+/* harmony export */   getOfferBasedConfig: () => (/* binding */ getOfferBasedConfig),
+/* harmony export */   getOfferDiscountPrice: () => (/* binding */ getOfferDiscountPrice),
+/* harmony export */   getValidInValidConfigDetails: () => (/* binding */ getValidInValidConfigDetails)
 /* harmony export */ });
 var __assign = (undefined && undefined.__assign) || function () {
     __assign = Object.assign || function(t) {
@@ -584,7 +584,7 @@ var __webpack_exports__ = {};
   \**********************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "flow": () => (/* binding */ flow)
+/* harmony export */   flow: () => (/* binding */ flow)
 /* harmony export */ });
 /* harmony import */ var _controller_automaticOffer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./controller/automaticOffer */ "./src/controller/automaticOffer.ts");
 /* harmony import */ var _controller_buyXChooseY__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./controller/buyXChooseY */ "./src/controller/buyXChooseY.ts");
@@ -621,6 +621,7 @@ var flow = function (appContext, configSchema) {
     var cartLineItems = appContext.cartLineItems;
     var _a = cartLineItems.lineItems, lineItems = _a === void 0 ? [] : _a;
     var validConfigList = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getValidInValidConfigDetails)(configSchema, lineItems).validConfigList;
+    alert(validConfigList.length);
     var _b = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getCombinedOfferConfig)(validConfigList), _c = _b.combinedOfferConfig, combinedOfferConfig = _c === void 0 ? [] : _c, _d = _b.nonCombinedOfferConfig, nonCombinedOfferConfig = _d === void 0 ? [] : _d;
     var removedProductDetails = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getOfferAppiedLineItems)(lineItems);
     var allOfferDetails = {};
