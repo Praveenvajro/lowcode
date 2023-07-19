@@ -496,7 +496,7 @@ var getOfferDiscountPrice = function (offerAppliedProducts) {
     return offerAppliedProducts.reduce(function (totalDiscountPrice, productDetails) {
         var _a = productDetails.customAttributes, customAttributes = _a === void 0 ? {} : _a;
         var _b = customAttributes._vajro_flow, _vajro_flow = _b === void 0 ? {} : _b;
-        alert(JSON.stringify({ _vajro_flow: _vajro_flow }));
+        alert(JSON.stringify({ productDetails: productDetails, customAttributes: customAttributes }));
         var _c = _vajro_flow._actualUnitPrice, _actualUnitPrice = _c === void 0 ? 0 : _c, _d = _vajro_flow._discountPrice, _discountPrice = _d === void 0 ? 0 : _d, _e = _vajro_flow._discountQuantity, _discountQuantity = _e === void 0 ? 0 : _e, _f = _vajro_flow._freeQuantity, _freeQuantity = _f === void 0 ? 0 : _f;
         return totalDiscountPrice += ((Number(_actualUnitPrice) * (Number(_discountQuantity) + Number(_freeQuantity))) + Number(_discountPrice));
     }, 0);
