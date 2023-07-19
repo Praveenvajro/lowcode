@@ -644,6 +644,7 @@ var flow = function (appContext, configSchema) {
                 return;
             switch (offerCategory) {
                 case "automaticOffers":
+                    alert(JSON.stringify({ offerAppliedProducts: offerAppliedProducts }));
                     offerAppliedProducts = (0,_controller_automaticOffer__WEBPACK_IMPORTED_MODULE_0__.getAutomaticOfferProducts)(offerConfigDetails, lineItems, offerAppliedProducts);
                     alert(JSON.stringify({ offerAppliedProducts: offerAppliedProducts }));
                     break;
