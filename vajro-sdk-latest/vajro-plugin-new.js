@@ -623,7 +623,9 @@ var flow = function (appContext, configSchema) {
     var validConfigList = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getValidInValidConfigDetails)(configSchema, lineItems).validConfigList;
     alert(validConfigList.length);
     var _b = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getCombinedOfferConfig)(validConfigList), _c = _b.combinedOfferConfig, combinedOfferConfig = _c === void 0 ? [] : _c, _d = _b.nonCombinedOfferConfig, nonCombinedOfferConfig = _d === void 0 ? [] : _d;
+    alert(JSON.stringify({ combinedOfferConfig: combinedOfferConfig, nonCombinedOfferConfig: nonCombinedOfferConfig }));
     var removedProductDetails = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getOfferAppiedLineItems)(lineItems);
+    alert(JSON.stringify({ removedProductDetails: removedProductDetails }));
     var allOfferDetails = {};
     if ((combinedOfferConfig === null || combinedOfferConfig === void 0 ? void 0 : combinedOfferConfig.length) > 0) {
         allOfferDetails.combinedOffer = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getOfferBasedConfig)(combinedOfferConfig);
@@ -632,6 +634,7 @@ var flow = function (appContext, configSchema) {
         var newOfferId = (crypto === null || crypto === void 0 ? void 0 : crypto.randomUUID) && (crypto === null || crypto === void 0 ? void 0 : crypto.randomUUID()) || "offer".concat(ind);
         allOfferDetails[newOfferId] = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getOfferBasedConfig)([configDetails]);
     });
+    alert(JSON.stringify({ allOfferDetails: allOfferDetails }));
     Object.entries(allOfferDetails).forEach(function (_a) {
         var offerId = _a[0], offerDetails = _a[1];
         var offerAppliedProducts = {};
