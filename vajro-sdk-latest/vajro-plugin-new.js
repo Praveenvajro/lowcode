@@ -506,7 +506,8 @@ var getOfferDiscountPrice = function (offerAppliedProducts) {
 var getOfferAppiedLineItems = function (lineItems) {
     return lineItems.reduce(function (productDetailsObj, lineItem) {
         var _a;
-        var variantId = lineItem.variantId, _b = lineItem.customAttributes, _c = _b === void 0 ? {} : _b, _d = _c._vajro_flow, _vajro_flow = _d === void 0 ? {} : _d;
+        var variantId = lineItem.variantId, _b = lineItem.customAttributes, customAttributes = _b === void 0 ? {} : _b;
+        var _c = customAttributes._vajro_flow, _vajro_flow = _c === void 0 ? {} : _c;
         if (Object.keys(_vajro_flow).indexOf('_actualUnitPrice') !== -1) {
             return __assign(__assign({}, productDetailsObj), (_a = {}, _a[variantId] = lineItem, _a));
         }
