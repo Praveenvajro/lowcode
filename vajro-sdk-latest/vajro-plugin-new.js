@@ -508,6 +508,7 @@ var getOfferAppiedLineItems = function (lineItems) {
         var _a;
         var variantId = lineItem.variantId, _b = lineItem.customAttributes, customAttributes = _b === void 0 ? {} : _b;
         var _c = customAttributes._vajro_flow, _vajro_flow = _c === void 0 ? {} : _c;
+        alert(JSON.stringify({ _vajro_flow: _vajro_flow, lineItem: lineItem }));
         if (Object.keys(_vajro_flow).indexOf('_actualUnitPrice') !== -1) {
             return __assign(__assign({}, productDetailsObj), (_a = {}, _a[variantId] = lineItem, _a));
         }
