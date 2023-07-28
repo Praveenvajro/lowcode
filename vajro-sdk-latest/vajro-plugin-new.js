@@ -512,7 +512,6 @@ var getOfferDiscountPrice = function (offerAppliedProducts) {
         var _a = productDetails.customAttributes, customAttributes = _a === void 0 ? {} : _a;
         var _b = customAttributes._vajro_flow, lineItemFlowObj = _b === void 0 ? {} : _b;
         var _vajro_flow = typeof (lineItemFlowObj) === 'string' ? JSON.parse(lineItemFlowObj) : __assign({}, lineItemFlowObj);
-        alert(JSON.stringify({ productDetails: productDetails, customAttributes: customAttributes }));
         var _c = _vajro_flow._actualUnitPrice, _actualUnitPrice = _c === void 0 ? 0 : _c, _d = _vajro_flow._discountPrice, _discountPrice = _d === void 0 ? 0 : _d, _e = _vajro_flow._discountQuantity, _discountQuantity = _e === void 0 ? 0 : _e, _f = _vajro_flow._freeQuantity, _freeQuantity = _f === void 0 ? 0 : _f;
         return totalDiscountPrice += ((Number(_actualUnitPrice) * (Number(_discountQuantity) + Number(_freeQuantity))) + Number(_discountPrice));
     }, 0);
@@ -523,9 +522,8 @@ var getOfferAppiedLineItems = function (lineItems) {
         var variantId = lineItem.variantId, _b = lineItem.customAttributes, customAttributes = _b === void 0 ? {} : _b;
         var _c = customAttributes._vajro_flow, lineItemFlowObj = _c === void 0 ? {} : _c;
         var _vajro_flow = typeof (lineItemFlowObj) === 'string' ? JSON.parse(lineItemFlowObj) : __assign({}, lineItemFlowObj);
-        alert(JSON.stringify({ _vajro_flow: _vajro_flow, lineItem: lineItem }));
         if (Object.keys(_vajro_flow).indexOf('_actualUnitPrice') !== -1) {
-            return __assign(__assign({}, productDetailsObj), (_a = {}, _a[variantId] = lineItem, _a));
+            return __assign(__assign({}, productDetailsObj), (_a = {}, _a[variantId] = __assign(__assign({}, lineItem), { customAttributes: __assign(__assign({}, customAttributes), { _vajro_flow: _vajro_flow }) }), _a));
         }
         return productDetailsObj;
     }, {});
@@ -643,7 +641,6 @@ var flow = function (appContext, configSchema) {
     var cartLineItems = appContext.cartLineItems;
     var _a = cartLineItems.lineItems, lineItems = _a === void 0 ? [] : _a;
     var validConfigList = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getValidInValidConfigDetails)(configSchema, lineItems).validConfigList;
-    alert(validConfigList.length);
     var _b = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getCombinedOfferConfig)(validConfigList), _c = _b.combinedOfferConfig, combinedOfferConfig = _c === void 0 ? [] : _c, _d = _b.nonCombinedOfferConfig, nonCombinedOfferConfig = _d === void 0 ? [] : _d;
     // alert(JSON.stringify({lineItems}));
     var removedProductDetails = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getOfferAppiedLineItems)(lineItems);
