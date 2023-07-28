@@ -216,11 +216,11 @@ var getFlatOfferProducts = function (configOffers, lineItems, offerAppliedProduc
             var _a;
             var variantId = lineItem.variantId, productId = lineItem.productId, lineItemHandle = lineItem.lineItemHandle, unitPrice = lineItem.unitPrice, _b = lineItem.quantity, quantity = _b === void 0 ? 0 : _b, _c = lineItem.customAttributes, _d = _c === void 0 ? {} : _c, _e = _d._vajro_flow, lineItemFlowObj = _e === void 0 ? {} : _e;
             var _vajro_flow = typeof (lineItemFlowObj) === 'string' ? JSON.parse(lineItemFlowObj) : __assign({}, lineItemFlowObj);
-            var _f = _vajro_flow._actualUnitPrice, _actualUnitPrice = _f === void 0 ? 0 : _f, _g = _vajro_flow._freeQuantity, _freeQuantity = _g === void 0 ? 0 : _g;
+            var _f = _vajro_flow._actualUnitPrice, _actualUnitPrice = _f === void 0 ? unitPrice : _f, _g = _vajro_flow._freeQuantity, _freeQuantity = _g === void 0 ? 0 : _g;
             var variantOfferDetails = appliedProductDetails[variantId] || {};
             var _h = variantOfferDetails.customAttributes, _j = _h === void 0 ? {} : _h, _k = _j._vajro_flow, offerAppliedCustomAttributes = _k === void 0 ? {} : _k;
             var finalProductQuantity = quantity ? Number(quantity) - Number(_freeQuantity) : 0;
-            var unitPriceDiscount = isSplitNeed ? ((_actualUnitPrice || unitPrice) * (offerPercentage / 100)) : fixedAmount;
+            var unitPriceDiscount = isSplitNeed ? (_actualUnitPrice * (offerPercentage / 100)) : fixedAmount;
             var _l = offerAppliedCustomAttributes._discountQuantity, _discountQuantity = _l === void 0 ? 0 : _l;
             appliedProductDetails = __assign(__assign({}, appliedProductDetails), (_a = {}, _a[variantId] = __assign(__assign({}, variantOfferDetails), { variantId: variantId, productId: productId, lineItemHandle: lineItemHandle, displayText: displayText, customAttributes: {
                     _vajro_flow: __assign(__assign({}, offerAppliedCustomAttributes), { _actualUnitPrice: Number(_actualUnitPrice), _productQuantity: finalProductQuantity, _discountPrice: unitPriceDiscount >= _actualUnitPrice ? _actualUnitPrice : unitPriceDiscount, _discountQuantity: unitPriceDiscount >= _actualUnitPrice ? finalProductQuantity : _discountQuantity, _offerPercenatage: offerPercentage >= 100 ? 100 : offerPercentage, _amountTargetId: targetId, _flatDiscountDetails: {
@@ -274,10 +274,10 @@ var getFlatOfferProducts = function (configOffers, lineItems, offerAppliedProduc
         offerLineItems = offerLineItems.filter(function (lineItem) {
             var variantId = lineItem.variantId, unitPrice = lineItem.unitPrice, _a = lineItem.customAttributes, _b = _a === void 0 ? {} : _a, _c = _b._vajro_flow, lineItemFlowObj = _c === void 0 ? {} : _c;
             var _vajro_flow = typeof (lineItemFlowObj) === 'string' ? JSON.parse(lineItemFlowObj) : __assign({}, lineItemFlowObj);
-            var _d = _vajro_flow._actualUnitPrice, _actualUnitPrice = _d === void 0 ? 0 : _d;
+            var _d = _vajro_flow._actualUnitPrice, _actualUnitPrice = _d === void 0 ? unitPrice : _d;
             var variantOfferDetails = crntAppliedProductDetails[variantId] || {};
             var _e = variantOfferDetails.customAttributes, _f = _e === void 0 ? {} : _e, _g = _f._vajro_flow, offerAppliedCustomAttributes = _g === void 0 ? {} : _g;
-            var unitPriceDiscount = splitFlatAmount ? ((_actualUnitPrice || unitPrice) * (discountValue / cartTotal)) : discountValue;
+            var unitPriceDiscount = splitFlatAmount ? (_actualUnitPrice * (discountValue / cartTotal)) : discountValue;
             var _h = offerAppliedCustomAttributes._discountPrice, _discountPrice = _h === void 0 ? 0 : _h, _j = offerAppliedCustomAttributes._flatDiscountDetails, _flatDiscountDetails = _j === void 0 ? {} : _j, _amountTargetId = offerAppliedCustomAttributes._amountTargetId, offerDisplayText = offerAppliedCustomAttributes.displayText;
             var _k = _flatDiscountDetails.lineItems, appliedLineItems = _k === void 0 ? [] : _k, _l = _flatDiscountDetails.splitFlatAmount, issplitFlatAmountApplied = _l === void 0 ? false : _l, _m = _flatDiscountDetails.discountValue, appliedDiscountValue = _m === void 0 ? 0 : _m;
             if (unitPriceDiscount > _discountPrice) {
@@ -361,11 +361,11 @@ var getPercentageOfferProducts = function (configOffers, lineItems, offerApplied
             var variantId = lineItem.variantId, productId = lineItem.productId, lineItemHandle = lineItem.lineItemHandle, unitPrice = lineItem.unitPrice, _b = lineItem.quantity, quantity = _b === void 0 ? 0 : _b, _c = lineItem.customAttributes, lineItemCustomAttributes = _c === void 0 ? {} : _c;
             var _d = lineItemCustomAttributes._vajro_flow, lineItemFlowObj = _d === void 0 ? {} : _d;
             var _vajro_flow = typeof (lineItemFlowObj) === 'string' ? JSON.parse(lineItemFlowObj) : __assign({}, lineItemFlowObj);
-            var _e = _vajro_flow._actualUnitPrice, _actualUnitPrice = _e === void 0 ? 0 : _e, _f = _vajro_flow._freeQuantity, _freeQuantity = _f === void 0 ? 0 : _f;
+            var _e = _vajro_flow._actualUnitPrice, _actualUnitPrice = _e === void 0 ? unitPrice : _e, _f = _vajro_flow._freeQuantity, _freeQuantity = _f === void 0 ? 0 : _f;
             var variantOfferDetails = offerAppliedProducts[variantId] || {};
             var _g = variantOfferDetails.customAttributes, _h = _g === void 0 ? {} : _g, _j = _h._vajro_flow, offerAppliedCustomAttributes = _j === void 0 ? {} : _j;
             var finalProductQuantity = quantity ? Number(quantity) - Number(_freeQuantity) : 0;
-            var unitPriceDiscount = (_actualUnitPrice || unitPrice) * (discountValue / 100);
+            var unitPriceDiscount = _actualUnitPrice * (discountValue / 100);
             var _k = offerAppliedCustomAttributes._discountPrice, _discountPrice = _k === void 0 ? 0 : _k, _l = offerAppliedCustomAttributes._discountQuantity, _discountQuantity = _l === void 0 ? 0 : _l;
             if (unitPriceDiscount > _discountPrice && finalProductQuantity > 0) {
                 offerAppliedProducts = __assign(__assign({}, offerAppliedProducts), (_a = {}, _a[variantId] = __assign(__assign({}, variantOfferDetails), { variantId: variantId, productId: productId, lineItemHandle: lineItemHandle, displayText: displayText, customAttributes: {
@@ -497,8 +497,8 @@ var getCartTotal = function (lineItems) {
         var _a = lineItem.unitPrice, unitPrice = _a === void 0 ? 0 : _a, _b = lineItem.quantity, quantity = _b === void 0 ? 0 : _b, _c = lineItem.customAttributes, customAttributes = _c === void 0 ? {} : _c;
         var _d = customAttributes._vajro_flow, lineItemFlowObj = _d === void 0 ? {} : _d;
         var _vajro_flow = typeof (lineItemFlowObj) === 'string' ? JSON.parse(lineItemFlowObj) : __assign({}, lineItemFlowObj);
-        var _e = _vajro_flow || {}, _f = _e._actualUnitPrice, _actualUnitPrice = _f === void 0 ? 0 : _f, _g = _e._discountQuantity, _discountQuantity = _g === void 0 ? 0 : _g, _h = _e._freeQuantity, _freeQuantity = _h === void 0 ? 0 : _h;
-        return total + ((_actualUnitPrice || unitPrice) * (quantity - (Number(_freeQuantity) + Number(_discountQuantity))));
+        var _e = _vajro_flow || {}, _f = _e._actualUnitPrice, _actualUnitPrice = _f === void 0 ? unitPrice : _f, _g = _e._discountQuantity, _discountQuantity = _g === void 0 ? 0 : _g, _h = _e._freeQuantity, _freeQuantity = _h === void 0 ? 0 : _h;
+        return total + (_actualUnitPrice * (quantity - (Number(_freeQuantity) + Number(_discountQuantity))));
     }, 0);
 };
 var getCartCount = function (lineItems) {
