@@ -12756,6 +12756,8 @@ __webpack_require__.r(__webpack_exports__);
 const actionExecutor = function (products) {
     return new Promise((resolve, reject) => {
         const validate = (0,_updateMultipleLineItemsToCart_schema__WEBPACK_IMPORTED_MODULE_3__.schema)(products);
+        alert(JSON.stringify({ products }));
+        alert(JSON.stringify({ validate }));
         if (validate) {
             (0,_communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].UPDATE_MULTIPLE_LINE_ITEMS_TO_CART, {
                 lineItems: products
@@ -12779,6 +12781,7 @@ const ActionBuilder = function () {
     let lineItems = [];
     return {
         setProduct(product) {
+            alert(JSON.stringify({ product }));
             lineItems.push(product);
             return this;
         },
