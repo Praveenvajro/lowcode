@@ -12591,6 +12591,7 @@ const UpdateLineItemInCart = function (lineItemHandle, quantity, lineItemType, d
         if (customAttributes) {
             data.customAttributes = customAttributes;
         }
+        alert(JSON.stringify({ data }));
         const validate = (0,_updateLineItemInCart_schema__WEBPACK_IMPORTED_MODULE_3__.updateLineItemInCartSchema)(data);
         if (validate) {
             (0,_communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].UPDATE_LINE_ITEM_IN_CART, data)
