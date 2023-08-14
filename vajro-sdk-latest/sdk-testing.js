@@ -22,7 +22,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function makePublicApi(stub) {
     var publicApi = (0,_tools_utils__WEBPACK_IMPORTED_MODULE_0__.assign)({
-        version: "4.32.0",
+        version: "4.12.0",
         // This API method is intentionally not monitored, since the only thing executed is the
         // user-provided 'callback'.  All SDK usages executed in the callback should be monitored, and
         // we don't want to interfere with the user uncaught exceptions.
@@ -48,70 +48,6 @@ function defineGlobal(global, name, api) {
     }
 }
 //# sourceMappingURL=init.js.map
-
-/***/ }),
-
-/***/ "./node_modules/@datadog/browser-core/esm/browser/addEventListener.js":
-/*!****************************************************************************!*\
-  !*** ./node_modules/@datadog/browser-core/esm/browser/addEventListener.js ***!
-  \****************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "addEventListener": () => (/* binding */ addEventListener),
-/* harmony export */   "addEventListeners": () => (/* binding */ addEventListeners)
-/* harmony export */ });
-/* harmony import */ var _tools_monitor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../tools/monitor */ "./node_modules/@datadog/browser-core/esm/tools/monitor.js");
-/* harmony import */ var _tools_getZoneJsOriginalValue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../tools/getZoneJsOriginalValue */ "./node_modules/@datadog/browser-core/esm/tools/getZoneJsOriginalValue.js");
-
-
-/**
- * Add an event listener to an event target object (Window, Element, mock object...).  This provides
- * a few conveniences compared to using `element.addEventListener` directly:
- *
- * * supports IE11 by: using an option object only if needed and emulating the `once` option
- *
- * * wraps the listener with a `monitor` function
- *
- * * returns a `stop` function to remove the listener
- */
-function addEventListener(eventTarget, event, listener, options) {
-    return addEventListeners(eventTarget, [event], listener, options);
-}
-/**
- * Add event listeners to an event target object (Window, Element, mock object...).  This provides
- * a few conveniences compared to using `element.addEventListener` directly:
- *
- * * supports IE11 by: using an option object only if needed and emulating the `once` option
- *
- * * wraps the listener with a `monitor` function
- *
- * * returns a `stop` function to remove the listener
- *
- * * with `once: true`, the listener will be called at most once, even if different events are listened
- */
-function addEventListeners(eventTarget, events, listener, _a) {
-    var _b = _a === void 0 ? {} : _a, once = _b.once, capture = _b.capture, passive = _b.passive;
-    var wrappedListener = (0,_tools_monitor__WEBPACK_IMPORTED_MODULE_0__.monitor)(once
-        ? function (event) {
-            stop();
-            listener(event);
-        }
-        : listener);
-    var options = passive ? { capture: capture, passive: passive } : capture;
-    var add = (0,_tools_getZoneJsOriginalValue__WEBPACK_IMPORTED_MODULE_1__.getZoneJsOriginalValue)(eventTarget, 'addEventListener');
-    events.forEach(function (event) { return add.call(eventTarget, event, wrappedListener, options); });
-    function stop() {
-        var remove = (0,_tools_getZoneJsOriginalValue__WEBPACK_IMPORTED_MODULE_1__.getZoneJsOriginalValue)(eventTarget, 'removeEventListener');
-        events.forEach(function (event) { return remove.call(eventTarget, event, wrappedListener, options); });
-    }
-    return {
-        stop: stop,
-    };
-}
-//# sourceMappingURL=addEventListener.js.map
 
 /***/ }),
 
@@ -160,7 +96,7 @@ function areCookiesAuthorized(options) {
         // the test cookie lifetime
         var testCookieName = "dd_cookie_test_".concat((0,_tools_utils__WEBPACK_IMPORTED_MODULE_0__.generateUUID)());
         var testCookieValue = 'test';
-        setCookie(testCookieName, testCookieValue, _tools_utils__WEBPACK_IMPORTED_MODULE_0__.ONE_MINUTE, options);
+        setCookie(testCookieName, testCookieValue, _tools_utils__WEBPACK_IMPORTED_MODULE_0__.ONE_SECOND, options);
         var isCookieCorrectlySet = getCookie(testCookieName) === testCookieValue;
         deleteCookie(testCookieName, options);
         return isCookieCorrectlySet;
@@ -266,68 +202,25 @@ function beforeSend(observable, input, init) {
 function afterSend(observable, responsePromise, startContext) {
     var reportFetch = function (response) {
         var context = startContext;
-        context.state = 'resolve';
+        context.state = 'complete';
+        context.duration = (0,_tools_timeUtils__WEBPACK_IMPORTED_MODULE_4__.elapsed)(context.startClocks.timeStamp, (0,_tools_timeUtils__WEBPACK_IMPORTED_MODULE_4__.timeStampNow)());
         if ('stack' in response || response instanceof Error) {
             context.status = 0;
             context.isAborted = response instanceof DOMException && response.code === DOMException.ABORT_ERR;
             context.error = response;
+            observable.notify(context);
         }
         else if ('status' in response) {
             context.response = response;
             context.responseType = response.type;
             context.status = response.status;
             context.isAborted = false;
+            observable.notify(context);
         }
-        observable.notify(context);
     };
     responsePromise.then((0,_tools_monitor__WEBPACK_IMPORTED_MODULE_2__.monitor)(reportFetch), (0,_tools_monitor__WEBPACK_IMPORTED_MODULE_2__.monitor)(reportFetch));
 }
 //# sourceMappingURL=fetchObservable.js.map
-
-/***/ }),
-
-/***/ "./node_modules/@datadog/browser-core/esm/browser/pageExitObservable.js":
-/*!******************************************************************************!*\
-  !*** ./node_modules/@datadog/browser-core/esm/browser/pageExitObservable.js ***!
-  \******************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "createPageExitObservable": () => (/* binding */ createPageExitObservable)
-/* harmony export */ });
-/* harmony import */ var _tools_observable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../tools/observable */ "./node_modules/@datadog/browser-core/esm/tools/observable.js");
-/* harmony import */ var _addEventListener__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./addEventListener */ "./node_modules/@datadog/browser-core/esm/browser/addEventListener.js");
-
-
-function createPageExitObservable() {
-    var observable = new _tools_observable__WEBPACK_IMPORTED_MODULE_0__.Observable(function () {
-        /**
-         * Only event that guarantee to fire on mobile devices when the page transitions to background state
-         * (e.g. when user switches to a different application, goes to homescreen, etc), or is being unloaded.
-         */
-        var stopVisibilityChangeListener = (0,_addEventListener__WEBPACK_IMPORTED_MODULE_1__.addEventListener)(document, "visibilitychange" /* VISIBILITY_CHANGE */, function () {
-            if (document.visibilityState === 'hidden') {
-                observable.notify({ reason: "visibility_hidden" /* HIDDEN */ });
-            }
-        }, { capture: true }).stop;
-        /**
-         * Safari does not support yet to send a request during:
-         * - a visibility change during doc unload (cf: https://bugs.webkit.org/show_bug.cgi?id=194897)
-         * - a page hide transition (cf: https://bugs.webkit.org/show_bug.cgi?id=188329)
-         */
-        var stopBeforeUnloadListener = (0,_addEventListener__WEBPACK_IMPORTED_MODULE_1__.addEventListener)(window, "beforeunload" /* BEFORE_UNLOAD */, function () {
-            observable.notify({ reason: "before_unload" /* UNLOADING */ });
-        }).stop;
-        return function () {
-            stopVisibilityChangeListener();
-            stopBeforeUnloadListener();
-        };
-    });
-    return observable;
-}
-//# sourceMappingURL=pageExitObservable.js.map
 
 /***/ }),
 
@@ -387,7 +280,7 @@ function openXhr(method, url) {
     xhrContexts.set(this, {
         state: 'open',
         method: method,
-        url: (0,_tools_urlPolyfill__WEBPACK_IMPORTED_MODULE_2__.normalizeUrl)(String(url)),
+        url: (0,_tools_urlPolyfill__WEBPACK_IMPORTED_MODULE_2__.normalizeUrl)(url.toString()),
     });
 }
 function sendXhr(observable) {
@@ -451,7 +344,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "DefaultPrivacyLevel": () => (/* binding */ DefaultPrivacyLevel),
 /* harmony export */   "buildCookieOptions": () => (/* binding */ buildCookieOptions),
-/* harmony export */   "serializeConfiguration": () => (/* binding */ serializeConfiguration),
 /* harmony export */   "validateAndBuildConfiguration": () => (/* binding */ validateAndBuildConfiguration)
 /* harmony export */ });
 /* harmony import */ var _browser_cookie__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../browser/cookie */ "./node_modules/@datadog/browser-core/esm/browser/cookie.js");
@@ -472,23 +364,17 @@ var DefaultPrivacyLevel = {
     MASK_USER_INPUT: 'mask-user-input',
 };
 function validateAndBuildConfiguration(initConfiguration) {
-    var _a, _b, _c;
+    var _a, _b;
     if (!initConfiguration || !initConfiguration.clientToken) {
         _tools_display__WEBPACK_IMPORTED_MODULE_0__.display.error('Client Token is not configured, we will not send any data.');
         return;
     }
-    var sessionSampleRate = (_a = initConfiguration.sessionSampleRate) !== null && _a !== void 0 ? _a : initConfiguration.sampleRate;
-    if (sessionSampleRate !== undefined && !(0,_tools_utils__WEBPACK_IMPORTED_MODULE_1__.isPercentage)(sessionSampleRate)) {
-        _tools_display__WEBPACK_IMPORTED_MODULE_0__.display.error('Session Sample Rate should be a number between 0 and 100');
+    if (initConfiguration.sampleRate !== undefined && !(0,_tools_utils__WEBPACK_IMPORTED_MODULE_1__.isPercentage)(initConfiguration.sampleRate)) {
+        _tools_display__WEBPACK_IMPORTED_MODULE_0__.display.error('Sample Rate should be a number between 0 and 100');
         return;
     }
     if (initConfiguration.telemetrySampleRate !== undefined && !(0,_tools_utils__WEBPACK_IMPORTED_MODULE_1__.isPercentage)(initConfiguration.telemetrySampleRate)) {
         _tools_display__WEBPACK_IMPORTED_MODULE_0__.display.error('Telemetry Sample Rate should be a number between 0 and 100');
-        return;
-    }
-    if (initConfiguration.telemetryConfigurationSampleRate !== undefined &&
-        !(0,_tools_utils__WEBPACK_IMPORTED_MODULE_1__.isPercentage)(initConfiguration.telemetryConfigurationSampleRate)) {
-        _tools_display__WEBPACK_IMPORTED_MODULE_0__.display.error('Telemetry Configuration Sample Rate should be a number between 0 and 100');
         return;
     }
     // Set the experimental feature flags as early as possible, so we can use them in most places
@@ -496,16 +382,15 @@ function validateAndBuildConfiguration(initConfiguration) {
     return (0,_tools_utils__WEBPACK_IMPORTED_MODULE_1__.assign)({
         beforeSend: initConfiguration.beforeSend && (0,_tools_catchUserErrors__WEBPACK_IMPORTED_MODULE_3__.catchUserErrors)(initConfiguration.beforeSend, 'beforeSend threw an error:'),
         cookieOptions: buildCookieOptions(initConfiguration),
-        sessionSampleRate: sessionSampleRate !== null && sessionSampleRate !== void 0 ? sessionSampleRate : 100,
+        sampleRate: (_a = initConfiguration.sampleRate) !== null && _a !== void 0 ? _a : 100,
         telemetrySampleRate: (_b = initConfiguration.telemetrySampleRate) !== null && _b !== void 0 ? _b : 20,
-        telemetryConfigurationSampleRate: (_c = initConfiguration.telemetryConfigurationSampleRate) !== null && _c !== void 0 ? _c : 5,
         service: initConfiguration.service,
         silentMultipleInit: !!initConfiguration.silentMultipleInit,
         /**
          * beacon payload max queue size implementation is 64kb
          * ensure that we leave room for logs, rum and potential other users
          */
-        batchBytesLimit: 16 * _tools_utils__WEBPACK_IMPORTED_MODULE_1__.ONE_KIBI_BYTE,
+        batchBytesLimit: (0,_experimentalFeatures__WEBPACK_IMPORTED_MODULE_2__.isExperimentalFeatureEnabled)('lower-batch-size') ? 10 * _tools_utils__WEBPACK_IMPORTED_MODULE_1__.ONE_KILO_BYTE : 16 * _tools_utils__WEBPACK_IMPORTED_MODULE_1__.ONE_KILO_BYTE,
         eventRateLimiterThreshold: 3000,
         maxTelemetryEventsPerPage: 15,
         /**
@@ -517,7 +402,7 @@ function validateAndBuildConfiguration(initConfiguration) {
          * Logs intake limit
          */
         batchMessagesLimit: 50,
-        messageBytesLimit: 256 * _tools_utils__WEBPACK_IMPORTED_MODULE_1__.ONE_KIBI_BYTE,
+        messageBytesLimit: 256 * _tools_utils__WEBPACK_IMPORTED_MODULE_1__.ONE_KILO_BYTE,
     }, (0,_transportConfiguration__WEBPACK_IMPORTED_MODULE_4__.computeTransportConfiguration)(initConfiguration));
 }
 function buildCookieOptions(initConfiguration) {
@@ -531,22 +416,6 @@ function buildCookieOptions(initConfiguration) {
 }
 function mustUseSecureCookie(initConfiguration) {
     return !!initConfiguration.useSecureSessionCookie || !!initConfiguration.useCrossSiteSessionCookie;
-}
-function serializeConfiguration(configuration) {
-    var _a;
-    return {
-        session_sample_rate: (_a = configuration.sessionSampleRate) !== null && _a !== void 0 ? _a : configuration.sampleRate,
-        telemetry_sample_rate: configuration.telemetrySampleRate,
-        telemetry_configuration_sample_rate: configuration.telemetryConfigurationSampleRate,
-        use_before_send: !!configuration.beforeSend,
-        use_cross_site_session_cookie: configuration.useCrossSiteSessionCookie,
-        use_secure_session_cookie: configuration.useSecureSessionCookie,
-        use_proxy: configuration.proxyUrl !== undefined ? !!configuration.proxyUrl : undefined,
-        silent_multiple_init: configuration.silentMultipleInit,
-        track_session_across_subdomains: configuration.trackSessionAcrossSubdomains,
-        track_resources: configuration.trackResources,
-        track_long_task: configuration.trackLongTasks,
-    };
 }
 //# sourceMappingURL=configuration.js.map
 
@@ -564,10 +433,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "ENDPOINTS": () => (/* binding */ ENDPOINTS),
 /* harmony export */   "createEndpointBuilder": () => (/* binding */ createEndpointBuilder)
 /* harmony export */ });
-/* harmony import */ var _tools_timeUtils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../tools/timeUtils */ "./node_modules/@datadog/browser-core/esm/tools/timeUtils.js");
-/* harmony import */ var _tools_urlPolyfill__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../tools/urlPolyfill */ "./node_modules/@datadog/browser-core/esm/tools/urlPolyfill.js");
-/* harmony import */ var _tools_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../tools/utils */ "./node_modules/@datadog/browser-core/esm/tools/utils.js");
-/* harmony import */ var _intakeSites__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./intakeSites */ "./node_modules/@datadog/browser-core/esm/domain/configuration/intakeSites.js");
+/* harmony import */ var _tools_timeUtils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../tools/timeUtils */ "./node_modules/@datadog/browser-core/esm/tools/timeUtils.js");
+/* harmony import */ var _tools_urlPolyfill__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../tools/urlPolyfill */ "./node_modules/@datadog/browser-core/esm/tools/urlPolyfill.js");
+/* harmony import */ var _tools_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../tools/utils */ "./node_modules/@datadog/browser-core/esm/tools/utils.js");
+/* harmony import */ var _intakeSites__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./intakeSites */ "./node_modules/@datadog/browser-core/esm/domain/configuration/intakeSites.js");
 
 
 
@@ -582,32 +451,25 @@ var INTAKE_TRACKS = {
     rum: 'rum',
     sessionReplay: 'replay',
 };
-function createEndpointBuilder(initConfiguration, endpointType, configurationTags) {
-    var clientToken = initConfiguration.clientToken;
-    var host = buildEndpointHost(initConfiguration, endpointType);
+function createEndpointBuilder(initConfiguration, endpointType, tags) {
+    var _a = initConfiguration.site, site = _a === void 0 ? _intakeSites__WEBPACK_IMPORTED_MODULE_0__.INTAKE_SITE_US1 : _a, clientToken = initConfiguration.clientToken;
+    var domainParts = site.split('.');
+    var extension = domainParts.pop();
+    var host = "".concat(ENDPOINTS[endpointType], ".browser-intake-").concat(domainParts.join('-'), ".").concat(extension);
     var baseUrl = "https://".concat(host, "/api/v2/").concat(INTAKE_TRACKS[endpointType]);
-    var proxyUrl = initConfiguration.proxyUrl && (0,_tools_urlPolyfill__WEBPACK_IMPORTED_MODULE_0__.normalizeUrl)(initConfiguration.proxyUrl);
+    var proxyUrl = initConfiguration.proxyUrl && (0,_tools_urlPolyfill__WEBPACK_IMPORTED_MODULE_1__.normalizeUrl)(initConfiguration.proxyUrl);
     return {
-        build: function (api, retry) {
-            var tags = ["sdk_version:".concat("4.32.0"), "api:".concat(api)].concat(configurationTags);
-            if (retry) {
-                tags.push("retry_count:".concat(retry.count), "retry_after:".concat(retry.lastFailureStatus));
-            }
-            var parameters = [
-                'ddsource=browser',
-                "ddtags=".concat(encodeURIComponent(tags.join(','))),
-                "dd-api-key=".concat(clientToken),
-                "dd-evp-origin-version=".concat(encodeURIComponent("4.32.0")),
-                'dd-evp-origin=browser',
-                "dd-request-id=".concat((0,_tools_utils__WEBPACK_IMPORTED_MODULE_1__.generateUUID)()),
-            ];
+        build: function () {
+            var parameters = 'ddsource=browser' +
+                "&ddtags=".concat(encodeURIComponent(["sdk_version:".concat("4.12.0")].concat(tags).join(','))) +
+                "&dd-api-key=".concat(clientToken) +
+                "&dd-evp-origin-version=".concat(encodeURIComponent("4.12.0")) +
+                '&dd-evp-origin=browser' +
+                "&dd-request-id=".concat((0,_tools_utils__WEBPACK_IMPORTED_MODULE_2__.generateUUID)());
             if (endpointType === 'rum') {
-                parameters.push("batch_time=".concat((0,_tools_timeUtils__WEBPACK_IMPORTED_MODULE_2__.timeStampNow)()));
+                parameters += "&batch_time=".concat((0,_tools_timeUtils__WEBPACK_IMPORTED_MODULE_3__.timeStampNow)());
             }
-            if (initConfiguration.internalAnalyticsSubdomain) {
-                parameters.reverse();
-            }
-            var endpointUrl = "".concat(baseUrl, "?").concat(parameters.join('&'));
+            var endpointUrl = "".concat(baseUrl, "?").concat(parameters);
             return proxyUrl ? "".concat(proxyUrl, "?ddforward=").concat(encodeURIComponent(endpointUrl)) : endpointUrl;
         },
         buildIntakeUrl: function () {
@@ -615,15 +477,6 @@ function createEndpointBuilder(initConfiguration, endpointType, configurationTag
         },
         endpointType: endpointType,
     };
-}
-function buildEndpointHost(initConfiguration, endpointType) {
-    var _a = initConfiguration.site, site = _a === void 0 ? _intakeSites__WEBPACK_IMPORTED_MODULE_3__.INTAKE_SITE_US1 : _a, internalAnalyticsSubdomain = initConfiguration.internalAnalyticsSubdomain;
-    if (internalAnalyticsSubdomain && site === _intakeSites__WEBPACK_IMPORTED_MODULE_3__.INTAKE_SITE_US1) {
-        return "".concat(internalAnalyticsSubdomain, ".").concat(_intakeSites__WEBPACK_IMPORTED_MODULE_3__.INTAKE_SITE_US1);
-    }
-    var domainParts = site.split('.');
-    var extension = domainParts.pop();
-    return "".concat(ENDPOINTS[endpointType], ".browser-intake-").concat(domainParts.join('-'), ".").concat(extension);
 }
 //# sourceMappingURL=endpointBuilder.js.map
 
@@ -638,21 +491,16 @@ function buildEndpointHost(initConfiguration, endpointType) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getExperimentalFeatures": () => (/* binding */ getExperimentalFeatures),
 /* harmony export */   "isExperimentalFeatureEnabled": () => (/* binding */ isExperimentalFeatureEnabled),
 /* harmony export */   "resetExperimentalFeatures": () => (/* binding */ resetExperimentalFeatures),
 /* harmony export */   "updateExperimentalFeatures": () => (/* binding */ updateExperimentalFeatures)
 /* harmony export */ });
-/* harmony import */ var _tools_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../tools/utils */ "./node_modules/@datadog/browser-core/esm/tools/utils.js");
-/* harmony import */ var _tools_display__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../tools/display */ "./node_modules/@datadog/browser-core/esm/tools/display.js");
 /**
  * LIMITATION:
  * For NPM setup, this feature flag singleton is shared between RUM and Logs product.
  * This means that an experimental flag set on the RUM product will be set on the Logs product.
  * So keep in mind that in certain configurations, your experimental feature flag may affect other products.
  */
-
-
 var enabledExperimentalFeatures;
 function updateExperimentalFeatures(enabledFeatures) {
     // Safely handle external data
@@ -665,9 +513,6 @@ function updateExperimentalFeatures(enabledFeatures) {
     enabledFeatures
         .filter(function (flag) { return typeof flag === 'string'; })
         .forEach(function (flag) {
-        if ((0,_tools_utils__WEBPACK_IMPORTED_MODULE_0__.includes)(flag, '-')) {
-            _tools_display__WEBPACK_IMPORTED_MODULE_1__.display.warn("please use snake case for '".concat(flag, "'"));
-        }
         enabledExperimentalFeatures.add(flag);
     });
 }
@@ -676,9 +521,6 @@ function isExperimentalFeatureEnabled(featureName) {
 }
 function resetExperimentalFeatures() {
     enabledExperimentalFeatures = new Set();
-}
-function getExperimentalFeatures() {
-    return enabledExperimentalFeatures || new Set();
 }
 //# sourceMappingURL=experimentalFeatures.js.map
 
@@ -912,15 +754,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function trackRuntimeError(errorObservable) {
-    return (0,_tracekit__WEBPACK_IMPORTED_MODULE_0__.startUnhandledErrorCollection)(function (stackTrace, originalError) {
-        errorObservable.notify((0,_tools_error__WEBPACK_IMPORTED_MODULE_1__.computeRawError)({
-            stackTrace: stackTrace,
-            originalError: originalError,
-            startClocks: (0,_tools_timeUtils__WEBPACK_IMPORTED_MODULE_2__.clocksNow)(),
-            nonErrorPrefix: 'Uncaught',
+    return (0,_tracekit__WEBPACK_IMPORTED_MODULE_0__.startUnhandledErrorCollection)(function (stackTrace, errorObject) {
+        var _a = (0,_tools_error__WEBPACK_IMPORTED_MODULE_1__.formatUnknownError)(stackTrace, errorObject, 'Uncaught'), stack = _a.stack, message = _a.message, type = _a.type;
+        errorObservable.notify({
+            message: message,
+            stack: stack,
+            type: type,
             source: _tools_error__WEBPACK_IMPORTED_MODULE_1__.ErrorSource.SOURCE,
+            startClocks: (0,_tools_timeUtils__WEBPACK_IMPORTED_MODULE_2__.clocksNow)(),
+            originalError: errorObject,
             handling: "unhandled" /* UNHANDLED */,
-        }));
+        });
     });
 }
 //# sourceMappingURL=trackRuntimeError.js.map
@@ -939,12 +783,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "RawReportType": () => (/* binding */ RawReportType),
 /* harmony export */   "initReportObservable": () => (/* binding */ initReportObservable)
 /* harmony export */ });
-/* harmony import */ var _tools_error__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../tools/error */ "./node_modules/@datadog/browser-core/esm/tools/error.js");
+/* harmony import */ var _tools_error__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../tools/error */ "./node_modules/@datadog/browser-core/esm/tools/error.js");
 /* harmony import */ var _tools_monitor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../tools/monitor */ "./node_modules/@datadog/browser-core/esm/tools/monitor.js");
 /* harmony import */ var _tools_observable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../tools/observable */ "./node_modules/@datadog/browser-core/esm/tools/observable.js");
 /* harmony import */ var _tools_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../tools/utils */ "./node_modules/@datadog/browser-core/esm/tools/utils.js");
-/* harmony import */ var _browser_addEventListener__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../browser/addEventListener */ "./node_modules/@datadog/browser-core/esm/browser/addEventListener.js");
-
 
 
 
@@ -991,7 +833,7 @@ function createCspViolationReportObservable() {
         var handleCspViolation = (0,_tools_monitor__WEBPACK_IMPORTED_MODULE_2__.monitor)(function (event) {
             observable.notify(buildRawReportFromCspViolation(event));
         });
-        var stop = (0,_browser_addEventListener__WEBPACK_IMPORTED_MODULE_3__.addEventListener)(document, "securitypolicyviolation" /* SECURITY_POLICY_VIOLATION */, handleCspViolation).stop;
+        var stop = (0,_tools_utils__WEBPACK_IMPORTED_MODULE_0__.addEventListener)(document, "securitypolicyviolation" /* SECURITY_POLICY_VIOLATION */, handleCspViolation).stop;
         return stop;
     });
     return observable;
@@ -1012,14 +854,12 @@ function buildRawReportFromCspViolation(event) {
         type: RawReportType.cspViolation,
         subtype: event.effectiveDirective,
         message: "".concat(type, ": ").concat(message),
-        stack: buildStack(event.effectiveDirective, event.originalPolicy
-            ? "".concat(message, " of the policy \"").concat((0,_tools_utils__WEBPACK_IMPORTED_MODULE_0__.safeTruncate)(event.originalPolicy, 100, '...'), "\"")
-            : 'no policy', event.sourceFile, event.lineNumber, event.columnNumber),
+        stack: buildStack(event.effectiveDirective, "".concat(message, " of the policy \"").concat((0,_tools_utils__WEBPACK_IMPORTED_MODULE_0__.safeTruncate)(event.originalPolicy, 100, '...'), "\""), event.sourceFile, event.lineNumber, event.columnNumber),
     };
 }
 function buildStack(name, message, sourceFile, lineNumber, columnNumber) {
     return (sourceFile &&
-        (0,_tools_error__WEBPACK_IMPORTED_MODULE_4__.toStackTraceString)({
+        (0,_tools_error__WEBPACK_IMPORTED_MODULE_3__.toStackTraceString)({
             name: name,
             message: message,
             stack: [
@@ -1293,12 +1133,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _tools_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../tools/utils */ "./node_modules/@datadog/browser-core/esm/tools/utils.js");
 /* harmony import */ var _tools_contextHistory__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../tools/contextHistory */ "./node_modules/@datadog/browser-core/esm/tools/contextHistory.js");
 /* harmony import */ var _tools_timeUtils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../tools/timeUtils */ "./node_modules/@datadog/browser-core/esm/tools/timeUtils.js");
-/* harmony import */ var _tools_monitor__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../tools/monitor */ "./node_modules/@datadog/browser-core/esm/tools/monitor.js");
-/* harmony import */ var _browser_addEventListener__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../browser/addEventListener */ "./node_modules/@datadog/browser-core/esm/browser/addEventListener.js");
+/* harmony import */ var _tools_monitor__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../tools/monitor */ "./node_modules/@datadog/browser-core/esm/tools/monitor.js");
 /* harmony import */ var _oldCookiesMigration__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./oldCookiesMigration */ "./node_modules/@datadog/browser-core/esm/domain/session/oldCookiesMigration.js");
 /* harmony import */ var _sessionStore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./sessionStore */ "./node_modules/@datadog/browser-core/esm/domain/session/sessionStore.js");
 /* harmony import */ var _sessionConstants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./sessionConstants */ "./node_modules/@datadog/browser-core/esm/domain/session/sessionConstants.js");
-
 
 
 
@@ -1342,16 +1180,16 @@ function stopSessionManager() {
     stopCallbacks = [];
 }
 function trackActivity(expandOrRenewSession) {
-    var stop = (0,_browser_addEventListener__WEBPACK_IMPORTED_MODULE_6__.addEventListeners)(window, ["click" /* CLICK */, "touchstart" /* TOUCH_START */, "keydown" /* KEY_DOWN */, "scroll" /* SCROLL */], expandOrRenewSession, { capture: true, passive: true }).stop;
+    var stop = _tools_utils__WEBPACK_IMPORTED_MODULE_0__.addEventListeners(window, ["click" /* CLICK */, "touchstart" /* TOUCH_START */, "keydown" /* KEY_DOWN */, "scroll" /* SCROLL */], expandOrRenewSession, { capture: true, passive: true }).stop;
     stopCallbacks.push(stop);
 }
 function trackVisibility(expandSession) {
-    var expandSessionWhenVisible = (0,_tools_monitor__WEBPACK_IMPORTED_MODULE_7__.monitor)(function () {
+    var expandSessionWhenVisible = (0,_tools_monitor__WEBPACK_IMPORTED_MODULE_6__.monitor)(function () {
         if (document.visibilityState === 'visible') {
             expandSession();
         }
     });
-    var stop = (0,_browser_addEventListener__WEBPACK_IMPORTED_MODULE_6__.addEventListener)(document, "visibilitychange" /* VISIBILITY_CHANGE */, expandSessionWhenVisible).stop;
+    var stop = _tools_utils__WEBPACK_IMPORTED_MODULE_0__.addEventListener(document, "visibilitychange" /* VISIBILITY_CHANGE */, expandSessionWhenVisible).stop;
     stopCallbacks.push(stop);
     var visibilityCheckInterval = setInterval(expandSessionWhenVisible, VISIBILITY_CHECK_DELAY);
     stopCallbacks.push(function () {
@@ -1498,61 +1336,6 @@ function startSessionStore(options, productKey, computeSessionState) {
 
 /***/ }),
 
-/***/ "./node_modules/@datadog/browser-core/esm/domain/synthetics/syntheticsWorkerValues.js":
-/*!********************************************************************************************!*\
-  !*** ./node_modules/@datadog/browser-core/esm/domain/synthetics/syntheticsWorkerValues.js ***!
-  \********************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "SYNTHETICS_INJECTS_RUM_COOKIE_NAME": () => (/* binding */ SYNTHETICS_INJECTS_RUM_COOKIE_NAME),
-/* harmony export */   "SYNTHETICS_RESULT_ID_COOKIE_NAME": () => (/* binding */ SYNTHETICS_RESULT_ID_COOKIE_NAME),
-/* harmony export */   "SYNTHETICS_TEST_ID_COOKIE_NAME": () => (/* binding */ SYNTHETICS_TEST_ID_COOKIE_NAME),
-/* harmony export */   "getSyntheticsResultId": () => (/* binding */ getSyntheticsResultId),
-/* harmony export */   "getSyntheticsTestId": () => (/* binding */ getSyntheticsTestId),
-/* harmony export */   "willSyntheticsInjectRum": () => (/* binding */ willSyntheticsInjectRum)
-/* harmony export */ });
-/* harmony import */ var _browser_cookie__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../browser/cookie */ "./node_modules/@datadog/browser-core/esm/browser/cookie.js");
-
-var SYNTHETICS_TEST_ID_COOKIE_NAME = 'datadog-synthetics-public-id';
-var SYNTHETICS_RESULT_ID_COOKIE_NAME = 'datadog-synthetics-result-id';
-var SYNTHETICS_INJECTS_RUM_COOKIE_NAME = 'datadog-synthetics-injects-rum';
-function willSyntheticsInjectRum() {
-    return Boolean(window._DATADOG_SYNTHETICS_INJECTS_RUM || (0,_browser_cookie__WEBPACK_IMPORTED_MODULE_0__.getCookie)(SYNTHETICS_INJECTS_RUM_COOKIE_NAME));
-}
-function getSyntheticsTestId() {
-    var value = window._DATADOG_SYNTHETICS_PUBLIC_ID || (0,_browser_cookie__WEBPACK_IMPORTED_MODULE_0__.getCookie)(SYNTHETICS_TEST_ID_COOKIE_NAME);
-    return typeof value === 'string' ? value : undefined;
-}
-function getSyntheticsResultId() {
-    var value = window._DATADOG_SYNTHETICS_RESULT_ID || (0,_browser_cookie__WEBPACK_IMPORTED_MODULE_0__.getCookie)(SYNTHETICS_RESULT_ID_COOKIE_NAME);
-    return typeof value === 'string' ? value : undefined;
-}
-//# sourceMappingURL=syntheticsWorkerValues.js.map
-
-/***/ }),
-
-/***/ "./node_modules/@datadog/browser-core/esm/domain/telemetry/rawTelemetryEvent.types.js":
-/*!********************************************************************************************!*\
-  !*** ./node_modules/@datadog/browser-core/esm/domain/telemetry/rawTelemetryEvent.types.js ***!
-  \********************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "TelemetryType": () => (/* binding */ TelemetryType)
-/* harmony export */ });
-var TelemetryType = {
-    log: 'log',
-    configuration: 'configuration',
-};
-//# sourceMappingURL=rawTelemetryEvent.types.js.map
-
-/***/ }),
-
 /***/ "./node_modules/@datadog/browser-core/esm/domain/telemetry/telemetry.js":
 /*!******************************************************************************!*\
   !*** ./node_modules/@datadog/browser-core/esm/domain/telemetry/telemetry.js ***!
@@ -1562,7 +1345,6 @@ var TelemetryType = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "addTelemetryConfiguration": () => (/* binding */ addTelemetryConfiguration),
 /* harmony export */   "addTelemetryDebug": () => (/* binding */ addTelemetryDebug),
 /* harmony export */   "addTelemetryError": () => (/* binding */ addTelemetryError),
 /* harmony export */   "formatError": () => (/* binding */ formatError),
@@ -1572,19 +1354,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "startFakeTelemetry": () => (/* binding */ startFakeTelemetry),
 /* harmony export */   "startTelemetry": () => (/* binding */ startTelemetry)
 /* harmony export */ });
-/* harmony import */ var _tools_display__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../tools/display */ "./node_modules/@datadog/browser-core/esm/tools/display.js");
-/* harmony import */ var _tools_error__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../tools/error */ "./node_modules/@datadog/browser-core/esm/tools/error.js");
+/* harmony import */ var _tools_display__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../tools/display */ "./node_modules/@datadog/browser-core/esm/tools/display.js");
+/* harmony import */ var _tools_error__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../tools/error */ "./node_modules/@datadog/browser-core/esm/tools/error.js");
 /* harmony import */ var _tools_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../tools/utils */ "./node_modules/@datadog/browser-core/esm/tools/utils.js");
 /* harmony import */ var _configuration__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../configuration */ "./node_modules/@datadog/browser-core/esm/domain/configuration/intakeSites.js");
-/* harmony import */ var _configuration__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../configuration */ "./node_modules/@datadog/browser-core/esm/domain/configuration/experimentalFeatures.js");
-/* harmony import */ var _tracekit__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../tracekit */ "./node_modules/@datadog/browser-core/esm/domain/tracekit/computeStackTrace.js");
+/* harmony import */ var _tracekit__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../tracekit */ "./node_modules/@datadog/browser-core/esm/domain/tracekit/computeStackTrace.js");
 /* harmony import */ var _tools_observable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../tools/observable */ "./node_modules/@datadog/browser-core/esm/tools/observable.js");
-/* harmony import */ var _tools_timeUtils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../tools/timeUtils */ "./node_modules/@datadog/browser-core/esm/tools/timeUtils.js");
-/* harmony import */ var _tools_monitor__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../tools/monitor */ "./node_modules/@datadog/browser-core/esm/tools/monitor.js");
-/* harmony import */ var _tools_sendToExtension__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../tools/sendToExtension */ "./node_modules/@datadog/browser-core/esm/tools/sendToExtension.js");
-/* harmony import */ var _rawTelemetryEvent_types__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./rawTelemetryEvent.types */ "./node_modules/@datadog/browser-core/esm/domain/telemetry/rawTelemetryEvent.types.js");
-
-
+/* harmony import */ var _tools_timeUtils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../tools/timeUtils */ "./node_modules/@datadog/browser-core/esm/tools/timeUtils.js");
+/* harmony import */ var _tools_monitor__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../tools/monitor */ "./node_modules/@datadog/browser-core/esm/tools/monitor.js");
 
 
 
@@ -1600,39 +1377,33 @@ var ALLOWED_FRAME_URLS = [
     '<anonymous>',
 ];
 var TELEMETRY_EXCLUDED_SITES = [_configuration__WEBPACK_IMPORTED_MODULE_0__.INTAKE_SITE_US1_FED];
-var telemetryConfiguration = { maxEventsPerPage: 0, sentEventCount: 0, telemetryEnabled: false, telemetryConfigurationEnabled: false };
+var telemetryConfiguration = { maxEventsPerPage: 0, sentEventCount: 0, telemetryEnabled: false };
 var onRawTelemetryEventCollected;
-function startTelemetry(telemetryService, configuration) {
+function startTelemetry(configuration) {
     var contextProvider;
     var observable = new _tools_observable__WEBPACK_IMPORTED_MODULE_1__.Observable();
-    telemetryConfiguration.telemetryEnabled =
-        !(0,_tools_utils__WEBPACK_IMPORTED_MODULE_2__.includes)(TELEMETRY_EXCLUDED_SITES, configuration.site) && (0,_tools_utils__WEBPACK_IMPORTED_MODULE_2__.performDraw)(configuration.telemetrySampleRate);
-    telemetryConfiguration.telemetryConfigurationEnabled =
-        telemetryConfiguration.telemetryEnabled && (0,_tools_utils__WEBPACK_IMPORTED_MODULE_2__.performDraw)(configuration.telemetryConfigurationSampleRate);
-    onRawTelemetryEventCollected = function (rawEvent) {
-        if (telemetryConfiguration.telemetryEnabled) {
-            var event_1 = toTelemetryEvent(telemetryService, rawEvent);
-            observable.notify(event_1);
-            (0,_tools_sendToExtension__WEBPACK_IMPORTED_MODULE_3__.sendToExtension)('telemetry', event_1);
+    telemetryConfiguration.telemetryEnabled = (0,_tools_utils__WEBPACK_IMPORTED_MODULE_2__.performDraw)(configuration.telemetrySampleRate);
+    onRawTelemetryEventCollected = function (event) {
+        if (!(0,_tools_utils__WEBPACK_IMPORTED_MODULE_2__.includes)(TELEMETRY_EXCLUDED_SITES, configuration.site) && telemetryConfiguration.telemetryEnabled) {
+            observable.notify(toTelemetryEvent(event));
         }
     };
-    (0,_tools_monitor__WEBPACK_IMPORTED_MODULE_4__.startMonitorErrorCollection)(addTelemetryError);
+    (0,_tools_monitor__WEBPACK_IMPORTED_MODULE_3__.startMonitorErrorCollection)(addTelemetryError);
     (0,_tools_utils__WEBPACK_IMPORTED_MODULE_2__.assign)(telemetryConfiguration, {
         maxEventsPerPage: configuration.maxTelemetryEventsPerPage,
         sentEventCount: 0,
     });
-    function toTelemetryEvent(telemetryService, event) {
+    function toTelemetryEvent(event) {
         return (0,_tools_utils__WEBPACK_IMPORTED_MODULE_2__.combine)({
             type: 'telemetry',
-            date: (0,_tools_timeUtils__WEBPACK_IMPORTED_MODULE_5__.timeStampNow)(),
-            service: telemetryService,
-            version: "4.32.0",
+            date: (0,_tools_timeUtils__WEBPACK_IMPORTED_MODULE_4__.timeStampNow)(),
+            service: 'browser-sdk',
+            version: "4.12.0",
             source: 'browser',
             _dd: {
                 format_version: 2,
             },
-            telemetry: event,
-            experimental_features: (0,_tools_utils__WEBPACK_IMPORTED_MODULE_2__.arrayFrom)((0,_configuration__WEBPACK_IMPORTED_MODULE_6__.getExperimentalFeatures)()),
+            telemetry: event, // https://github.com/microsoft/TypeScript/issues/48457
         }, contextProvider !== undefined ? contextProvider() : {});
     }
     return {
@@ -1640,7 +1411,6 @@ function startTelemetry(telemetryService, configuration) {
             contextProvider = provider;
         },
         observable: observable,
-        enabled: telemetryConfiguration.telemetryEnabled,
     };
 }
 function startFakeTelemetry() {
@@ -1665,26 +1435,16 @@ function isTelemetryReplicationAllowed(configuration) {
     return configuration.site === _configuration__WEBPACK_IMPORTED_MODULE_0__.INTAKE_SITE_STAGING;
 }
 function addTelemetryDebug(message, context) {
-    (0,_tools_monitor__WEBPACK_IMPORTED_MODULE_4__.displayIfDebugEnabled)(_tools_display__WEBPACK_IMPORTED_MODULE_7__.ConsoleApiName.debug, message, context);
+    (0,_tools_monitor__WEBPACK_IMPORTED_MODULE_3__.displayIfDebugEnabled)(_tools_display__WEBPACK_IMPORTED_MODULE_5__.ConsoleApiName.debug, message, context);
     addTelemetry((0,_tools_utils__WEBPACK_IMPORTED_MODULE_2__.assign)({
-        type: _rawTelemetryEvent_types__WEBPACK_IMPORTED_MODULE_8__.TelemetryType.log,
         message: message,
         status: "debug" /* debug */,
     }, context));
 }
 function addTelemetryError(e) {
     addTelemetry((0,_tools_utils__WEBPACK_IMPORTED_MODULE_2__.assign)({
-        type: _rawTelemetryEvent_types__WEBPACK_IMPORTED_MODULE_8__.TelemetryType.log,
         status: "error" /* error */,
     }, formatError(e)));
-}
-function addTelemetryConfiguration(configuration) {
-    if (telemetryConfiguration.telemetryConfigurationEnabled) {
-        addTelemetry({
-            type: _rawTelemetryEvent_types__WEBPACK_IMPORTED_MODULE_8__.TelemetryType.configuration,
-            configuration: configuration,
-        });
-    }
 }
 function addTelemetry(event) {
     if (onRawTelemetryEventCollected && telemetryConfiguration.sentEventCount < telemetryConfiguration.maxEventsPerPage) {
@@ -1694,11 +1454,11 @@ function addTelemetry(event) {
 }
 function formatError(e) {
     if (e instanceof Error) {
-        var stackTrace = (0,_tracekit__WEBPACK_IMPORTED_MODULE_9__.computeStackTrace)(e);
+        var stackTrace = (0,_tracekit__WEBPACK_IMPORTED_MODULE_6__.computeStackTrace)(e);
         return {
             error: {
                 kind: stackTrace.name,
-                stack: (0,_tools_error__WEBPACK_IMPORTED_MODULE_10__.toStackTraceString)(scrubCustomerFrames(stackTrace)),
+                stack: (0,_tools_error__WEBPACK_IMPORTED_MODULE_7__.toStackTraceString)(scrubCustomerFrames(stackTrace)),
             },
             message: stackTrace.message,
         };
@@ -1729,8 +1489,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "computeStackTrace": () => (/* binding */ computeStackTrace)
 /* harmony export */ });
-/* harmony import */ var _tools_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../tools/utils */ "./node_modules/@datadog/browser-core/esm/tools/utils.js");
-
 var UNKNOWN_FUNCTION = '?';
 /**
  * Computes a stack trace for an exception.
@@ -1738,13 +1496,9 @@ var UNKNOWN_FUNCTION = '?';
 function computeStackTrace(ex) {
     var stack = [];
     var stackProperty = tryToGetString(ex, 'stack');
-    var exString = String(ex);
-    if (stackProperty && (0,_tools_utils__WEBPACK_IMPORTED_MODULE_0__.startsWith)(stackProperty, exString)) {
-        stackProperty = stackProperty.slice(exString.length);
-    }
     if (stackProperty) {
         stackProperty.split('\n').forEach(function (line) {
-            var stackFrame = parseChromeLine(line) || parseChromeAnonymousLine(line) || parseWinLine(line) || parseGeckoLine(line);
+            var stackFrame = parseChromeLine(line) || parseWinLine(line) || parseGeckoLine(line);
             if (stackFrame) {
                 if (!stackFrame.func && stackFrame.line) {
                     stackFrame.func = UNKNOWN_FUNCTION;
@@ -1759,10 +1513,10 @@ function computeStackTrace(ex) {
         stack: stack,
     };
 }
-var fileUrl = '((?:file|https?|blob|chrome-extension|native|eval|webpack|<anonymous>|\\w+\\.|\\/).*?)';
-var filePosition = '(?::(\\d+))';
-var CHROME_LINE_RE = new RegExp("^\\s*at (.*?) ?\\(".concat(fileUrl).concat(filePosition, "?").concat(filePosition, "?\\)?\\s*$"), 'i');
-var CHROME_EVAL_RE = new RegExp("\\((\\S*)".concat(filePosition).concat(filePosition, "\\)"));
+var CHROME_LINE_RE = 
+// eslint-disable-next-line max-len
+/^\s*at (.*?) ?\(((?:file|https?|blob|chrome-extension|native|eval|webpack|<anonymous>|\/).*?)(?::(\d+))?(?::(\d+))?\)?\s*$/i;
+var CHROME_EVAL_RE = /\((\S*)(?::(\d+))(?::(\d+))\)/;
 function parseChromeLine(line) {
     var parts = CHROME_LINE_RE.exec(line);
     if (!parts) {
@@ -1785,20 +1539,6 @@ function parseChromeLine(line) {
         url: !isNative ? parts[2] : undefined,
     };
 }
-var CHROME_ANONYMOUS_FUNCTION_RE = new RegExp("^\\s*at ?".concat(fileUrl).concat(filePosition, "?").concat(filePosition, "??\\s*$"), 'i');
-function parseChromeAnonymousLine(line) {
-    var parts = CHROME_ANONYMOUS_FUNCTION_RE.exec(line);
-    if (!parts) {
-        return;
-    }
-    return {
-        args: [],
-        column: parts[3] ? +parts[3] : undefined,
-        func: UNKNOWN_FUNCTION,
-        line: parts[2] ? +parts[2] : undefined,
-        url: parts[1],
-    };
-}
 var WINJS_LINE_RE = /^\s*at (?:((?:\[object object\])?.+) )?\(?((?:file|ms-appx|https?|webpack|blob):.*?):(\d+)(?::(\d+))?\)?\s*$/i;
 function parseWinLine(line) {
     var parts = WINJS_LINE_RE.exec(line);
@@ -1813,7 +1553,9 @@ function parseWinLine(line) {
         url: parts[2],
     };
 }
-var GECKO_LINE_RE = /^\s*(.*?)(?:\((.*?)\))?(?:^|@)((?:file|https?|blob|chrome|webpack|resource|capacitor|\[native).*?|[^@]*bundle)(?::(\d+))?(?::(\d+))?\s*$/i;
+var GECKO_LINE_RE = 
+// eslint-disable-next-line max-len
+/^\s*(.*?)(?:\((.*?)\))?(?:^|@)((?:file|https?|blob|chrome|webpack|resource|capacitor|\[native).*?|[^@]*bundle)(?::(\d+))?(?::(\d+))?\s*$/i;
 var GECKO_EVAL_RE = /(\S+) line (\d+)(?: > eval line \d+)* > eval/i;
 function parseGeckoLine(line) {
     var parts = GECKO_LINE_RE.exec(line);
@@ -1954,52 +1696,6 @@ function instrumentUnhandledRejection(callback) {
     });
 }
 //# sourceMappingURL=tracekit.js.map
-
-/***/ }),
-
-/***/ "./node_modules/@datadog/browser-core/esm/domain/user/user.js":
-/*!********************************************************************!*\
-  !*** ./node_modules/@datadog/browser-core/esm/domain/user/user.js ***!
-  \********************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "checkUser": () => (/* binding */ checkUser),
-/* harmony export */   "sanitizeUser": () => (/* binding */ sanitizeUser)
-/* harmony export */ });
-/* harmony import */ var _tools_display__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../tools/display */ "./node_modules/@datadog/browser-core/esm/tools/display.js");
-/* harmony import */ var _tools_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../tools/utils */ "./node_modules/@datadog/browser-core/esm/tools/utils.js");
-
-
-/**
- * Clone input data and ensure known user properties (id, name, email)
- * are strings, as defined here:
- * https://docs.datadoghq.com/logs/log_configuration/attributes_naming_convention/#user-related-attributes
- */
-function sanitizeUser(newUser) {
-    // We shallow clone only to prevent mutation of user data.
-    var user = (0,_tools_utils__WEBPACK_IMPORTED_MODULE_0__.assign)({}, newUser);
-    var keys = ['id', 'name', 'email'];
-    keys.forEach(function (key) {
-        if (key in user) {
-            user[key] = String(user[key]);
-        }
-    });
-    return user;
-}
-/**
- * Simple check to ensure user is valid
- */
-function checkUser(newUser) {
-    var isValid = (0,_tools_utils__WEBPACK_IMPORTED_MODULE_0__.getType)(newUser) === 'object';
-    if (!isValid) {
-        _tools_display__WEBPACK_IMPORTED_MODULE_1__.display.error('Unsupported user:', newUser);
-    }
-    return isValid;
-}
-//# sourceMappingURL=user.js.map
 
 /***/ }),
 
@@ -2213,52 +1909,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "createContextManager": () => (/* binding */ createContextManager)
 /* harmony export */ });
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils */ "./node_modules/@datadog/browser-core/esm/tools/utils.js");
-
-function createContextManager(computeBytesCountImpl) {
-    if (computeBytesCountImpl === void 0) { computeBytesCountImpl = _utils__WEBPACK_IMPORTED_MODULE_0__.computeBytesCount; }
+function createContextManager() {
     var context = {};
-    var bytesCountCache;
     return {
-        getBytesCount: function () {
-            if (bytesCountCache === undefined) {
-                bytesCountCache = computeBytesCountImpl((0,_utils__WEBPACK_IMPORTED_MODULE_0__.jsonStringify)(context));
-            }
-            return bytesCountCache;
-        },
-        /** @deprecated use getContext instead */
         get: function () { return context; },
-        /** @deprecated use setContextProperty instead */
         add: function (key, value) {
             context[key] = value;
-            bytesCountCache = undefined;
         },
-        /** @deprecated renamed to removeContextProperty */
         remove: function (key) {
             delete context[key];
-            bytesCountCache = undefined;
         },
-        /** @deprecated use setContext instead */
         set: function (newContext) {
             context = newContext;
-            bytesCountCache = undefined;
-        },
-        getContext: function () { return (0,_utils__WEBPACK_IMPORTED_MODULE_0__.deepClone)(context); },
-        setContext: function (newContext) {
-            context = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.deepClone)(newContext);
-            bytesCountCache = undefined;
-        },
-        setContextProperty: function (key, property) {
-            context[key] = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.deepClone)(property);
-            bytesCountCache = undefined;
-        },
-        removeContextProperty: function (key) {
-            delete context[key];
-            bytesCountCache = undefined;
-        },
-        clearContext: function () {
-            context = {};
-            bytesCountCache = undefined;
         },
     };
 }
@@ -2375,10 +2037,9 @@ display.error = console.error.bind(console);
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "ErrorSource": () => (/* binding */ ErrorSource),
-/* harmony export */   "computeRawError": () => (/* binding */ computeRawError),
 /* harmony export */   "createHandlingStack": () => (/* binding */ createHandlingStack),
-/* harmony export */   "flattenErrorCauses": () => (/* binding */ flattenErrorCauses),
 /* harmony export */   "formatErrorMessage": () => (/* binding */ formatErrorMessage),
+/* harmony export */   "formatUnknownError": () => (/* binding */ formatUnknownError),
 /* harmony export */   "getFileFromStackTraceString": () => (/* binding */ getFileFromStackTraceString),
 /* harmony export */   "toStackTraceString": () => (/* binding */ toStackTraceString)
 /* harmony export */ });
@@ -2397,30 +2058,20 @@ var ErrorSource = {
     SOURCE: 'source',
     REPORT: 'report',
 };
-function computeRawError(_a) {
-    var stackTrace = _a.stackTrace, originalError = _a.originalError, handlingStack = _a.handlingStack, startClocks = _a.startClocks, nonErrorPrefix = _a.nonErrorPrefix, source = _a.source, handling = _a.handling;
-    if (!stackTrace || (stackTrace.message === undefined && !(originalError instanceof Error))) {
+function formatUnknownError(stackTrace, errorObject, nonErrorPrefix, handlingStack) {
+    if (!stackTrace || (stackTrace.message === undefined && !(errorObject instanceof Error))) {
         return {
-            startClocks: startClocks,
-            source: source,
-            handling: handling,
-            originalError: originalError,
-            message: "".concat(nonErrorPrefix, " ").concat((0,_utils__WEBPACK_IMPORTED_MODULE_0__.jsonStringify)(originalError)),
+            message: "".concat(nonErrorPrefix, " ").concat((0,_utils__WEBPACK_IMPORTED_MODULE_0__.jsonStringify)(errorObject)),
             stack: 'No stack, consider using an instance of Error',
             handlingStack: handlingStack,
             type: stackTrace && stackTrace.name,
         };
     }
     return {
-        startClocks: startClocks,
-        source: source,
-        handling: handling,
-        originalError: originalError,
         message: stackTrace.message || 'Empty message',
         stack: toStackTraceString(stackTrace),
         handlingStack: handlingStack,
         type: stackTrace.name,
-        causes: flattenErrorCauses(originalError, source),
     };
 }
 function toStackTraceString(stack) {
@@ -2474,61 +2125,7 @@ function createHandlingStack() {
     });
     return formattedStack;
 }
-function flattenErrorCauses(error, parentSource) {
-    var currentError = error;
-    var causes = [];
-    while ((currentError === null || currentError === void 0 ? void 0 : currentError.cause) instanceof Error && causes.length < 10) {
-        var stackTrace = (0,_domain_tracekit__WEBPACK_IMPORTED_MODULE_2__.computeStackTrace)(currentError.cause);
-        causes.push({
-            message: currentError.cause.message,
-            source: parentSource,
-            type: stackTrace === null || stackTrace === void 0 ? void 0 : stackTrace.name,
-            stack: stackTrace && toStackTraceString(stackTrace),
-        });
-        currentError = currentError.cause;
-    }
-    return causes.length ? causes : undefined;
-}
 //# sourceMappingURL=error.js.map
-
-/***/ }),
-
-/***/ "./node_modules/@datadog/browser-core/esm/tools/getZoneJsOriginalValue.js":
-/*!********************************************************************************!*\
-  !*** ./node_modules/@datadog/browser-core/esm/tools/getZoneJsOriginalValue.js ***!
-  \********************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getZoneJsOriginalValue": () => (/* binding */ getZoneJsOriginalValue)
-/* harmony export */ });
-/**
- * Gets the original value for a DOM API that was potentially patched by Zone.js.
- *
- * Zone.js[1] is a library that patches a bunch of JS and DOM APIs. It usually stores the original
- * value of the patched functions/constructors/methods in a hidden property prefixed by
- * __zone_symbol__.
- *
- * In multiple occasions, we observed that Zone.js is the culprit of important issues leading to
- * browser resource exhaustion (memory leak, high CPU usage). This method is used as a workaround to
- * use the original DOM API instead of the one patched by Zone.js.
- *
- * [1]: https://github.com/angular/angular/tree/main/packages/zone.js
- */
-function getZoneJsOriginalValue(target, name) {
-    var browserWindow = window;
-    var original;
-    if (browserWindow.Zone && typeof browserWindow.Zone.__symbol__ === 'function') {
-        original = target[browserWindow.Zone.__symbol__(name)];
-    }
-    if (!original) {
-        original = target[name];
-    }
-    return original;
-}
-//# sourceMappingURL=getZoneJsOriginalValue.js.map
 
 /***/ }),
 
@@ -2553,9 +2150,6 @@ function instrumentMethod(object, method, instrumentationFactory) {
     var original = object[method];
     var instrumentation = instrumentationFactory(original);
     var instrumentationWrapper = function () {
-        if (typeof instrumentation !== 'function') {
-            return undefined;
-        }
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         return instrumentation.apply(this, arguments);
     };
@@ -2768,103 +2362,6 @@ function mergeObservables() {
 
 /***/ }),
 
-/***/ "./node_modules/@datadog/browser-core/esm/tools/readBytesFromStream.js":
-/*!*****************************************************************************!*\
-  !*** ./node_modules/@datadog/browser-core/esm/tools/readBytesFromStream.js ***!
-  \*****************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "readBytesFromStream": () => (/* binding */ readBytesFromStream)
-/* harmony export */ });
-/* harmony import */ var _monitor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./monitor */ "./node_modules/@datadog/browser-core/esm/tools/monitor.js");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils */ "./node_modules/@datadog/browser-core/esm/tools/utils.js");
-
-
-/**
- * Read bytes from a ReadableStream until at least `limit` bytes have been read (or until the end of
- * the stream). The callback is invoked with the at most `limit` bytes, and indicates that the limit
- * has been exceeded if more bytes were available.
- */
-function readBytesFromStream(stream, callback, options) {
-    var reader = stream.getReader();
-    var chunks = [];
-    var readBytesCount = 0;
-    readMore();
-    function readMore() {
-        reader.read().then((0,_monitor__WEBPACK_IMPORTED_MODULE_0__.monitor)(function (result) {
-            if (result.done) {
-                onDone();
-                return;
-            }
-            if (options.collectStreamBody) {
-                chunks.push(result.value);
-            }
-            readBytesCount += result.value.length;
-            if (readBytesCount > options.bytesLimit) {
-                onDone();
-            }
-            else {
-                readMore();
-            }
-        }), (0,_monitor__WEBPACK_IMPORTED_MODULE_0__.monitor)(function (error) { return callback(error); }));
-    }
-    function onDone() {
-        reader.cancel().catch(
-        // we don't care if cancel fails, but we still need to catch the error to avoid reporting it
-        // as an unhandled rejection
-        _utils__WEBPACK_IMPORTED_MODULE_1__.noop);
-        var bytes;
-        var limitExceeded;
-        if (options.collectStreamBody) {
-            var completeBuffer_1;
-            if (chunks.length === 1) {
-                // optimization: if the response is small enough to fit in a single buffer (provided by the browser), just
-                // use it directly.
-                completeBuffer_1 = chunks[0];
-            }
-            else {
-                // else, we need to copy buffers into a larger buffer to concatenate them.
-                completeBuffer_1 = new Uint8Array(readBytesCount);
-                var offset_1 = 0;
-                chunks.forEach(function (chunk) {
-                    completeBuffer_1.set(chunk, offset_1);
-                    offset_1 += chunk.length;
-                });
-            }
-            bytes = completeBuffer_1.slice(0, options.bytesLimit);
-            limitExceeded = completeBuffer_1.length > options.bytesLimit;
-        }
-        callback(undefined, bytes, limitExceeded);
-    }
-}
-//# sourceMappingURL=readBytesFromStream.js.map
-
-/***/ }),
-
-/***/ "./node_modules/@datadog/browser-core/esm/tools/sendToExtension.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/@datadog/browser-core/esm/tools/sendToExtension.js ***!
-  \*************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "sendToExtension": () => (/* binding */ sendToExtension)
-/* harmony export */ });
-function sendToExtension(type, payload) {
-    var callback = window.__ddBrowserSdkExtensionCallback;
-    if (callback) {
-        callback({ type: type, payload: payload });
-    }
-}
-//# sourceMappingURL=sendToExtension.js.map
-
-/***/ }),
-
 /***/ "./node_modules/@datadog/browser-core/esm/tools/timeUtils.js":
 /*!*******************************************************************!*\
   !*** ./node_modules/@datadog/browser-core/esm/tools/timeUtils.js ***!
@@ -2874,7 +2371,6 @@ function sendToExtension(type, payload) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "addDuration": () => (/* binding */ addDuration),
 /* harmony export */   "clocksNow": () => (/* binding */ clocksNow),
 /* harmony export */   "clocksOrigin": () => (/* binding */ clocksOrigin),
 /* harmony export */   "currentDrift": () => (/* binding */ currentDrift),
@@ -2895,15 +2391,17 @@ function relativeToClocks(relative) {
     return { relative: relative, timeStamp: getCorrectedTimeStamp(relative) };
 }
 function getCorrectedTimeStamp(relativeTime) {
-    var correctedOrigin = (dateNow() - performance.now());
+    var correctedOrigin = dateNow() - performance.now();
     // apply correction only for positive drift
     if (correctedOrigin > getNavigationStart()) {
-        return Math.round(addDuration(correctedOrigin, relativeTime));
+        // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+        return Math.round(correctedOrigin + relativeTime);
     }
     return getTimeStamp(relativeTime);
 }
 function currentDrift() {
-    return Math.round(dateNow() - addDuration(getNavigationStart(), performance.now()));
+    // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+    return Math.round(dateNow() - (getNavigationStart() + performance.now()));
 }
 function toServerDuration(duration) {
     if (!(0,_utils__WEBPACK_IMPORTED_MODULE_0__.isNumber)(duration)) {
@@ -2934,9 +2432,6 @@ function clocksOrigin() {
 function elapsed(start, end) {
     return (end - start);
 }
-function addDuration(a, b) {
-    return a + b;
-}
 /**
  * Get the time since the navigation was started.
  *
@@ -2948,7 +2443,8 @@ function getRelativeTime(timestamp) {
     return (timestamp - getNavigationStart());
 }
 function getTimeStamp(relativeTime) {
-    return Math.round(addDuration(getNavigationStart(), relativeTime));
+    // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+    return Math.round(getNavigationStart() + relativeTime);
 }
 function looksLikeRelativeTime(time) {
     return time < _utils__WEBPACK_IMPORTED_MODULE_0__.ONE_YEAR;
@@ -3066,19 +2562,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "ONE_DAY": () => (/* binding */ ONE_DAY),
 /* harmony export */   "ONE_HOUR": () => (/* binding */ ONE_HOUR),
-/* harmony export */   "ONE_KIBI_BYTE": () => (/* binding */ ONE_KIBI_BYTE),
-/* harmony export */   "ONE_MEBI_BYTE": () => (/* binding */ ONE_MEBI_BYTE),
+/* harmony export */   "ONE_KILO_BYTE": () => (/* binding */ ONE_KILO_BYTE),
 /* harmony export */   "ONE_MINUTE": () => (/* binding */ ONE_MINUTE),
 /* harmony export */   "ONE_SECOND": () => (/* binding */ ONE_SECOND),
 /* harmony export */   "ONE_YEAR": () => (/* binding */ ONE_YEAR),
+/* harmony export */   "addEventListener": () => (/* binding */ addEventListener),
+/* harmony export */   "addEventListeners": () => (/* binding */ addEventListeners),
 /* harmony export */   "arrayFrom": () => (/* binding */ arrayFrom),
 /* harmony export */   "assign": () => (/* binding */ assign),
 /* harmony export */   "combine": () => (/* binding */ combine),
-/* harmony export */   "computeBytesCount": () => (/* binding */ computeBytesCount),
 /* harmony export */   "cssEscape": () => (/* binding */ cssEscape),
 /* harmony export */   "deepClone": () => (/* binding */ deepClone),
-/* harmony export */   "elementMatches": () => (/* binding */ elementMatches),
-/* harmony export */   "endsWith": () => (/* binding */ endsWith),
 /* harmony export */   "find": () => (/* binding */ find),
 /* harmony export */   "findCommaSeparatedValue": () => (/* binding */ findCommaSeparatedValue),
 /* harmony export */   "findLast": () => (/* binding */ findLast),
@@ -3089,7 +2583,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "getType": () => (/* binding */ getType),
 /* harmony export */   "includes": () => (/* binding */ includes),
 /* harmony export */   "isEmptyObject": () => (/* binding */ isEmptyObject),
-/* harmony export */   "isMatchOption": () => (/* binding */ isMatchOption),
 /* harmony export */   "isNumber": () => (/* binding */ isNumber),
 /* harmony export */   "isPercentage": () => (/* binding */ isPercentage),
 /* harmony export */   "jsonStringify": () => (/* binding */ jsonStringify),
@@ -3104,23 +2597,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "removeDuplicates": () => (/* binding */ removeDuplicates),
 /* harmony export */   "requestIdleCallback": () => (/* binding */ requestIdleCallback),
 /* harmony export */   "round": () => (/* binding */ round),
+/* harmony export */   "runOnReadyState": () => (/* binding */ runOnReadyState),
 /* harmony export */   "safeTruncate": () => (/* binding */ safeTruncate),
+/* harmony export */   "setToArray": () => (/* binding */ setToArray),
 /* harmony export */   "shallowClone": () => (/* binding */ shallowClone),
 /* harmony export */   "startsWith": () => (/* binding */ startsWith),
-/* harmony export */   "throttle": () => (/* binding */ throttle),
-/* harmony export */   "tryToClone": () => (/* binding */ tryToClone)
+/* harmony export */   "throttle": () => (/* binding */ throttle)
 /* harmony export */ });
-/* harmony import */ var _display__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./display */ "./node_modules/@datadog/browser-core/esm/tools/display.js");
 /* harmony import */ var _monitor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./monitor */ "./node_modules/@datadog/browser-core/esm/tools/monitor.js");
-
 
 var ONE_SECOND = 1000;
 var ONE_MINUTE = 60 * ONE_SECOND;
 var ONE_HOUR = 60 * ONE_MINUTE;
 var ONE_DAY = 24 * ONE_HOUR;
 var ONE_YEAR = 365 * ONE_DAY;
-var ONE_KIBI_BYTE = 1024;
-var ONE_MEBI_BYTE = 1024 * ONE_KIBI_BYTE;
+var ONE_KILO_BYTE = 1024;
 // use lodash API
 function throttle(fn, wait, options) {
     var needLeadingExecution = options && options.leading !== undefined ? options.leading : true;
@@ -3200,69 +2691,66 @@ function round(num, decimals) {
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 function noop() { }
 /**
- * Custom implementation of JSON.stringify that ignores some toJSON methods. We need to do that
- * because some sites badly override toJSON on certain objects. Removing all toJSON methods from
- * nested values would be too costly, so we just detach them from the root value, and native classes
- * used to build JSON values (Array and Object).
- *
- * Note: this still assumes that JSON.stringify is correct.
+ * Custom implementation of JSON.stringify that ignores value.toJSON.
+ * We need to do that because some sites badly override toJSON on certain objects.
+ * Note this still supposes that JSON.stringify is correct...
  */
 function jsonStringify(value, replacer, space) {
-    if (typeof value !== 'object' || value === null) {
+    if (value === null || value === undefined) {
         return JSON.stringify(value);
     }
-    // Note: The order matter here. We need to detach toJSON methods on parent classes before their
-    // subclasses.
-    var restoreObjectPrototypeToJson = detachToJsonMethod(Object.prototype);
-    var restoreArrayPrototypeToJson = detachToJsonMethod(Array.prototype);
-    var restoreValuePrototypeToJson = detachToJsonMethod(Object.getPrototypeOf(value));
-    var restoreValueToJson = detachToJsonMethod(value);
+    var originalToJSON = [false, undefined];
+    if (hasToJSON(value)) {
+        // We need to add a flag and not rely on the truthiness of value.toJSON
+        // because it can be set but undefined and that's actually significant.
+        originalToJSON = [true, value.toJSON];
+        delete value.toJSON;
+    }
+    var originalProtoToJSON = [false, undefined];
+    var prototype;
+    if (typeof value === 'object') {
+        prototype = Object.getPrototypeOf(value);
+        if (hasToJSON(prototype)) {
+            originalProtoToJSON = [true, prototype.toJSON];
+            delete prototype.toJSON;
+        }
+    }
+    var result;
     try {
-        return JSON.stringify(value, replacer, space);
+        result = JSON.stringify(value, replacer, space);
     }
     catch (_a) {
-        return '<error: unable to serialize object>';
+        result = '<error: unable to serialize object>';
     }
     finally {
-        restoreObjectPrototypeToJson();
-        restoreArrayPrototypeToJson();
-        restoreValuePrototypeToJson();
-        restoreValueToJson();
+        if (originalToJSON[0]) {
+            ;
+            value.toJSON = originalToJSON[1];
+        }
+        if (originalProtoToJSON[0]) {
+            ;
+            prototype.toJSON = originalProtoToJSON[1];
+        }
     }
+    return result;
 }
-function detachToJsonMethod(value) {
-    var object = value;
-    var objectToJson = object.toJSON;
-    if (objectToJson) {
-        delete object.toJSON;
-        return function () {
-            object.toJSON = objectToJson;
-        };
-    }
-    return noop;
+function hasToJSON(value) {
+    return typeof value === 'object' && value !== null && Object.prototype.hasOwnProperty.call(value, 'toJSON');
 }
 function includes(candidate, search) {
     return candidate.indexOf(search) !== -1;
 }
 function arrayFrom(arrayLike) {
-    if (Array.from) {
-        return Array.from(arrayLike);
-    }
     var array = [];
-    if (arrayLike instanceof Set) {
-        arrayLike.forEach(function (item) { return array.push(item); });
-    }
-    else {
-        for (var i = 0; i < arrayLike.length; i++) {
-            array.push(arrayLike[i]);
-        }
+    for (var i = 0; i < arrayLike.length; i++) {
+        array.push(arrayLike[i]);
     }
     return array;
 }
 function find(array, predicate) {
     for (var i = 0; i < array.length; i += 1) {
         var item = array[i];
-        if (predicate(item, i)) {
+        if (predicate(item, i, array)) {
             return item;
         }
     }
@@ -3305,9 +2793,6 @@ function mapValues(object, fn) {
 }
 function startsWith(candidate, search) {
     return candidate.slice(0, search.length) === search;
-}
-function endsWith(candidate, search) {
-    return candidate.slice(-search.length) === search;
 }
 /**
  * inspired by https://mathiasbynens.be/notes/globalthis
@@ -3365,20 +2850,58 @@ function safeTruncate(candidate, length, suffix) {
     var lastChar = candidate.charCodeAt(length - 1);
     var isLastCharSurrogatePair = lastChar >= 0xd800 && lastChar <= 0xdbff;
     var correctedLength = isLastCharSurrogatePair ? length + 1 : length;
-    if (candidate.length <= correctedLength) {
+    if (candidate.length <= correctedLength)
         return candidate;
-    }
     return "".concat(candidate.slice(0, correctedLength)).concat(suffix);
 }
-function elementMatches(element, selector) {
-    if (element.matches) {
-        return element.matches(selector);
+/**
+ * Add an event listener to an event emitter object (Window, Element, mock object...).  This provides
+ * a few conveniences compared to using `element.addEventListener` directly:
+ *
+ * * supports IE11 by: using an option object only if needed and emulating the `once` option
+ *
+ * * wraps the listener with a `monitor` function
+ *
+ * * returns a `stop` function to remove the listener
+ */
+function addEventListener(emitter, event, listener, options) {
+    return addEventListeners(emitter, [event], listener, options);
+}
+/**
+ * Add event listeners to an event emitter object (Window, Element, mock object...).  This provides
+ * a few conveniences compared to using `element.addEventListener` directly:
+ *
+ * * supports IE11 by: using an option object only if needed and emulating the `once` option
+ *
+ * * wraps the listener with a `monitor` function
+ *
+ * * returns a `stop` function to remove the listener
+ *
+ * * with `once: true`, the listener will be called at most once, even if different events are listened
+ */
+function addEventListeners(emitter, events, listener, _a) {
+    var _b = _a === void 0 ? {} : _a, once = _b.once, capture = _b.capture, passive = _b.passive;
+    var wrappedListener = (0,_monitor__WEBPACK_IMPORTED_MODULE_0__.monitor)(once
+        ? function (event) {
+            stop();
+            listener(event);
+        }
+        : listener);
+    var options = passive ? { capture: capture, passive: passive } : capture;
+    events.forEach(function (event) { return emitter.addEventListener(event, wrappedListener, options); });
+    var stop = function () { return events.forEach(function (event) { return emitter.removeEventListener(event, wrappedListener, options); }); };
+    return {
+        stop: stop,
+    };
+}
+function runOnReadyState(expectedReadyState, callback) {
+    if (document.readyState === expectedReadyState || document.readyState === 'complete') {
+        callback();
     }
-    // IE11 support
-    if (element.msMatchesSelector) {
-        return element.msMatchesSelector(selector);
+    else {
+        var eventName = expectedReadyState === 'complete' ? "load" /* LOAD */ : "DOMContentLoaded" /* DOM_CONTENT_LOADED */;
+        addEventListener(window, eventName, callback, { once: true });
     }
-    return false;
 }
 /**
  * Similar to `typeof`, but distinguish plain objects from `null` and arrays
@@ -3502,39 +3025,18 @@ function requestIdleCallback(callback, opts) {
     var id = window.requestAnimationFrame((0,_monitor__WEBPACK_IMPORTED_MODULE_0__.monitor)(callback));
     return function () { return window.cancelAnimationFrame(id); };
 }
+function setToArray(set) {
+    var array = [];
+    set.forEach(function (item) { return array.push(item); });
+    return array;
+}
 function removeDuplicates(array) {
     var set = new Set();
     array.forEach(function (item) { return set.add(item); });
-    return arrayFrom(set);
+    return setToArray(set);
 }
-function isMatchOption(item) {
-    var itemType = getType(item);
-    return itemType === 'string' || itemType === 'function' || item instanceof RegExp;
-}
-/**
- * Returns true if value can be matched by at least one of the provided MatchOptions.
- * When comparing strings, setting useStartsWith to true will compare the value with the start of
- * the option, instead of requiring an exact match.
- */
-function matchList(list, value, useStartsWith) {
-    if (useStartsWith === void 0) { useStartsWith = false; }
-    return list.some(function (item) {
-        try {
-            if (typeof item === 'function') {
-                return item(value);
-            }
-            else if (item instanceof RegExp) {
-                return item.test(value);
-            }
-            else if (typeof item === 'string') {
-                return useStartsWith ? startsWith(value, item) : item === value;
-            }
-        }
-        catch (e) {
-            _display__WEBPACK_IMPORTED_MODULE_1__.display.error(e);
-        }
-        return false;
-    });
+function matchList(list, value) {
+    return list.some(function (item) { return item === value || (item instanceof RegExp && item.test(value)); });
 }
 // https://github.com/jquery/jquery/blob/a684e6ba836f7c553968d7d026ed7941e1a612d8/src/selector/escapeSelector.js
 function cssEscape(str) {
@@ -3555,27 +3057,6 @@ function cssEscape(str) {
         return "\\".concat(ch);
     });
 }
-// eslint-disable-next-line no-control-regex
-var HAS_MULTI_BYTES_CHARACTERS = /[^\u0000-\u007F]/;
-function computeBytesCount(candidate) {
-    // Accurate bytes count computations can degrade performances when there is a lot of events to process
-    if (!HAS_MULTI_BYTES_CHARACTERS.test(candidate)) {
-        return candidate.length;
-    }
-    if (window.TextEncoder !== undefined) {
-        return new TextEncoder().encode(candidate).length;
-    }
-    return new Blob([candidate]).size;
-}
-function tryToClone(response) {
-    try {
-        return response.clone();
-    }
-    catch (e) {
-        // clone can throw if the response has already been used by another instrumentation or is disturbed
-        return;
-    }
-}
 //# sourceMappingURL=utils.js.map
 
 /***/ }),
@@ -3591,29 +3072,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Batch": () => (/* binding */ Batch)
 /* harmony export */ });
-/* harmony import */ var _tools_display__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../tools/display */ "./node_modules/@datadog/browser-core/esm/tools/display.js");
-/* harmony import */ var _tools_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../tools/utils */ "./node_modules/@datadog/browser-core/esm/tools/utils.js");
-/* harmony import */ var _tools_monitor__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../tools/monitor */ "./node_modules/@datadog/browser-core/esm/tools/monitor.js");
-/* harmony import */ var _tools_observable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../tools/observable */ "./node_modules/@datadog/browser-core/esm/tools/observable.js");
+/* harmony import */ var _tools_display__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../tools/display */ "./node_modules/@datadog/browser-core/esm/tools/display.js");
+/* harmony import */ var _tools_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../tools/utils */ "./node_modules/@datadog/browser-core/esm/tools/utils.js");
+/* harmony import */ var _tools_monitor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../tools/monitor */ "./node_modules/@datadog/browser-core/esm/tools/monitor.js");
 
 
 
-
+// https://en.wikipedia.org/wiki/UTF-8
+// eslint-disable-next-line no-control-regex
+var HAS_MULTI_BYTES_CHARACTERS = /[^\u0000-\u007F]/;
 var Batch = /** @class */ (function () {
-    function Batch(request, batchMessagesLimit, batchBytesLimit, messageBytesLimit, flushTimeout, pageExitObservable) {
-        var _this = this;
+    function Batch(request, batchMessagesLimit, batchBytesLimit, messageBytesLimit, flushTimeout, beforeUnloadCallback) {
+        if (beforeUnloadCallback === void 0) { beforeUnloadCallback = _tools_utils__WEBPACK_IMPORTED_MODULE_0__.noop; }
         this.request = request;
         this.batchMessagesLimit = batchMessagesLimit;
         this.batchBytesLimit = batchBytesLimit;
         this.messageBytesLimit = messageBytesLimit;
         this.flushTimeout = flushTimeout;
-        this.pageExitObservable = pageExitObservable;
-        this.flushObservable = new _tools_observable__WEBPACK_IMPORTED_MODULE_0__.Observable();
+        this.beforeUnloadCallback = beforeUnloadCallback;
         this.pushOnlyBuffer = [];
         this.upsertBuffer = {};
         this.bufferBytesCount = 0;
         this.bufferMessagesCount = 0;
-        pageExitObservable.subscribe(function () { return _this.flush(_this.request.sendOnExit); });
+        this.flushOnVisibilityHidden();
         this.flushPeriodically();
     }
     Batch.prototype.add = function (message) {
@@ -3622,42 +3103,47 @@ var Batch = /** @class */ (function () {
     Batch.prototype.upsert = function (message, key) {
         this.addOrUpdate(message, key);
     };
-    Batch.prototype.flush = function (sendFn) {
-        if (sendFn === void 0) { sendFn = this.request.send; }
+    Batch.prototype.flush = function (reason) {
         if (this.bufferMessagesCount !== 0) {
-            var messages = this.pushOnlyBuffer.concat((0,_tools_utils__WEBPACK_IMPORTED_MODULE_1__.objectValues)(this.upsertBuffer));
+            var messages = this.pushOnlyBuffer.concat((0,_tools_utils__WEBPACK_IMPORTED_MODULE_0__.objectValues)(this.upsertBuffer));
             var bytesCount = this.bufferBytesCount;
-            this.flushObservable.notify({
-                bufferBytesCount: this.bufferBytesCount,
-                bufferMessagesCount: this.bufferMessagesCount,
-            });
             this.pushOnlyBuffer = [];
             this.upsertBuffer = {};
             this.bufferBytesCount = 0;
             this.bufferMessagesCount = 0;
-            sendFn({ data: messages.join('\n'), bytesCount: bytesCount });
+            this.request.send(messages.join('\n'), bytesCount, reason);
         }
+    };
+    Batch.prototype.computeBytesCount = function (candidate) {
+        // Accurate bytes count computations can degrade performances when there is a lot of events to process
+        if (!HAS_MULTI_BYTES_CHARACTERS.test(candidate)) {
+            return candidate.length;
+        }
+        if (window.TextEncoder !== undefined) {
+            return new TextEncoder().encode(candidate).length;
+        }
+        return new Blob([candidate]).size;
     };
     Batch.prototype.addOrUpdate = function (message, key) {
         var _a = this.process(message), processedMessage = _a.processedMessage, messageBytesCount = _a.messageBytesCount;
         if (messageBytesCount >= this.messageBytesLimit) {
-            _tools_display__WEBPACK_IMPORTED_MODULE_2__.display.warn("Discarded a message whose size was bigger than the maximum allowed size ".concat(this.messageBytesLimit, "KB."));
+            _tools_display__WEBPACK_IMPORTED_MODULE_1__.display.warn("Discarded a message whose size was bigger than the maximum allowed size ".concat(this.messageBytesLimit, "KB."));
             return;
         }
         if (this.hasMessageFor(key)) {
             this.remove(key);
         }
         if (this.willReachedBytesLimitWith(messageBytesCount)) {
-            this.flush();
+            this.flush('batch_bytes_limit');
         }
         this.push(processedMessage, messageBytesCount, key);
         if (this.isFull()) {
-            this.flush();
+            this.flush('batch_messages_limit');
         }
     };
     Batch.prototype.process = function (message) {
-        var processedMessage = (0,_tools_utils__WEBPACK_IMPORTED_MODULE_1__.jsonStringify)(message);
-        var messageBytesCount = (0,_tools_utils__WEBPACK_IMPORTED_MODULE_1__.computeBytesCount)(processedMessage);
+        var processedMessage = (0,_tools_utils__WEBPACK_IMPORTED_MODULE_0__.jsonStringify)(message);
+        var messageBytesCount = this.computeBytesCount(processedMessage);
         return { processedMessage: processedMessage, messageBytesCount: messageBytesCount };
     };
     Batch.prototype.push = function (processedMessage, messageBytesCount, key) {
@@ -3677,7 +3163,7 @@ var Batch = /** @class */ (function () {
     Batch.prototype.remove = function (key) {
         var removedMessage = this.upsertBuffer[key];
         delete this.upsertBuffer[key];
-        var messageBytesCount = (0,_tools_utils__WEBPACK_IMPORTED_MODULE_1__.computeBytesCount)(removedMessage);
+        var messageBytesCount = this.computeBytesCount(removedMessage);
         this.bufferBytesCount -= messageBytesCount;
         this.bufferMessagesCount -= 1;
         if (this.bufferMessagesCount > 0) {
@@ -3696,10 +3182,40 @@ var Batch = /** @class */ (function () {
     };
     Batch.prototype.flushPeriodically = function () {
         var _this = this;
-        setTimeout((0,_tools_monitor__WEBPACK_IMPORTED_MODULE_3__.monitor)(function () {
-            _this.flush();
+        setTimeout((0,_tools_monitor__WEBPACK_IMPORTED_MODULE_2__.monitor)(function () {
+            _this.flush('batch_flush_timeout');
             _this.flushPeriodically();
         }), this.flushTimeout);
+    };
+    Batch.prototype.flushOnVisibilityHidden = function () {
+        var _this = this;
+        /**
+         * With sendBeacon, requests are guaranteed to be successfully sent during document unload
+         */
+        // @ts-ignore this function is not always defined
+        if (navigator.sendBeacon) {
+            /**
+             * beforeunload is called before visibilitychange
+             * register first to be sure to be called before flush on beforeunload
+             * caveat: unload can still be canceled by another listener
+             */
+            (0,_tools_utils__WEBPACK_IMPORTED_MODULE_0__.addEventListener)(window, "beforeunload" /* BEFORE_UNLOAD */, this.beforeUnloadCallback);
+            /**
+             * Only event that guarantee to fire on mobile devices when the page transitions to background state
+             * (e.g. when user switches to a different application, goes to homescreen, etc), or is being unloaded.
+             */
+            (0,_tools_utils__WEBPACK_IMPORTED_MODULE_0__.addEventListener)(document, "visibilitychange" /* VISIBILITY_CHANGE */, function () {
+                if (document.visibilityState === 'hidden') {
+                    _this.flush('visibility_hidden');
+                }
+            });
+            /**
+             * Safari does not support yet to send a request during:
+             * - a visibility change during doc unload (cf: https://bugs.webkit.org/show_bug.cgi?id=194897)
+             * - a page hide transition (cf: https://bugs.webkit.org/show_bug.cgi?id=188329)
+             */
+            (0,_tools_utils__WEBPACK_IMPORTED_MODULE_0__.addEventListener)(window, "beforeunload" /* BEFORE_UNLOAD */, function () { return _this.flush('before_unload'); });
+        }
     };
     return Batch;
 }());
@@ -3736,19 +3252,84 @@ function getEventBridge() {
         },
     };
 }
-function canUseEventBridge(currentHost) {
+function canUseEventBridge(hostname) {
     var _a;
-    if (currentHost === void 0) { currentHost = (_a = (0,_tools_utils__WEBPACK_IMPORTED_MODULE_0__.getGlobalObject)().location) === null || _a === void 0 ? void 0 : _a.hostname; }
+    if (hostname === void 0) { hostname = (_a = (0,_tools_utils__WEBPACK_IMPORTED_MODULE_0__.getGlobalObject)().location) === null || _a === void 0 ? void 0 : _a.hostname; }
     var bridge = getEventBridge();
     return (!!bridge &&
-        bridge
-            .getAllowedWebViewHosts()
-            .some(function (allowedHost) { return currentHost === allowedHost || (0,_tools_utils__WEBPACK_IMPORTED_MODULE_0__.endsWith)(currentHost, ".".concat(allowedHost)); }));
+        bridge.getAllowedWebViewHosts().some(function (host) {
+            var escapedHost = host.replace(/\./g, '\\.');
+            var isDomainOrSubDomain = new RegExp("^(.+\\.)*".concat(escapedHost, "$"));
+            return isDomainOrSubDomain.test(hostname);
+        }));
 }
 function getEventBridgeGlobal() {
     return (0,_tools_utils__WEBPACK_IMPORTED_MODULE_0__.getGlobalObject)().DatadogEventBridge;
 }
 //# sourceMappingURL=eventBridge.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@datadog/browser-core/esm/transport/failedSendBeacon.js":
+/*!******************************************************************************!*\
+  !*** ./node_modules/@datadog/browser-core/esm/transport/failedSendBeacon.js ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "LOCAL_STORAGE_KEY": () => (/* binding */ LOCAL_STORAGE_KEY),
+/* harmony export */   "addFailedSendBeacon": () => (/* binding */ addFailedSendBeacon),
+/* harmony export */   "startFlushFailedSendBeacons": () => (/* binding */ startFlushFailedSendBeacons)
+/* harmony export */ });
+/* harmony import */ var _domain_configuration__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../domain/configuration */ "./node_modules/@datadog/browser-core/esm/domain/configuration/experimentalFeatures.js");
+/* harmony import */ var _domain_telemetry__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../domain/telemetry */ "./node_modules/@datadog/browser-core/esm/domain/telemetry/telemetry.js");
+/* harmony import */ var _tools_monitor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../tools/monitor */ "./node_modules/@datadog/browser-core/esm/tools/monitor.js");
+/* harmony import */ var _tools_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../tools/utils */ "./node_modules/@datadog/browser-core/esm/tools/utils.js");
+
+
+
+
+var LOCAL_STORAGE_KEY = 'datadog-browser-sdk-failed-send-beacon';
+function startFlushFailedSendBeacons() {
+    if (!(0,_domain_configuration__WEBPACK_IMPORTED_MODULE_0__.isExperimentalFeatureEnabled)('failed-sendbeacon'))
+        return;
+    // delay the computation to prevent the SDK from blocking the main thread on init
+    setTimeout((0,_tools_monitor__WEBPACK_IMPORTED_MODULE_1__.monitor)(flushFailedSendBeacon));
+}
+function addFailedSendBeacon(endpointType, size, reason) {
+    if (!(0,_domain_configuration__WEBPACK_IMPORTED_MODULE_0__.isExperimentalFeatureEnabled)('failed-sendbeacon'))
+        return;
+    var failSendBeaconLog = {
+        reason: reason,
+        endpointType: endpointType,
+        version: "4.12.0",
+        connection: navigator.connection ? navigator.connection.effectiveType : undefined,
+        onLine: navigator.onLine,
+        size: size,
+    };
+    if (reason === 'before_unload' || reason === 'visibility_hidden') {
+        window.localStorage.setItem("".concat(LOCAL_STORAGE_KEY, "-").concat((0,_tools_utils__WEBPACK_IMPORTED_MODULE_2__.generateUUID)()), JSON.stringify(failSendBeaconLog));
+    }
+    else {
+        (0,_domain_telemetry__WEBPACK_IMPORTED_MODULE_3__.addTelemetryDebug)('failed sendBeacon', failSendBeaconLog);
+    }
+}
+function flushFailedSendBeacon() {
+    var keys = Object.keys(localStorage);
+    for (var _i = 0, keys_1 = keys; _i < keys_1.length; _i++) {
+        var key = keys_1[_i];
+        if ((0,_tools_utils__WEBPACK_IMPORTED_MODULE_2__.startsWith)(key, LOCAL_STORAGE_KEY)) {
+            var value = localStorage.getItem(key);
+            if (value) {
+                (0,_domain_telemetry__WEBPACK_IMPORTED_MODULE_3__.addTelemetryDebug)('failed sendBeacon', JSON.parse(value));
+                window.localStorage.removeItem(key);
+            }
+        }
+    }
+}
+//# sourceMappingURL=failedSendBeacon.js.map
 
 /***/ }),
 
@@ -3761,52 +3342,47 @@ function getEventBridgeGlobal() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "createHttpRequest": () => (/* binding */ createHttpRequest),
-/* harmony export */   "fetchKeepAliveStrategy": () => (/* binding */ fetchKeepAliveStrategy),
-/* harmony export */   "sendXHR": () => (/* binding */ sendXHR)
+/* harmony export */   "HttpRequest": () => (/* binding */ HttpRequest)
 /* harmony export */ });
 /* harmony import */ var _domain_telemetry__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../domain/telemetry */ "./node_modules/@datadog/browser-core/esm/domain/telemetry/telemetry.js");
-/* harmony import */ var _tools_monitor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../tools/monitor */ "./node_modules/@datadog/browser-core/esm/tools/monitor.js");
-/* harmony import */ var _sendWithRetryStrategy__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./sendWithRetryStrategy */ "./node_modules/@datadog/browser-core/esm/transport/sendWithRetryStrategy.js");
+/* harmony import */ var _failedSendBeacon__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./failedSendBeacon */ "./node_modules/@datadog/browser-core/esm/transport/failedSendBeacon.js");
 
 
-
-function createHttpRequest(endpointBuilder, bytesLimit, reportError) {
-    var retryState = (0,_sendWithRetryStrategy__WEBPACK_IMPORTED_MODULE_0__.newRetryState)();
-    var sendStrategyForRetry = function (payload, onResponse) {
-        return fetchKeepAliveStrategy(endpointBuilder, bytesLimit, payload, onResponse);
-    };
-    return {
-        send: function (payload) {
-            (0,_sendWithRetryStrategy__WEBPACK_IMPORTED_MODULE_0__.sendWithRetryStrategy)(payload, retryState, sendStrategyForRetry, endpointBuilder.endpointType, reportError);
-        },
-        /**
-         * Since fetch keepalive behaves like regular fetch on Firefox,
-         * keep using sendBeaconStrategy on exit
-         */
-        sendOnExit: function (payload) {
-            sendBeaconStrategy(endpointBuilder, bytesLimit, payload);
-        },
-    };
-}
-function sendBeaconStrategy(endpointBuilder, bytesLimit, _a) {
-    var data = _a.data, bytesCount = _a.bytesCount;
-    var canUseBeacon = !!navigator.sendBeacon && bytesCount < bytesLimit;
-    if (canUseBeacon) {
-        try {
-            var beaconUrl = endpointBuilder.build('beacon');
-            var isQueued = navigator.sendBeacon(beaconUrl, data);
-            if (isQueued) {
-                return;
+/**
+ * Use POST request without content type to:
+ * - avoid CORS preflight requests
+ * - allow usage of sendBeacon
+ *
+ * multiple elements are sent separated by \n in order
+ * to be parsed correctly without content type header
+ */
+var HttpRequest = /** @class */ (function () {
+    function HttpRequest(endpointBuilder, bytesLimit) {
+        this.endpointBuilder = endpointBuilder;
+        this.bytesLimit = bytesLimit;
+    }
+    HttpRequest.prototype.send = function (data, bytesCount, flushReason) {
+        var url = this.endpointBuilder.build();
+        var canUseBeacon = !!navigator.sendBeacon && bytesCount < this.bytesLimit;
+        if (canUseBeacon) {
+            try {
+                var isQueued = navigator.sendBeacon(url, data);
+                if (isQueued) {
+                    return;
+                }
+                (0,_failedSendBeacon__WEBPACK_IMPORTED_MODULE_0__.addFailedSendBeacon)(this.endpointBuilder.endpointType, bytesCount, flushReason);
+            }
+            catch (e) {
+                reportBeaconError(e);
             }
         }
-        catch (e) {
-            reportBeaconError(e);
-        }
-    }
-    var xhrUrl = endpointBuilder.build('xhr');
-    sendXHR(xhrUrl, data);
-}
+        var request = new XMLHttpRequest();
+        request.open('POST', url, true);
+        request.send(data);
+    };
+    return HttpRequest;
+}());
+
 var hasReportedBeaconError = false;
 function reportBeaconError(e) {
     if (!hasReportedBeaconError) {
@@ -3814,213 +3390,7 @@ function reportBeaconError(e) {
         (0,_domain_telemetry__WEBPACK_IMPORTED_MODULE_1__.addTelemetryError)(e);
     }
 }
-function fetchKeepAliveStrategy(endpointBuilder, bytesLimit, _a, onResponse) {
-    var data = _a.data, bytesCount = _a.bytesCount, retry = _a.retry;
-    var canUseKeepAlive = isKeepAliveSupported() && bytesCount < bytesLimit;
-    if (canUseKeepAlive) {
-        var fetchUrl = endpointBuilder.build('fetch', retry);
-        fetch(fetchUrl, { method: 'POST', body: data, keepalive: true, mode: 'cors' }).then((0,_tools_monitor__WEBPACK_IMPORTED_MODULE_2__.monitor)(function (response) { return onResponse === null || onResponse === void 0 ? void 0 : onResponse({ status: response.status, type: response.type }); }), (0,_tools_monitor__WEBPACK_IMPORTED_MODULE_2__.monitor)(function () {
-            var xhrUrl = endpointBuilder.build('xhr', retry);
-            // failed to queue the request
-            sendXHR(xhrUrl, data, onResponse);
-        }));
-    }
-    else {
-        var xhrUrl = endpointBuilder.build('xhr', retry);
-        sendXHR(xhrUrl, data, onResponse);
-    }
-}
-function isKeepAliveSupported() {
-    // Request can throw, cf https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#errors
-    try {
-        return window.Request && 'keepalive' in new Request('http://a');
-    }
-    catch (_a) {
-        return false;
-    }
-}
-function sendXHR(url, data, onResponse) {
-    var request = new XMLHttpRequest();
-    var onLoadEnd = (0,_tools_monitor__WEBPACK_IMPORTED_MODULE_2__.monitor)(function () {
-        // prevent multiple onResponse callbacks
-        // if the xhr instance is reused by a third party
-        request.removeEventListener('loadend', onLoadEnd);
-        onResponse === null || onResponse === void 0 ? void 0 : onResponse({ status: request.status });
-    });
-    request.open('POST', url, true);
-    request.addEventListener('loadend', onLoadEnd);
-    request.send(data);
-}
 //# sourceMappingURL=httpRequest.js.map
-
-/***/ }),
-
-/***/ "./node_modules/@datadog/browser-core/esm/transport/sendWithRetryStrategy.js":
-/*!***********************************************************************************!*\
-  !*** ./node_modules/@datadog/browser-core/esm/transport/sendWithRetryStrategy.js ***!
-  \***********************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "INITIAL_BACKOFF_TIME": () => (/* binding */ INITIAL_BACKOFF_TIME),
-/* harmony export */   "MAX_BACKOFF_TIME": () => (/* binding */ MAX_BACKOFF_TIME),
-/* harmony export */   "MAX_ONGOING_BYTES_COUNT": () => (/* binding */ MAX_ONGOING_BYTES_COUNT),
-/* harmony export */   "MAX_ONGOING_REQUESTS": () => (/* binding */ MAX_ONGOING_REQUESTS),
-/* harmony export */   "MAX_QUEUE_BYTES_COUNT": () => (/* binding */ MAX_QUEUE_BYTES_COUNT),
-/* harmony export */   "newRetryState": () => (/* binding */ newRetryState),
-/* harmony export */   "sendWithRetryStrategy": () => (/* binding */ sendWithRetryStrategy)
-/* harmony export */ });
-/* harmony import */ var _tools_monitor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../tools/monitor */ "./node_modules/@datadog/browser-core/esm/tools/monitor.js");
-/* harmony import */ var _tools_timeUtils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../tools/timeUtils */ "./node_modules/@datadog/browser-core/esm/tools/timeUtils.js");
-/* harmony import */ var _tools_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../tools/utils */ "./node_modules/@datadog/browser-core/esm/tools/utils.js");
-/* harmony import */ var _tools_error__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../tools/error */ "./node_modules/@datadog/browser-core/esm/tools/error.js");
-
-
-
-
-var MAX_ONGOING_BYTES_COUNT = 80 * _tools_utils__WEBPACK_IMPORTED_MODULE_0__.ONE_KIBI_BYTE;
-var MAX_ONGOING_REQUESTS = 32;
-var MAX_QUEUE_BYTES_COUNT = 3 * _tools_utils__WEBPACK_IMPORTED_MODULE_0__.ONE_MEBI_BYTE;
-var MAX_BACKOFF_TIME = _tools_utils__WEBPACK_IMPORTED_MODULE_0__.ONE_MINUTE;
-var INITIAL_BACKOFF_TIME = _tools_utils__WEBPACK_IMPORTED_MODULE_0__.ONE_SECOND;
-function sendWithRetryStrategy(payload, state, sendStrategy, endpointType, reportError) {
-    if (state.transportStatus === 0 /* UP */ &&
-        state.queuedPayloads.size() === 0 &&
-        state.bandwidthMonitor.canHandle(payload)) {
-        send(payload, state, sendStrategy, {
-            onSuccess: function () { return retryQueuedPayloads(0 /* AFTER_SUCCESS */, state, sendStrategy, endpointType, reportError); },
-            onFailure: function () {
-                state.queuedPayloads.enqueue(payload);
-                scheduleRetry(state, sendStrategy, endpointType, reportError);
-            },
-        });
-    }
-    else {
-        state.queuedPayloads.enqueue(payload);
-    }
-}
-function scheduleRetry(state, sendStrategy, endpointType, reportError) {
-    if (state.transportStatus !== 2 /* DOWN */) {
-        return;
-    }
-    setTimeout((0,_tools_monitor__WEBPACK_IMPORTED_MODULE_1__.monitor)(function () {
-        var payload = state.queuedPayloads.first();
-        send(payload, state, sendStrategy, {
-            onSuccess: function () {
-                state.queuedPayloads.dequeue();
-                state.currentBackoffTime = INITIAL_BACKOFF_TIME;
-                retryQueuedPayloads(1 /* AFTER_RESUME */, state, sendStrategy, endpointType, reportError);
-            },
-            onFailure: function () {
-                state.currentBackoffTime = Math.min(MAX_BACKOFF_TIME, state.currentBackoffTime * 2);
-                scheduleRetry(state, sendStrategy, endpointType, reportError);
-            },
-        });
-    }), state.currentBackoffTime);
-}
-function send(payload, state, sendStrategy, _a) {
-    var onSuccess = _a.onSuccess, onFailure = _a.onFailure;
-    state.bandwidthMonitor.add(payload);
-    sendStrategy(payload, function (response) {
-        state.bandwidthMonitor.remove(payload);
-        if (!shouldRetryRequest(response)) {
-            state.transportStatus = 0 /* UP */;
-            onSuccess();
-        }
-        else {
-            // do not consider transport down if another ongoing request could succeed
-            state.transportStatus =
-                state.bandwidthMonitor.ongoingRequestCount > 0 ? 1 /* FAILURE_DETECTED */ : 2 /* DOWN */;
-            payload.retry = {
-                count: payload.retry ? payload.retry.count + 1 : 1,
-                lastFailureStatus: response.status,
-            };
-            onFailure();
-        }
-    });
-}
-function retryQueuedPayloads(reason, state, sendStrategy, endpointType, reportError) {
-    if (reason === 0 /* AFTER_SUCCESS */ && state.queuedPayloads.isFull() && !state.queueFullReported) {
-        reportError({
-            message: "Reached max ".concat(endpointType, " events size queued for upload: ").concat(MAX_QUEUE_BYTES_COUNT / _tools_utils__WEBPACK_IMPORTED_MODULE_0__.ONE_MEBI_BYTE, "MiB"),
-            source: _tools_error__WEBPACK_IMPORTED_MODULE_2__.ErrorSource.AGENT,
-            startClocks: (0,_tools_timeUtils__WEBPACK_IMPORTED_MODULE_3__.clocksNow)(),
-        });
-        state.queueFullReported = true;
-    }
-    var previousQueue = state.queuedPayloads;
-    state.queuedPayloads = newPayloadQueue();
-    while (previousQueue.size() > 0) {
-        sendWithRetryStrategy(previousQueue.dequeue(), state, sendStrategy, endpointType, reportError);
-    }
-}
-function shouldRetryRequest(response) {
-    return (response.type !== 'opaque' &&
-        ((response.status === 0 && !navigator.onLine) ||
-            response.status === 408 ||
-            response.status === 429 ||
-            response.status >= 500));
-}
-function newRetryState() {
-    return {
-        transportStatus: 0 /* UP */,
-        currentBackoffTime: INITIAL_BACKOFF_TIME,
-        bandwidthMonitor: newBandwidthMonitor(),
-        queuedPayloads: newPayloadQueue(),
-        queueFullReported: false,
-    };
-}
-function newPayloadQueue() {
-    var queue = [];
-    return {
-        bytesCount: 0,
-        enqueue: function (payload) {
-            if (this.isFull()) {
-                return;
-            }
-            queue.push(payload);
-            this.bytesCount += payload.bytesCount;
-        },
-        first: function () {
-            return queue[0];
-        },
-        dequeue: function () {
-            var payload = queue.shift();
-            if (payload) {
-                this.bytesCount -= payload.bytesCount;
-            }
-            return payload;
-        },
-        size: function () {
-            return queue.length;
-        },
-        isFull: function () {
-            return this.bytesCount >= MAX_QUEUE_BYTES_COUNT;
-        },
-    };
-}
-function newBandwidthMonitor() {
-    return {
-        ongoingRequestCount: 0,
-        ongoingByteCount: 0,
-        canHandle: function (payload) {
-            return (this.ongoingRequestCount === 0 ||
-                (this.ongoingByteCount + payload.bytesCount <= MAX_ONGOING_BYTES_COUNT &&
-                    this.ongoingRequestCount < MAX_ONGOING_REQUESTS));
-        },
-        add: function (payload) {
-            this.ongoingRequestCount += 1;
-            this.ongoingByteCount += payload.bytesCount;
-        },
-        remove: function (payload) {
-            this.ongoingRequestCount -= 1;
-            this.ongoingByteCount -= payload.bytesCount;
-        },
-    };
-}
-//# sourceMappingURL=sendWithRetryStrategy.js.map
 
 /***/ }),
 
@@ -4039,14 +3409,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _httpRequest__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./httpRequest */ "./node_modules/@datadog/browser-core/esm/transport/httpRequest.js");
 
 
-function startBatchWithReplica(configuration, endpoint, reportError, pageExitObservable, replicaEndpoint) {
+function startBatchWithReplica(configuration, endpoint, replicaEndpoint) {
     var primaryBatch = createBatch(endpoint);
     var replicaBatch;
     if (replicaEndpoint) {
         replicaBatch = createBatch(replicaEndpoint);
     }
     function createBatch(endpointBuilder) {
-        return new _batch__WEBPACK_IMPORTED_MODULE_0__.Batch((0,_httpRequest__WEBPACK_IMPORTED_MODULE_1__.createHttpRequest)(endpointBuilder, configuration.batchBytesLimit, reportError), configuration.batchMessagesLimit, configuration.batchBytesLimit, configuration.messageBytesLimit, configuration.flushTimeout, pageExitObservable);
+        return new _batch__WEBPACK_IMPORTED_MODULE_0__.Batch(new _httpRequest__WEBPACK_IMPORTED_MODULE_1__.HttpRequest(endpointBuilder, configuration.batchBytesLimit), configuration.batchMessagesLimit, configuration.batchBytesLimit, configuration.messageBytesLimit, configuration.flushTimeout);
     }
     return {
         add: function (message, replicated) {
@@ -4080,8 +3450,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/boot/init.js");
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/tools/monitor.js");
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/transport/eventBridge.js");
-/* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/domain/user/user.js");
-/* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/tools/display.js");
+/* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/tools/display.js");
 /* harmony import */ var _domain_configuration__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../domain/configuration */ "./node_modules/@datadog/browser-logs/esm/domain/configuration.js");
 /* harmony import */ var _domain_logger__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../domain/logger */ "./node_modules/@datadog/browser-logs/esm/domain/logger.js");
 
@@ -4090,12 +3459,10 @@ __webpack_require__.r(__webpack_exports__);
 function makeLogsPublicApi(startLogsImpl) {
     var isAlreadyInitialized = false;
     var globalContextManager = (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_2__.createContextManager)();
-    var userContextManager = (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_2__.createContextManager)();
     var customLoggers = {};
-    var getInternalContextStrategy = function () { return undefined; };
     var beforeInitLoggerLog = new _datadog_browser_core__WEBPACK_IMPORTED_MODULE_3__.BoundedBuffer();
     var handleLogStrategy = function (logsMessage, logger, savedCommonContext, date) {
-        if (savedCommonContext === void 0) { savedCommonContext = (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_4__.deepClone)(buildCommonContext()); }
+        if (savedCommonContext === void 0) { savedCommonContext = (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_4__.deepClone)(getCommonContext()); }
         if (date === void 0) { date = (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_5__.timeStampNow)(); }
         beforeInitLoggerLog.add(function () { return handleLogStrategy(logsMessage, logger, savedCommonContext, date); });
     };
@@ -4107,22 +3474,18 @@ function makeLogsPublicApi(startLogsImpl) {
         }
         return handleLogStrategy.apply(void 0, params);
     });
-    function buildCommonContext() {
+    function getCommonContext() {
         return {
             view: {
                 referrer: document.referrer,
                 url: window.location.href,
             },
-            context: globalContextManager.getContext(),
-            user: userContextManager.getContext(),
+            context: globalContextManager.get(),
         };
     }
     return (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_6__.makePublicApi)({
         logger: mainLogger,
         init: (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_7__.monitor)(function (initConfiguration) {
-            var _a;
-            // This function should be available, regardless of initialization success.
-            getInitConfigurationStrategy = function () { return (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_4__.deepClone)(initConfiguration); };
             if ((0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_8__.canUseEventBridge)()) {
                 initConfiguration = overrideInitConfigurationForBridge(initConfiguration);
             }
@@ -4134,23 +3497,15 @@ function makeLogsPublicApi(startLogsImpl) {
                 return;
             }
             ;
-            (_a = startLogsImpl(initConfiguration, configuration, buildCommonContext, mainLogger), handleLogStrategy = _a.handleLog, getInternalContextStrategy = _a.getInternalContext);
+            (handleLogStrategy = startLogsImpl(configuration, getCommonContext, mainLogger).handleLog);
+            getInitConfigurationStrategy = function () { return (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_4__.deepClone)(initConfiguration); };
             beforeInitLoggerLog.drain();
             isAlreadyInitialized = true;
         }),
-        /** @deprecated: use getGlobalContext instead */
         getLoggerGlobalContext: (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_7__.monitor)(globalContextManager.get),
-        getGlobalContext: (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_7__.monitor)(globalContextManager.getContext),
-        /** @deprecated: use setGlobalContext instead */
         setLoggerGlobalContext: (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_7__.monitor)(globalContextManager.set),
-        setGlobalContext: (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_7__.monitor)(globalContextManager.setContext),
-        /** @deprecated: use setGlobalContextProperty instead */
         addLoggerGlobalContext: (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_7__.monitor)(globalContextManager.add),
-        setGlobalContextProperty: (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_7__.monitor)(globalContextManager.setContextProperty),
-        /** @deprecated: use removeGlobalContextProperty instead */
         removeLoggerGlobalContext: (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_7__.monitor)(globalContextManager.remove),
-        removeGlobalContextProperty: (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_7__.monitor)(globalContextManager.removeContextProperty),
-        clearGlobalContext: (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_7__.monitor)(globalContextManager.clearContext),
         createLogger: (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_7__.monitor)(function (name, conf) {
             if (conf === void 0) { conf = {}; }
             customLoggers[name] = new _domain_logger__WEBPACK_IMPORTED_MODULE_1__.Logger(function () {
@@ -4164,20 +3519,6 @@ function makeLogsPublicApi(startLogsImpl) {
         }),
         getLogger: (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_7__.monitor)(function (name) { return customLoggers[name]; }),
         getInitConfiguration: (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_7__.monitor)(function () { return getInitConfigurationStrategy(); }),
-        getInternalContext: (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_7__.monitor)(function (startTime) { return getInternalContextStrategy(startTime); }),
-        setUser: (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_7__.monitor)(function (newUser) {
-            if ((0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_9__.checkUser)(newUser)) {
-                userContextManager.setContext((0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_9__.sanitizeUser)(newUser));
-            }
-        }),
-        getUser: (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_7__.monitor)(userContextManager.getContext),
-        setUserProperty: (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_7__.monitor)(function (key, property) {
-            var _a;
-            var sanitizedProperty = (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_9__.sanitizeUser)((_a = {}, _a[key] = property, _a))[key];
-            userContextManager.setContextProperty(key, sanitizedProperty);
-        }),
-        removeUserProperty: (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_7__.monitor)(userContextManager.removeContextProperty),
-        clearUser: (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_7__.monitor)(userContextManager.clearContext),
     });
     function overrideInitConfigurationForBridge(initConfiguration) {
         return (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_4__.assign)({}, initConfiguration, { clientToken: 'empty' });
@@ -4185,7 +3526,7 @@ function makeLogsPublicApi(startLogsImpl) {
     function canInitLogs(initConfiguration) {
         if (isAlreadyInitialized) {
             if (!initConfiguration.silentMultipleInit) {
-                _datadog_browser_core__WEBPACK_IMPORTED_MODULE_10__.display.error('DD_LOGS is already initialized.');
+                _datadog_browser_core__WEBPACK_IMPORTED_MODULE_9__.display.error('DD_LOGS is already initialized.');
             }
             return false;
         }
@@ -4207,27 +3548,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "startLogs": () => (/* binding */ startLogs)
 /* harmony export */ });
-/* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/tools/sendToExtension.js");
-/* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/tools/error.js");
-/* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/browser/pageExitObservable.js");
-/* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/browser/cookie.js");
-/* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/transport/eventBridge.js");
-/* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/domain/synthetics/syntheticsWorkerValues.js");
-/* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/domain/telemetry/telemetry.js");
-/* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/transport/startBatchWithReplica.js");
+/* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/browser/cookie.js");
+/* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/transport/eventBridge.js");
+/* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/domain/telemetry/telemetry.js");
+/* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/transport/startBatchWithReplica.js");
 /* harmony import */ var _domain_logsSessionManager__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../domain/logsSessionManager */ "./node_modules/@datadog/browser-logs/esm/domain/logsSessionManager.js");
-/* harmony import */ var _domain_configuration__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../domain/configuration */ "./node_modules/@datadog/browser-logs/esm/domain/configuration.js");
-/* harmony import */ var _domain_assembly__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../domain/assembly */ "./node_modules/@datadog/browser-logs/esm/domain/assembly.js");
-/* harmony import */ var _domain_logsCollection_console_consoleCollection__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../domain/logsCollection/console/consoleCollection */ "./node_modules/@datadog/browser-logs/esm/domain/logsCollection/console/consoleCollection.js");
-/* harmony import */ var _domain_logsCollection_report_reportCollection__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../domain/logsCollection/report/reportCollection */ "./node_modules/@datadog/browser-logs/esm/domain/logsCollection/report/reportCollection.js");
-/* harmony import */ var _domain_logsCollection_networkError_networkErrorCollection__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../domain/logsCollection/networkError/networkErrorCollection */ "./node_modules/@datadog/browser-logs/esm/domain/logsCollection/networkError/networkErrorCollection.js");
-/* harmony import */ var _domain_logsCollection_runtimeError_runtimeErrorCollection__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../domain/logsCollection/runtimeError/runtimeErrorCollection */ "./node_modules/@datadog/browser-logs/esm/domain/logsCollection/runtimeError/runtimeErrorCollection.js");
-/* harmony import */ var _domain_lifeCycle__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../domain/lifeCycle */ "./node_modules/@datadog/browser-logs/esm/domain/lifeCycle.js");
-/* harmony import */ var _domain_logsCollection_logger_loggerCollection__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../domain/logsCollection/logger/loggerCollection */ "./node_modules/@datadog/browser-logs/esm/domain/logsCollection/logger/loggerCollection.js");
-/* harmony import */ var _transport_startLogsBatch__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../transport/startLogsBatch */ "./node_modules/@datadog/browser-logs/esm/transport/startLogsBatch.js");
-/* harmony import */ var _transport_startLogsBridge__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../transport/startLogsBridge */ "./node_modules/@datadog/browser-logs/esm/transport/startLogsBridge.js");
-/* harmony import */ var _domain_logger__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../domain/logger */ "./node_modules/@datadog/browser-logs/esm/domain/logger.js");
-/* harmony import */ var _domain_internalContext__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../domain/internalContext */ "./node_modules/@datadog/browser-logs/esm/domain/internalContext.js");
+/* harmony import */ var _domain_assembly__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../domain/assembly */ "./node_modules/@datadog/browser-logs/esm/domain/assembly.js");
+/* harmony import */ var _domain_logsCollection_console_consoleCollection__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../domain/logsCollection/console/consoleCollection */ "./node_modules/@datadog/browser-logs/esm/domain/logsCollection/console/consoleCollection.js");
+/* harmony import */ var _domain_logsCollection_report_reportCollection__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../domain/logsCollection/report/reportCollection */ "./node_modules/@datadog/browser-logs/esm/domain/logsCollection/report/reportCollection.js");
+/* harmony import */ var _domain_logsCollection_networkError_networkErrorCollection__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../domain/logsCollection/networkError/networkErrorCollection */ "./node_modules/@datadog/browser-logs/esm/domain/logsCollection/networkError/networkErrorCollection.js");
+/* harmony import */ var _domain_logsCollection_runtimeError_runtimeErrorCollection__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../domain/logsCollection/runtimeError/runtimeErrorCollection */ "./node_modules/@datadog/browser-logs/esm/domain/logsCollection/runtimeError/runtimeErrorCollection.js");
+/* harmony import */ var _domain_lifeCycle__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../domain/lifeCycle */ "./node_modules/@datadog/browser-logs/esm/domain/lifeCycle.js");
+/* harmony import */ var _domain_logsCollection_logger_loggerCollection__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../domain/logsCollection/logger/loggerCollection */ "./node_modules/@datadog/browser-logs/esm/domain/logsCollection/logger/loggerCollection.js");
+/* harmony import */ var _transport_startLogsBatch__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../transport/startLogsBatch */ "./node_modules/@datadog/browser-logs/esm/transport/startLogsBatch.js");
+/* harmony import */ var _transport_startLogsBridge__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../transport/startLogsBridge */ "./node_modules/@datadog/browser-logs/esm/transport/startLogsBridge.js");
 
 
 
@@ -4239,76 +3573,55 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
-function startLogs(initConfiguration, configuration, buildCommonContext, mainLogger) {
-    var lifeCycle = new _domain_lifeCycle__WEBPACK_IMPORTED_MODULE_7__.LifeCycle();
-    lifeCycle.subscribe(1 /* LOG_COLLECTED */, function (log) { return (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_13__.sendToExtension)('logs', log); });
-    var reportError = function (error) {
-        return lifeCycle.notify(0 /* RAW_LOG_COLLECTED */, {
-            rawLogsEvent: {
-                message: error.message,
-                date: error.startClocks.timeStamp,
-                error: {
-                    origin: _datadog_browser_core__WEBPACK_IMPORTED_MODULE_14__.ErrorSource.AGENT, // Todo: Remove in the next major release
-                },
-                origin: _datadog_browser_core__WEBPACK_IMPORTED_MODULE_14__.ErrorSource.AGENT,
-                status: _domain_logger__WEBPACK_IMPORTED_MODULE_11__.StatusType.error,
-            },
-        });
-    };
-    var pageExitObservable = (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_15__.createPageExitObservable)();
-    var telemetry = startLogsTelemetry(configuration, reportError, pageExitObservable);
+function startLogs(configuration, getCommonContext, mainLogger) {
+    var lifeCycle = new _domain_lifeCycle__WEBPACK_IMPORTED_MODULE_6__.LifeCycle();
+    var telemetry = startLogsTelemetry(configuration);
     telemetry.setContextProvider(function () {
         var _a, _b, _c, _d, _e, _f;
         return ({
             application: {
-                id: (_a = (0,_domain_assembly__WEBPACK_IMPORTED_MODULE_2__.getRUMInternalContext)()) === null || _a === void 0 ? void 0 : _a.application_id,
+                id: (_a = (0,_domain_assembly__WEBPACK_IMPORTED_MODULE_1__.getRUMInternalContext)()) === null || _a === void 0 ? void 0 : _a.application_id,
             },
             session: {
                 id: (_b = session.findTrackedSession()) === null || _b === void 0 ? void 0 : _b.id,
             },
             view: {
-                id: (_d = (_c = (0,_domain_assembly__WEBPACK_IMPORTED_MODULE_2__.getRUMInternalContext)()) === null || _c === void 0 ? void 0 : _c.view) === null || _d === void 0 ? void 0 : _d.id,
+                id: (_d = (_c = (0,_domain_assembly__WEBPACK_IMPORTED_MODULE_1__.getRUMInternalContext)()) === null || _c === void 0 ? void 0 : _c.view) === null || _d === void 0 ? void 0 : _d.id,
             },
             action: {
-                id: (_f = (_e = (0,_domain_assembly__WEBPACK_IMPORTED_MODULE_2__.getRUMInternalContext)()) === null || _e === void 0 ? void 0 : _e.user_action) === null || _f === void 0 ? void 0 : _f.id,
+                id: (_f = (_e = (0,_domain_assembly__WEBPACK_IMPORTED_MODULE_1__.getRUMInternalContext)()) === null || _e === void 0 ? void 0 : _e.user_action) === null || _f === void 0 ? void 0 : _f.id,
             },
         });
     });
-    (0,_domain_logsCollection_networkError_networkErrorCollection__WEBPACK_IMPORTED_MODULE_5__.startNetworkErrorCollection)(configuration, lifeCycle);
-    (0,_domain_logsCollection_runtimeError_runtimeErrorCollection__WEBPACK_IMPORTED_MODULE_6__.startRuntimeErrorCollection)(configuration, lifeCycle);
-    (0,_domain_logsCollection_console_consoleCollection__WEBPACK_IMPORTED_MODULE_3__.startConsoleCollection)(configuration, lifeCycle);
-    (0,_domain_logsCollection_report_reportCollection__WEBPACK_IMPORTED_MODULE_4__.startReportCollection)(configuration, lifeCycle);
-    var handleLog = (0,_domain_logsCollection_logger_loggerCollection__WEBPACK_IMPORTED_MODULE_8__.startLoggerCollection)(lifeCycle).handleLog;
-    var session = (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_16__.areCookiesAuthorized)(configuration.cookieOptions) && !(0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_17__.canUseEventBridge)() && !(0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_18__.willSyntheticsInjectRum)()
+    (0,_domain_logsCollection_networkError_networkErrorCollection__WEBPACK_IMPORTED_MODULE_4__.startNetworkErrorCollection)(configuration, lifeCycle);
+    (0,_domain_logsCollection_runtimeError_runtimeErrorCollection__WEBPACK_IMPORTED_MODULE_5__.startRuntimeErrorCollection)(configuration, lifeCycle);
+    (0,_domain_logsCollection_console_consoleCollection__WEBPACK_IMPORTED_MODULE_2__.startConsoleCollection)(configuration, lifeCycle);
+    (0,_domain_logsCollection_report_reportCollection__WEBPACK_IMPORTED_MODULE_3__.startReportCollection)(configuration, lifeCycle);
+    var handleLog = (0,_domain_logsCollection_logger_loggerCollection__WEBPACK_IMPORTED_MODULE_7__.startLoggerCollection)(lifeCycle).handleLog;
+    var session = (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_10__.areCookiesAuthorized)(configuration.cookieOptions) && !(0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_11__.canUseEventBridge)()
         ? (0,_domain_logsSessionManager__WEBPACK_IMPORTED_MODULE_0__.startLogsSessionManager)(configuration)
         : (0,_domain_logsSessionManager__WEBPACK_IMPORTED_MODULE_0__.startLogsSessionManagerStub)(configuration);
-    (0,_domain_assembly__WEBPACK_IMPORTED_MODULE_2__.startLogsAssembly)(session, configuration, lifeCycle, buildCommonContext, mainLogger, reportError);
-    if (!(0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_17__.canUseEventBridge)()) {
-        (0,_transport_startLogsBatch__WEBPACK_IMPORTED_MODULE_9__.startLogsBatch)(configuration, lifeCycle, reportError, pageExitObservable);
+    (0,_domain_assembly__WEBPACK_IMPORTED_MODULE_1__.startLogsAssembly)(session, configuration, lifeCycle, getCommonContext, mainLogger);
+    if (!(0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_11__.canUseEventBridge)()) {
+        (0,_transport_startLogsBatch__WEBPACK_IMPORTED_MODULE_8__.startLogsBatch)(configuration, lifeCycle);
     }
     else {
-        (0,_transport_startLogsBridge__WEBPACK_IMPORTED_MODULE_10__.startLogsBridge)(lifeCycle);
+        (0,_transport_startLogsBridge__WEBPACK_IMPORTED_MODULE_9__.startLogsBridge)(lifeCycle);
     }
-    (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_19__.addTelemetryConfiguration)((0,_domain_configuration__WEBPACK_IMPORTED_MODULE_1__.serializeLogsConfiguration)(initConfiguration));
-    var internalContext = (0,_domain_internalContext__WEBPACK_IMPORTED_MODULE_12__.startInternalContext)(session);
     return {
         handleLog: handleLog,
-        getInternalContext: internalContext.get,
     };
 }
-function startLogsTelemetry(configuration, reportError, pageExitObservable) {
+function startLogsTelemetry(configuration) {
     var _a;
-    var telemetry = (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_19__.startTelemetry)("browser-logs-sdk" /* LOGS */, configuration);
-    if ((0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_17__.canUseEventBridge)()) {
-        var bridge_1 = (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_17__.getEventBridge)();
+    var telemetry = (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_12__.startTelemetry)(configuration);
+    if ((0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_11__.canUseEventBridge)()) {
+        var bridge_1 = (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_11__.getEventBridge)();
         telemetry.observable.subscribe(function (event) { return bridge_1.send('internal_telemetry', event); });
     }
     else {
-        var telemetryBatch_1 = (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_20__.startBatchWithReplica)(configuration, configuration.rumEndpointBuilder, reportError, pageExitObservable, (_a = configuration.replica) === null || _a === void 0 ? void 0 : _a.rumEndpointBuilder);
-        telemetry.observable.subscribe(function (event) { return telemetryBatch_1.add(event, (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_19__.isTelemetryReplicationAllowed)(configuration)); });
+        var telemetryBatch_1 = (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_13__.startBatchWithReplica)(configuration, configuration.rumEndpointBuilder, (_a = configuration.replica) === null || _a === void 0 ? void 0 : _a.rumEndpointBuilder);
+        telemetry.observable.subscribe(function (event) { return telemetryBatch_1.add(event, (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_12__.isTelemetryReplicationAllowed)(configuration)); });
     }
     return telemetry;
 }
@@ -4326,77 +3639,50 @@ function startLogsTelemetry(configuration, reportError, pageExitObservable) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "getRUMInternalContext": () => (/* binding */ getRUMInternalContext),
-/* harmony export */   "resetRUMInternalContext": () => (/* binding */ resetRUMInternalContext),
 /* harmony export */   "startLogsAssembly": () => (/* binding */ startLogsAssembly)
 /* harmony export */ });
-/* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/tools/createEventRateLimiter.js");
-/* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/tools/timeUtils.js");
-/* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/tools/utils.js");
-/* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/tools/error.js");
-/* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/domain/synthetics/syntheticsWorkerValues.js");
-/* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/domain/telemetry/telemetry.js");
+/* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/tools/createEventRateLimiter.js");
+/* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/tools/timeUtils.js");
+/* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/tools/utils.js");
+/* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/tools/error.js");
 /* harmony import */ var _logger__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./logger */ "./node_modules/@datadog/browser-logs/esm/domain/logger.js");
 /* harmony import */ var _logsCollection_logger_loggerCollection__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./logsCollection/logger/loggerCollection */ "./node_modules/@datadog/browser-logs/esm/domain/logsCollection/logger/loggerCollection.js");
+/* harmony import */ var _reportAgentError__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./reportAgentError */ "./node_modules/@datadog/browser-logs/esm/domain/reportAgentError.js");
 
 
 
-function startLogsAssembly(sessionManager, configuration, lifeCycle, buildCommonContext, mainLogger, // Todo: [RUMF-1230] Remove this parameter in the next major release
-reportError) {
+
+function startLogsAssembly(sessionManager, configuration, lifeCycle, getCommonContext, mainLogger // Todo: [RUMF-1230] Remove this parameter in the next major release
+) {
     var statusWithCustom = _logger__WEBPACK_IMPORTED_MODULE_0__.STATUSES.concat(['custom']);
     var logRateLimiters = {};
     statusWithCustom.forEach(function (status) {
-        logRateLimiters[status] = (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_2__.createEventRateLimiter)(status, configuration.eventRateLimiterThreshold, reportError);
+        logRateLimiters[status] = (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_3__.createEventRateLimiter)(status, configuration.eventRateLimiterThreshold, function (error) { return (0,_reportAgentError__WEBPACK_IMPORTED_MODULE_2__.reportAgentError)(error, lifeCycle); });
     });
     lifeCycle.subscribe(0 /* RAW_LOG_COLLECTED */, function (_a) {
         var _b, _c, _d;
         var rawLogsEvent = _a.rawLogsEvent, _e = _a.messageContext, messageContext = _e === void 0 ? undefined : _e, _f = _a.savedCommonContext, savedCommonContext = _f === void 0 ? undefined : _f, _g = _a.logger, logger = _g === void 0 ? mainLogger : _g;
-        var startTime = (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_3__.getRelativeTime)(rawLogsEvent.date);
+        var startTime = (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_4__.getRelativeTime)(rawLogsEvent.date);
         var session = sessionManager.findTrackedSession(startTime);
         if (!session) {
             return;
         }
-        var commonContext = savedCommonContext || buildCommonContext();
-        var log = (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_4__.combine)({
-            service: configuration.service,
-            session_id: session.id,
-            // Insert user first to allow overrides from global context
-            usr: !(0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_4__.isEmptyObject)(commonContext.user) ? commonContext.user : undefined,
-            view: commonContext.view,
-        }, commonContext.context, getRUMInternalContext(startTime), rawLogsEvent, logger.getContext(), messageContext);
+        var commonContext = savedCommonContext || getCommonContext();
+        var log = (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_5__.combine)({ service: configuration.service, session_id: session.id, view: commonContext.view }, commonContext.context, getRUMInternalContext(startTime), rawLogsEvent, logger.getContext(), messageContext);
         if (
         // Todo: [RUMF-1230] Move this check to the logger collection in the next major release
         !(0,_logsCollection_logger_loggerCollection__WEBPACK_IMPORTED_MODULE_1__.isAuthorized)(rawLogsEvent.status, _logger__WEBPACK_IMPORTED_MODULE_0__.HandlerType.http, logger) ||
             ((_b = configuration.beforeSend) === null || _b === void 0 ? void 0 : _b.call(configuration, log)) === false ||
-            (((_c = log.error) === null || _c === void 0 ? void 0 : _c.origin) !== _datadog_browser_core__WEBPACK_IMPORTED_MODULE_5__.ErrorSource.AGENT &&
+            (((_c = log.error) === null || _c === void 0 ? void 0 : _c.origin) !== _datadog_browser_core__WEBPACK_IMPORTED_MODULE_6__.ErrorSource.AGENT &&
                 ((_d = logRateLimiters[log.status]) !== null && _d !== void 0 ? _d : logRateLimiters['custom']).isLimitReached())) {
             return;
         }
         lifeCycle.notify(1 /* LOG_COLLECTED */, log);
     });
 }
-var logsSentBeforeRumInjectionTelemetryAdded = false;
 function getRUMInternalContext(startTime) {
-    var browserWindow = window;
-    if ((0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_6__.willSyntheticsInjectRum)()) {
-        var context = getInternalContextFromRumGlobal(browserWindow.DD_RUM_SYNTHETICS);
-        if (!context && !logsSentBeforeRumInjectionTelemetryAdded) {
-            logsSentBeforeRumInjectionTelemetryAdded = true;
-            (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_7__.addTelemetryDebug)('Logs sent before RUM is injected by the synthetics worker', {
-                testId: (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_6__.getSyntheticsTestId)(),
-                resultId: (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_6__.getSyntheticsResultId)(),
-            });
-        }
-        return context;
-    }
-    return getInternalContextFromRumGlobal(browserWindow.DD_RUM);
-    function getInternalContextFromRumGlobal(rumGlobal) {
-        if (rumGlobal && rumGlobal.getInternalContext) {
-            return rumGlobal.getInternalContext(startTime);
-        }
-    }
-}
-function resetRUMInternalContext() {
-    logsSentBeforeRumInjectionTelemetryAdded = false;
+    var rum = window.DD_RUM;
+    return rum && rum.getInternalContext ? rum.getInternalContext(startTime) : undefined;
 }
 //# sourceMappingURL=assembly.js.map
 
@@ -4412,7 +3698,6 @@ function resetRUMInternalContext() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "DEFAULT_REQUEST_ERROR_RESPONSE_LENGTH_LIMIT": () => (/* binding */ DEFAULT_REQUEST_ERROR_RESPONSE_LENGTH_LIMIT),
-/* harmony export */   "serializeLogsConfiguration": () => (/* binding */ serializeLogsConfiguration),
 /* harmony export */   "validateAndBuildForwardOption": () => (/* binding */ validateAndBuildForwardOption),
 /* harmony export */   "validateAndBuildLogsConfiguration": () => (/* binding */ validateAndBuildLogsConfiguration)
 /* harmony export */ });
@@ -4424,7 +3709,7 @@ __webpack_require__.r(__webpack_exports__);
 /**
  * arbitrary value, byte precision not needed
  */
-var DEFAULT_REQUEST_ERROR_RESPONSE_LENGTH_LIMIT = 32 * _datadog_browser_core__WEBPACK_IMPORTED_MODULE_0__.ONE_KIBI_BYTE;
+var DEFAULT_REQUEST_ERROR_RESPONSE_LENGTH_LIMIT = 32 * _datadog_browser_core__WEBPACK_IMPORTED_MODULE_0__.ONE_KILO_BYTE;
 function validateAndBuildLogsConfiguration(initConfiguration) {
     var baseConfiguration = (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_1__.validateAndBuildConfiguration)(initConfiguration);
     var forwardConsoleLogs = validateAndBuildForwardOption(initConfiguration.forwardConsoleLogs, (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_0__.objectValues)(_datadog_browser_core__WEBPACK_IMPORTED_MODULE_2__.ConsoleApiName), 'Forward Console Logs');
@@ -4452,42 +3737,7 @@ function validateAndBuildForwardOption(option, allowedValues, label) {
     }
     return option === 'all' ? allowedValues : (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_0__.removeDuplicates)(option);
 }
-function serializeLogsConfiguration(configuration) {
-    var baseSerializedInitConfiguration = (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_1__.serializeConfiguration)(configuration);
-    return (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_0__.assign)({
-        forward_errors_to_logs: configuration.forwardErrorsToLogs,
-        forward_console_logs: configuration.forwardConsoleLogs,
-        forward_reports: configuration.forwardReports,
-    }, baseSerializedInitConfiguration);
-}
 //# sourceMappingURL=configuration.js.map
-
-/***/ }),
-
-/***/ "./node_modules/@datadog/browser-logs/esm/domain/internalContext.js":
-/*!**************************************************************************!*\
-  !*** ./node_modules/@datadog/browser-logs/esm/domain/internalContext.js ***!
-  \**************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "startInternalContext": () => (/* binding */ startInternalContext)
-/* harmony export */ });
-function startInternalContext(sessionManager) {
-    return {
-        get: function (startTime) {
-            var trackedSession = sessionManager.findTrackedSession(startTime);
-            if (trackedSession) {
-                return {
-                    session_id: trackedSession.id,
-                };
-            }
-        },
-    };
-}
-//# sourceMappingURL=internalContext.js.map
 
 /***/ }),
 
@@ -4765,7 +4015,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/tools/error.js");
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/domain/tracekit/computeStackTrace.js");
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/tools/monitor.js");
-/* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/tools/readBytesFromStream.js");
 /* harmony import */ var _logger__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../logger */ "./node_modules/@datadog/browser-logs/esm/domain/logger.js");
 
 
@@ -4775,15 +4024,15 @@ function startNetworkErrorCollection(configuration, lifeCycle) {
     }
     var xhrSubscription = (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_2__.initXhrObservable)().subscribe(function (context) {
         if (context.state === 'complete') {
-            handleResponse("xhr" /* XHR */, context);
+            handleCompleteRequest("xhr" /* XHR */, context);
         }
     });
     var fetchSubscription = (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_3__.initFetchObservable)().subscribe(function (context) {
-        if (context.state === 'resolve') {
-            handleResponse("fetch" /* FETCH */, context);
+        if (context.state === 'complete') {
+            handleCompleteRequest("fetch" /* FETCH */, context);
         }
     });
-    function handleResponse(type, request) {
+    function handleCompleteRequest(type, request) {
         if (!configuration.isIntakeUrl(request.url) && (isRejected(request) || isServerError(request))) {
             if ('xhr' in request) {
                 computeXhrResponseData(request.xhr, configuration, onResponseDataAvailable);
@@ -4839,12 +4088,7 @@ function computeFetchErrorText(error, configuration, callback) {
     callback(truncateResponseText((0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_4__.toStackTraceString)((0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_5__.computeStackTrace)(error)), configuration));
 }
 function computeFetchResponseText(response, configuration, callback) {
-    var clonedResponse = (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_1__.tryToClone)(response);
-    if (!clonedResponse || !clonedResponse.body) {
-        // if the clone failed or if the body is null, let's not try to read it.
-        callback();
-    }
-    else if (!window.TextDecoder) {
+    if (!window.TextDecoder) {
         // If the browser doesn't support TextDecoder, let's read the whole response then truncate it.
         //
         // This should only be the case on early versions of Edge (before they migrated to Chromium).
@@ -4872,10 +4116,16 @@ function computeFetchResponseText(response, configuration, callback) {
         //   }
         //   response.body.getReader().cancel()
         // })
-        clonedResponse.text().then((0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_6__.monitor)(function (text) { return callback(truncateResponseText(text, configuration)); }), (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_6__.monitor)(function (error) { return callback("Unable to retrieve response: ".concat(error)); }));
+        response
+            .clone()
+            .text()
+            .then((0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_6__.monitor)(function (text) { return callback(truncateResponseText(text, configuration)); }), (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_6__.monitor)(function (error) { return callback("Unable to retrieve response: ".concat(error)); }));
+    }
+    else if (!response.body) {
+        callback();
     }
     else {
-        truncateResponseStream(clonedResponse.body, configuration.requestErrorResponseLengthLimit, function (error, responseText) {
+        truncateResponseStream(response.clone().body, configuration.requestErrorResponseLengthLimit, function (error, responseText) {
             if (error) {
                 callback("Unable to retrieve response: ".concat(error));
             }
@@ -4903,8 +4153,8 @@ function format(type) {
     }
     return 'Fetch';
 }
-function truncateResponseStream(stream, bytesLimit, callback) {
-    (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_7__.readBytesFromStream)(stream, function (error, bytes, limitExceeded) {
+function truncateResponseStream(stream, limit, callback) {
+    readLimitedAmountOfBytes(stream, limit, function (error, bytes, limitExceeded) {
         if (error) {
             callback(error);
         }
@@ -4915,10 +4165,56 @@ function truncateResponseStream(stream, bytesLimit, callback) {
             }
             callback(undefined, responseText);
         }
-    }, {
-        bytesLimit: bytesLimit,
-        collectStreamBody: true,
     });
+}
+/**
+ * Read bytes from a ReadableStream until at least `limit` bytes have been read (or until the end of
+ * the stream). The callback is invoked with the at most `limit` bytes, and indicates that the limit
+ * has been exceeded if more bytes were available.
+ */
+function readLimitedAmountOfBytes(stream, limit, callback) {
+    var reader = stream.getReader();
+    var chunks = [];
+    var readBytesCount = 0;
+    readMore();
+    function readMore() {
+        reader.read().then((0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_6__.monitor)(function (result) {
+            if (result.done) {
+                onDone();
+                return;
+            }
+            chunks.push(result.value);
+            readBytesCount += result.value.length;
+            if (readBytesCount > limit) {
+                onDone();
+            }
+            else {
+                readMore();
+            }
+        }), (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_6__.monitor)(function (error) { return callback(error); }));
+    }
+    function onDone() {
+        reader.cancel().catch(
+        // we don't care if cancel fails, but we still need to catch the error to avoid reporting it
+        // as an unhandled rejection
+        _datadog_browser_core__WEBPACK_IMPORTED_MODULE_1__.noop);
+        var completeBuffer;
+        if (chunks.length === 1) {
+            // optim: if the response is small enough to fit in a single buffer (provided by the browser), just
+            // use it directly.
+            completeBuffer = chunks[0];
+        }
+        else {
+            // else, we need to copy buffers into a larger buffer to concatenate them.
+            completeBuffer = new Uint8Array(readBytesCount);
+            var offset_1 = 0;
+            chunks.forEach(function (chunk) {
+                completeBuffer.set(chunk, offset_1);
+                offset_1 += chunk.length;
+            });
+        }
+        callback(undefined, completeBuffer.slice(0, limit), completeBuffer.length > limit);
+    }
 }
 //# sourceMappingURL=networkErrorCollection.js.map
 
@@ -5072,7 +4368,7 @@ function startLogsSessionManagerStub(configuration) {
     };
 }
 function computeTrackingType(configuration) {
-    if (!(0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_1__.performDraw)(configuration.sessionSampleRate)) {
+    if (!(0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_1__.performDraw)(configuration.sampleRate)) {
         return "0" /* NOT_TRACKED */;
     }
     return "1" /* TRACKED */;
@@ -5088,6 +4384,38 @@ function hasValidLoggerSession(trackingType) {
     return trackingType === "0" /* NOT_TRACKED */ || trackingType === "1" /* TRACKED */;
 }
 //# sourceMappingURL=logsSessionManager.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@datadog/browser-logs/esm/domain/reportAgentError.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/@datadog/browser-logs/esm/domain/reportAgentError.js ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "reportAgentError": () => (/* binding */ reportAgentError)
+/* harmony export */ });
+/* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/tools/error.js");
+/* harmony import */ var _logger__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./logger */ "./node_modules/@datadog/browser-logs/esm/domain/logger.js");
+
+
+function reportAgentError(error, lifeCycle) {
+    lifeCycle.notify(0 /* RAW_LOG_COLLECTED */, {
+        rawLogsEvent: {
+            message: error.message,
+            date: error.startClocks.timeStamp,
+            error: {
+                origin: _datadog_browser_core__WEBPACK_IMPORTED_MODULE_1__.ErrorSource.AGENT, // Todo: Remove in the next major release
+            },
+            origin: _datadog_browser_core__WEBPACK_IMPORTED_MODULE_1__.ErrorSource.AGENT,
+            status: _logger__WEBPACK_IMPORTED_MODULE_0__.StatusType.error,
+        },
+    });
+}
+//# sourceMappingURL=reportAgentError.js.map
 
 /***/ }),
 
@@ -5133,9 +4461,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _datadog_browser_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @datadog/browser-core */ "./node_modules/@datadog/browser-core/esm/transport/startBatchWithReplica.js");
 
-function startLogsBatch(configuration, lifeCycle, reportError, pageExitObservable) {
+function startLogsBatch(configuration, lifeCycle) {
     var _a;
-    var batch = (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_0__.startBatchWithReplica)(configuration, configuration.logsEndpointBuilder, reportError, pageExitObservable, (_a = configuration.replica) === null || _a === void 0 ? void 0 : _a.logsEndpointBuilder);
+    var batch = (0,_datadog_browser_core__WEBPACK_IMPORTED_MODULE_0__.startBatchWithReplica)(configuration, configuration.logsEndpointBuilder, (_a = configuration.replica) === null || _a === void 0 ? void 0 : _a.logsEndpointBuilder);
     lifeCycle.subscribe(1 /* LOG_COLLECTED */, function (serverLogsEvent) {
         batch.add(serverLogsEvent);
     });
@@ -5176,7 +4504,7 @@ function startLogsBridge(lifeCycle) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.MissingRefError = exports.ValidationError = exports.CodeGen = exports.Name = exports.nil = exports.stringify = exports.str = exports._ = exports.KeywordCxt = void 0;
+exports.CodeGen = exports.Name = exports.nil = exports.stringify = exports.str = exports._ = exports.KeywordCxt = void 0;
 const core_1 = __webpack_require__(/*! ./core */ "./node_modules/ajv/dist/core.js");
 const draft7_1 = __webpack_require__(/*! ./vocabularies/draft7 */ "./node_modules/ajv/dist/vocabularies/draft7.js");
 const discriminator_1 = __webpack_require__(/*! ./vocabularies/discriminator */ "./node_modules/ajv/dist/vocabularies/discriminator/index.js");
@@ -5217,10 +4545,6 @@ Object.defineProperty(exports, "stringify", ({ enumerable: true, get: function (
 Object.defineProperty(exports, "nil", ({ enumerable: true, get: function () { return codegen_1.nil; } }));
 Object.defineProperty(exports, "Name", ({ enumerable: true, get: function () { return codegen_1.Name; } }));
 Object.defineProperty(exports, "CodeGen", ({ enumerable: true, get: function () { return codegen_1.CodeGen; } }));
-var validation_error_1 = __webpack_require__(/*! ./runtime/validation_error */ "./node_modules/ajv/dist/runtime/validation_error.js");
-Object.defineProperty(exports, "ValidationError", ({ enumerable: true, get: function () { return validation_error_1.default; } }));
-var ref_error_1 = __webpack_require__(/*! ./compile/ref_error */ "./node_modules/ajv/dist/compile/ref_error.js");
-Object.defineProperty(exports, "MissingRefError", ({ enumerable: true, get: function () { return ref_error_1.default; } }));
 //# sourceMappingURL=ajv.js.map
 
 /***/ }),
@@ -7683,7 +7007,7 @@ function checkContextTypes(it, types) {
             strictTypesError(it, `type "${t}" not allowed by context "${it.dataTypes.join(",")}"`);
         }
     });
-    narrowSchemaTypes(it, types);
+    it.dataTypes = it.dataTypes.filter((t) => includesType(types, t));
 }
 function checkMultipleTypes(it, ts) {
     if (ts.length > 1 && !(ts.length === 2 && ts.includes("null"))) {
@@ -7707,16 +7031,6 @@ function hasApplicableType(schTs, kwdT) {
 }
 function includesType(ts, t) {
     return ts.includes(t) || (t === "integer" && ts.includes("number"));
-}
-function narrowSchemaTypes(it, withTypes) {
-    const ts = [];
-    for (const t of it.dataTypes) {
-        if (includesType(withTypes, t))
-            ts.push(t);
-        else if (withTypes.includes("integer") && t === "number")
-            ts.push("integer");
-    }
-    it.dataTypes = ts;
 }
 function strictTypesError(it, msg) {
     const schemaPath = it.schemaEnv.baseId + it.errSchemaPath;
@@ -12099,6 +11413,7 @@ const dispatch = (action, data) => {
                 if (!error.type) {
                     error.type = 'App Exception';
                 }
+                alert(JSON.stringify({ error }));
                 reject(error);
                 (0,_utils_logger__WEBPACK_IMPORTED_MODULE_1__.logAction)(action, data, null, error, duration);
             }
@@ -12356,16 +11671,20 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const AddLineItemToCart = function (productId, variantId, quantity, customAttributes, hiddenCustomAttributes, lineItemType, unitPrice) {
+const AddLineItemToCart = function (productId, variantId, quantity, customAttributes, hiddenCustomAttributes, lineItemType, discountType, discountValue, displayText, unitPrice, freeQuantity) {
     return new Promise((resolve, reject) => {
-        let data = {
+        const data = {
             productId,
             variantId,
             quantity,
             customAttributes,
             hiddenCustomAttributes,
             lineItemType,
+            discountType,
+            discountValue,
+            displayText,
             unitPrice,
+            freeQuantity,
         };
         const validate = (0,_addLineItemToCart_schema__WEBPACK_IMPORTED_MODULE_1__.addLineItemToCartSchema)(data);
         if (validate) {
@@ -12379,7 +11698,7 @@ const AddLineItemToCart = function (productId, variantId, quantity, customAttrib
         }
         else {
             if (_addLineItemToCart_schema__WEBPACK_IMPORTED_MODULE_1__.addLineItemToCartSchema.errors) {
-                let error = (0,_utils_errorNormalizer__WEBPACK_IMPORTED_MODULE_3__.normalizeError)(_addLineItemToCart_schema__WEBPACK_IMPORTED_MODULE_1__.addLineItemToCartSchema.errors);
+                const error = (0,_utils_errorNormalizer__WEBPACK_IMPORTED_MODULE_3__.normalizeError)(_addLineItemToCart_schema__WEBPACK_IMPORTED_MODULE_1__.addLineItemToCartSchema.errors);
                 reject(error);
             }
         }
@@ -12393,6 +11712,10 @@ const AddLineItemToCartBuilder = function () {
     let hiddenCustomAttributes = [];
     let lineItemType = 'REGULAR';
     let unitPrice = null;
+    let discountType;
+    let discountValue;
+    let displayText;
+    let freeQuantity;
     return {
         setProductId(value) {
             productId = value;
@@ -12422,16 +11745,32 @@ const AddLineItemToCartBuilder = function () {
             unitPrice = value;
             return this;
         },
+        setDiscountType(value) {
+            discountType = value;
+            return this;
+        },
+        setDiscountValue(value) {
+            discountValue = value;
+            return this;
+        },
+        setDisplayText(value) {
+            displayText = value;
+            return this;
+        },
+        setFreeQuantity(value) {
+            freeQuantity = value;
+            return this;
+        },
         exec() {
             if (!productId) {
-                let error = {
+                const error = {
                     code: 1101,
                     message: 'productId is missing',
                     type: 'Internal SDK Error',
                 };
                 return Promise.reject(error);
             }
-            return AddLineItemToCart(productId, variantId, quantity, customAttributes, hiddenCustomAttributes, lineItemType, unitPrice);
+            return AddLineItemToCart(productId, variantId, quantity, customAttributes, hiddenCustomAttributes, lineItemType, discountType, displayText, discountValue, unitPrice, freeQuantity);
         },
     };
 };
@@ -12479,6 +11818,10 @@ const schema = {
             }
         },
         lineItemType: { type: 'string', nullable: false },
+        discountType: { type: 'string', nullable: false },
+        displayText: { type: 'string', nullable: false },
+        discountValue: { type: 'string', nullable: false },
+        freeQuantity: { type: 'number', nullable: true },
         unitPrice: { type: 'number', nullable: true }
     },
     required: ['productId'],
@@ -12626,6 +11969,10 @@ const lineItemSchema = {
             }
         },
         lineItemType: { type: 'string', nullable: false },
+        discountType: { type: 'string', nullable: false },
+        discountValue: { type: 'string', nullable: false },
+        displayText: { type: 'string', nullable: false },
+        freeQuantity: { type: 'number', nullable: true },
         unitPrice: { type: 'number', nullable: true }
     },
     required: ['productId'],
@@ -13228,16 +12575,22 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const UpdateLineItemInCart = function (lineItemHandle, quantity, lineItemType, customAttributes, hiddenCustomAttributes, unitPrice) {
+const UpdateLineItemInCart = function (lineItemHandle, quantity, lineItemType, discountType, discountValue, displayText, customAttributes, hiddenCustomAttributes, unitPrice, freeQuantity) {
     return new Promise((resolve, reject) => {
-        let data = {
+        const data = {
             lineItemHandle,
             quantity,
             lineItemType,
-            customAttributes,
+            discountType,
+            discountValue,
+            displayText,
             hiddenCustomAttributes,
             unitPrice,
+            freeQuantity,
         };
+        if (customAttributes) {
+            data.customAttributes = customAttributes;
+        }
         const validate = (0,_updateLineItemInCart_schema__WEBPACK_IMPORTED_MODULE_3__.updateLineItemInCartSchema)(data);
         if (validate) {
             (0,_communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].UPDATE_LINE_ITEM_IN_CART, data)
@@ -13250,7 +12603,7 @@ const UpdateLineItemInCart = function (lineItemHandle, quantity, lineItemType, c
         }
         else {
             if (_updateLineItemInCart_schema__WEBPACK_IMPORTED_MODULE_3__.updateLineItemInCartSchema.errors) {
-                let error = (0,_utils_errorNormalizer__WEBPACK_IMPORTED_MODULE_2__.normalizeError)(_updateLineItemInCart_schema__WEBPACK_IMPORTED_MODULE_3__.updateLineItemInCartSchema.errors);
+                const error = (0,_utils_errorNormalizer__WEBPACK_IMPORTED_MODULE_2__.normalizeError)(_updateLineItemInCart_schema__WEBPACK_IMPORTED_MODULE_3__.updateLineItemInCartSchema.errors);
                 reject(error);
             }
         }
@@ -13260,9 +12613,13 @@ const updateLineItemInCartBuilder = function () {
     let lineItemHandle;
     let quantity;
     let lineItemType = 'REGULAR';
-    let customAttributes = {};
+    let discountType;
+    let discountValue;
+    let displayText;
+    let customAttributes = null;
     let hiddenCustomAttributes = [];
     let unitPrice = null;
+    let freeQuantity = null;
     return {
         setLineItemHandle(value) {
             lineItemHandle = value;
@@ -13274,6 +12631,22 @@ const updateLineItemInCartBuilder = function () {
         },
         setLineItemType(value) {
             lineItemType = value;
+            return this;
+        },
+        setDiscountType(value) {
+            discountType = value;
+            return this;
+        },
+        setDiscountValue(value) {
+            discountValue = value;
+            return this;
+        },
+        setDisplayText(value) {
+            displayText = value;
+            return this;
+        },
+        setFreeQuantity(value) {
+            freeQuantity = value;
             return this;
         },
         setCustomAttributes(value) {
@@ -13290,14 +12663,15 @@ const updateLineItemInCartBuilder = function () {
         },
         exec() {
             if (!lineItemHandle) {
-                let error = {
+                const error = {
                     code: 1101,
                     message: 'Invalid LineItemHandle',
                     type: 'Internal SDK Error',
                 };
                 return Promise.reject(error);
             }
-            return UpdateLineItemInCart(lineItemHandle, quantity, lineItemType, customAttributes, hiddenCustomAttributes, unitPrice);
+            // eslint-disable-next-line new-cap
+            return UpdateLineItemInCart(lineItemHandle, quantity, lineItemType, discountType, discountValue, displayText, customAttributes, hiddenCustomAttributes, unitPrice, freeQuantity);
         },
     };
 };
@@ -13336,6 +12710,10 @@ const schema = {
         lineItemHandle: { type: 'string', nullable: false },
         quantity: { type: 'integer', nullable: true },
         lineItemType: { type: 'string', nullable: true },
+        discountType: { type: 'string', nullable: true },
+        displayText: { type: 'string', nullable: true },
+        discountValue: { type: 'string', nullable: true },
+        freeQuantity: { type: 'number', nullable: true },
         customAttributes: { type: 'object', nullable: true },
         hiddenCustomAttributes: {
             type: 'array',
@@ -13451,6 +12829,10 @@ const lineItemSchema = {
         quantity: { type: 'integer', nullable: false },
         customAttributes: { type: 'object', nullable: true },
         lineItemType: { type: 'string', nullable: false },
+        discountType: { type: 'string', nullable: false },
+        discountValue: { type: 'string', nullable: false },
+        displayText: { type: 'string', nullable: false },
+        freeQuantity: { type: 'number', nullable: true },
         unitPrice: { type: 'number', nullable: true }
     },
     required: ['lineItemHandle'],
@@ -14478,6 +13860,22 @@ const lineItem = function () {
         },
         setLineItemType(value) {
             lineItem.lineItemType = value;
+            return this;
+        },
+        setDiscountType(value) {
+            lineItem.discountType = value;
+            return this;
+        },
+        setDiscountValue(value) {
+            lineItem.discountValue = value;
+            return this;
+        },
+        setDisplayText(value) {
+            lineItem.displayText = value;
+            return this;
+        },
+        setFreeQuantity(value) {
+            lineItem.freeQuantity = value;
             return this;
         },
         setLineItemHandle(value) {
