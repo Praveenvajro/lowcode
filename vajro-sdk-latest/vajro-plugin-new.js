@@ -212,6 +212,9 @@ var getFlatOfferProducts = function (configOffers, lineItems, offerAppliedProduc
             return;
         var cartTotal = (0,_utils_common__WEBPACK_IMPORTED_MODULE_0__.getCartTotal)(offerLineItems);
         var offerPercentage = (fixedAmount / cartTotal) * 100;
+        var finalOfferLineItems = offerLineItems.map(function (offerItem) {
+            return __assign(__assign({}, offerItem), { customAttributes: {} });
+        });
         offerLineItems.forEach(function (lineItem) {
             var _a;
             var variantId = lineItem.variantId, productId = lineItem.productId, lineItemHandle = lineItem.lineItemHandle, unitPrice = lineItem.unitPrice, _b = lineItem.quantity, quantity = _b === void 0 ? 0 : _b, _c = lineItem.customAttributes, _d = _c === void 0 ? {} : _c, _e = _d._vajro_flow, lineItemFlowObj = _e === void 0 ? {} : _e;
@@ -224,7 +227,7 @@ var getFlatOfferProducts = function (configOffers, lineItems, offerAppliedProduc
             var _l = offerAppliedCustomAttributes._discountQuantity, _discountQuantity = _l === void 0 ? 0 : _l;
             appliedProductDetails = __assign(__assign({}, appliedProductDetails), (_a = {}, _a[variantId] = __assign(__assign({}, variantOfferDetails), { variantId: variantId, productId: productId, lineItemHandle: lineItemHandle, displayText: displayText, customAttributes: {
                     _vajro_flow: __assign(__assign({}, offerAppliedCustomAttributes), { _actualUnitPrice: Number(_actualUnitPrice), _productQuantity: finalProductQuantity, _discountPrice: unitPriceDiscount >= _actualUnitPrice ? _actualUnitPrice : unitPriceDiscount, _discountQuantity: unitPriceDiscount >= _actualUnitPrice ? finalProductQuantity : _discountQuantity, _offerPercenatage: offerPercentage >= 100 ? 100 : offerPercentage, _amountTargetId: targetId, _flatDiscountDetails: {
-                            lineItems: offerLineItems,
+                            lineItems: finalOfferLineItems,
                             splitFlatAmount: isSplitNeed,
                             discountValue: fixedAmount,
                             displayText: displayText
