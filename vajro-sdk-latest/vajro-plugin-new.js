@@ -641,7 +641,6 @@ var __spreadArray = (undefined && undefined.__spreadArray) || function (to, from
 
 var flow = function (appContext, configSchema) {
     var flowObj = {};
-    alert('calling');
     var cartLineItems = appContext.cartLineItems;
     var _a = cartLineItems.lineItems, lineItems = _a === void 0 ? [] : _a;
     var validConfigList = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.getValidInValidConfigDetails)(configSchema, lineItems).validConfigList;
