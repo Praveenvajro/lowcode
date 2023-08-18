@@ -11398,29 +11398,18 @@ const dispatch = (action, data) => {
     let actionId = (0,nanoid__WEBPACK_IMPORTED_MODULE_2__.nanoid)();
     return new Promise((resolve, reject) => {
         let startTime = performance.now();
-        alert(action);
         if (window.webkit) {
-            alert('window.webkit');
-            alert(window.webkit.messageHandlers);
-            alert('window.webkit.messageHandlers.addMultipleLineItemsToCart');
-            alert(window.webkit.messageHandlers.addMultipleLineItemsToCart);
-            alert('window.webkit.messageHandlers[action]');
-            alert(window.webkit.messageHandlers[action]);
+            if (action === 'updateMultipleLineItemsToCart' && window.webkit.messageHandlers['updateMultipleLineItemsInCart']) {
+                window.webkit.messageHandlers['updateMultipleLineItemsInCart'].postMessage(JSON.stringify(Object.assign({}, data, { actionId })));
+            }
             if (window.webkit.messageHandlers[action]) {
                 // For iOS
-                alert('ios');
                 window.webkit.messageHandlers[action].postMessage(JSON.stringify(Object.assign({}, data, { actionId })));
             }
         }
-        else if (window.appInterface) {
-            alert('window.appInterface');
-            alert(window.appInterface);
-            alert(window.appInterface[action]);
-            if (window.appInterface[action]) {
-                // For Android
-                alert('android');
-                window.appInterface[action](JSON.stringify(Object.assign({}, data, { actionId })));
-            }
+        else if (window.appInterface && window.appInterface[action]) {
+            // For Android
+            window.appInterface[action](JSON.stringify(Object.assign({}, data, { actionId })));
         }
         const actionDidHandler = (appContext, res, error) => {
             let endTime = performance.now();
@@ -11429,7 +11418,6 @@ const dispatch = (action, data) => {
                 if (!error.type) {
                     error.type = 'App Exception';
                 }
-                alert(JSON.stringify({ error }));
                 reject(error);
                 (0,_utils_logger__WEBPACK_IMPORTED_MODULE_1__.logAction)(action, data, null, error, duration);
             }
@@ -12607,9 +12595,7 @@ const UpdateLineItemInCart = function (lineItemHandle, quantity, lineItemType, d
         if (customAttributes) {
             data.customAttributes = customAttributes;
         }
-        alert(JSON.stringify({ data }));
         const validate = (0,_updateLineItemInCart_schema__WEBPACK_IMPORTED_MODULE_3__.updateLineItemInCartSchema)(data);
-        alert(JSON.stringify({ validate }));
         if (validate) {
             (0,_communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].UPDATE_LINE_ITEM_IN_CART, data)
                 .then((data) => {
@@ -12772,8 +12758,6 @@ __webpack_require__.r(__webpack_exports__);
 const actionExecutor = function (products) {
     return new Promise((resolve, reject) => {
         const validate = (0,_updateMultipleLineItemsToCart_schema__WEBPACK_IMPORTED_MODULE_3__.schema)(products);
-        alert(JSON.stringify({ products }));
-        alert(JSON.stringify({ validate }));
         if (validate) {
             (0,_communications_dispatcher__WEBPACK_IMPORTED_MODULE_1__.dispatch)(_constants_actions__WEBPACK_IMPORTED_MODULE_0__["default"].UPDATE_MULTIPLE_LINE_ITEMS_TO_CART, {
                 lineItems: products
@@ -12797,7 +12781,6 @@ const ActionBuilder = function () {
     let lineItems = [];
     return {
         setProduct(product) {
-            alert(JSON.stringify({ product }));
             lineItems.push(product);
             return this;
         },
@@ -12810,7 +12793,6 @@ const ActionBuilder = function () {
                 };
                 return Promise.reject(error);
             }
-            alert('exec');
             return actionExecutor(lineItems);
         }
     };
