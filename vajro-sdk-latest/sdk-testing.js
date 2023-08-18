@@ -11400,10 +11400,12 @@ const dispatch = (action, data) => {
         let startTime = performance.now();
         if (window.webkit && window.webkit.messageHandlers[action]) {
             // For iOS
+            alert('ios');
             window.webkit.messageHandlers[action].postMessage(JSON.stringify(Object.assign({}, data, { actionId })));
         }
         else if (window.appInterface && window.appInterface[action]) {
             // For Android
+            alert('android');
             window.appInterface[action](JSON.stringify(Object.assign({}, data, { actionId })));
         }
         const actionDidHandler = (appContext, res, error) => {
@@ -12794,6 +12796,7 @@ const ActionBuilder = function () {
                 };
                 return Promise.reject(error);
             }
+            alert('exec');
             return actionExecutor(lineItems);
         }
     };
