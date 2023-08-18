@@ -11398,6 +11398,8 @@ const dispatch = (action, data) => {
     let actionId = (0,nanoid__WEBPACK_IMPORTED_MODULE_2__.nanoid)();
     return new Promise((resolve, reject) => {
         let startTime = performance.now();
+        alert(JSON.stringify(window.webkit.messageHandlers));
+        alert(action);
         if (window.webkit && window.webkit.messageHandlers[action]) {
             // For iOS
             alert('ios');
