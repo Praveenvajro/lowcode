@@ -11400,9 +11400,12 @@ const dispatch = (action, data) => {
         let startTime = performance.now();
         alert(action);
         if (window.webkit) {
-            alert(JSON.stringify(window.webkit));
-            alert(JSON.stringify(window.webkit.messageHandlers));
-            alert(window.webkit.messageHandlers[action])
+            alert('window.webkit');
+            alert(window.webkit.messageHandlers);
+            alert('window.webkit.messageHandlers.addMultipleLineItemsToCart');
+            alert(window.webkit.messageHandlers.addMultipleLineItemsToCart);
+            alert('window.webkit.messageHandlers[action]');
+            alert(window.webkit.messageHandlers[action]);
             if (window.webkit.messageHandlers[action]) {
                 // For iOS
                 alert('ios');
@@ -11410,7 +11413,8 @@ const dispatch = (action, data) => {
             }
         }
         else if (window.appInterface) {
-            alert(JSON.stringify(window.appInterface));
+            alert('window.appInterface');
+            alert(window.appInterface);
             alert(window.appInterface[action]);
             if (window.appInterface[action]) {
                 // For Android
