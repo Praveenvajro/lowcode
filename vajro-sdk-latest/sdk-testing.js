@@ -11398,17 +11398,23 @@ const dispatch = (action, data) => {
     let actionId = (0,nanoid__WEBPACK_IMPORTED_MODULE_2__.nanoid)();
     return new Promise((resolve, reject) => {
         let startTime = performance.now();
-        alert(JSON.stringify(window.webkit.messageHandlers));
         alert(action);
-        if (window.webkit && window.webkit.messageHandlers[action]) {
-            // For iOS
-            alert('ios');
-            window.webkit.messageHandlers[action].postMessage(JSON.stringify(Object.assign({}, data, { actionId })));
+        if (window.webkit) {
+            alert(JSON.stringify(window.webkit));
+            alert(JSON.stringify(window.webkit.messageHandlers));
+            if (window.webkit.messageHandlers[action]) {
+                // For iOS
+                alert('ios');
+                window.webkit.messageHandlers[action].postMessage(JSON.stringify(Object.assign({}, data, { actionId })));
+            }
         }
-        else if (window.appInterface && window.appInterface[action]) {
-            // For Android
-            alert('android');
-            window.appInterface[action](JSON.stringify(Object.assign({}, data, { actionId })));
+        else if (window.appInterface) {
+            alert(JSON.stringify(window.appInterface));
+            if (window.appInterface[action]) {
+                // For Android
+                alert('android');
+                window.appInterface[action](JSON.stringify(Object.assign({}, data, { actionId })));
+            }
         }
         const actionDidHandler = (appContext, res, error) => {
             let endTime = performance.now();
