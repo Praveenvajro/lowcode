@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script>
+			try {
+				window.appInfo = JSON.parse(`{{APP_INFO}}`)
+			} catch (err) {
+				throw err
+			}
+		</script>
+		<script src="https://praveenvajro.github.io/lowcode/vajro-sdk-latest/vajro-sdk-new.js"></script>
+	</head>
+	<body>
+		<div class="alert-container">
+			<div class="alert-content" id="log-p1" ></div>
+		</div>
+		<script>
+		    /* Config starts*/
+
+		    // Configration for 3 @ 999 Offer
+		    // Note: If need to disable the offer Just given the values as null. Offer will be revert if its already applied in cart
+		    const minQuantityAtFlatPriceOfferDetails = {
+                mininumQuanityForOffer: 3, // Min quanity for eligible offer
+                totalCountOfOfferEligible: 3, // Count for eligible offers to apply the cart
+                priceOfDiscount: 999, // Amount of the Offer
+                flatPriceOfferId:'_min_qty_at_flat_price' // Offer Unique Id
+            };
+            
+            // This collection products are not taken for cart total calculation for 3 @ 999 offer
+            const excludedCollectionIds = [
+                "6898927304869",
+                "6898921930917"
+            ];
+            
+            
+		    // Configration for given Freebies based on cart total
+		    // Note: If need to disable the offer Just command the config. Offer will be revert if its already applied in cart
+		    const OFFER_CONFIG = [
+		        		        {
+					threshold: 1, //checking cart total
+					get_products_id: [
+					    {
+					        productId: "8233724543141",
+					        variantId: "42483883442341"
+					    }
+					], //enter the free product_id and variant id
+					quantity: 1, //define the no. of quantity for free product
+					thresholdId: '_aug19_1', // unique Id for Offer
+					excludedCollectionIds: [
+                        "6898927304869",
+                        "6898921930917"
+                    ] // This collection products are not taken for cart total calculation for this offer
+				},
+		        
+		        {
+					threshold: 1299, //checking cart total
+					get_products_id: [
+					    {
+					        productId: "6562969452709",
+					        variantId: "41600906199205"
+					    }
+					], //enter the free product_id and variant id
+					quantity: 1, //define the no. of quantity for free product
+					thresholdId: '_aug19_2', // unique Id for Offer
+					excludedCollectionIds: [
+                        "6898927304869",
+                        "6898921930917"
+                    ] // This collection products are not taken for cart total calculation for this offer
+				}
+				// {
+				// 	threshold: 1299, //checking cart total
+				// 	get_products_id: [
+				// 	    {
+				// 	        productId: "8194094530725",
+				// 	        variantId: "42361855049893"
+				// 	    }
+				// 	], //enter the free product_id
+				// 	quantity: 1, //define the no. of quantity for free product
+				// 	thresholdId: '_aug_19_3', // unique Id for Offer
+				// 	excludedCollectionIds: [
+    //                     "6898927304869",
+    //                     "6898921930917"
+    //                 ] // This collection products are not taken for cart total calculation for this offer
+				// }
+			];
+			
+		    /* Config starts*/
+		</script>
+		 <script>
+			// Note: Kindly, Do not change any code. If you change any It will never work
+			
+            const getCartTotalAmountAfterExclude = (lineItems, excludedCollectionIds) => {
+                return lineItems.reduce((total, lineItem) => {
+    					const { unitPrice, quantity, productId, collectionId } = lineItem;
+    					return excludedCollectionIds.includes(collectionId) ? total : total + (unitPrice * quantity);
+    			}, 0);
+            }
+
+			const getOfferDetails = (lineItems) => {
+				return OFFER_CONFIG.reduce((selectedOfferDetails, currentOfferDetails) => {
+					const { threshold = 0, thresholdId = '', excludedCollectionIds = [] } = currentOfferDetails
+
+                    const cartTotalAfterExclude = getCartTotalAmountAfterExclude(lineItems, excludedCollectionIds)
+
+					if (cartTotalAfterExclude >= threshold) {
+                        selectedOfferDetails = {
+                            ...selectedOfferDetails,
+                            [thresholdId] : currentOfferDetails
+                        }
+					}
+					return selectedOfferDetails
+				}, {})
+			}
+
+			const getProductIdsToRemove = (lineItems, thresholdIds) => {
+                return lineItems.filter(({customAttributes = {}}) => {
+                    const { _thresholdId } = customAttributes;
+                    return _thresholdId ? thresholdIds.indexOf(_thresholdId) < 0 : false;
+                })
+			}
+
+			const freeProductEventHandler = (appContext) => {
+			    try {
+                    const {
+                        cartLineItems: { lineItems }
+                    } = appContext;
+    				
+    				const offerDetails = getOfferDetails(lineItems);
+    				const removeProductIds = getProductIdsToRemove(lineItems, Object.keys(offerDetails));
+    				    				
+    				removeProductIds.forEach(({lineItemHandle}) => {
+                        VajroSDK.removeLineItemFromCart()
+                            .setLineItemHandle(lineItemHandle)
+                            .setQuantity(0)
+                            .exec()
+    				});
+                    
+    				let addMultipleLineItemsToCart = VajroSDK.addMultipleLineItemsToCart();
+
+                    Object.values(offerDetails).forEach((selectedOfferDetail) => {
+                        const { thresholdId = '', get_products_id = [], quantity } = selectedOfferDetail;
+                            
+                        get_products_id.forEach(({productId, variantId = ""}) => {
+                            let product = VajroSDK.utils
+                                .lineItem()
+                                .setProductId(productId)
+                                .setQuantity(quantity)
+                                .setVariantId(variantId)
+                                .setLineItemType("READONLY")
+                                .setCustomAttributes({
+                                    _thresholdId : thresholdId
+                                })
+                                .setUnitPrice(0)
+                                .create();
+                            addMultipleLineItemsToCart.setProduct(product);
+                        });
+    				});
+    				addMultipleLineItemsToCart.exec();
+			    } catch (err) {
+			        throw err
+			        console.error(err.message);
+			    }
+			}
+		</script>
+		<script>
+			// Note: Kindly, Do not change any code. If you change any It will never work
+
+            const { mininumQuanityForOffer = null , totalCountOfOfferEligible = null, priceOfDiscount = null, flatPriceOfferId = null } = minQuantityAtFlatPriceOfferDetails || {}
+
+            const removeInvalidFreebies = (lineItems) => {
+                //remove the Freebies from previous discounts
+                //old freebies will simply have a READONLY tag in the line items
+                //their custom attributes will be empty (unlike the new freebies which will have a unique CONSTRUCT level ID)
+                removeInvalidItems = lineItems.filter(item => 
+                    (item.lineItemType == "READONLY" && 
+                    (item.customAttributes && Object.keys(item.customAttributes).length == 0))
+                );
+                            
+                removeInvalidItems.forEach(({lineItemHandle}) => {
+					VajroSDK.removeLineItemFromCart()
+						.setLineItemHandle(lineItemHandle)
+						.setQuantity(0)
+						.exec();
+				});
+            }
+            
+            function getCompinedProduts(selectedProductDetails, allLineItems) {
+                const { quantity, unitPrice, originalUnitPrice } = selectedProductDetails;
+                const selectedProductPrice = Number(originalUnitPrice) * quantity;
+                let balanceQuantity = mininumQuanityForOffer - quantity;
+                let balanceMinAmount = priceOfDiscount - selectedProductPrice;
+                const appliedLineItems = allLineItems.reduce((selectedItemsDetails, lineItemDetail, index) => {
+                    const { selectedLineItems, totalLineItemPrice, lineItemsQuantity } = selectedItemsDetails;
+                    const { quantity: itemQuantity, unitPrice: itemUnitPrice, originalUnitPrice: _itemOriginalUnitPrice } = lineItemDetail;
+                    const itemProductPrice = Number(_itemOriginalUnitPrice) * itemQuantity;
+                    if(balanceQuantity === itemQuantity && itemProductPrice > balanceMinAmount) {
+                        balanceQuantity -= itemQuantity;
+                        balanceMinAmount -= itemProductPrice;
+                        return {
+                            selectedLineItems: [...selectedLineItems, lineItemDetail],
+                            totalLineItemPrice: totalLineItemPrice + itemProductPrice,
+                            lineItemsQuantity: lineItemsQuantity + itemQuantity
+                        }
+                    } else if(balanceQuantity > itemQuantity) {
+                        balanceQuantity -= itemQuantity;
+                        balanceMinAmount -= itemProductPrice;
+                        return {
+                            selectedLineItems: [...selectedLineItems, lineItemDetail],
+                            totalLineItemPrice: totalLineItemPrice + itemProductPrice,
+                            lineItemsQuantity: lineItemsQuantity + itemQuantity
+                        }
+                    } else {
+                        // const itemQuantity - balanceQuantity
+                    }
+                    return selectedItemsDetails;
+                }, {
+                        selectedLineItems: [selectedProductDetails],
+                        totalLineItemPrice: selectedProductPrice,
+                        lineItemsQuantity: quantity
+                });
+                return appliedLineItems; 
+            }
+            
+            const handleMergeSelectedLineItems = (selectedLineItems, itemDetailsByHandle, newItemsDetails) => {
+                try {
+                    let finalLineItemDetailsByHandle = { ...itemDetailsByHandle };
+                    let finalNewLineItemsDetails = { ...newItemsDetails };
+                    const selectedLineItemObj = selectedLineItems.reduce((lineItemObj, selectedLineItem) => {
+                        const { lineItemHandle: selectedItemHandle, variantId } = selectedLineItem;
+                        let lineItemHandle = selectedItemHandle;
+                        if(finalLineItemDetailsByHandle[selectedItemHandle]) {
+                            lineItemHandle = `new-line-item${Math.round(Math.random()*1000)}-${Math.round(Math.random()*1000)}`;
+                        }
+                        const { isHavehandle, handleId } = Object.values(lineItemObj).reduce((handleDetails ,itemDetails) => {
+                            const { isHavehandle } = handleDetails;
+                            const { lineItemHandle: crntLineItemHandle, variantId: crntVariantId } = itemDetails;
+                            if(!isHavehandle && (lineItemHandle === crntLineItemHandle || variantId === crntVariantId)) {
+                                return { isHavehandle: true, handleId: crntLineItemHandle };
+                            }
+                            return handleDetails;
+                        }, { isHavehandle: false, handleId: null });
+                        
+                        if(!isHavehandle) {
+                            lineItemObj = {
+                                ...lineItemObj,
+                                [lineItemHandle]:{...selectedLineItem, lineItemHandle}
+                            };
+                        } else {
+                            const { quantity } = lineItemObj[handleId];
+                            lineItemObj[handleId] = {
+                                ...lineItemObj[handleId],
+                                quantity: Number(quantity) + 1
+                            }
+                        }
+                        return lineItemObj;
+                    }, {});
+    
+                    const finalSelectedLineItemDetails = Object.values(selectedLineItemObj);
+                    finalSelectedLineItemDetails.forEach((selectedItemDetails) => {
+                        const { lineItemHandle, quantity } = selectedItemDetails;
+                        if(lineItemHandle.indexOf('new-line-item') !== -1) {
+                            finalNewLineItemsDetails = {
+                                ...finalNewLineItemsDetails,
+                                [lineItemHandle]: quantity
+                            }
+                        } else {
+                            finalLineItemDetailsByHandle = {
+                                ...finalLineItemDetailsByHandle,
+                                [lineItemHandle]: quantity
+                            }
+                        }
+                    })
+                    return {
+                        finalSelectedLineItemDetails,
+                        finalLineItemDetailsByHandle,
+                        finalNewLineItemsDetails
+                    }
+                
+                } catch (err) {
+                    throw err;
+                    console.error(err.message);
+                }
+            }
+    
+            const getEligibleLineItems = (productLineItems) => {
+                let isReachedEligibleOffers = false;
+                let offerEligibleLineItems = [];
+                let offerNotEligibleLineItems = []
+    		    let lineItemDetailsByHandle = {};
+    		    let newLineItemsDetails = {}
+    		    
+                function constructLineItemsBasedOnMinQuantity(filteredLineItems) {
+    
+                    if(isReachedEligibleOffers || offerEligibleLineItems.length === totalCountOfOfferEligible || filteredLineItems.length === 0) {
+                        const {
+                            finalSelectedLineItemDetails,
+                            finalLineItemDetailsByHandle,
+                            finalNewLineItemsDetails
+                        } = handleMergeSelectedLineItems(filteredLineItems, lineItemDetailsByHandle, newLineItemsDetails);
+                        
+                        // lineItemDetailsByHandle = { ...finalLineItemDetailsByHandle };
+                        // newLineItemsDetails = { ... };
+                        return {
+                            offerEligibleLineItems,
+                            offerNotEligibleLineItems: [
+                                ...offerNotEligibleLineItems,
+                                ...finalSelectedLineItemDetails
+                            ],
+                            lineItemDetailsByHandle: finalLineItemDetailsByHandle,
+                            newLineItemsDetails: finalNewLineItemsDetails
+                        };
+                    } else {
+                        try {
+                            let isLineItemSelected = false;
+                            let eligibleLineItems = filteredLineItems.map((productLineItem, index) => {
+                                const { lineItemHandle } = productLineItem;
+                                const excluedLineItems = filteredLineItems.filter((item, itemIndex) => index !== itemIndex);
+                                return getCompinedProduts(productLineItem, excluedLineItems);
+                                
+                            });
+                            
+                        
+                            const eligibleLineItemDetails = eligibleLineItems.reduce((selectedLineItems, crntLineItems) => {
+                                const { totalLineItemPrice = 0, lineItemsQuantity = 0 } = selectedLineItems;
+                                const { totalLineItemPrice: crntTotalLineItemPrice = 0, lineItemsQuantity: crntLineItemsQuantity = 0 } = crntLineItems;
+                                
+                                if(crntTotalLineItemPrice > priceOfDiscount && crntLineItemsQuantity === mininumQuanityForOffer) {
+                                    if(isLineItemSelected) {
+                                        if(crntTotalLineItemPrice < totalLineItemPrice) {
+                                            return crntLineItems;
+                                        }
+                                    } else {
+                                        isLineItemSelected = true;
+                                        return crntLineItems;
+                                    }
+                                } else if(!isLineItemSelected) {
+                                    if(totalLineItemPrice < crntTotalLineItemPrice) {
+                                        return crntLineItems;
+                                    }
+                                }
+                                return selectedLineItems;
+                            });
+        
+                            const { selectedLineItems = [], totalLineItemPrice = 0, lineItemsQuantity = 0 } = eligibleLineItemDetails || {};
+                            let newFilteredLineItems = [...filteredLineItems];
+        
+                            if(totalLineItemPrice > priceOfDiscount && lineItemsQuantity === mininumQuanityForOffer) {
+                                const {
+                                    finalSelectedLineItemDetails,
+                                    finalLineItemDetailsByHandle,
+                                    finalNewLineItemsDetails
+                                } = handleMergeSelectedLineItems(selectedLineItems, lineItemDetailsByHandle, newLineItemsDetails);
+                                
+                                lineItemDetailsByHandle = { ...finalLineItemDetailsByHandle };
+                                newLineItemsDetails = { ...finalNewLineItemsDetails };
+                            
+                                offerEligibleLineItems.push({...eligibleLineItemDetails, selectedLineItems: finalSelectedLineItemDetails});
+                                
+                                newFilteredLineItems = newFilteredLineItems.filter(newLineItem => {
+                                    const { uniqueId } = newLineItem;
+                                    return !selectedLineItems.some(selectedLineItem => selectedLineItem.uniqueId === uniqueId);
+                                });
+                                
+                            } else {
+                                isReachedEligibleOffers = true;
+                            }
+                            
+                            return constructLineItemsBasedOnMinQuantity(newFilteredLineItems);
+                        } catch(err) {
+                            throw err;
+                            console.error(err.message);
+                        }
+                    }
+                }
+                
+                return constructLineItemsBasedOnMinQuantity(productLineItems)
+            }
+            
+    		const eventHandler = (appContext) => {
+    			const { lineItems } = appContext.cartLineItems;
+    			let updateLineItems = [...lineItems];
+    		    const handleAppliedEligibleOffer = ({
+                    offerEligibleLineItems,
+                    offerNotEligibleLineItems,
+                    lineItemDetailsByHandle,
+                    newLineItemsDetails
+                }, originalLineItems) => {
+                    let updateMultipleLineItemsToCart = VajroSDK.updateMultipleLineItemsToCart();
+                    let addMultipleLineItemsToCart = VajroSDK.addMultipleLineItemsToCart();
+                    
+                    let lineItemByHandle = originalLineItems.reduce((acc, lineItem) => {
+                        const { lineItemHandle, customAttributes = {} } = lineItem;
+        				acc[lineItemHandle] = lineItem;
+        				return acc;
+        			}, {});
+        			
+                    offerEligibleLineItems.forEach((offerDetails) => {
+                        try {
+                            const { selectedLineItems = [], totalLineItemPrice = 0, lineItemsQuantity = 0 } = offerDetails;
+                            const discountInPer = priceOfDiscount/totalLineItemPrice;
+                            selectedLineItems.forEach((lineItem) => {
+                                const { lineItemHandle, variantId, productId, originalUnitPrice } = lineItem;
+                                const latestCA = {
+                                    [flatPriceOfferId]: lineItemHandle
+                                };
+                                let latestUnitPrice = discountInPer * originalUnitPrice;
+                                
+                                if(lineItemHandle.includes('new-line-item')) {
+                                    const quantity = newLineItemsDetails[lineItemHandle];
+                                    
+                                    let product = VajroSDK.utils
+                                        .lineItem()
+                                        .setProductId(productId)
+                                        .setUnitPrice(latestUnitPrice)
+                                        .setQuantity(quantity)
+                                        .setVariantId(variantId)
+                                        .setCustomAttributes(latestCA)
+                                        .setLineItemType("REGULAR")
+                                        .create();
+                                    addMultipleLineItemsToCart.setProduct(product);
+                                } else {
+                                    const quantity = lineItemDetailsByHandle[lineItemHandle];
+                                    
+                                    let product = {
+                                        lineItemHandle,
+                                        quantity,
+                                        customAttributes: latestCA,
+                                        unitPrice: Number(latestUnitPrice)
+                                    };
+                                    
+                                    updateMultipleLineItemsToCart.setProduct(product);
+                                    updateLineItems = updateLineItems.map(lineItemDetail => {
+                                        const {lineItemHandle: updateLineHandle} = lineItemDetail;
+                                        if(lineItemHandle === updateLineHandle) {
+                                            return {
+                                                ...lineItemDetail,
+                                                quantity,
+                                                customAttributes: latestCA,
+                                                unitPrice: Number(latestUnitPrice)
+                                            }
+                                        }
+                                        return {...lineItemDetail};
+                                    })
+                                }
+                                
+                                if(lineItemByHandle[lineItemHandle]) {
+                                    delete lineItemByHandle[lineItemHandle];
+                                }
+                            })
+                        } catch(err) {
+                            throw err;
+                        }
+                    });
+    
+                    offerNotEligibleLineItems.forEach((lineItem) => {
+                        const { lineItemHandle, variantId, productId, originalUnitPrice } = lineItem;
+        
+                        if(lineItemHandle.includes('new-line-item')) {
+                            const quantity = newLineItemsDetails[lineItemHandle];
+                            let product = VajroSDK.utils
+                                .lineItem()
+                                .setProductId(productId)
+                                .setUnitPrice(Number(originalUnitPrice))
+                                .setQuantity(quantity)
+                                .setVariantId(variantId)
+                                .setCustomAttributes({})
+                                .setLineItemType("REGULAR")
+                                .create();
+                            addMultipleLineItemsToCart.setProduct(product);
+                        } else {
+                            const quantity = lineItemDetailsByHandle[lineItemHandle] || 0;
+                            
+                            let product = {
+                                lineItemHandle,
+                                quantity,
+                                customAttributes: {},
+                                unitPrice: Number(originalUnitPrice)
+                            };
+                            updateMultipleLineItemsToCart.setProduct(product);
+                            updateLineItems = updateLineItems.map(lineItemDetail => {
+                                const {lineItemHandle: updateLineHandle} = lineItemDetail;
+                                if(lineItemHandle === updateLineHandle) {
+                                    return {
+                                        ...lineItemDetail,
+                                        quantity,
+                                        customAttributes: {},
+                                        unitPrice: Number(originalUnitPrice)
+                                    }
+                                }
+                                return {...lineItemDetail};
+                            })
+                        }
+                        
+                        if(lineItemByHandle[lineItemHandle]) {
+                            delete lineItemByHandle[lineItemHandle];
+                        }
+                    });
+                    
+                    let removeItems = [];
+                    Object.values(lineItemByHandle).forEach((lineItem) => {
+                        const { lineItemHandle } = lineItem;
+                        removeItems.push(VajroSDK.removeLineItemFromCart()
+    						.setLineItemHandle(lineItem.lineItemHandle)
+    						.setQuantity(0)
+    						.exec());
+    					
+    					updateLineItems = updateLineItems.filter(lineItemDetail => {
+                            const {lineItemHandle: updateLineHandle} = lineItemDetail;
+                            return lineItemHandle !== updateLineHandle
+                        })
+                    });
+                    
+                    const latestAppContext = {
+                        ...appContext,
+                        cartLineItems : {
+                            ...appContext.cartLineItems,
+                            lineItems: updateLineItems
+                        }
+                    };
+                    
+                    // document.querySelector(".alert-content").innerText = JSON.stringify(latestAppContext);
+    
+                    Promise.all(removeItems).then(() => {
+                        updateMultipleLineItemsToCart.exec().then(firstResponse => {
+                            addMultipleLineItemsToCart.exec().then((finalResponse) => {
+                                const { appContext: finalAppContext } = finalResponse;
+                                freeProductEventHandler(finalAppContext);
+                            }, error => {
+                                const { appContext: firstAppContext } = firstResponse;
+                                freeProductEventHandler(firstAppContext);
+                            });
+                        }, error => {
+                            addMultipleLineItemsToCart.exec().then((finalResponse) => {
+                                const { appContext: finalAppContext } = finalResponse;
+                                freeProductEventHandler(finalAppContext);
+                            }, error => {
+                                freeProductEventHandler(latestAppContext);
+                            });
+                        });
+                    }, err => {
+                        freeProductEventHandler(latestAppContext);
+                    })
+                }
+    			
+    			let finalLineItems = lineItems.filter((productLineItem) => {
+                    const { productId, quantity, collectionId, lineItemType } =  productLineItem;
+                    return excludedCollectionIds.indexOf(collectionId) < 0  && lineItemType !== 'READONLY'
+                });
+                
+                removeInvalidFreebies(lineItems);
+                
+                finalLineItems = finalLineItems.sort((firstItem, secondItem) => {
+                    const { originalUnitPrice, quantity } = firstItem;
+                    const { quantity: crntQuantity, originalUnitPrice: crntOriginalUnitPrice } = secondItem;
+                    return  originalUnitPrice === crntOriginalUnitPrice ? (quantity - crntQuantity) :  (originalUnitPrice - crntOriginalUnitPrice);
+                });
+                
+                const splitedLineItems = finalLineItems.reduce((lineItems, lineItemDetail) => {
+                    const { lineItemHandle, variantId, productId, quantity, originalUnitPrice } = lineItemDetail;
+                    for(let i = 0; i< quantity; i+=1) {
+                        lineItems = [
+                            ...lineItems,
+                            {
+                                lineItemHandle,
+                                variantId,
+                                productId,
+                                quantity: 1,
+                                originalUnitPrice,
+                                uniqueId: `${lineItemHandle}_${i}`
+                            }
+                        ]
+                    }
+                    return lineItems;
+                }, []);
+    
+                const finalResult = getEligibleLineItems(splitedLineItems);
+
+                handleAppliedEligibleOffer(finalResult, finalLineItems);
+    		}
+    		
+    		VajroSDK.subscribe(VajroSDK.Triggers.ON_PAGE_LOADED, eventHandler)
+    		VajroSDK.subscribe(VajroSDK.Triggers.LINE_ITEM_UPDATED, eventHandler);
+		</script>
+	</body>
+</html>
