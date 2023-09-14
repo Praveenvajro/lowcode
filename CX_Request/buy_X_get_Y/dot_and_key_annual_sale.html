@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script>
+			try {
+				window.appInfo = JSON.parse(`{{APP_INFO}}`)
+			} catch (err) {
+				throw err
+			}
+		</script>
+		<script src="https://praveenvajro.github.io/lowcode/vajro-sdk-latest/vajro-sdk-new.js"></script>
+		<link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+		<style>
+			@font-face {
+				font-family: 'Gilroy Regular';
+				src: url('https://cdn.shopify.com/s/files/1/0361/8553/8692/files/Gilroy-Bold.woff2?v=1686055798') format('woff2'),
+					url('https://cdn.shopify.com/s/files/1/0361/8553/8692/files/Gilroy-Bold.woff?v=1686055797') format('woff');
+				font-weight: bold;
+				font-style: normal;
+				font-display: swap;
+			}
+			@font-face {
+				font-family: 'Gilroy Regular';
+				src: url('https://cdn.shopify.com/s/files/1/0361/8553/8692/files/Gilroy-Medium.woff2?v=1693895301') format('woff2'),
+					url('https://cdn.shopify.com/s/files/1/0361/8553/8692/files/Gilroy-Medium.woff?v=1693895300') format('woff');
+				font-weight: 500;
+				font-style: normal;
+				font-display: swap;
+			}
+			html, body {
+				margin: 0 !important;
+				padding: 0 !important;
+			}
+			#timer {
+				display: flex;
+				background-color: #df3883;
+				/*background-color: black;*/
+				background-size: cover;
+				background-position: center;
+			}
+			.timer-head {
+				display: flex;
+				color: #0baad1;
+				font-family: Rust;
+				text-align: center;
+				font-size: 32px;
+				align-items: center;
+				justify-content: center;
+				font-weight: 600;
+				letter-spacing: 0em;
+				width: 65%;
+				margin: auto;
+			}
+			a, div {
+				outline: none;
+			}
+			a, .text-link {
+				color: #3c3c3c;
+				text-decoration: none;
+				background: transparent;
+			}
+			img, iframe {
+				max-width: 100%;
+			}
+			img {
+				border: 0 none;
+			}
+			.timer-wrap {
+				float: left;
+				/*margin: .5% 1%;*/
+				/* display: flex; */
+				text-align: center;
+				padding: 1%;
+				/* flex-direction: column; */
+				margin: auto;
+			}
+			.outer-block {
+				margin-top: 2%;
+			}
+			.block-timer {
+				font-size: 25px;
+				font-weight: 900;
+				font-family: Gilroy Regular;
+				background-color: #fff;
+				width: 50px;
+				color: #ce2029;
+			}
+			.timer-text {
+				color: #fff;
+				font-size: 12px;
+				font-family: Ubuntu;
+				padding-top: 4px;
+			}
+			.timer-foot {
+				margin: auto;
+			}
+			.hide {
+				display: none !important;
+			}
+			.mob-mob {
+				display: none;
+			}
+			@media (max-width: 764px) {
+			    a {
+			        margin: 0 !important;
+				    padding: 0 !important;
+				    height: auto !important;
+			    }
+				#timer {
+					margin: 0 !important;
+				    padding: 0 !important;
+				    height: auto !important;
+				}
+				.mob-mob {
+					display: flex;
+				}
+				.timer-head {
+					padding: 3%;
+					width: 100%;
+				}
+				.desk-desk {
+					display: none !important;
+				}
+				.timer-wrap {
+					text-align: center;
+					padding: 1%;
+					margin-top: 16px;
+				}
+				.block-timer {
+					font-size: 14px;
+					width: 37px;
+					height: 24px;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					margin: 0px;
+					padding: 0px;
+				}
+				.timer-text {
+					font-size: 8px;
+					font-weight: 700;
+					padding-top: 2px;
+				}
+				.timer-foot {
+					padding-top: 3%;
+				}
+				.outer-block {
+					margin: auto;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<!--<div class="alert-container ?v=1692774693">-->
+		<!--	<div class="alert-content" id="log-p1" ?v=1692774717 ></div>-->
+		<!--</div>-->
+		<a href="https://www.dotandkey.com/collections/shop-all">
+			<div id="timer">
+				<div class="timer-head desk-desk">
+					<img src="https://cdn.shopify.com/s/files/1/0361/8553/8692/files/last-day-sale.png">
+				</div>
+				<div class="timer-head mob-mob">
+					<img src="https://cdn.shopify.com/s/files/1/0361/8553/8692/files/last-day-sale-mob.png">
+				</div>
+				<div class="timer-wrap hide">
+					<div class="outer-block">
+						<div class="block-timer" id="days"></div>
+					</div>
+					<div class="timer-text">DAY</div>
+				</div>
+				<div class="timer-wrap">
+					<div class="outer-block">
+						<div class="block-timer" id="hours"></div>
+					</div>
+					<div class="timer-text">HOURS</div>
+				</div>
+				<div class="timer-wrap">
+					<div class="outer-block">
+						<div class="block-timer" id="minutes"></div>
+					</div>
+					<div class="timer-text">MINS</div>
+				</div>
+				<div class="timer-wrap">
+					<div class="outer-block">
+						<div class="block-timer" id="seconds"></div>
+					</div>
+					<div class="timer-text">SECONDS</div>
+				</div>
+				<div class="timer-foot">
+					<div style="height: 20px; width: 20px;"></div>
+					<!-- <img src="https://cdn.shopify.com/s/files/1/0361/8553/8692/files/Group_218_1.png?v=1654778003" /> -->
+				</div>
+				<div style="clear:both"></div>
+			</div>
+		</a>
+		<script>
+			// Set the date we're counting down to
+			var countDownDate = new Date("September 24, 2023 20:59:59").getTime();
+			// Update the count down every 1 second
+			var x = setInterval(function () {
+				// Get today's date and time
+				var now = new Date().getTime();
+				// Find the distance between now and the count down date
+				var distance = countDownDate - now;
+				// Time calculations for days, hours, minutes and seconds
+				// var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+				var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+				var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+				var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+				// Display the result in the element with id="demo"
+				// document.getElementById("days").innerHTML = days;
+				document.getElementById("hours").innerHTML = hours;
+				document.getElementById("minutes").innerHTML = minutes;
+				document.getElementById("seconds").innerHTML = seconds;
+				// If the count down is finished, write some text
+			}, 1000);
+			
+			const productsRestrictConfig = [
+			    {
+			        collectionId: "291788718245",
+			        productAllowedCount: 1
+			    },
+			    {
+			        collectionId: "292419272869",
+			        productAllowedCount: 1
+			    }
+			];
+		</script>
+		<script>
+		    /* Config starts*/
+            // DO NOT remove the comments
+		    // Configration for BOGO free product offer
+		    // Note: If need to disable the offer Just given the values as null. Offer will be revert if its already applied in cart
+            const BOGOFreeProductOfferDetails = {
+                mininumQuantityForOffer: 2,
+                maximumQuantityOfFreeProducts: 4,
+                freeProductOfferId: '_BOGOProductOffer',
+                thresholdQuantity: 4,
+			    getProductsDetails: [
+			        {
+				        productId: "7962565968037",
+				        variantId: "41883943076005",
+				        quantity: 1
+				    }
+			    ], //enter the free product_id and variant id
+				freeProductThresholdId: '_sept8_free' // unique Id for Offer
+            }
+            
+            // This collection products are not taken for cart total calculation for BOGO free product offer
+            const excludedCollectionIds = [
+                "6898927304869",
+                "6898921930917"
+            ];
+            
+            
+		    // Configration for given Freebies based on cart total
+		    // Note: If need to disable the offer Just command the config. Offer will be revert if its already applied in cart
+		    const OFFER_CONFIG = [
+		       	{
+					threshold: 999, //checking cart total
+					get_products_id: [
+					    {
+					        productId: "7523927851173",
+					        variantId: "41376464961701"
+					    }
+					], //enter the free product_id and variant id
+					quantity: 1, //define the no. of quantity for free product
+					thresholdId: '_sept8_1', // unique Id for Offer
+					excludedCollectionIds: [
+                        "6898927304869",
+                        "6898921930917"
+                    ] // This collection products are not taken for cart total calculation for this offer
+				}
+			];
+			
+		    /* Config ends*/
+		</script>
+		<script>
+			// Note: Kindly, Do not change any code. If you change any It will never work
+			
+            const getCartTotalAmountAfterExclude = (lineItems, excludedCollectionIds) => {
+                return lineItems.reduce((total, lineItem) => {
+    					const { totalPrice, productId, collectionId } = lineItem;
+    					return excludedCollectionIds.includes(collectionId) ? total : total + totalPrice;
+    			}, 0);
+            }
+
+			const getOfferDetails = (lineItems) => {
+				return OFFER_CONFIG.reduce((selectedOfferDetails, currentOfferDetails) => {
+					const { threshold = 0, thresholdId = '', excludedCollectionIds = [] } = currentOfferDetails
+
+                    const cartTotalAfterExclude = getCartTotalAmountAfterExclude(lineItems, excludedCollectionIds)
+
+					if (cartTotalAfterExclude >= threshold) {
+                        selectedOfferDetails = {
+                            ...selectedOfferDetails,
+                            [thresholdId] : currentOfferDetails
+                        }
+					}
+					return selectedOfferDetails
+				}, {})
+			}
+
+			const getProductIdsToRemove = (lineItems, thresholdIds) => {
+                return lineItems.filter(({customAttributes = {}}) => {
+                    const { _thresholdId } = customAttributes;
+                    return _thresholdId ? thresholdIds.indexOf(_thresholdId) < 0 : false;
+                })
+			}
+
+			const freeProductEventHandler = (appContext) => {
+			    try {
+                    const {
+                        cartLineItems: { lineItems }
+                    } = appContext;
+    				
+    				const offerDetails = getOfferDetails(lineItems);
+    				const removeProductIds = getProductIdsToRemove(lineItems, Object.keys(offerDetails));
+    				    				
+    				removeProductIds.forEach(({lineItemHandle}) => {
+                        VajroSDK.removeLineItemFromCart()
+                            .setLineItemHandle(lineItemHandle)
+                            .setQuantity(0)
+                            .exec()
+    				});
+                    
+    				let addMultipleLineItemsToCart = VajroSDK.addMultipleLineItemsToCart();
+
+                    Object.values(offerDetails).forEach((selectedOfferDetail) => {
+                        const { thresholdId = '', get_products_id = [], quantity } = selectedOfferDetail;
+                            
+                        get_products_id.forEach(({productId, variantId = ""}) => {
+                            let product = VajroSDK.utils
+                                .lineItem()
+                                .setProductId(productId)
+                                .setQuantity(quantity)
+                                .setVariantId(variantId)
+                                .setLineItemType("READONLY")
+                                .setCustomAttributes({
+                                    _thresholdId : thresholdId
+                                })
+                                .setUnitPrice(0)
+                                .create();
+                            addMultipleLineItemsToCart.setProduct(product);
+                        });
+    				});
+    				addMultipleLineItemsToCart.exec();
+			    } catch (err) {
+			        throw err
+			        console.error(err.message);
+			    }
+			}
+		</script>
+		<script>
+			// Note: Kindly, Do not change any code. If you change any It will never work
+			
+		    function eventHandler(appContext) {
+    			const { lineItems } = appContext.cartLineItems;
+    			let updateLineItems = [...lineItems];
+
+    			let lineItemByHandle = lineItems.reduce((acc, lineItem) => {
+                    const { lineItemHandle, customAttributes = {} } = lineItem;
+    				acc[lineItemHandle] = lineItem;
+    				return acc;
+    			}, {});
+    			
+    			let finalLineItemsQuantity = {};
+    			
+    			productsRestrictConfig.forEach((configDetails) => {
+    			    const { collectionId, productAllowedCount } = configDetails;
+    			    
+    			    let productsByCollection = lineItems.filter(itemDetails => {
+    			        const collectionIds = itemDetails?.collectionId?.split(",") || [];
+    			        return collectionIds.includes(collectionId) && itemDetails?.lineItemType !== "READONLY";
+    			    });
+    			    
+    			    productsByCollection = productsByCollection.sort((firstItem, secondItem) => {
+                        const { originalUnitPrice, quantity } = firstItem;
+                        const { quantity: crntQuantity, originalUnitPrice: crntOriginalUnitPrice } = secondItem;
+                        return  originalUnitPrice === crntOriginalUnitPrice ? (crntQuantity - quantity) :  (crntOriginalUnitPrice - originalUnitPrice);
+                    });
+                    
+                    const splitedLineItems = productsByCollection.reduce((lineItems, lineItemDetail) => {
+                        const { lineItemHandle, variantId, productId, quantity, originalUnitPrice } = lineItemDetail;
+                        for(let i = 0; i< quantity; i+=1) {
+                            lineItems = [
+                                ...lineItems,
+                                {
+                                    lineItemHandle,
+                                    variantId,
+                                    productId,
+                                    quantity: 1,
+                                    originalUnitPrice,
+                                    uniqueId: `${lineItemHandle}_${i}`
+                                }
+                            ]
+                        }
+                        return lineItems;
+                    }, []);
+                    
+                    const productLineItems = splitedLineItems.slice(0, productAllowedCount);
+                    const excludeProductLineItems = splitedLineItems.slice(productAllowedCount);
+                
+                    let latestLineItemObj = productLineItems.reduce((itemObj, currentLineItem) => {
+                        const { lineItemHandle, quantity } = currentLineItem;
+                        
+                        const objItemQuantity = itemObj[lineItemHandle] || null;
+                        if(objItemQuantity) {
+                            return {
+                                ...itemObj,
+                                [lineItemHandle]: objItemQuantity + quantity
+                            }
+                        } else {
+                            return {
+                                ...itemObj,
+                                [lineItemHandle] : quantity
+                            }
+                        }
+                        
+                    }, {});
+                    
+                    excludeProductLineItems.forEach((lineItem) => {
+                        const { lineItemHandle } = lineItem;
+                        
+                        const objItemQuantity = latestLineItemObj[lineItemHandle] || null;
+                        
+                        if(!objItemQuantity) {
+                            latestLineItemObj =  {
+                                ...latestLineItemObj,
+                                [lineItemHandle]: 0
+                            }
+                        }
+                    });
+                    
+                    finalLineItemsQuantity = {...finalLineItemsQuantity, ...latestLineItemObj};
+    			});
+    			
+                let updateMultipleLineItemsToCart = VajroSDK.updateMultipleLineItemsToCart();
+                
+                Object.entries(finalLineItemsQuantity).forEach(([lineItemHandle, quantity]) => {
+                    updateMultipleLineItemsToCart.setProduct({
+                        lineItemHandle,
+                        quantity
+                    });
+                });
+                
+                updateMultipleLineItemsToCart.exec().then(response => {
+                    const { appContext: latestAppContext } = response;
+                    handleBOGOEventHandler(latestAppContext);
+                }, err => {
+                    handleBOGOEventHandler(appContext);
+                });
+    			
+		    }
+		</script>
+		<script>
+			// Note: Kindly, Do not change any code. If you change any It will never work
+
+            const { mininumQuantityForOffer = null , maximumQuantityOfFreeProducts = null, freeProductOfferId = null, thresholdQuantity = null, getProductsDetails = [], getProductsQuantity = null, freeProductThresholdId = null } = BOGOFreeProductOfferDetails || {}
+
+            const removeInvalidFreebies = (lineItems) => {
+                //remove the Freebies from previous discounts
+                //old freebies will simply have a READONLY tag in the line items
+                //their custom attributes will be empty (unlike the new freebies which will have a unique CONSTRUCT level ID)
+                removeInvalidItems = lineItems.filter(item => 
+                    (item.lineItemType == "READONLY" && 
+                    (item.customAttributes && Object.keys(item.customAttributes).length == 0))
+                );
+                            
+                removeInvalidItems.forEach(({lineItemHandle}) => {
+					VajroSDK.removeLineItemFromCart()
+						.setLineItemHandle(lineItemHandle)
+						.setQuantity(0)
+						.exec();
+				});
+            }
+
+            const handleMergeSelectedLineItems = (selectedLineItems, itemDetailsByHandle, newItemsDetails) => {
+                try {
+                    let finalLineItemDetailsByHandle = { ...itemDetailsByHandle };
+                    let finalNewLineItemsDetails = { ...newItemsDetails };
+                    const selectedLineItemObj = selectedLineItems.reduce((lineItemObj, selectedLineItem) => {
+                        const { lineItemHandle: selectedItemHandle, variantId } = selectedLineItem;
+                        let lineItemHandle = selectedItemHandle;
+                        if(finalLineItemDetailsByHandle[selectedItemHandle]) {
+                            lineItemHandle = `new-line-item${Math.round(Math.random()*1000)}-${Math.round(Math.random()*1000)}`;
+                        }
+                        const { isHavehandle, handleId } = Object.values(lineItemObj).reduce((handleDetails ,itemDetails) => {
+                            const { isHavehandle } = handleDetails;
+                            const { lineItemHandle: crntLineItemHandle, variantId: crntVariantId } = itemDetails;
+                            if(!isHavehandle && (lineItemHandle === crntLineItemHandle || variantId === crntVariantId)) {
+                                return { isHavehandle: true, handleId: crntLineItemHandle };
+                            }
+                            return handleDetails;
+                        }, { isHavehandle: false, handleId: null });
+                        
+                        if(!isHavehandle) {
+                            lineItemObj = {
+                                ...lineItemObj,
+                                [lineItemHandle]:{...selectedLineItem, lineItemHandle}
+                            };
+                        } else {
+                            const { quantity } = lineItemObj[handleId];
+                            lineItemObj[handleId] = {
+                                ...lineItemObj[handleId],
+                                quantity: Number(quantity) + 1
+                            }
+                        }
+                        return lineItemObj;
+                    }, {});
+    
+                    const finalSelectedLineItemDetails = Object.values(selectedLineItemObj);
+                    finalSelectedLineItemDetails.forEach((selectedItemDetails) => {
+                        const { lineItemHandle, quantity } = selectedItemDetails;
+                        if(lineItemHandle.indexOf('new-line-item') !== -1) {
+                            finalNewLineItemsDetails = {
+                                ...finalNewLineItemsDetails,
+                                [lineItemHandle]: quantity
+                            }
+                        } else {
+                            finalLineItemDetailsByHandle = {
+                                ...finalLineItemDetailsByHandle,
+                                [lineItemHandle]: quantity
+                            }
+                        }
+                    })
+                    return {
+                        finalSelectedLineItemDetails,
+                        finalLineItemDetailsByHandle,
+                        finalNewLineItemsDetails
+                    }
+                
+                } catch (err) {
+                    throw err;
+                    console.error(err.message);
+                }
+            }
+    
+            const getEligibleLineItems = (productLineItems) => {
+                let isReachedEligibleOffers = false;
+                let offerEligibleLineItems = [];
+                let offerNotEligibleLineItems = []
+    		    let lineItemDetailsByHandle = {};
+    		    let newLineItemsDetails = {}
+
+    		    const freeProductsCount = Math.floor(productLineItems.length/Number(mininumQuantityForOffer)) >= Number(maximumQuantityOfFreeProducts) ? maximumQuantityOfFreeProducts : Math.floor(productLineItems.length/Number(mininumQuantityForOffer));
+    		    
+    		    let eligibleLineItems = productLineItems.slice(0, freeProductsCount);
+    		    let notEligibleLineItems = productLineItems.slice(freeProductsCount);
+    		    
+    		    if(eligibleLineItems.length > 0) {
+        		    const {
+                        finalSelectedLineItemDetails,
+                        finalLineItemDetailsByHandle,
+                        finalNewLineItemsDetails
+                    } = handleMergeSelectedLineItems(eligibleLineItems, lineItemDetailsByHandle, newLineItemsDetails);
+                    offerEligibleLineItems = [...finalSelectedLineItemDetails]
+                    lineItemDetailsByHandle = { ...finalLineItemDetailsByHandle };
+                    newLineItemsDetails = { ...finalNewLineItemsDetails };
+    		    }
+    		    
+    		   if(notEligibleLineItems.length > 0) {
+    		       const {
+                        finalSelectedLineItemDetails,
+                        finalLineItemDetailsByHandle,
+                        finalNewLineItemsDetails
+                    } = handleMergeSelectedLineItems(notEligibleLineItems, lineItemDetailsByHandle, newLineItemsDetails);
+                    
+                    lineItemDetailsByHandle = { ...finalLineItemDetailsByHandle };
+                    newLineItemsDetails = { ...finalNewLineItemsDetails };
+                    offerNotEligibleLineItems = [...finalSelectedLineItemDetails];
+    		   }
+    		   
+    		   return {
+    		       offerEligibleLineItems,
+    		       offerNotEligibleLineItems,
+    		       lineItemDetailsByHandle,
+    		       newLineItemsDetails
+    		   };
+            }
+            
+    		const handleBOGOEventHandler = (appContext) => {
+    			const { lineItems } = appContext.cartLineItems;
+    			let updateLineItems = [...lineItems];
+    			
+    		    const handleAppliedEligibleOffer = ({
+                    offerEligibleLineItems,
+                    offerNotEligibleLineItems,
+                    lineItemDetailsByHandle,
+                    newLineItemsDetails
+                }, originalLineItems) => {
+                    let updateMultipleLineItemsToCart = VajroSDK.updateMultipleLineItemsToCart();
+                    let addMultipleLineItemsToCart = VajroSDK.addMultipleLineItemsToCart();
+                    
+                    let lineItemByHandle = originalLineItems.reduce((acc, lineItem) => {
+                        const { lineItemHandle, customAttributes = {} } = lineItem;
+        				acc[lineItemHandle] = lineItem;
+        				return acc;
+        			}, {});
+        			
+                    offerEligibleLineItems.forEach((lineItem) => {
+                        const { lineItemHandle, variantId, productId, originalUnitPrice } = lineItem;
+                        const latestCA = {
+                            [freeProductOfferId]: lineItemHandle
+                        };
+                        
+                        if(lineItemHandle.includes('new-line-item')) {
+                            const quantity = newLineItemsDetails[lineItemHandle];
+                            
+                            let product = VajroSDK.utils
+                                .lineItem()
+                                .setProductId(productId)
+                                .setUnitPrice(0)
+                                .setQuantity(quantity)
+                                .setVariantId(variantId)
+                                .setCustomAttributes(latestCA)
+                                .setLineItemType("REGULAR")
+                                .create();
+                            addMultipleLineItemsToCart.setProduct(product);
+                        } else {
+                            const quantity = lineItemDetailsByHandle[lineItemHandle];
+                            
+                            let product = {
+                                lineItemHandle,
+                                quantity,
+                                customAttributes: latestCA,
+                                unitPrice: 0
+                            };
+                            
+                            updateMultipleLineItemsToCart.setProduct(product);
+                            
+                            updateLineItems = updateLineItems.map(lineItemDetail => {
+                                const {lineItemHandle: updateLineHandle} = lineItemDetail;
+                                if(lineItemHandle === updateLineHandle) {
+                                    return {
+                                        ...lineItemDetail,
+                                        ...product
+                                    }
+                                }
+                                return {...lineItemDetail};
+                            })
+                        }
+                        
+                        if(lineItemByHandle[lineItemHandle]) {
+                            delete lineItemByHandle[lineItemHandle];
+                        }
+                    })
+    
+                    offerNotEligibleLineItems.forEach((lineItem) => {
+                        const { lineItemHandle, variantId, productId, originalUnitPrice } = lineItem;
+        
+                        if(lineItemHandle.includes('new-line-item')) {
+                            const quantity = newLineItemsDetails[lineItemHandle];
+                            let product = VajroSDK.utils
+                                .lineItem()
+                                .setProductId(productId)
+                                .setUnitPrice(Number(originalUnitPrice))
+                                .setQuantity(quantity)
+                                .setVariantId(variantId)
+                                .setCustomAttributes({})
+                                .setLineItemType("REGULAR")
+                                .create();
+                            addMultipleLineItemsToCart.setProduct(product);
+                        } else {
+                            const quantity = lineItemDetailsByHandle[lineItemHandle] || 0;
+                            
+                            let product = {
+                                lineItemHandle,
+                                quantity,
+                                customAttributes: {},
+                                unitPrice: Number(originalUnitPrice)
+                            };
+                            updateMultipleLineItemsToCart.setProduct(product);
+                            
+                            updateLineItems = updateLineItems.map(lineItemDetail => {
+                                const {lineItemHandle: updateLineHandle} = lineItemDetail;
+                                if(lineItemHandle === updateLineHandle) {
+                                    return {
+                                        ...lineItemDetail,
+                                        ...product
+                                    }
+                                }
+                                return {...lineItemDetail};
+                            })
+                            
+                        }
+                        
+                        if(lineItemByHandle[lineItemHandle]) {
+                            delete lineItemByHandle[lineItemHandle];
+                        }
+                    });
+                    
+                    let removeItems = [];
+                    Object.values(lineItemByHandle).forEach((lineItem) => {
+                        const { lineItemHandle } = lineItem;
+                        removeItems.push(VajroSDK.removeLineItemFromCart()
+    						.setLineItemHandle(lineItem.lineItemHandle)
+    						.setQuantity(0)
+    						.exec());
+    						
+    					updateLineItems = updateLineItems.filter(lineItemDetail => {
+                            const {lineItemHandle: updateLineHandle} = lineItemDetail;
+                            return lineItemHandle !== updateLineHandle
+                        })
+                    });
+                    
+                    const latestAppContext = {
+                        ...appContext,
+                        cartLineItems : {
+                            ...appContext.cartLineItems,
+                            lineItems: updateLineItems
+                        }
+                    };
+    
+                    Promise.all(removeItems).then(() => {
+                        updateMultipleLineItemsToCart.exec().then(firstResponse => {
+                            addMultipleLineItemsToCart.exec().then((finalResponse) => {
+                                const { appContext: finalAppContext } = finalResponse;
+                                freeProductEventHandler(finalAppContext);
+                            }, error => {
+                                const { appContext: firstAppContext } = firstResponse;
+                                freeProductEventHandler(firstAppContext);
+                            });
+                        }, error => {
+                            addMultipleLineItemsToCart.exec().then((finalResponse) => {
+                                const { appContext: finalAppContext } = finalResponse;
+                                freeProductEventHandler(finalAppContext);
+                            }, error => {
+                                freeProductEventHandler(latestAppContext);
+                            });
+                        });
+                    }, err => {
+                        updateMultipleLineItemsToCart.exec().then(firstResponse => {
+                            addMultipleLineItemsToCart.exec().then((finalResponse) => {
+                                const { appContext: finalAppContext } = finalResponse;
+                                freeProductEventHandler(finalAppContext);
+                            }, error => {
+                                const { appContext: firstAppContext } = firstResponse;
+                                freeProductEventHandler(firstAppContext);
+                            });
+                        }, error => {
+                            addMultipleLineItemsToCart.exec().then((finalResponse) => {
+                                const { appContext: finalAppContext } = finalResponse;
+                                freeProductEventHandler(finalAppContext);
+                            }, error => {
+                                freeProductEventHandler(latestAppContext);
+                            });
+                        });
+                    })
+                }
+                
+                const { freeProductOfferId } = BOGOFreeProductOfferDetails
+    			
+    			let finalLineItems = lineItems.filter((productLineItem) => {
+                    const { productId, quantity, collectionId, lineItemType, customAttributes = {} } =  productLineItem;
+                    return Object.keys(customAttributes).indexOf(freeProductOfferId) >= 0 || excludedCollectionIds.indexOf(collectionId) < 0  && lineItemType !== 'READONLY'
+                });
+                
+                removeInvalidFreebies(lineItems);
+                
+                finalLineItems = finalLineItems.sort((firstItem, secondItem) => {
+                    const { originalUnitPrice, quantity } = firstItem;
+                    const { quantity: crntQuantity, originalUnitPrice: crntOriginalUnitPrice } = secondItem;
+                    return  originalUnitPrice === crntOriginalUnitPrice ? (quantity - crntQuantity) :  (originalUnitPrice - crntOriginalUnitPrice);
+                });
+                
+                const splitedLineItems = finalLineItems.reduce((lineItems, lineItemDetail) => {
+                    const { lineItemHandle, variantId, productId, quantity, originalUnitPrice } = lineItemDetail;
+                    for(let i = 0; i< quantity; i+=1) {
+                        lineItems = [
+                            ...lineItems,
+                            {
+                                lineItemHandle,
+                                variantId,
+                                productId,
+                                quantity: 1,
+                                originalUnitPrice,
+                                uniqueId: `${lineItemHandle}_${i}`
+                            }
+                        ]
+                    }
+                    return lineItems;
+                }, []);
+                
+                
+		        const removeLineItemDetails = lineItems.filter((crntLineItem) => {
+		            const { customAttributes = {} } = crntLineItem;
+		            return Object.keys(customAttributes).includes('_freeProductThresholdId')
+		        });
+		        
+                if(thresholdQuantity && splitedLineItems.length >= Number(thresholdQuantity)) {
+		            if(removeLineItemDetails.length !== getProductsDetails.length) {
+        		        removeLineItemDetails.forEach((lineItem) => {
+                            const { lineItemHandle } = lineItem;
+                            removeItems.push(VajroSDK.removeLineItemFromCart()
+        						.setLineItemHandle(lineItem.lineItemHandle)
+        						.setQuantity(0)
+        						.exec());
+                        });
+                        
+                        let addMultipleLineItemsToCart = VajroSDK.addMultipleLineItemsToCart();
+    
+                        getProductsDetails.forEach(({productId, variantId = "", quantity = 0}) => {
+                            let product = VajroSDK.utils
+                                .lineItem()
+                                .setProductId(productId)
+                                .setQuantity(quantity)
+                                .setVariantId(variantId)
+                                .setLineItemType("READONLY")
+                                .setCustomAttributes({
+                                    _freeProductThresholdId : freeProductThresholdId
+                                })
+                                .setUnitPrice(0)
+                                .create();
+                            addMultipleLineItemsToCart.setProduct(product);
+                        });
+                        addMultipleLineItemsToCart.exec();
+		            }
+    		    } else {
+    		        removeLineItemDetails.forEach((lineItem) => {
+                        const { lineItemHandle } = lineItem;
+                        VajroSDK.removeLineItemFromCart()
+    						.setLineItemHandle(lineItem.lineItemHandle)
+    						.setQuantity(0)
+    						.exec();
+                    });
+    		    }
+                
+                const finalResult = getEligibleLineItems(splitedLineItems);
+                
+                handleAppliedEligibleOffer(finalResult, finalLineItems);
+    		}
+    		
+    		VajroSDK.subscribe(VajroSDK.Triggers.ON_PAGE_LOADED, eventHandler)
+    		VajroSDK.subscribe(VajroSDK.Triggers.LINE_ITEM_UPDATED, eventHandler);
+		</script>
+	</body>
+</html>
