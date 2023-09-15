@@ -62,6 +62,16 @@
 				text-decoration: none;
 				background: transparent;
 			}
+			a {
+			    margin: 0 !important;
+			    padding: 0 !important;
+			    height: auto !important;
+			}
+			#timer {
+				margin: 0 !important;
+			    padding: 0 !important;
+			    height: auto !important;
+			}
 			img, iframe {
 				max-width: 100%;
 			}
@@ -217,17 +227,6 @@
 				document.getElementById("seconds").innerHTML = seconds;
 				// If the count down is finished, write some text
 			}, 1000);
-			
-			const productsRestrictConfig = [
-			    {
-			        collectionId: "291788718245",
-			        productAllowedCount: 1
-			    },
-			    {
-			        collectionId: "292419272869",
-			        productAllowedCount: 1
-			    }
-			];
 		</script>
 		<script>
 		    /* Config starts*/
@@ -252,28 +251,42 @@
             // This collection products are not taken for cart total calculation for BOGO free product offer
             const excludedCollectionIds = [
                 "6898927304869",
-                "6898921930917"
+                "6898921930917",
+                "291788718245",
+                "292419272869",
+                "199222591653"
             ];
             
             
 		    // Configration for given Freebies based on cart total
 		    // Note: If need to disable the offer Just command the config. Offer will be revert if its already applied in cart
 		    const OFFER_CONFIG = [
-		       	{
-					threshold: 999, //checking cart total
-					get_products_id: [
-					    {
-					        productId: "7523927851173",
-					        variantId: "41376464961701"
-					    }
-					], //enter the free product_id and variant id
-					quantity: 1, //define the no. of quantity for free product
-					thresholdId: '_sept8_1', // unique Id for Offer
-					excludedCollectionIds: [
-                        "6898927304869",
-                        "6898921930917"
-                    ] // This collection products are not taken for cart total calculation for this offer
-				}
+		  //     	{
+				// 	threshold: 999, //checking cart total
+				// 	get_products_id: [
+				// 	    {
+				// 	        productId: "7523927851173",
+				// 	        variantId: "41376464961701"
+				// 	    }
+				// 	], //enter the free product_id and variant id
+				// 	quantity: 1, //define the no. of quantity for free product
+				// 	thresholdId: '_sept8_1', // unique Id for Offer
+				// 	excludedCollectionIds: [
+    //                     "6898927304869",
+    //                     "6898921930917"
+    //                 ] // This collection products are not taken for cart total calculation for this offer
+				// }
+			];
+			
+			const productsRestrictConfig = [
+			    {
+			        collectionId: "291788718245", //99 Store
+			        productAllowedCount: 1
+			    },
+			    {
+			        collectionId: "292419272869", //149 Store
+			        productAllowedCount: 1
+			    }
 			];
 			
 		    /* Config ends*/
@@ -756,7 +769,10 @@
     			
     			let finalLineItems = lineItems.filter((productLineItem) => {
                     const { productId, quantity, collectionId, lineItemType, customAttributes = {} } =  productLineItem;
-                    return Object.keys(customAttributes).indexOf(freeProductOfferId) >= 0 || excludedCollectionIds.indexOf(collectionId) < 0  && lineItemType !== 'READONLY'
+                    const isHaveExcludeCollectionId = excludedCollectionIds.some(excludeCollectionId => {
+                        return collectionId.includes(excludeCollectionId);
+                    });
+                    return isHaveExcludeCollectionId ? false : Object.keys(customAttributes).indexOf(freeProductOfferId) >= 0 || lineItemType !== 'READONLY'
                 });
                 
                 removeInvalidFreebies(lineItems);
