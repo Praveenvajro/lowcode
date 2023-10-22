@@ -67,7 +67,7 @@ var getAutomaticOfferProducts = function (configOffers, lineItems, offerAppliedP
         }
         var finalCartValue = cartType === 'amount' ? (0,_utils_common__WEBPACK_IMPORTED_MODULE_0__.getCartTotal)(offerLineItems) : (0,_utils_common__WEBPACK_IMPORTED_MODULE_0__.getCartCount)(offerLineItems);
         alert(JSON.stringify({ finalCartValue: finalCartValue, cartValue: cartValue }));
-        if (finalCartValue >= cartValue) {
+        if (finalCartValue >= Number(cartValue)) {
             var freebieQuantity_1 = reccuringFreeProduct ? Math.floor(finalCartValue / cartValue) * discountValue : discountValue;
             getProducts.forEach(function (productDetails) {
                 var _a, _b;
@@ -98,6 +98,7 @@ var getAutomaticOfferProducts = function (configOffers, lineItems, offerAppliedP
             });
         }
     });
+    alert(JSON.stringify({ offerAppliedProducts: offerAppliedProducts }));
     return offerAppliedProducts;
 };
 
