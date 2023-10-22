@@ -66,26 +66,26 @@ var getAutomaticOfferProducts = function (configOffers, lineItems, offerAppliedP
             offerLineItems = lineItems;
         }
         var finalCartValue = cartType === 'amount' ? (0,_utils_common__WEBPACK_IMPORTED_MODULE_0__.getCartTotal)(offerLineItems) : (0,_utils_common__WEBPACK_IMPORTED_MODULE_0__.getCartCount)(offerLineItems);
-        alert(JSON.stringify({ finalCartValue: finalCartValue, cartValue: cartValue }));
         if (finalCartValue >= Number(cartValue)) {
             var freebieQuantity_1 = reccuringFreeProduct ? Math.floor(finalCartValue / cartValue) * discountValue : discountValue;
             getProducts.forEach(function (productDetails) {
                 var _a, _b;
                 var variantId = productDetails.variantId, productId = productDetails.productId, productPrice = productDetails.productPrice;
-                var variantOfferDetails = offerAppliedProducts[variantId];
-                var _c = lineItemsObj[variantId] || {}, lineItemHandle = _c.lineItemHandle, _d = _c.quantity, quantity = _d === void 0 ? 0 : _d, _e = _c.customAttributes, lineItemCustomAttributes = _e === void 0 ? {} : _e;
-                var _f = lineItemCustomAttributes._vajro_flow, lineItemFlowObj = _f === void 0 ? {} : _f;
+                var _c = (0,_utils_common__WEBPACK_IMPORTED_MODULE_0__.getAppliedProductLineItemHandle)(offerAppliedProducts, variantId), isHaveLineItemHandle = _c.isHaveLineItemHandle, productLineItemHandle = _c.productLineItemHandle;
+                var _d = lineItemsObj[variantId] || {}, lineItemHandle = _d.lineItemHandle, _e = _d.quantity, quantity = _e === void 0 ? 0 : _e, _f = _d.customAttributes, lineItemCustomAttributes = _f === void 0 ? {} : _f;
+                var variantOfferDetails = isHaveLineItemHandle ? offerAppliedProducts[productLineItemHandle] : null;
+                var _g = lineItemCustomAttributes._vajro_flow, lineItemFlowObj = _g === void 0 ? {} : _g;
                 var _vajro_flow = typeof (lineItemFlowObj) === 'string' ? JSON.parse(lineItemFlowObj) : __assign({}, lineItemFlowObj);
-                var _g = _vajro_flow._freeQuantity, _freeQuantity = _g === void 0 ? 0 : _g;
+                var _h = _vajro_flow._freeQuantity, _freeQuantity = _h === void 0 ? 0 : _h;
                 var finalProductQuantity = quantity ? Number(quantity) - Number(_freeQuantity) : 0;
-                var _h = variantOfferDetails || {}, _j = _h.customAttributes, _k = _j === void 0 ? {} : _j, _l = _k._vajro_flow, offerAppliedCustomAttributes = _l === void 0 ? {} : _l, _m = _h.displayTextDetails, displayTextDetails = _m === void 0 ? [] : _m;
+                var _j = variantOfferDetails || {}, _k = _j.customAttributes, _l = _k === void 0 ? {} : _k, _m = _l._vajro_flow, offerAppliedCustomAttributes = _m === void 0 ? {} : _m, _o = _j.displayTextDetails, displayTextDetails = _o === void 0 ? [] : _o;
                 if (!!freebieQuantity_1 && variantOfferDetails) {
-                    offerAppliedProducts = __assign(__assign({}, offerAppliedProducts), (_a = {}, _a[variantId] = __assign(__assign({}, variantOfferDetails), { displayTextDetails: displayTextDetails.includes(displayText) ? displayTextDetails : __spreadArray(__spreadArray([], displayTextDetails, true), [displayText], false), customAttributes: {
+                    offerAppliedProducts = __assign(__assign({}, offerAppliedProducts), (_a = {}, _a[productLineItemHandle] = __assign(__assign({}, variantOfferDetails), { displayTextDetails: displayTextDetails.includes(displayText) ? displayTextDetails : __spreadArray(__spreadArray([], displayTextDetails, true), [displayText], false), customAttributes: {
                             _vajro_flow: __assign(__assign(__assign({}, _vajro_flow), offerAppliedCustomAttributes), { _productQuantity: finalProductQuantity, _freeQuantity: ((offerAppliedCustomAttributes === null || offerAppliedCustomAttributes === void 0 ? void 0 : offerAppliedCustomAttributes.freeQuantity) || 0) + freebieQuantity_1 })
                         } }), _a));
                 }
                 else if (!!freebieQuantity_1) {
-                    offerAppliedProducts = __assign(__assign({}, offerAppliedProducts), (_b = {}, _b[variantId] = {
+                    offerAppliedProducts = __assign(__assign({}, offerAppliedProducts), (_b = {}, _b[productLineItemHandle] = {
                         variantId: variantId,
                         productId: productId,
                         displayTextDetails: [displayText],
@@ -98,7 +98,6 @@ var getAutomaticOfferProducts = function (configOffers, lineItems, offerAppliedP
             });
         }
     });
-    alert(JSON.stringify({ offerAppliedProducts: offerAppliedProducts }));
     return offerAppliedProducts;
 };
 
@@ -145,20 +144,21 @@ var getBuyXChooseYOfferProducts = function (configOffers, lineItems, offerApplie
         getProducts.forEach(function (productDetails) {
             var _a, _b;
             var variantId = productDetails.variantId, productId = productDetails.productId, productPrice = productDetails.productPrice;
-            var _c = lineItemsObj[variantId] || {}, _d = _c.quantity, quantity = _d === void 0 ? 0 : _d, lineItemHandle = _c.lineItemHandle, _e = _c.customAttributes, lineItemCustomAttributes = _e === void 0 ? {} : _e;
-            var _f = lineItemCustomAttributes._vajro_flow, lineItemFlowObj = _f === void 0 ? {} : _f;
+            var _c = (0,_utils_common__WEBPACK_IMPORTED_MODULE_0__.getAppliedProductLineItemHandle)(offerAppliedProducts, variantId), isHaveLineItemHandle = _c.isHaveLineItemHandle, productLineItemHandle = _c.productLineItemHandle;
+            var _d = lineItemsObj[variantId] || {}, _e = _d.quantity, quantity = _e === void 0 ? 0 : _e, lineItemHandle = _d.lineItemHandle, _f = _d.customAttributes, lineItemCustomAttributes = _f === void 0 ? {} : _f;
+            var _g = lineItemCustomAttributes._vajro_flow, lineItemFlowObj = _g === void 0 ? {} : _g;
             var _vajro_flow = typeof (lineItemFlowObj) === 'string' ? JSON.parse(lineItemFlowObj) : __assign({}, lineItemFlowObj);
-            var _g = _vajro_flow._freeQuantity, _freeQuantity = _g === void 0 ? 0 : _g;
+            var _h = _vajro_flow._freeQuantity, _freeQuantity = _h === void 0 ? 0 : _h;
             var freebieQuantity = (quantity - _freeQuantity) > discountValue ? discountValue : quantity - _freeQuantity;
-            var variantOfferDetails = offerAppliedProducts[variantId];
-            var _h = variantOfferDetails || {}, _j = _h.customAttributes, _k = _j === void 0 ? {} : _j, _l = _k._vajro_flow, offerAppliedCustomAttributes = _l === void 0 ? {} : _l, _m = _h.displayTextDetails, displayTextDetails = _m === void 0 ? [] : _m;
+            var variantOfferDetails = isHaveLineItemHandle ? offerAppliedProducts[productLineItemHandle] : null;
+            var _j = variantOfferDetails || {}, _k = _j.customAttributes, _l = _k === void 0 ? {} : _k, _m = _l._vajro_flow, offerAppliedCustomAttributes = _m === void 0 ? {} : _m, _o = _j.displayTextDetails, displayTextDetails = _o === void 0 ? [] : _o;
             if (!!freebieQuantity && variantOfferDetails) {
-                offerAppliedProducts = __assign(__assign({}, offerAppliedProducts), (_a = {}, _a[variantId] = __assign(__assign({}, variantOfferDetails), { displayTextDetails: displayTextDetails.includes(displayText) ? displayTextDetails : __spreadArray(__spreadArray([], displayTextDetails, true), [displayText], false), customAttributes: {
+                offerAppliedProducts = __assign(__assign({}, offerAppliedProducts), (_a = {}, _a[productLineItemHandle] = __assign(__assign({}, variantOfferDetails), { displayTextDetails: displayTextDetails.includes(displayText) ? displayTextDetails : __spreadArray(__spreadArray([], displayTextDetails, true), [displayText], false), customAttributes: {
                         _vajro_flow: __assign(__assign({}, offerAppliedCustomAttributes), { _discountQuantity: freebieQuantity + ((offerAppliedCustomAttributes === null || offerAppliedCustomAttributes === void 0 ? void 0 : offerAppliedCustomAttributes._discountQuantity) || 0), _productTargetId: freeProductsTargetId })
                     } }), _a));
             }
             else if (!!freebieQuantity) {
-                offerAppliedProducts = __assign(__assign({}, offerAppliedProducts), (_b = {}, _b[variantId] = {
+                offerAppliedProducts = __assign(__assign({}, offerAppliedProducts), (_b = {}, _b[productLineItemHandle] = {
                     variantId: variantId,
                     productId: productId,
                     lineItemHandle: lineItemHandle,
@@ -224,12 +224,12 @@ var getFlatOfferProducts = function (configOffers, lineItems, offerAppliedProduc
             var variantId = lineItem.variantId, productId = lineItem.productId, lineItemHandle = lineItem.lineItemHandle, unitPrice = lineItem.unitPrice, _b = lineItem.quantity, quantity = _b === void 0 ? 0 : _b, _c = lineItem.customAttributes, _d = _c === void 0 ? {} : _c, _e = _d._vajro_flow, lineItemFlowObj = _e === void 0 ? {} : _e;
             var _vajro_flow = typeof (lineItemFlowObj) === 'string' ? JSON.parse(lineItemFlowObj) : __assign({}, lineItemFlowObj);
             var _f = _vajro_flow._actualUnitPrice, _actualUnitPrice = _f === void 0 ? unitPrice : _f, _g = _vajro_flow._freeQuantity, _freeQuantity = _g === void 0 ? 0 : _g;
-            var variantOfferDetails = appliedProductDetails[variantId] || {};
+            var variantOfferDetails = appliedProductDetails[lineItemHandle] || {};
             var _h = variantOfferDetails.customAttributes, _j = _h === void 0 ? {} : _h, _k = _j._vajro_flow, offerAppliedCustomAttributes = _k === void 0 ? {} : _k;
             var finalProductQuantity = quantity ? Number(quantity) - Number(_freeQuantity) : 0;
             var unitPriceDiscount = isSplitNeed ? (_actualUnitPrice * (offerPercentage / 100)) : fixedAmount;
             var _l = offerAppliedCustomAttributes._discountQuantity, _discountQuantity = _l === void 0 ? 0 : _l;
-            appliedProductDetails = __assign(__assign({}, appliedProductDetails), (_a = {}, _a[variantId] = __assign(__assign({}, variantOfferDetails), { variantId: variantId, productId: productId, lineItemHandle: lineItemHandle, displayText: displayText, customAttributes: {
+            appliedProductDetails = __assign(__assign({}, appliedProductDetails), (_a = {}, _a[lineItemHandle] = __assign(__assign({}, variantOfferDetails), { variantId: variantId, productId: productId, lineItemHandle: lineItemHandle, displayText: displayText, customAttributes: {
                     _vajro_flow: __assign(__assign({}, offerAppliedCustomAttributes), { _actualUnitPrice: Number(_actualUnitPrice), _productQuantity: finalProductQuantity, _discountPrice: unitPriceDiscount >= _actualUnitPrice ? _actualUnitPrice : unitPriceDiscount, _discountQuantity: unitPriceDiscount >= _actualUnitPrice ? finalProductQuantity : _discountQuantity, _offerPercenatage: offerPercentage >= 100 ? 100 : offerPercentage, _amountTargetId: targetId, _flatDiscountDetails: {
                             lineItems: finalOfferLineItems,
                             splitFlatAmount: isSplitNeed,
@@ -282,10 +282,10 @@ var getFlatOfferProducts = function (configOffers, lineItems, offerAppliedProduc
         var cartTotal = (0,_utils_common__WEBPACK_IMPORTED_MODULE_0__.getCartTotal)(offerLineItems);
         var crntAppliedProductDetails = __assign({}, appliedProductDetails);
         offerLineItems = offerLineItems.filter(function (lineItem) {
-            var variantId = lineItem.variantId, unitPrice = lineItem.unitPrice, _a = lineItem.customAttributes, _b = _a === void 0 ? {} : _a, _c = _b._vajro_flow, lineItemFlowObj = _c === void 0 ? {} : _c;
+            var variantId = lineItem.variantId, lineItemHandle = lineItem.lineItemHandle, unitPrice = lineItem.unitPrice, _a = lineItem.customAttributes, _b = _a === void 0 ? {} : _a, _c = _b._vajro_flow, lineItemFlowObj = _c === void 0 ? {} : _c;
             var _vajro_flow = typeof (lineItemFlowObj) === 'string' ? JSON.parse(lineItemFlowObj) : __assign({}, lineItemFlowObj);
             var _d = _vajro_flow._actualUnitPrice, _actualUnitPrice = _d === void 0 ? unitPrice : _d;
-            var variantOfferDetails = crntAppliedProductDetails[variantId] || {};
+            var variantOfferDetails = crntAppliedProductDetails[lineItemHandle] || {};
             var _e = variantOfferDetails.customAttributes, _f = _e === void 0 ? {} : _e, _g = _f._vajro_flow, offerAppliedCustomAttributes = _g === void 0 ? {} : _g;
             var unitPriceDiscount = splitFlatAmount ? (_actualUnitPrice * (discountValue / cartTotal)) : discountValue;
             var _h = offerAppliedCustomAttributes._discountPrice, _discountPrice = _h === void 0 ? 0 : _h, _j = offerAppliedCustomAttributes._flatDiscountDetails, _flatDiscountDetails = _j === void 0 ? {} : _j, _amountTargetId = offerAppliedCustomAttributes._amountTargetId, offerDisplayText = offerAppliedCustomAttributes.displayText;
@@ -374,13 +374,13 @@ var getPercentageOfferProducts = function (configOffers, lineItems, offerApplied
             var _d = lineItemCustomAttributes._vajro_flow, lineItemFlowObj = _d === void 0 ? {} : _d;
             var _vajro_flow = typeof (lineItemFlowObj) === 'string' ? JSON.parse(lineItemFlowObj) : __assign({}, lineItemFlowObj);
             var _e = _vajro_flow._actualUnitPrice, _actualUnitPrice = _e === void 0 ? unitPrice : _e, _f = _vajro_flow._freeQuantity, _freeQuantity = _f === void 0 ? 0 : _f;
-            var variantOfferDetails = offerAppliedProducts[variantId] || {};
+            var variantOfferDetails = offerAppliedProducts[lineItemHandle] || {};
             var _g = variantOfferDetails.customAttributes, _h = _g === void 0 ? {} : _g, _j = _h._vajro_flow, offerAppliedCustomAttributes = _j === void 0 ? {} : _j;
             var finalProductQuantity = quantity ? Number(quantity) - Number(_freeQuantity) : 0;
             var unitPriceDiscount = _actualUnitPrice * (discountValue / 100);
             var _k = offerAppliedCustomAttributes._discountPrice, _discountPrice = _k === void 0 ? 0 : _k, _l = offerAppliedCustomAttributes._discountQuantity, _discountQuantity = _l === void 0 ? 0 : _l;
             if (unitPriceDiscount > _discountPrice && finalProductQuantity > 0) {
-                offerAppliedProducts = __assign(__assign({}, offerAppliedProducts), (_a = {}, _a[variantId] = __assign(__assign({}, variantOfferDetails), { variantId: variantId, productId: productId, lineItemHandle: lineItemHandle, displayText: displayText, customAttributes: {
+                offerAppliedProducts = __assign(__assign({}, offerAppliedProducts), (_a = {}, _a[lineItemHandle] = __assign(__assign({}, variantOfferDetails), { variantId: variantId, productId: productId, lineItemHandle: lineItemHandle, displayText: displayText, customAttributes: {
                         _vajro_flow: __assign(__assign({}, offerAppliedCustomAttributes), { _actualUnitPrice: Number(_actualUnitPrice), _discountPrice: unitPriceDiscount, _productQuantity: finalProductQuantity, _discountQuantity: unitPriceDiscount === _actualUnitPrice ? finalProductQuantity : _discountQuantity, _offerPercenatage: discountValue >= 100 ? 100 : discountValue, _percentageTargetId: percentageOfferTargetId })
                     } }), _a));
             }
@@ -401,6 +401,7 @@ var getPercentageOfferProducts = function (configOffers, lineItems, offerApplied
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   constructDisplayTextHtml: () => (/* binding */ constructDisplayTextHtml),
+/* harmony export */   getAppliedProductLineItemHandle: () => (/* binding */ getAppliedProductLineItemHandle),
 /* harmony export */   getCartCount: () => (/* binding */ getCartCount),
 /* harmony export */   getCartTotal: () => (/* binding */ getCartTotal),
 /* harmony export */   getCombinedOfferConfig: () => (/* binding */ getCombinedOfferConfig),
@@ -506,6 +507,25 @@ var getLineItemsObj = function (lineItems) {
         return acc;
     }, {});
 };
+var getAppliedProductLineItemHandle = function (offerAppliedProducts, crntVariantId) {
+    var productLineItemHandle = "tempHandle".concat(Math.floor(Math.random() * 1000000));
+    var handleDetails = {
+        isHaveLineItemHandle: false,
+        productLineItemHandle: productLineItemHandle
+    };
+    Object.entries(offerAppliedProducts).forEach(function (_a) {
+        var handleId = _a[0], offerDetails = _a[1];
+        var isHaveLineItemHandle = handleDetails.isHaveLineItemHandle;
+        var variantId = offerDetails.variantId;
+        if (!isHaveLineItemHandle && crntVariantId === variantId) {
+            handleDetails = {
+                isHaveLineItemHandle: true,
+                productLineItemHandle: handleId
+            };
+        }
+    });
+    return handleDetails;
+};
 var getCartTotal = function (lineItems) {
     return lineItems.reduce(function (total, lineItem) {
         var _a = lineItem.unitPrice, unitPrice = _a === void 0 ? 0 : _a, _b = lineItem.quantity, quantity = _b === void 0 ? 0 : _b, _c = lineItem.customAttributes, customAttributes = _c === void 0 ? {} : _c;
@@ -533,11 +553,11 @@ var getOfferDiscountPrice = function (offerAppliedProducts) {
 var getOfferAppiedLineItems = function (lineItems) {
     return lineItems.reduce(function (productDetailsObj, lineItem) {
         var _a;
-        var variantId = lineItem.variantId, _b = lineItem.customAttributes, customAttributes = _b === void 0 ? {} : _b;
+        var lineItemHandle = lineItem.lineItemHandle, _b = lineItem.customAttributes, customAttributes = _b === void 0 ? {} : _b;
         var _c = customAttributes._vajro_flow, lineItemFlowObj = _c === void 0 ? {} : _c;
         var _vajro_flow = typeof (lineItemFlowObj) === 'string' ? JSON.parse(lineItemFlowObj) : __assign({}, lineItemFlowObj);
         if (Object.keys(_vajro_flow).indexOf('_actualUnitPrice') !== -1) {
-            return __assign(__assign({}, productDetailsObj), (_a = {}, _a[variantId] = __assign(__assign({}, lineItem), { customAttributes: __assign(__assign({}, customAttributes), { _vajro_flow: _vajro_flow }) }), _a));
+            return __assign(__assign({}, productDetailsObj), (_a = {}, _a[lineItemHandle] = __assign(__assign({}, lineItem), { customAttributes: __assign(__assign({}, customAttributes), { _vajro_flow: _vajro_flow }) }), _a));
         }
         return productDetailsObj;
     }, {});
@@ -668,7 +688,6 @@ var flow = function (appContext, configSchema) {
     Object.entries(allOfferDetails).forEach(function (_a) {
         var offerId = _a[0], offerDetails = _a[1];
         var offerAppliedProducts = {};
-        alert(JSON.stringify({ offerDetails: offerDetails }));
         Object.entries(offerDetails).forEach(function (_a) {
             var offerCategory = _a[0], offerConfigDetails = _a[1];
             if (offerConfigDetails.length === 0)
@@ -692,14 +711,14 @@ var flow = function (appContext, configSchema) {
         });
         var displayTextArray = [];
         Object.values(offerAppliedProducts).forEach(function (productDetails) {
-            var variantId = productDetails.variantId, _a = productDetails.displayTextDetails, displayTextDetails = _a === void 0 ? [] : _a, _b = productDetails.displayText, displayText = _b === void 0 ? '' : _b, customAttributes = productDetails.customAttributes;
+            var _a = productDetails.displayTextDetails, displayTextDetails = _a === void 0 ? [] : _a, _b = productDetails.displayText, displayText = _b === void 0 ? '' : _b;
             __spreadArray(__spreadArray([], displayTextDetails, true), [displayText], false).forEach(function (textContent) {
                 if (!displayTextArray.includes(textContent) && textContent) {
                     displayTextArray = __spreadArray(__spreadArray([], displayTextArray, true), [textContent], false);
                 }
             });
-            offerAppliedProducts[variantId] = __assign(__assign({}, productDetails), { customAttributes: customAttributes });
         });
+        alert(JSON.stringify({ offerAppliedProducts: offerAppliedProducts }));
         flowObj[offerId] = {
             offerAppliedProducts: offerAppliedProducts,
             displayTextArray: displayTextArray
@@ -724,11 +743,11 @@ var flow = function (appContext, configSchema) {
         displayTextArray: []
     }), discountPrice = _e.discountPrice, offerAppliedDetails = _e.offerAppliedDetails, displayTextArray = _e.displayTextArray;
     var displayTextHtml = (0,_utils_common__WEBPACK_IMPORTED_MODULE_4__.constructDisplayTextHtml)(displayTextArray);
-    var offerRemovedDetails = Object.keys(removedProductDetails).reduce(function (details, productVariantId) {
+    var offerRemovedDetails = Object.keys(removedProductDetails).reduce(function (details, productHandleId) {
         var _a;
-        if (offerAppliedDetails[productVariantId])
+        if (offerAppliedDetails[productHandleId])
             return details;
-        return __assign(__assign({}, details), (_a = {}, _a[productVariantId] = removedProductDetails[productVariantId], _a));
+        return __assign(__assign({}, details), (_a = {}, _a[productHandleId] = removedProductDetails[productHandleId], _a));
     }, {});
     var finalResult = {
         discountPrice: discountPrice,
