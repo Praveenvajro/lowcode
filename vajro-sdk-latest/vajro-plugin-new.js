@@ -724,6 +724,7 @@ var flow = function (appContext, configSchema) {
         offerRemovedDetails: offerRemovedDetails,
         displayTextHtml: displayTextHtml
     };
+    alert(1);
     return finalResult;
 };
 
