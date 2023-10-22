@@ -666,6 +666,7 @@ var flow = function (appContext, configSchema) {
     Object.entries(allOfferDetails).forEach(function (_a) {
         var offerId = _a[0], offerDetails = _a[1];
         var offerAppliedProducts = {};
+        alert(JSON.stringify({ offerDetails: offerDetails }));
         Object.entries(offerDetails).forEach(function (_a) {
             var offerCategory = _a[0], offerConfigDetails = _a[1];
             if (offerConfigDetails.length === 0)
