@@ -50,15 +50,17 @@ var getAutomaticOfferProducts = function (configOffers, lineItems, offerAppliedP
             });
         }
         else if (buyOfferType === 'collections') {
-            buyCollections.forEach(function (collectionDetails) {
-                var collectionId = collectionDetails.collectionId;
-                var collectionLineItems = lineItems.filter(function (lineItem) {
-                    return collectionId === lineItem.collectionId;
+            var collectionLineItems = lineItems.filter(function (lineItem) {
+                var _a;
+                var lineItemCollectionIds = ((_a = lineItem === null || lineItem === void 0 ? void 0 : lineItem.collectionId) === null || _a === void 0 ? void 0 : _a.split(',')) || [];
+                return buyCollections.some(function (collectionDetails) {
+                    var collectionId = collectionDetails.collectionId;
+                    return lineItemCollectionIds.includes(collectionId);
                 });
-                if (collectionLineItems.length > 0) {
-                    offerLineItems = __spreadArray(__spreadArray([], offerLineItems, true), collectionLineItems, true);
-                }
             });
+            if (collectionLineItems.length > 0) {
+                offerLineItems = __spreadArray(__spreadArray([], offerLineItems, true), collectionLineItems, true);
+            }
         }
         else {
             offerLineItems = lineItems;
@@ -251,18 +253,21 @@ var getFlatOfferProducts = function (configOffers, lineItems, offerAppliedProduc
             });
         }
         else if (getOfferType === "collections") {
-            getCollections.forEach(function (collectionDetails) {
-                var collectionId = collectionDetails.collectionId;
-                var collectionLineItems = lineItems.filter(function (lineItem) {
-                    var _a = lineItem.quantity, quantity = _a === void 0 ? 0 : _a, _b = lineItem.customAttributes, _c = _b === void 0 ? {} : _b, _d = _c._vajro_flow, lineItemFlowObj = _d === void 0 ? {} : _d;
-                    var _vajro_flow = typeof (lineItemFlowObj) === 'string' ? JSON.parse(lineItemFlowObj) : __assign({}, lineItemFlowObj);
-                    var _e = _vajro_flow._freeQuantity, _freeQuantity = _e === void 0 ? 0 : _e;
-                    return (collectionId === lineItem.collectionId) && ((Number(quantity) - Number(_freeQuantity)) > 0);
+            var collectionLineItems = lineItems.filter(function (lineItem) {
+                var _a;
+                var _b = lineItem.quantity, quantity = _b === void 0 ? 0 : _b, _c = lineItem.customAttributes, _d = _c === void 0 ? {} : _c, _e = _d._vajro_flow, lineItemFlowObj = _e === void 0 ? {} : _e;
+                var lineItemCollectionIds = ((_a = lineItem === null || lineItem === void 0 ? void 0 : lineItem.collectionId) === null || _a === void 0 ? void 0 : _a.split(',')) || [];
+                var isHaveCollection = getCollections.some(function (collectionDetails) {
+                    var collectionId = collectionDetails.collectionId;
+                    return (lineItemCollectionIds.includes(collectionId));
                 });
-                if (collectionLineItems.length > 0) {
-                    offerLineItems = __spreadArray(__spreadArray([], offerLineItems, true), collectionLineItems, true);
-                }
+                var _vajro_flow = typeof (lineItemFlowObj) === 'string' ? JSON.parse(lineItemFlowObj) : __assign({}, lineItemFlowObj);
+                var _f = _vajro_flow._freeQuantity, _freeQuantity = _f === void 0 ? 0 : _f;
+                return isHaveCollection && ((Number(quantity) - Number(_freeQuantity)) > 0);
             });
+            if (collectionLineItems.length > 0) {
+                offerLineItems = __spreadArray(__spreadArray([], offerLineItems, true), collectionLineItems, true);
+            }
         }
         else {
             offerLineItems = lineItems.filter(function (lineItem) {
@@ -346,15 +351,17 @@ var getPercentageOfferProducts = function (configOffers, lineItems, offerApplied
             });
         }
         else if (getOfferType === "collections") {
-            getCollections.forEach(function (collectionDetails) {
-                var collectionId = collectionDetails.collectionId;
-                var collectionLineItems = lineItems.filter(function (lineItem) {
-                    return collectionId === lineItem.collectionId;
+            var collectionLineItems = lineItems.filter(function (lineItem) {
+                var _a;
+                var lineItemCollectionIds = ((_a = lineItem === null || lineItem === void 0 ? void 0 : lineItem.collectionId) === null || _a === void 0 ? void 0 : _a.split(',')) || [];
+                return getCollections.some(function (collectionDetails) {
+                    var collectionId = collectionDetails.collectionId;
+                    return lineItemCollectionIds.includes(collectionId);
                 });
-                if (collectionLineItems.length > 0) {
-                    offerLineItems = __spreadArray(__spreadArray([], offerLineItems, true), collectionLineItems, true);
-                }
             });
+            if (collectionLineItems.length > 0) {
+                offerLineItems = __spreadArray(__spreadArray([], offerLineItems, true), collectionLineItems, true);
+            }
         }
         else {
             offerLineItems = __spreadArray([], lineItems, true);
@@ -437,15 +444,17 @@ var getValidInValidConfigDetails = function (configOffers, lineItems) {
             });
         }
         else if (buyOfferType === 'collections') {
-            buyCollections.forEach(function (collectionDetails) {
-                var collectionId = collectionDetails.collectionId;
-                var collectionLineItems = lineItems.filter(function (lineItem) {
-                    return collectionId === lineItem.collectionId;
+            var collectionLineItems = lineItems.filter(function (lineItem) {
+                var _a;
+                var lineItemCollectionIds = ((_a = lineItem === null || lineItem === void 0 ? void 0 : lineItem.collectionId) === null || _a === void 0 ? void 0 : _a.split(',')) || [];
+                return buyCollections.some(function (collectionDetails) {
+                    var collectionId = collectionDetails.collectionId;
+                    return lineItemCollectionIds.includes(collectionId);
                 });
-                if (collectionLineItems.length > 0) {
-                    offerLineItems = __spreadArray(__spreadArray([], offerLineItems, true), collectionLineItems, true);
-                }
             });
+            if (collectionLineItems.length > 0) {
+                offerLineItems = __spreadArray(__spreadArray([], offerLineItems, true), collectionLineItems, true);
+            }
         }
         else {
             offerLineItems = lineItems;
@@ -724,7 +733,7 @@ var flow = function (appContext, configSchema) {
         offerRemovedDetails: offerRemovedDetails,
         displayTextHtml: displayTextHtml
     };
-    alert(1);
+    alert(JSON.stringify({ finalResult: finalResult }));
     return finalResult;
 };
 
