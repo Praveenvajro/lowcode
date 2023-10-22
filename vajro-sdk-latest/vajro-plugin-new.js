@@ -73,7 +73,8 @@ var getAutomaticOfferProducts = function (configOffers, lineItems, offerAppliedP
                 var variantId = productDetails.variantId, productId = productDetails.productId, productPrice = productDetails.productPrice;
                 var _c = (0,_utils_common__WEBPACK_IMPORTED_MODULE_0__.getAppliedProductLineItemHandle)(offerAppliedProducts, variantId), isHaveLineItemHandle = _c.isHaveLineItemHandle, productLineItemHandle = _c.productLineItemHandle;
                 var _d = lineItemsObj[variantId] || {}, lineItemHandle = _d.lineItemHandle, _e = _d.quantity, quantity = _e === void 0 ? 0 : _e, _f = _d.customAttributes, lineItemCustomAttributes = _f === void 0 ? {} : _f;
-                var variantOfferDetails = isHaveLineItemHandle ? offerAppliedProducts[productLineItemHandle] : null;
+                lineItemHandle ? (productLineItemHandle = lineItemHandle) : null;
+                var variantOfferDetails = isHaveLineItemHandle || lineItemHandle ? offerAppliedProducts[productLineItemHandle] : null;
                 var _g = lineItemCustomAttributes._vajro_flow, lineItemFlowObj = _g === void 0 ? {} : _g;
                 var _vajro_flow = typeof (lineItemFlowObj) === 'string' ? JSON.parse(lineItemFlowObj) : __assign({}, lineItemFlowObj);
                 var _h = _vajro_flow._freeQuantity, _freeQuantity = _h === void 0 ? 0 : _h;
