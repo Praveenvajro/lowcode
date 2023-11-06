@@ -85,7 +85,7 @@ var getAutomaticOfferProducts = function (configOffers, lineItems, offerAppliedP
                 alert(Number((offerAppliedCustomAttributes === null || offerAppliedCustomAttributes === void 0 ? void 0 : offerAppliedCustomAttributes._freeQuantity) || 0) + Number(freebieQuantity_1));
                 if (!!freebieQuantity_1 && variantOfferDetails) {
                     offerAppliedProducts = __assign(__assign({}, offerAppliedProducts), (_a = {}, _a[productLineItemHandle] = __assign(__assign({}, variantOfferDetails), { displayTextDetails: displayTextDetails.includes(displayText) ? displayTextDetails : __spreadArray(__spreadArray([], displayTextDetails, true), [displayText], false), customAttributes: {
-                            _vajro_flow: __assign(__assign(__assign({}, _vajro_flow), offerAppliedCustomAttributes), { _productQuantity: finalProductQuantity, _freeQuantity: Number((offerAppliedCustomAttributes === null || offerAppliedCustomAttributes === void 0 ? void 0 : offerAppliedCustomAttributes._freeQuantity) || 0) + Number(freebieQuantity_1) })
+                            _vajro_flow: __assign(__assign(__assign({}, _vajro_flow), offerAppliedCustomAttributes), { _productQuantity: finalProductQuantity, _freeQuantity: Number(Number((offerAppliedCustomAttributes === null || offerAppliedCustomAttributes === void 0 ? void 0 : offerAppliedCustomAttributes._freeQuantity) || 0) + Number(freebieQuantity_1)) })
                         } }), _a));
                 }
                 else if (!!freebieQuantity_1) {
@@ -95,7 +95,7 @@ var getAutomaticOfferProducts = function (configOffers, lineItems, offerAppliedP
                         displayTextDetails: [displayText],
                         lineItemHandle: lineItemHandle,
                         customAttributes: {
-                            _vajro_flow: __assign(__assign(__assign({}, _vajro_flow), offerAppliedCustomAttributes), { _productQuantity: finalProductQuantity, _actualUnitPrice: Number(productPrice), _freeQuantity: freebieQuantity_1, _productTargetId: freeProductsTargetId })
+                            _vajro_flow: __assign(__assign(__assign({}, _vajro_flow), offerAppliedCustomAttributes), { _productQuantity: finalProductQuantity, _actualUnitPrice: Number(productPrice), _freeQuantity: Number(freebieQuantity_1), _productTargetId: freeProductsTargetId })
                         }
                     }, _b));
                 }
