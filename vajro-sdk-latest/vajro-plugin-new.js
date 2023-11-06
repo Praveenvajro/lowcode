@@ -80,6 +80,7 @@ var getAutomaticOfferProducts = function (configOffers, lineItems, offerAppliedP
                 var _h = _vajro_flow._freeQuantity, _freeQuantity = _h === void 0 ? 0 : _h;
                 var finalProductQuantity = quantity ? Number(quantity) - Number(_freeQuantity) : 0;
                 var _j = variantOfferDetails || {}, _k = _j.customAttributes, _l = _k === void 0 ? {} : _k, _m = _l._vajro_flow, offerAppliedCustomAttributes = _m === void 0 ? {} : _m, _o = _j.displayTextDetails, displayTextDetails = _o === void 0 ? [] : _o;
+                alert(JSON.stringify({ freebieQuantity: freebieQuantity_1, offerAppliedCustomAttributes: offerAppliedCustomAttributes, variantOfferDetails: variantOfferDetails }));
                 if (!!freebieQuantity_1 && variantOfferDetails) {
                     offerAppliedProducts = __assign(__assign({}, offerAppliedProducts), (_a = {}, _a[productLineItemHandle] = __assign(__assign({}, variantOfferDetails), { displayTextDetails: displayTextDetails.includes(displayText) ? displayTextDetails : __spreadArray(__spreadArray([], displayTextDetails, true), [displayText], false), customAttributes: {
                             _vajro_flow: __assign(__assign(__assign({}, _vajro_flow), offerAppliedCustomAttributes), { _productQuantity: finalProductQuantity, _freeQuantity: ((offerAppliedCustomAttributes === null || offerAppliedCustomAttributes === void 0 ? void 0 : offerAppliedCustomAttributes.freeQuantity) || 0) + freebieQuantity_1 })
