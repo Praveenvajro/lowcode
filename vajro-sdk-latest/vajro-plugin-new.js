@@ -672,6 +672,7 @@ var __spreadArray = (undefined && undefined.__spreadArray) || function (to, from
 
 
 var flow = function (appContext, configSchema) {
+    alert('Calling');
     var flowObj = {};
     var cartLineItems = appContext.cartLineItems;
     var _a = cartLineItems.lineItems, lineItems = _a === void 0 ? [] : _a;
